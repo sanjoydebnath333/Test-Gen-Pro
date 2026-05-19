@@ -369,112 +369,192 @@ const SUBJECT_DATA = {
     theme: "#16a34a", // Nature green theme
     gradient: "linear-gradient(135deg, #16a34a, #0ea5e9)",
     sections: [
-        { id: 'mcq_standard', title: 'Choose the correct answer', max: 20, default: 10, marksPerQ: 1 },
-        { id: 'fill_blanks', title: 'Fill in the blanks', max: 12, default: 5, marksPerQ: 1 },
-        { id: 'true_false', title: 'Write True or False', max: 10, default: 5, marksPerQ: 1 },
-        { id: 'one_word', title: 'Name the following', max: 10, default: 5, marksPerQ: 1 },
-        { id: 'match_following', title: 'Match the following', max: 10, default: 5, marksPerQ: 1 },
-        { id: 'missing_letters', title: 'Missing Letters', max: 11, default: 5, marksPerQ: 1 },
-        { id: 'rearrange', title: 'Re-arrange the words', max: 8, default: 5, marksPerQ: 1 },
+        { id: 'mcq_standard', title: 'Choose the correct answer', max: 25, default: 10, marksPerQ: 1 },
+        { id: 'fill_blanks', title: 'Fill in the blanks', max: 15, default: 5, marksPerQ: 1 },
+        { id: 'true_false', title: 'Write True or False', max: 15, default: 5, marksPerQ: 1 },
+        { id: 'one_word', title: 'Name the following', max: 12, default: 5, marksPerQ: 1 },
+        { id: 'match_following', title: 'Match the following', max: 12, default: 5, marksPerQ: 1 },
+        { id: 'missing_letters', title: 'Missing Letters', max: 15, default: 5, marksPerQ: 1 },
+        { id: 'rearrange', title: 'Re-arrange the words', max: 10, default: 5, marksPerQ: 1 },
         { id: 'drawing', title: 'Diagram', max: 2, default: 1, marksPerQ: 5 }
     ],
     bank: {
         mcq_standard: [
+            // Chapter 4: Food We Eat
+            { q: "We get pulses from ___", a: "plants", options: ["plants", "animals", "water", "air"] },
+            { q: "Which food keeps our bones and teeth strong?", a: "milk", options: ["milk", "wheat", "rice", "sugar"] },
+            { q: "Protective foods are ___", a: "Fruits and vegetables", options: ["Fruits and vegetables", "Pizza and burger", "Chips and fries", "Soft drinks"] },
+            { q: "What are the two main sources of food?", a: "Plants and animals", options: ["Plants and animals", "Sun and moon", "Soil and water", "Air and wind"] },
+            { q: "What are energy-giving foods?", a: "Foods that give energy to work and play", options: ["Foods that give energy to work and play", "Foods that make us sleep", "Foods that make us sick", "Foods that we don't eat"] },
+            { q: "Why is eating too much junk food not good?", a: "It can make us sick", options: ["It can make us sick", "It makes us strong", "It makes us tall", "It cleans our body"] },
+            { q: "Why do babies and old people eat soft food?", a: "It is easy to chew and digest", options: ["It is easy to chew and digest", "It is very hard", "It looks beautiful", "It is very cold"] },
+
+            // Chapter 5: Water around Us
+            { q: "Which is a man-made source of water?", a: "Well", options: ["Well", "River", "Rain", "Ocean"] },
+            { q: "Drinking dirty water makes us ___", a: "ill", options: ["ill", "healthy", "strong", "happy"] },
+            { q: "Where do we get water from?", a: "Rivers, lakes, and rainwater", options: ["Rivers, lakes, and rainwater", "Sun and moon", "Trees and plants", "Fire and soil"] },
+
+            // Chapter 6: Clothes We Wear
+            { q: "We get cotton from ___", a: "cotton plants", options: ["cotton plants", "sheep", "cows", "silk worms"] },
+
+            // Chapter 7: Air
+            { q: "Which of these kills germs in the air?", a: "Sunlight", options: ["Sunlight", "Water", "Moonlight", "Wind"] },
+            { q: "What do you understand by ventilation?", a: "The way air moves around inside a house", options: ["The way air moves around inside a house", "The way water flows", "The way we cook food", "The way we sleep"] },
+            { q: "What is one thing we should do to stay healthy?", a: "Do exercise regularly", options: ["Do exercise regularly", "Eat only junk food", "Sleep all day", "Drink dirty water"] },
+            { q: "Why should we grow more plants?", a: "They keep the air clean", options: ["They keep the air clean", "They make the air dirty", "They give us plastic", "They drink all our water"] },
+
+            // Chapter 8: Our Surroundings & Houses
             { q: "We should keep our surroundings ___", a: "clean and green", options: ["clean and green", "dirty and messy", "noisy and crowded", "polluted and dry"] },
             { q: "We should use bags made of ___", a: "cloth and paper", options: ["cloth and paper", "plastic", "glass", "iron"] },
             { q: "Dustbins should be ___", a: "covered", options: ["covered", "open", "broken", "dirty"] },
-            { q: "We get cotton from ___", a: "cotton plants", options: ["cotton plants", "sheep", "cows", "silk worms"] },
-            { q: "We get pulses from ___", a: "plants", options: ["plants", "animals", "water", "air"] },
-            { q: "Which food keeps our bones and teeth strong?", a: "milk", options: ["milk", "wheat", "rice", "sugar"] },
-            { q: "Which is a man-made source of water?", a: "Well", options: ["Well", "River", "Rain", "Ocean"] },
-            { q: "Drinking dirty water makes us ___", a: "ill", options: ["ill", "healthy", "strong", "happy"] },
-            { q: "Which of these kills germs in the air?", a: "Sunlight", options: ["Sunlight", "Water", "Moonlight", "Wind"] },
             { q: "Houses made of thick cloth used in deserts are called ___", a: "Tent", options: ["Tent", "Houseboat", "Igloo", "Duplex"] },
-            { q: "What are the two main sources of food?", a: "Plants and animals", options: ["Plants and animals", "Sun and moon", "Soil and water", "Air and wind"] },
-            { q: "What are energy-giving foods?", a: "Foods that give energy to work and play", options: ["Foods that give energy to work and play", "Foods that make us sleep", "Foods that make us sick", "Foods that we don't eat"] },
-            { q: "Where do we get water from?", a: "Rivers, lakes, and rainwater", options: ["Rivers, lakes, and rainwater", "Sun and moon", "Trees and plants", "Fire and soil"] },
-            { q: "What do you understand by ventilation?", a: "The way air moves around inside a house", options: ["The way air moves around inside a house", "The way water flows", "The way we cook food", "The way we sleep"] },
             { q: "Why should windows have wire nettings?", a: "To stop flies and mosquitoes", options: ["To stop flies and mosquitoes", "To stop sunlight", "To stop rain", "To stop air"] },
-            { q: "What is one thing we should do to stay healthy?", a: "Do exercise regularly", options: ["Do exercise regularly", "Eat only junk food", "Sleep all day", "Drink dirty water"] },
-            { q: "Why is eating too much junk food not good?", a: "It can make us sick", options: ["It can make us sick", "It makes us strong", "It makes us tall", "It cleans our body"] },
-            { q: "Why do babies and old people eat soft food?", a: "It is easy to chew and digest", options: ["It is easy to chew and digest", "It is very hard", "It looks beautiful", "It is very cold"] },
-            { q: "Why should we grow more plants?", a: "They keep the air clean", options: ["They keep the air clean", "They make the air dirty", "They give us plastic", "They drink all our water"] },
             { q: "Why are houses in small cities usually big?", a: "Land and building materials are cheaper", options: ["Land and building materials are cheaper", "Land is very expensive", "There are no builders", "People like small houses"] }
         ],
         fill_blanks: [
+            // Chapter 4: Food We Eat
+            { q: "Babies and old people eat ___ food.", a: "soft" },
+            { q: "People who do not eat meat or fish are called ___.", a: "vegetarians" },
+            { q: "______ in food helps us in digestion.", a: "Fibre" },
+
+            // Chapter 5: Water
+            { q: "___ kills the germs present in water.", a: "Boiling" },
+            { q: "Drinking or using polluted water is ___ for our health.", a: "bad" },
+            { q: "We use boat and ship to travell on ___.", a: "Water" },
+            { q: "We should drink ___ glasses of water every day.", a: "8 to 10" },
+
+            // Chapter 6:House around Us
+            { q: "The house we live in is called _____.", a: "Home" },
+            { q: "Some pepole live in a floating house called ___.", a: "Houseboat" },
+             { q: "A house with two floors is called a ___.", a: "duplex" },
+             { q: "___ houses are strong houses made of bricks and cement.", a: "Pucca" },
+
+            // Chapter 7: Clothes We Wear
             { q: "We ___ clothes to make them look neat.", a: "iron" },
-            { q: "___ houses are strong houses made of bricks and cement.", a: "Pucca" },
-            { q: "Flies and mosquitoes breed on ___ dumps.", a: "garbage" },
-            { q: "A house with two floors is called a ___.", a: "duplex" },
             { q: "Jute is a ___ fibre.", a: "plant" },
             { q: "We wear ___ in winter.", a: "sweaters" },
-            { q: "The house we live in is called our ___.", a: "home" },
-            { q: "___ kills the germs present in water.", a: "Boiling" },
-            { q: "Babies and old people eat ___ food.", a: "soft" },
-            { q: "Drinking or using polluted water is ___ for our health.", a: "bad" },
-            { q: "People who do not eat meat or fish are called ___.", a: "vegetarians" },
-            { q: "Fibre in food helps us in ___.", a: "digestion" }
+
+            // Chapter 9: cleanliness and Health
+           { q: "Flies and mosquitoes breed on ___ dumps.", a: "garbage" },
+           { q: "Clean ____helps to keep us healthy.", a: "surroundings" },
+           { q: "We should throw garbage in a ___.", a: "dustbin" }
+            
         ],
         true_false: [
+            // Chapter 4: Food We Eat
             { q: "Sugar is the body building food.", a: "False", options: ["True", "False"] },
+            { q: "Sugar is the energy giving food.", a: "True", options: ["True", "False"] },
+            { q: "Burger is a healthy food.", a: "False", options: ["True", "False"] },
             { q: "Meat and fish are body-building food.", a: "True", options: ["True", "False"] },
+
+            // Chapter 5: Water around Us
             { q: "Plants and animals need water to live.", a: "True", options: ["True", "False"] },
+                { q: "We should drink dirty water.", a: "False", options: ["True", "False"] },
+                { q: "We should use water wisely.", a: "True", options: ["True", "False"] },
+                { q: "We should store water in dirty containers.", a: "False", options: ["True", "False"] },
+                { q:"We should not throw garbage in water bodies.", a: "True", options: ["True", "False"] },
+                { q: "We should use clean water for cooking food.", a: "True", options: ["True", "False"] },
+                 { q: "We should use  clean water for drinking.", a: "True", options: ["True", "False"] },
+         // Chapter 6 : House Around Us
+            { q: "We should keep our surroundings clean.", a: "True", options: ["True", "False"] },
+            
+
+            // Chapter 6: Clothes We Wear
             { q: "Woollens keep us warm during winter.", a: "True", options: ["True", "False"] },
             { q: "Nylon and rayon are natural fibres.", a: "False", options: ["True", "False"] },
             { q: "Silk is a shiny fibre produced by silkworms.", a: "True", options: ["True", "False"] },
+
+            // Chapter 7: Air
             { q: "We should sleep for 8 to 9 hours everyday.", a: "True", options: ["True", "False"] },
+            { q: "Sunlight kills the germs.", a: "True", options: ["True", "False"] },
+            // Chapter 8 : Cleanliness and Health
             { q: "We should use paper or cloth bags.", a: "True", options: ["True", "False"] },
             { q: "We should write on walls.", a: "False", options: ["True", "False"] },
-            { q: "Sunlight kills the germs.", a: "True", options: ["True", "False"] }
+            { q: "We should throw garbage in the open.", a: "False", options: ["True", "False"] },
+            { q: "We should keep our surroundings clean.", a: "True", options: ["True", "False"] },
+            { q: "We should use dustbins to throw garbage.", a: "True", options: ["True", "False"] },
+           { q:"We should sleep  for 8 to 9 hours everyday.", a: "True", options: ["True", "False"] }
+            
         ],
         one_word: [
+            // Chapter 4: Food We Eat
             { q: "Name two junk foods.", a: "Pizza and Chips", options: ["Pizza and Chips", "Dal and Rice", "Fruits and Vegetables", "Milk and Egg"] },
+            { q: "People who eat meat and fish are called ___", a: "Non-vegetarians", options: ["Non-vegetarians", "Vegetarians", "Herbivores", "Farmers"] },
+
+            // Chapter 5: Water
             { q: "Very tiny living beings that make the water impure.", a: "Germs", options: ["Germs", "Fish", "Plants", "Stones"] },
             { q: "The water present below the ground.", a: "Groundwater", options: ["Groundwater", "Rainwater", "River water", "Sea water"] },
-            { q: "A small round house made with blocks of snow.", a: "Igloo", options: ["Igloo", "Tent", "Caravan", "Duplex"] },
+
+            // Chapter 6: Clothes We Wear
             { q: "The soft, thick hair on animals.", a: "Fur", options: ["Fur", "Skin", "Feathers", "Scales"] },
             { q: "Materials made of thread.", a: "Fibres", options: ["Fibres", "Bricks", "Wood", "Glass"] },
             { q: "Cleaning clothes without using water.", a: "Dry clean", options: ["Dry clean", "Washing", "Ironing", "Drying"] },
-            { q: "People who eat meat and fish are called ___", a: "Non-vegetarians", options: ["Non-vegetarians", "Vegetarians", "Herbivores", "Farmers"] },
-            { q: "Houses made of straw, mud and wood.", a: "Kuchcha house", options: ["Kuchcha house", "Pucca house", "Igloo", "Apartment"] },
-            { q: "The process in which air and water get dirty.", a: "Pollution", options: ["Pollution", "Purification", "Cleaning", "Boiling"] }
+
+            // Chapter 7: Air
+            { q: "The process in which air and water get dirty.", a: "Pollution", options: ["Pollution", "Purification", "Cleaning", "Boiling"] },
+
+            // Chapter 8: Our Surroundings & Houses
+            { q: "A small round house made with blocks of snow.", a: "Igloo", options: ["Igloo", "Tent", "Caravan", "Duplex"] },
+            { q: "Houses made of straw, mud and wood.", a: "Kuchcha house", options: ["Kuchcha house", "Pucca house", "Igloo", "Apartment"] }
         ],
         match_following: [
-            { q: "Breathing dirty air", a: "Makes us ill" },
+            // Chapter 5: Water
             { q: "Drink", a: "8 to 10 glasses of water" },
-            { q: "Waste", a: "Dustbin" },
-            { q: "Plants", a: "Keep the air clean" },
-            { q: "Exercise", a: "Yoga, jogging" },
+            { q: "Clean water", a: "Filtering" },
+
+            // Chapter 6: Clothes We Wear
             { q: "Raincoat", a: "Rainy season" },
             { q: "Pullovers", a: "Winter season" },
             { q: "Ropes", a: "Jute" },
             { q: "Nylon", a: "Manmade fibres" },
-            { q: "Clean water", a: "Filtering" }
+
+            // Chapter 7: Air
+            { q: "Breathing dirty air", a: "Makes us ill" },
+            { q: "Exercise", a: "Yoga, jogging" },
+
+            // Chapter 8: Our Surroundings & Houses
+            { q: "Waste", a: "Dustbin" },
+            { q: "Plants", a: "Keep the air clean" }
         ],
         missing_letters: [
-            { q: "Complete the word: G _ R B A _ E", a: "GARBAGE", options: ["GARBAGE", "GERBAGE", "GIRBAGE", "GORBAGE"] },
-            { q: "Complete the word: R _ B _ ISH", a: "RUBBISH", options: ["RUBBISH", "RABBISH", "REBBISH", "ROBBISH"] },
-            { q: "Complete the word: R _ I N W _ TER", a: "RAINWATER", options: ["RAINWATER", "REINWATER", "ROINWATER", "RUNWATER"] },
+            // Chapter 4: Food We Eat
             { q: "Complete the word: M _ L _", a: "MILK", options: ["MILK", "MALK", "MOLK", "MELK"] },
             { q: "Complete the word: M _ A _", a: "MEAT", options: ["MEAT", "MOAT", "MIAT", "MUAT"] },
             { q: "Complete the word: W _ E A T", a: "WHEAT", options: ["WHEAT", "WHOAT", "WHIAT", "WHUAT"] },
             { q: "Complete the word: D _ G E S T", a: "DIGEST", options: ["DIGEST", "DAGEST", "DOGEST", "DUGEST"] },
             { q: "Complete the word: F R _ I T S", a: "FRUITS", options: ["FRUITS", "FROITS", "FREITS", "FRAITS"] },
+
+            // Chapter 5: Water
+            { q: "Complete the word: R _ I N W _ TER", a: "RAINWATER", options: ["RAINWATER", "REINWATER", "ROINWATER", "RUNWATER"] },
+
+            // Chapter 6: Clothes We Wear
             { q: "Complete the word: G U M B _ O T S", a: "GUMBOOTS", options: ["GUMBOOTS", "GAMBOOTS", "GEMBOOTS", "GIMBOOTS"] },
+
+            // Chapter 8: Our Surroundings & Houses
+            { q: "Complete the word: G _ R B A _ E", a: "GARBAGE", options: ["GARBAGE", "GERBAGE", "GIRBAGE", "GORBAGE"] },
+            { q: "Complete the word: R _ B _ ISH", a: "RUBBISH", options: ["RUBBISH", "RABBISH", "REBBISH", "ROBBISH"] },
             { q: "Complete the word: B R _ C K S", a: "BRICKS", options: ["BRICKS", "BROCKS", "BRACKS", "BRECKS"] },
             { q: "Complete the word: D U P _ E X", a: "DUPLEX", options: ["DUPLEX", "DAPLEX", "DIPLEX", "DOPLEX"] }
         ],
         rearrange: [
+            // Chapter 4: Food We Eat
             { q: "Unscramble 'RONGST':", a: "STRONG", options: ["STRONG", "STONG", "STRANG", "STRUNG"] },
             { q: "Unscramble 'BREFI':", a: "FIBRE", options: ["FIBRE", "FABRE", "FEBRI", "FOBRE"] },
+
+            // Chapter 5: Water
             { q: "Unscramble 'TERWA':", a: "WATER", options: ["WATER", "WETER", "WOTER", "WITER"] },
             { q: "Unscramble 'LLSWE':", a: "WELLS", options: ["WELLS", "WALLS", "WILLS", "WOLLS"] },
+
+            // Chapter 6: Clothes We Wear
             { q: "Unscramble 'PSHI':", a: "SHIP", options: ["SHIP", "SHEP", "SHAP", "SHOP"] },
+            { q: "Unscramble 'KLSI':", a: "SILK", options: ["SILK", "SALK", "SOLK", "SELK"] },
+
+            // Chapter 8: Our Surroundings & Houses
             { q: "Unscramble 'BAGGARE':", a: "GARBAGE", options: ["GARBAGE", "GERBAGE", "GORBAGE", "GIRBAGE"] },
-            { q: "Unscramble 'ARPTAMNET':", a: "APARTMENT", options: ["APARTMENT", "APERTMENT", "APORTMENT", "OPARTMENT"] },
-            { q: "Unscramble 'KLSI':", a: "SILK", options: ["SILK", "SALK", "SOLK", "SELK"] }
+            { q: "Unscramble 'ARPTAMNET':", a: "APARTMENT", options: ["APARTMENT", "APERTMENT", "APORTMENT", "OPARTMENT"] }
         ],
         drawing: [
+            // Chapter 4: Food We Eat
             { q: "Draw and name any two foods we get from animals.", a: "[Draw Food from Animals]", options: ["[Draw Food from Animals]"] },
             { q: "Draw any two junk foods and name them.", a: "[Draw Junk Food]", options: ["[Draw Junk Food]"] }
         ]
