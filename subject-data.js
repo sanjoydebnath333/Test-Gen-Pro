@@ -1,16 +1,213 @@
 // Define how specific categories map to icons for the Kid's setup UI
 const CATEGORY_ICONS = {
-    'one_word': { icon: '💬', title: 'One Word', desc: 'Quick Ans' },
-    'name_following': { icon: '🏷️', title: 'Name It', desc: 'Identify' },
-    'fill_blanks': { icon: '✍️', title: 'Fill Blanks', desc: 'Complete it' },
-    'true_false': { icon: '✔️', title: 'True/False', desc: 'Fact Check' },
-    'match_following': { icon: '🔗', title: 'Match Pairs', desc: 'Connect' },
-    'rearrange': { icon: '🧩', title: 'Rearrange', desc: 'Unscramble' },
-    'missing_letters': { icon: '🔤', title: 'Missing Ltrs', desc: 'Spell it' },
-    'mcq_standard': { icon: '🔘', title: 'MCQ', desc: 'Choose 1' }
+  'one_word': { icon: '💬', title: 'One Word', desc: 'Quick Ans' },
+            'name_following': { icon: '🏷️', title: 'Name It', desc: 'Identify' },
+            'fill_blanks': { icon: '✍️', title: 'Fill Blanks', desc: 'Complete it' },
+            'true_false': { icon: '✔️', title: 'True/False', desc: 'Fact Check' },
+            'match_following': { icon: '🔗', title: 'Match Pairs', desc: 'Connect' },
+            'rearrange': { icon: '🧩', title: 'Rearrange', desc: 'Unscramble' },
+            'missing_letters': { icon: '🔤', title: 'Missing Ltrs', desc: 'Spell it' },
+            'mcq_standard': { icon: '🔘', title: 'MCQ', desc: 'Choose 1' },
+            'word_meaning': { icon: '📖', title: 'Meanings', desc: 'Define it' },
+            'rhyming_words': { icon: '🎵', title: 'Rhymes', desc: 'Match Sound' },
+            'opposite_word': { icon: '🔄', title: 'Opposites', desc: 'Antonyms' },
+            'textual_grammar': { icon: '📝', title: 'Grammar', desc: 'Rules' },
+            'drawing': { icon: '✏️', title: 'Drawing', desc: 'Diagrams' }
 };
 
 const SUBJECT_DATA = {
+   "english_language": {
+    id: "english_language",
+    title: "English Language",
+    icon: "📚",
+    theme: "#ec4899", // Pink theme for English
+    gradient: "linear-gradient(135deg, #ec4899, #8b5cf6)",
+    sections: [
+        { id: 'mcq_standard', title: 'Choose the correct answer', max: 25, default: 10, marksPerQ: 1 },
+        { id: 'fill_blanks', title: 'Fill in the blanks', max: 15, default: 5, marksPerQ: 1 },
+        { id: 'true_false', title: 'Write True or False', max: 15, default: 5, marksPerQ: 1 },
+        { id: 'one_word', title: 'Answer in one word', max: 15, default: 5, marksPerQ: 1 },
+        { id: 'word_meaning', title: 'Word Meaning', max: 10, default: 5, marksPerQ: 1 },
+        { id: 'rhyming_words', title: 'Rhyming Words', max: 10, default: 5, marksPerQ: 1 },
+        { id: 'opposite_word', title: 'Opposite Words', max: 12, default: 5, marksPerQ: 1 },
+        { id: 'textual_grammar', title: 'Textual Grammar', max: 15, default: 5, marksPerQ: 1 }
+    ],
+    bank: {
+        mcq_standard: [
+            // Chapter 3: A new friend (Q&A and Spellings)
+            { q: "Where did Hasmina and Saif live?", a: "Ajanta Apartments", options: ["Ajanta Apartments", "Skyline Apartments", "Rose Apartments", "Sunshine Apartments"] },
+            { q: "Choose the correct spelling:", a: "Apartment", options: ["Apartment", "Appartment", "Apartmant", "Appertment"] },
+            { q: "Choose the correct spelling:", a: "Frightened", options: ["Frightened", "Fritened", "Frightend", "Frightned"] },
+            { q: "Choose the correct spelling:", a: "Suddenly", options: ["Suddenly", "Sudenly", "Suddnly", "Sudenley"] },
+            
+            // Chapter 4: Like a Bird (Q&A and Spellings)
+            { q: "Who stood near their flying machine?", a: "Wilbur and Orville Wright", options: ["Wilbur and Orville Wright", "James and Thomas", "Albert and Isaac", "Only Wilbur Wright"] },
+            { q: "How long did the first aeroplane fly for?", a: "For a count of twelve", options: ["For a count of twelve", "For one hour", "For five minutes", "For a whole day"] },
+            { q: "What did the Wright brothers do after their first flight?", a: "Returned home to make their design better", options: ["Returned home to make their design better", "Went to sleep", "Started a factory", "Sold the aeroplane"] },
+            { q: "How has the Wright brother's model helped people?", a: "To travel to far-off places", options: ["To travel to far-off places", "To cook food faster", "To talk to friends", "To wash clothes"] },
+            { q: "Choose the correct spelling:", a: "Propellers", options: ["Propellers", "Propellars", "Proppelers", "Propellors"] },
+            { q: "Choose the correct spelling:", a: "Machine", options: ["Machine", "Masheen", "Macheen", "Mashine"] },
+
+            // Chapter 5: The King of All Stories (Q&A and Spellings)
+            { q: "Who were Anansi and Nyame?", a: "A clever spider and the Sky God", options: ["A clever spider and the Sky God", "A lion and a tiger", "Two young boys", "A bird and a tree"] },
+            { q: "What did Nyame ask Anansi to bring him as a price?", a: "Hornets, Python, and Leopard", options: ["Hornets, Python, and Leopard", "Gold, Silver, and Diamonds", "Water, Fire, and Air", "Apples, Mangoes, and Grapes"] },
+            { q: "Why did the Hornets fly into the gourd?", a: "To stay dry from the fake rain", options: ["To stay dry from the fake rain", "To eat honey", "To hide from a bird", "To build a nest"] },
+            { q: "Choose the correct spelling:", a: "Quarrel", options: ["Quarrel", "Quarel", "Quarrell", "Qurrel"] },
+            
+            // Chapter 6: Pinocchio (Q&A and Spellings)
+            { q: "Who was Pinocchio?", a: "A wooden toy that became a real boy", options: ["A wooden toy that became a real boy", "A clever spider", "A young fairy", "A rich king"] },
+            { q: "What happened each time Pinocchio lied?", a: "His nose grew longer", options: ["His nose grew longer", "His ears grew big", "He lost a gold coin", "He fell asleep"] },
+            { q: "What happened when Pinocchio sat near the fire?", a: "His feet caught fire and burned off", options: ["His feet caught fire and burned off", "He cooked his food", "He got very cold", "His nose grew longer"] },
+            { q: "Choose the correct spelling:", a: "Carpenter", options: ["Carpenter", "Carpentar", "Carpంటర్", "Carpinter"] },
+            { q: "Choose the correct spelling:", a: "Thieves", options: ["Thieves", "Theives", "Theeves", "Thievs"] }
+        ],
+        fill_blanks: [
+            // Chapter 3: A new friend
+            { q: "Hasmina and Saif went to a shop with their ___.", a: "father", options: ["father", "mother", "uncle", "friend"] },
+            { q: "Sharmaji was an old man with a ___ nose.", a: "bent", options: ["bent", "straight", "long", "sharp"] },
+            { q: "The children became good at flying ___.", a: "kites", options: ["kites", "aeroplanes", "birds", "balloons"] },
+            
+            // Chapter 4: Like a Bird
+            { q: "___ flew the first aeroplane.", a: "Orville", options: ["Orville", "Wilbur", "James", "Thomas"] },
+            { q: "The Wright brothers called their first aeroplane a ___.", a: "flyer", options: ["flyer", "glider", "bird", "eagle"] },
+            { q: "There were two ___ in the front.", a: "propellers", options: ["propellers", "wheels", "engines", "wings"] },
+            { q: "They tossed the coin and ___ won.", a: "Orville", options: ["Orville", "Wilbur", "Father", "Mother"] },
+            { q: "People have used the Wright brothers' ___ to make better aeroplanes.", a: "model", options: ["model", "toy", "book", "drawing"] },
+
+            // Chapter 5: The King of All Stories
+            { q: "Anansi makes a small hole in an empty ___ and fills it with water.", a: "gourd", options: ["gourd", "pot", "cup", "bowl"] },
+            { q: "The Hornets came out buzzing ___.", a: "angrily", options: ["angrily", "happily", "loudly", "softly"] },
+            { q: "Anansi lay the ___ on the ground.", a: "pole", options: ["pole", "stick", "rope", "net"] },
+            { q: "Anansi leads Osebo all the way to ___.", a: "Nyame", options: ["Nyame", "the forest", "the river", "the village"] },
+
+            // Chapter 6: Pinocchio
+            { q: "Gepetto was a poor carpenter who lived in ___.", a: "Italy", options: ["Italy", "India", "France", "Japan"] },
+            { q: "Gepetto kissed the toy on the ___.", a: "cheek", options: ["cheek", "head", "hand", "nose"] },
+            { q: "The puppet master gave him ___ gold coins.", a: "five", options: ["five", "two", "ten", "three"] },
+            { q: "Two thieves saw the money in Pinocchio's ___.", a: "hand", options: ["hand", "pocket", "bag", "box"] },
+            { q: "Pinocchio became a real ___.", a: "boy", options: ["boy", "puppet", "animal", "king"] }
+        ],
+        true_false: [
+            // Chapter 3: A new friend
+            { q: "Hasmina and Saif went with their father to buy toys.", a: "False", options: ["True", "False"] },
+            { q: "The tall boy from Skyline Apartments had a black kite.", a: "True", options: ["True", "False"] },
+            { q: "The tall boy's kite cut Hasmina's kite.", a: "False", options: ["True", "False"] },
+            { q: "Sharmaji became a good friend.", a: "True", options: ["True", "False"] },
+
+            // Chapter 4: Like a Bird
+            { q: "Wilbur ran alongside the aeroplane.", a: "True", options: ["True", "False"] },
+            { q: "Wilbur flew the first aeroplane.", a: "False", options: ["True", "False"] },
+            { q: "The aeroplane was back on the sandy ground.", a: "True", options: ["True", "False"] },
+
+            // Chapter 5: The King of All Stories
+            { q: "Anansi carries the Python to Nyame.", a: "True", options: ["True", "False"] },
+            { q: "Anansi did not finish all the three tasks.", a: "False", options: ["True", "False"] },
+
+            // Chapter 6: Pinocchio
+            { q: "Gepetto made new feet for Pinocchio.", a: "True", options: ["True", "False"] },
+            { q: "Pinocchio was happy when his nose grew longer.", a: "False", options: ["True", "False"] },
+            { q: "Gepetto was a rich carpenter.", a: "False", options: ["True", "False"] }
+        ],
+        one_word: [
+            // Chapter 3: A new friend
+            { q: "\"I'd like the red kite with the green tail, please...\" Who said these words?", a: "Hasmina", options: ["Hasmina", "Saif", "Sharmaji", "Father"] },
+            { q: "\"Go away!... Please don't cut down my kite.\" Who said these words?", a: "Saif", options: ["Saif", "Hasmina", "Tall boy", "Sharmaji"] },
+            { q: "\"Can I help...? I am good at flying kites.\" Who said these words?", a: "Sharmaji", options: ["Sharmaji", "Father", "Tall boy", "Saif"] },
+            { q: "\"I'll cut down your kite.\" Who said these words?", a: "Tall boy", options: ["Tall boy", "Sharmaji", "Saif", "Hasmina"] },
+            { q: "\"Pull!\" Who said this word?", a: "Sharmaji", options: ["Sharmaji", "Saif", "Hasmina", "Tall boy"] },
+
+            // Chapter 4: Like a Bird
+            { q: "\"Let's toss for it.\" Who said these words?", a: "Orville", options: ["Orville", "Wilbur", "Father", "Friend"] },
+            { q: "\"Who's going in the machine first?\" Who said these words?", a: "Wilbur", options: ["Wilbur", "Orville", "People", "Carpenter"] },
+
+            // Chapter 5: The King of All Stories
+            { q: "\"I can do it. What is the price?\" Who said these words?", a: "Anansi", options: ["Anansi", "Nyame", "Osebo", "Onini"] },
+            { q: "\"Oh! Thank you, Anansi.\" Who said these words?", a: "Mmoboro", options: ["Mmoboro", "Nyame", "Osebo", "Onini"] },
+            { q: "\"Well done! Now bring me Osebo the Leopard.\" Who said these words?", a: "Nyame", options: ["Nyame", "Anansi", "Mmoboro", "Onini"] },
+            { q: "\"I can stretch no more.\" Who said these words?", a: "Onini", options: ["Onini", "Osebo", "Mmoboro", "Anansi"] },
+
+            // Chapter 6: Pinocchio
+            { q: "\"Pinocchio, come back!\" Who said these words?", a: "Gepetto", options: ["Gepetto", "Fairy", "Thieves", "Puppet master"] },
+            { q: "\"Come and join us.\" Who said these words?", a: "The puppets", options: ["The puppets", "Gepetto", "Thieves", "The Fairy"] },
+            { q: "\"Give these to your father.\" Who said these words?", a: "Puppet master", options: ["Puppet master", "The Fairy", "Gepetto", "The thieves"] },
+            { q: "\"You went to the puppet show, didn't you?\" Who said these words?", a: "The Fairy", options: ["The Fairy", "Gepetto", "Puppet master", "The thieves"] }
+        ],
+        word_meaning: [
+            // Chapter 3
+            { q: "What is the meaning of 'Lovely'?", a: "Pretty, beautiful", options: ["Pretty, beautiful", "Ugly and scary", "Angry and mad", "Tall and heavy"] },
+            { q: "What is the meaning of 'Apartment'?", a: "A set of rooms on one floor", options: ["A set of rooms on one floor", "A playground", "A large vehicle", "A marketplace"] },
+            { q: "What is the meaning of 'Frightened'?", a: "Scared", options: ["Scared", "Happy", "Excited", "Sleepy"] },
+            // Chapter 4
+            { q: "What is a 'Glider'?", a: "A light aircraft without an engine", options: ["A light aircraft without an engine", "A fast moving car", "A large ship", "A hot air balloon"] },
+            { q: "What are 'Propellers'?", a: "Things with blades that help move a plane", options: ["Things with blades that help move a plane", "Wheels of a car", "The windows of an aeroplane", "The seats for passengers"] },
+            { q: "What does 'Took-off' mean?", a: "Left the ground and began to fly", options: ["Left the ground and began to fly", "Stopped moving", "Broke into pieces", "Fell down quickly"] },
+            { q: "What is a 'Model'?", a: "A thing used as an example to copy", options: ["A thing used as an example to copy", "A machine to wash clothes", "A book to read", "A toy for pets"] },
+            // Chapter 5
+            { q: "What are 'Hornets'?", a: "Flying insects with bad stings", options: ["Flying insects with bad stings", "Beautiful small birds", "Large furry animals", "Sweet juicy fruits"] },
+            { q: "What is a 'Python'?", a: "A very large snake", options: ["A very large snake", "A dangerous tiger", "A tiny spider", "A flying insect"] },
+            { q: "What is the meaning of 'Shelter'?", a: "A safe place to stay", options: ["A safe place to stay", "A dangerous forest", "A deep river", "A high mountain"] },
+            { q: "What does 'Quarrel' mean?", a: "A fight", options: ["A fight", "A hug", "A friendly game", "A loud song"] },
+            // Chapter 6
+            { q: "What does a 'Carpenter' do?", a: "Makes things out of wood", options: ["Makes things out of wood", "Paints beautiful pictures", "Fixes broken cars", "Sews clothes"] },
+            { q: "Who is a 'Puppet master'?", a: "Someone who makes puppets speak and move", options: ["Someone who makes puppets speak and move", "Someone who buys toys", "A person who catches thieves", "A rich king"] }
+        ],
+        rhyming_words: [
+            // Poem: The Lily Pool
+            { q: "Which word rhymes with 'Pool'?", a: "Cool", options: ["Cool", "Tall", "Pill", "Fall"] },
+            { q: "Which word rhymes with 'White'?", a: "Night", options: ["Night", "Wait", "Cat", "Hat"] },
+            { q: "Which word rhymes with 'Bloom'?", a: "Gloom", options: ["Gloom", "Slow", "Run", "Green"] },
+            { q: "Which word rhymes with 'Curls'?", a: "Pearls", options: ["Pearls", "Girls", "Calls", "Pulls"] },
+            { q: "Which word rhymes with 'Pink'?", a: "Sink", options: ["Sink", "Drink", "Sand", "Hand"] },
+            // Poem: Fireflies
+            { q: "Which word rhymes with 'Night'?", a: "Light", options: ["Light", "Late", "Kite", "Rat"] },
+            { q: "Which word rhymes with 'Air'?", a: "There", options: ["There", "Here", "Near", "Far"] },
+            { q: "Which word rhymes with 'Tree'?", a: "Me", options: ["Me", "You", "Us", "They"] },
+            { q: "Which word rhymes with 'One'?", a: "Fun", options: ["Fun", "Run", "Sun", "Man"] }
+        ],
+        opposite_word: [
+            // Opposite Words list
+            { q: "What is the opposite of 'Pull'?", a: "Push", options: ["Push", "Drag", "Lift", "Drop"] },
+            { q: "What is the opposite of 'Wet'?", a: "Dry", options: ["Dry", "Cold", "Hot", "Soft"] },
+            { q: "What is the opposite of 'Noisy'?", a: "Quiet", options: ["Quiet", "Loud", "Silent", "Fast"] },
+            { q: "What is the opposite of 'Far'?", a: "Near", options: ["Near", "Distant", "High", "Low"] },
+            { q: "What is the opposite of 'Tall'?", a: "Short", options: ["Short", "Big", "Huge", "Wide"] },
+            { q: "What is the opposite of 'Right'?", a: "Wrong", options: ["Wrong", "Correct", "True", "Straight"] },
+            { q: "What is the opposite of 'Cold'?", a: "Hot", options: ["Hot", "Warm", "Freezing", "Cool"] },
+            { q: "What is the opposite of 'High'?", a: "Low", options: ["Low", "Tall", "Deep", "Far"] },
+            { q: "What is the opposite of 'Light'?", a: "Heavy", options: ["Heavy", "Dark", "Bright", "Soft"] },
+            { q: "What is the opposite of 'Sweet'?", a: "Sour", options: ["Sour", "Salty", "Bitter", "Spicy"] },
+            { q: "What is the opposite of 'New'?", a: "Old", options: ["Old", "Fresh", "Recent", "Young"] },
+            { q: "What is the opposite of 'Thick'?", a: "Thin", options: ["Thin", "Fat", "Heavy", "Wide"] }
+        ],
+        textual_grammar: [
+            // Plurals
+            { q: "What is the plural of 'Box'?", a: "Boxes", options: ["Boxes", "Boxs", "Boxies", "Boxen"] },
+            { q: "What is the plural of 'Party'?", a: "Parties", options: ["Parties", "Partys", "Partees", "Party"] },
+            { q: "What is the plural of 'Wolf'?", a: "Wolves", options: ["Wolves", "Wolfs", "Wolvies", "Wolven"] },
+            { q: "What is the plural of 'City'?", a: "Cities", options: ["Cities", "Citys", "Cites", "Citie"] },
+            { q: "What is the plural of 'Knife'?", a: "Knives", options: ["Knives", "Knifes", "Knif", "Knivees"] },
+            // Gender
+            { q: "What is the feminine gender of 'King'?", a: "Queen", options: ["Queen", "Princess", "Lady", "Duchess"] },
+            { q: "What is the masculine gender of 'Aunt'?", a: "Uncle", options: ["Uncle", "Nephew", "Brother", "Father"] },
+            { q: "What gender is the word 'Book'?", a: "Neuter", options: ["Neuter", "Common", "Masculine", "Feminine"] },
+            { q: "What gender is the word 'Teacher'?", a: "Common", options: ["Common", "Neuter", "Feminine", "Masculine"] },
+            // Pronouns
+            { q: "Choose the correct pronoun: Amit is my friend. ___ is very clever.", a: "He", options: ["He", "She", "It", "They"] },
+            { q: "Choose the correct pronoun: Mishel is sleeping. Don't disturb ___.", a: "her", options: ["her", "she", "it", "him"] },
+            { q: "Choose the correct pronoun: Kirti loves flowers. She buys ___ every morning.", a: "them", options: ["them", "her", "him", "she"] },
+            // Adjectives
+            { q: "Identify the adjective in the sentence: 'We cut two cakes on my birthday.'", a: "two", options: ["two", "cut", "cakes", "birthday"] },
+            { q: "Identify the adjective in the sentence: 'Tanu saw a pretty butterfly.'", a: "pretty", options: ["pretty", "saw", "butterfly", "Tanu"] },
+            { q: "Identify the adjective in the sentence: 'The pillow is very soft.'", a: "soft", options: ["soft", "pillow", "very", "is"] },
+            // ie or ei Spellings
+            { q: "Complete the word correctly: Fr _ _ nd", a: "ie", options: ["ie", "ei", "ea", "ee"] },
+            { q: "Complete the word correctly: R _ c _ _ ve", a: "ei", options: ["ei", "ie", "ea", "ee"] },
+            // Read the clues
+            { q: "Read the clue: 'Tells us the time'", a: "Clock", options: ["Clock", "Book", "Radio", "Bell"] },
+            { q: "Read the clue: 'A place where we can keep our money'", a: "Bank", options: ["Bank", "School", "Hospital", "Market"] }
+        ]
+    }
+},
     "gk": {
         id: "gk",
         title: "General Knowledge",
