@@ -52,21 +52,21 @@ const SUBJECT_DATA = {
                 { q: "Name the season when a number of flowers bloom.", a: "Spring", options: ["Spring", "Winter", "Summer", "Monsoon"] },
                 { q: "Name the person who sell flowers.", a: "Florist", options: ["Florist", "Grocer", "Chemist", "Barber"] }
             ],
-            fill_blanks: [
-                { q: "Some animals live with us in our homes as our ___.", a: "pets" },
-                { q: "Water falls on land as rain and ___.", a: "snow" },
-                { q: "Sloth is the world's slowest ___.", a: "mammal" },
-                { q: "Asian elephants are found in thirteen countries of ___.", a: "Asia" },
-                { q: "Leaves prepare ___ for the plants.", a: "food" },
-                { q: "Trees, herbs and shrubs are ___.", a: "plants" },
-                { q: "Salad is a healthy dish made of many raw ___.", a: "vegetables" },
-                { q: "Spices have been traditionally used to cure various ___.", a: "illnesses" },
-                { q: "A passage built across a river is called ___.", a: "bridge" },
-                { q: "A group of dogs are called a ___.", a: "pack" },
-                { q: "Helen Keller was an American author who was not able to see, hear or ___.", a: "speak" },
-                { q: "Dr. Stephen Hawking was a famous ___.", a: "scientist" },
-                { q: "Elsa is the character of the animated film Frozen ___.", a: "II" },
-                { q: "The words of a song are called ___.", a: "lyrics" }
+           fill_blanks: [
+                { q: "Some animals live with us in our homes as our ___.", a: "pets", options: ["pets", "wild", "birds", "toys"] },
+                { q: "Water falls on land as rain and ___.", a: "snow", options: ["snow", "juice", "milk", "mud"] },
+                { q: "Sloth is the world's slowest ___.", a: "mammal", options: ["mammal", "bird", "fish", "insect"] },
+                { q: "Asian elephants are found in thirteen countries of ___.", a: "Asia", options: ["Asia", "Africa", "America", "Europe"] },
+                { q: "Leaves prepare ___ for the plants.", a: "food", options: ["food", "water", "toys", "stones"] },
+                { q: "Trees, herbs and shrubs are ___.", a: "plants", options: ["plants", "animals", "birds", "fishes"] },
+                { q: "Salad is a healthy dish made of many raw ___.", a: "vegetables", options: ["vegetables", "candies", "cakes", "biscuits"] },
+                { q: "Spices have been traditionally used to cure various ___.", a: "illnesses", options: ["illnesses", "games", "toys", "stories"] },
+                { q: "A passage built across a river is called ___.", a: "bridge", options: ["bridge", "road", "park", "school"] },
+                { q: "A group of dogs are called a ___.", a: "pack", options: ["pack", "flock", "herd", "bunch"] },
+                { q: "Helen Keller was an American author who was not able to see, hear or ___.", a: "speak", options: ["speak", "walk", "eat", "sleep"] },
+                { q: "Dr. Stephen Hawking was a famous ___.", a: "scientist", options: ["scientist", "dancer", "singer", "player"] },
+                { q: "Elsa is the character of the animated film Frozen ___.", a: "II", options: ["II", "I", "III", "IV"] },
+                { q: "The words of a song are called ___.", a: "lyrics", options: ["lyrics", "music", "dance", "story"] }
             ],
             true_false: [
                 { q: "Dove is considered the symbol of peace.", a: "True", options: ["True", "False"] },
@@ -152,26 +152,26 @@ const SUBJECT_DATA = {
                 { q: "How do computers help in police stations?", a: "To track criminal records and cases", options: ["To track criminal records and cases", "To generate shopping bills", "To print exam papers", "To play music"] },
                 { q: "How does a computer help in airports?", a: "By booking tickets and tracking flight timings", options: ["By booking tickets and tracking flight timings", "By diagnosing patients", "By maintaining bank accounts", "By scanning groceries"] }
             ],
-            fill_blanks: [
-                { q: "A ___ looks like a typewriter.", a: "keyboard" },
-                { q: "The devices which are used to give commands are known as ___ devices.", a: "input" },
-                { q: "The ____ is also called as Visual Display unit.", a: "Monitor" },
-                { q: "The ___ is used to play games and make a drawing as well.", a: "mouse" },
-                { q: "The devices which are used to give results are called ___ devices.", a: "output" },
-                { q: "A ___ uses computers to make test papers and exam reports.", a: "teacher" },
-                { q: "A ___ looks like a television screen.", a: "monitor" },
-                { q: "Computers help doctors to perform ___.", a: "operations" },
-                { q: "Computers are used to withdraw money from ___.", a: "ATMs" },
-                { q: "In banks, computers are used to maintain ___ of customers.", a: "accounts" },
-                { q: "In shopping malls, computers are used to generate ___.", a: "bills" },
-                { q: "Computers help in booking ___ at railway stations and airports.", a: "tickets" },
-                { q: "Computers are used to prepare ___ for schools.", a: "timetables" },
-                { q: "Students can draw and ___ with the help of a computer.", a: "colour" },
-                { q: "You can solve ___ on a computer.", a: "sums" },
-                { q: "AI helps doctors in _____.", a: "hospitals" },
-                { q: "AI robots can ____ your house ", a: "clean" },
-                { q: "AI helps at ____ to make lesson fun.", a: "schools" },
-            ],
+         fill_blanks: [
+            { q: "A ___ looks like a typewriter.", a: "keyboard", options: ["keyboard", "monitor", "mouse", "printer"] },
+            { q: "The devices which are used to give commands are known as ___ devices.", a: "input", options: ["input", "output", "storage", "processing"] },
+            { q: "The ____ is also called as Visual Display unit.", a: "Monitor", options: ["Monitor", "Keyboard", "CPU", "Printer"] },
+            { q: "The ___ is used to play games and make a drawing as well.", a: "mouse", options: ["mouse", "keyboard", "printer", "speakers"] },
+            { q: "The devices which are used to give results are called ___ devices.", a: "output", options: ["output", "input", "storage", "processing"] },
+            { q: "A ___ uses computers to make test papers and exam reports.", a: "teacher", options: ["teacher", "doctor", "engineer", "pilot"] },
+            { q: "A ___ looks like a television screen.", a: "monitor", options: ["monitor", "keyboard", "printer", "mouse"] },
+            { q: "Computers help doctors to perform ___.", a: "operations", options: ["operations", "cooking", "driving", "teaching"] },
+            { q: "Computers are used to withdraw money from ___.", a: "ATMs", options: ["ATMs", "schools", "hospitals", "parks"] },
+            { q: "In banks, computers are used to maintain ___ of customers.", a: "accounts", options: ["accounts", "reports", "timetables", "bills"] },
+            { q: "In shopping malls, computers are used to generate ___.", a: "bills", options: ["bills", "tickets", "accounts", "reports"] },
+            { q: "Computers help in booking ___ at railway stations and airports.", a: "tickets", options: ["tickets", "bills", "books", "timetables"] },
+            { q: "Computers are used to prepare ___ for schools.", a: "timetables", options: ["timetables", "bills", "tickets", "accounts"] },
+            { q: "Students can draw and ___ with the help of a computer.", a: "colour", options: ["colour", "sleep", "run", "swim"] },
+            { q: "You can solve ___ on a computer.", a: "sums", options: ["sums", "games", "songs", "movies"] },
+            { q: "AI helps doctors in _____.", a: "hospitals", options: ["hospitals", "schools", "banks", "malls"] },
+            { q: "AI robots can ____ your house ", a: "clean", options: ["clean", "drive", "cook", "fly"] },
+            { q: "AI helps at ____ to make lesson fun.", a: "schools", options: ["schools", "hospitals", "banks", "airports"] }
+],
             true_false: [
                 { q: "CPU is used to take the printout of the work done on a paper.", a: "False", options: ["True", "False"] },
                 { q: "Speakers are multimedia devices used with a computer.", a: "True", options: ["True", "False"] },
@@ -308,19 +308,19 @@ const SUBJECT_DATA = {
             { q: "Who benefits when a tree is planted?", a: "The whole world", options: ["The whole world", "One person", "Nobody", "Only animals"] },
             { q: "What do plants need?", a: "Water and sunlight", options: ["Water and sunlight", "Nothing", "Only water", "Only sunlight"] }
         ],
-        fill_blanks: [
-            { q: "Once there was a green and ___ farm.", a: "beautiful" },
-            { q: "The little kitten took the straws from the ___.", a: "scarecrow" },
-            { q: "The straw helped the kitten keep ___ the entire night.", a: "warm" },
-            { q: "Leila went to the house to say ___.", a: "sorry" },
-            { q: "Natasha found a baby bird under the ___ tree.", a: "lemon" },
-            { q: "A seed needs ___ to grow.", a: "water" },
-            { q: "She named the bird ___.", a: "Cammie" },
-            { q: "Tina planted the seeds in the ___.", a: "garden" },
-            { q: "Tina's ___ helped her.", a: "grandmother" },
-            { q: "The uncle ___ Leila.", a: "forgave" }
+      fill_blanks: [
+            { q: "Once there was a green and ___ farm.", a: "beautiful", options: ["beautiful", "sorry", "lemon", "sad"] },
+            { q: "The little kitten took the straws from the ___.", a: "scarecrow", options: ["scarecrow", "garden", "grandmother", "nest"] },
+            { q: "The straw helped the kitten keep ___ the entire night.", a: "warm", options: ["warm", "cold", "water", "beautiful"] },
+            { q: "Leila went to the house to say ___.", a: "sorry", options: ["sorry", "hello", "forgave", "thank you"] },
+            { q: "Natasha found a baby bird under the ___ tree.", a: "lemon", options: ["lemon", "mango", "scarecrow", "garden"] },
+            { q: "A seed needs ___ to grow.", a: "water", options: ["water", "milk", "warm", "sorry"] },
+            { q: "She named the bird ___.", a: "Cammie", options: ["Cammie", "Kitty", "lemon", "scarecrow"] },
+            { q: "Tina planted the seeds in the ___.", a: "garden", options: ["garden", "room", "water", "beautiful"] },
+            { q: "Tina's ___ helped her.", a: "grandmother", options: ["grandmother", "friend", "Cammie", "teacher"] },
+            { q: "The uncle ___ Leila.", a: "forgave", options: ["forgave", "scolded", "sorry", "called"] }
         ],
-        true_false: [
+                true_false: [
             { q: "The scarecrow was selfish.", a: "False", options: ["True", "False"] },
             { q: "Leila ran away from the car owner.", a: "False", options: ["True", "False"] },
             { q: "Natasha took care of the bird.", a: "True", options: ["True", "False"] },
@@ -411,34 +411,34 @@ const SUBJECT_DATA = {
             { q: "Why should windows have wire nettings?", a: "To stop flies and mosquitoes", options: ["To stop flies and mosquitoes", "To stop sunlight", "To stop rain", "To stop air"] },
             { q: "Why are houses in small cities usually big?", a: "Land and building materials are cheaper", options: ["Land and building materials are cheaper", "Land is very expensive", "There are no builders", "People like small houses"] }
         ],
-        fill_blanks: [
+   
+     fill_blanks: [
             // Chapter 4: Food We Eat
-            { q: "Babies and old people eat ___ food.", a: "soft" },
-            { q: "People who do not eat meat or fish are called ___.", a: "vegetarians" },
-            { q: "______ in food helps us in digestion.", a: "Fibre" },
+            { q: "Babies and old people eat ___ food.", a: "soft", options: ["soft", "hard", "spicy", "crunchy"] },
+            { q: "People who do not eat meat or fish are called ___.", a: "vegetarians", options: ["vegetarians", "non-vegetarians", "farmers", "doctors"] },
+            { q: "___ in food helps us in digestion.", a: "Fibre", options: ["Fibre", "Sugar", "Salt", "Water"] },
 
             // Chapter 5: Water
-            { q: "___ kills the germs present in water.", a: "Boiling" },
-            { q: "Drinking or using polluted water is ___ for our health.", a: "bad" },
-            { q: "We use boat and ship to travell on ___.", a: "Water" },
-            { q: "We should drink ___ glasses of water every day.", a: "8 to 10" },
+            { q: "___ kills the germs present in water.", a: "Boiling", options: ["Boiling", "Freezing", "Cooling", "Washing"] },
+            { q: "Drinking or using polluted water is ___ for our health.", a: "bad", options: ["bad", "good", "safe", "healthy"] },
+            { q: "We use boat and ship to travell on ___.", a: "Water", options: ["Water", "Land", "Air", "Roads"] },
+            { q: "We should drink ___ glasses of water every day.", a: "8 to 10", options: ["8 to 10", "1 to 2", "20 to 30", "50 to 100"] },
 
             // Chapter 6:House around Us
-            { q: "The house we live in is called _____.", a: "Home" },
-            { q: "Some pepole live in a floating house called ___.", a: "Houseboat" },
-             { q: "A house with two floors is called a ___.", a: "duplex" },
-             { q: "___ houses are strong houses made of bricks and cement.", a: "Pucca" },
+            { q: "The house we live in is called ___.", a: "Home", options: ["Home", "School", "Office", "Market"] },
+            { q: "Some pepole live in a floating house called ___.", a: "Houseboat", options: ["Houseboat", "Igloo", "Tent", "Caravan"] },
+            { q: "A house with two floors is called a ___.", a: "duplex", options: ["duplex", "flat", "hut", "tent"] },
+            { q: "___ houses are strong houses made of bricks and cement.", a: "Pucca", options: ["Pucca", "Kutcha", "Wooden", "Mud"] },
 
             // Chapter 7: Clothes We Wear
-            { q: "We ___ clothes to make them look neat.", a: "iron" },
-            { q: "Jute is a ___ fibre.", a: "plant" },
-            { q: "We wear ___ in winter.", a: "sweaters" },
+            { q: "We ___ clothes to make them look neat.", a: "iron", options: ["iron", "wash", "fold", "tear"] },
+            { q: "Jute is a ___ fibre.", a: "plant", options: ["plant", "animal", "plastic", "toy"] },
+            { q: "We wear ___ in winter.", a: "sweaters", options: ["sweaters", "raincoats", "t-shirts", "shorts"] },
 
             // Chapter 9: cleanliness and Health
-           { q: "Flies and mosquitoes breed on ___ dumps.", a: "garbage" },
-           { q: "Clean ____helps to keep us healthy.", a: "surroundings" },
-           { q: "We should throw garbage in a ___.", a: "dustbin" }
-            
+            { q: "Flies and mosquitoes breed on ___ dumps.", a: "garbage", options: ["garbage", "sand", "flower", "toy"] },
+            { q: "Clean ___helps to keep us healthy.", a: "surroundings", options: ["surroundings", "classrooms", "dustbins", "clothes"] },
+            { q: "We should throw garbage in a ___.", a: "dustbin", options: ["dustbin", "road", "floor", "park"] }
         ],
         true_false: [
             // Chapter 4: Food We Eat

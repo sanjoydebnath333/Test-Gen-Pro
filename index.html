@@ -104,7 +104,7 @@
         .hud-btn-quit { background: rgba(255,255,255,0.8); backdrop-filter: blur(5px); border: 2px solid white; color: #ef4444; font-weight: 800; border-radius: 100px; padding: 0.5rem 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.2s; }
         .hud-stats { background: white; border-radius: 100px; padding: 0.5rem 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 15px; font-weight: 800; font-size: 1.1rem; }
 
-        .kid-test-card { background: #ffffff; border-radius: 2rem !important; box-shadow: 0 20px 50px -10px rgba(0,0,0, 0.1); width: 100%; max-width: 1100px; display: flex; flex-direction: column; overflow: hidden; margin: 0 auto 2rem auto; border-top: 8px solid var(--theme-color); }
+        .kid-test-card { background: #ffffff; border-radius: 2rem !important; box-shadow: 0 20px 50px -10px rgba(0,0,0, 0.1); width: 100%; max-width: 1100px; display: flex; flex-direction: column; overflow: hidden; margin: 0 auto 2rem auto; border-top: 8px solid var(--theme-color); position: relative; }
         .kid-card-header { padding: 1.2rem 2rem !important; background: #ffffff; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #f8fafc; }
         .ot-interface-grid { display: grid; grid-template-columns: 1fr; background: #ffffff; }
         @media (min-width: 1024px) { .ot-interface-grid { grid-template-columns: 1.3fr 0.9fr; min-height: 450px; } .ot-interface-grid.full-width-grid { grid-template-columns: 1fr; } }
@@ -121,11 +121,66 @@
         .mcq-grid-2x2 { display: grid; grid-template-columns: 1fr; gap: 15px; width: 100%; max-width: 800px; margin: 0 auto; }
         @media (min-width: 577px) { .mcq-grid-1x2 { grid-template-columns: repeat(2, 1fr); } .mcq-grid-2x2 { grid-template-columns: repeat(2, 1fr); } }
 
+        /* Elastic Shaking & Glow Keyframes */
+        @keyframes wrong-shake {
+            0%, 100% { transform: translateX(0); }
+            15% { transform: translateX(-8px) rotate(-1.5deg); }
+            30% { transform: translateX(7px) rotate(1.5deg); }
+            45% { transform: translateX(-7px) rotate(-1deg); }
+            60% { transform: translateX(5px) rotate(1deg); }
+            75% { transform: translateX(-3px) rotate(-0.5deg); }
+        }
+
+        /* Pulsating Decoupled Entry Zoom Keyframes (Pure Green) */
+        @keyframes correct-pulse-zoom {
+            0% { transform: scale(1); box-shadow: 0 6px 0 #cbd5e1; }
+            40% { transform: scale(1.08); box-shadow: 0 12px 24px rgba(34, 197, 94, 0.5), 0 6px 0 #16a34a; }
+            70% { transform: scale(1.02); box-shadow: 0 6px 12px rgba(34, 197, 94, 0.3), 0 6px 0 #16a34a; }
+            100% { transform: scale(1.05); box-shadow: 0 10px 20px rgba(34, 197, 94, 0.45), 0 6px 0 #16a34a; }
+        }
+
+        @keyframes correct-pulse-zoom-dropzone {
+            0% { transform: scale(1); }
+            40% { transform: scale(1.12); box-shadow: 0 0 20px rgba(34, 197, 94, 0.6); }
+            70% { transform: scale(1.02); box-shadow: 0 0 10px rgba(34, 197, 94, 0.3); }
+            100% { transform: scale(1.05); box-shadow: 0 0 15px rgba(34, 197, 94, 0.5); }
+        }
+
+        @keyframes correct-pulse-zoom-match {
+            0% { transform: scale(1); }
+            40% { transform: scale(1.06); box-shadow: 0 0 15px rgba(34, 197, 94, 0.5); }
+            70% { transform: scale(0.93); }
+            100% { transform: scale(0.95); }
+        }
+
+        /* Continuous Green Shimmer Flow */
+        @keyframes correct-glow-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         .mcq-btn { background: #ffffff; border: 2px solid #e2e8f0; border-radius: 1.2rem; font-size: clamp(1.1rem, 3vw, 1.4rem); font-weight: 800; color: var(--theme-color); padding: 1.2rem 1.5rem; box-shadow: 0 6px 0 #cbd5e1; transition: all 0.3s; cursor: pointer; text-align: left; display: flex; align-items: center; }
         .mcq-btn:hover:not(:disabled) { background: #f8fafc; border-color: var(--theme-color); transform: scale(1.05) translateY(-5px); box-shadow: 0 15px 25px rgba(0,0,0,0.1), 0 8px 0 var(--theme-color); z-index: 10; }
         .mcq-btn:active:not(:disabled) { transform: translateY(6px) scale(0.97); box-shadow: 0 0px 0 #cbd5e1; }
-        .mcq-btn.correct { background: #4ade80; border-color: #22c55e; color: white; box-shadow: 0 6px 0 #16a34a; }
-        .mcq-btn.wrong { background: #f87171; border-color: #ef4444; color: white; box-shadow: 0 6px 0 #dc2626; }
+        
+        .mcq-btn.correct { 
+            background: linear-gradient(135deg, #4ade80, #22c55e, #10b981, #22c55e, #4ade80) !important;
+            background-size: 300% 300% !important;
+            border-color: #16a34a !important; 
+            color: white !important; 
+            animation: correct-pulse-zoom 0.6s cubic-bezier(0.25, 1, 0.5, 1) both, correct-glow-flow 3s ease infinite !important;
+            z-index: 10;
+        }
+        
+        /* Interactive Wrong MCQ Glow and Shake Animation */
+        .mcq-btn.wrong { 
+            animation: wrong-shake 0.55s ease-in-out both !important;
+            background: #fee2e2 !important; 
+            border-color: #ef4444 !important; 
+            color: #b91c1c !important; 
+            box-shadow: 0 6px 0 #dc2626, 0 0 15px rgba(239, 68, 68, 0.6) !important; 
+        }
 
         .btn-theme-bg { background-color: var(--theme-color) !important; color: white !important; transition: all 0.3s ease; }
         .btn-theme-bg:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
@@ -137,27 +192,249 @@
         .blank-dropzone { display: inline-block; min-width: 140px; height: 60px; text-align: center; border-bottom: 4px dashed #94a3b8; padding: 0 15px; margin: 0 10px; cursor: pointer; font-weight: 800; color: transparent; transition: all 0.2s; vertical-align: middle; position: relative; }
         .blank-dropzone.empty::after { content: "?"; color: #cbd5e1; font-size: 2.5rem; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
         .blank-dropzone.filled { border: 3px solid var(--theme-color); border-radius: 1rem; color: var(--theme-color); transform: scale(1.05); line-height: 52px; font-size: 2rem; background: white;}
+        
+        /* Shaking Red Glow for wrong dropzone answers */
+        .blank-dropzone.wrong-zone {
+            animation: wrong-shake 0.55s ease-in-out both !important;
+            border-color: #ef4444 !important;
+            color: #b91c1c !important;
+            background-color: #fee2e2 !important;
+            box-shadow: 0 0 18px rgba(239, 68, 68, 0.7) !important;
+        }
+        
+        .blank-dropzone.correct-zone {
+            border-color: #22c55e !important;
+            color: #15803d !important;
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0, #a7f3d0, #bbf7d0, #dcfce7) !important;
+            background-size: 300% 300% !important;
+            animation: correct-pulse-zoom-dropzone 0.6s cubic-bezier(0.25, 1, 0.5, 1) both, correct-glow-flow 3s ease infinite !important;
+        }
+
         .soft-pill-btn { background-color: #f8fafc; border: 2px solid #cbd5e1; color: #475569; border-radius: 50rem; padding: 0.8rem 2rem; font-size: 1.3rem; font-weight: 800; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin: 0.5rem; }
         .soft-pill-btn:hover { transform: translateY(-4px) scale(1.05); border-color: var(--theme-color); color: var(--theme-color); }
         .soft-pill-btn.hidden-pill { opacity: 0; transform: scale(0.5); pointer-events: none; }
 
-        .match-game-wrapper { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; gap: 4rem; padding: 0.5rem; width: 100%; position: relative; }
+        /* --- Beautiful Responsive Matching Columns --- */
+        .match-game-wrapper { max-width: 1000px; margin: 0 auto; display: flex; justify-content: center; gap: 4rem; padding: 0.5rem; width: 100%; position: relative; }
         .match-col { display: flex; flex-direction: column; gap: 0.8rem; position: relative; z-index: 15; }
-        .match-col-left { flex: 1 1 55%; }
+        .match-col-left { flex: 0 1 max-content; min-width: 320px; max-width: 550px; }
         .match-col-right { flex: 0 1 max-content; min-width: 240px; }
         .match-card { background-color: #ffffff; border: 3px solid #e2e8f0; border-radius: 1rem; padding: 0.8rem 1.2rem; font-size: clamp(1.1rem, 2.5vw, 1.4rem); font-weight: 800; color: #475569; text-align: center; cursor: pointer; transition: all 0.2s; box-shadow: 0 5px 0 #cbd5e1; user-select: none; position: relative; z-index: 20; min-height: 70px; display: flex; align-items: center; justify-content: center; word-break: break-word; line-height: 1.3;}
         .match-card:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 8px 0 #cbd5e1; border-color: var(--theme-color); color: var(--theme-color); z-index: 25; }
         .match-card.selected { border-color: var(--theme-color); color: var(--theme-color); box-shadow: 0 5px 0 var(--theme-color); transform: scale(1.05); z-index: 30; }
-        .match-card.matched { background-color: #dcfce7; border-color: #22c55e; color: #166534; box-shadow: 0 0px 0 transparent; transform: scale(0.95); opacity: 0.8; pointer-events: none; }
-        @keyframes card-shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(4px); } }
-        .match-card.error { animation: card-shake 0.4s both; background-color: #fee2e2 !important; border-color: #ef4444 !important; color: #991b1b !important; box-shadow: 0 4px 0 #ef4444 !important; }
+        
+        .match-card.matched { 
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0, #dcfce7) !important;
+            background-size: 200% 200% !important;
+            border-color: #22c55e !important; 
+            color: #166534 !important; 
+            box-shadow: 0 0px 0 transparent !important; 
+            opacity: 0.95 !important; 
+            pointer-events: none !important; 
+            animation: correct-pulse-zoom-match 0.6s cubic-bezier(0.25, 1, 0.5, 1) both, correct-glow-flow 2s ease infinite !important;
+        }
+        
+        /* Reusing global jolt-shake with custom red glow shadow for matching games */
+        .match-card.error { 
+            animation: wrong-shake 0.55s ease-in-out both !important; 
+            background-color: #fee2e2 !important; 
+            border-color: #ef4444 !important; 
+            color: #991b1b !important; 
+            box-shadow: 0 4px 0 #ef4444, 0 0 15px rgba(239, 68, 68, 0.6) !important; 
+        }
 
         @media (max-width: 768px) {
-            .match-game-wrapper { gap: 1.5rem; padding: 0.5rem 0; }
+            .match-game-wrapper { gap: 1.5rem; padding: 0.5rem 0; justify-content: space-between; }
             .match-col { gap: 0.6rem; }
-            .match-col-left { flex: 1 1 50%; }
+            .match-col-left { flex: 1 1 50%; min-width: 0; max-width: none; }
             .match-col-right { flex: 1 1 50%; min-width: 0; }
             .match-card { padding: 0.6rem; font-size: 0.95rem; min-height: 60px; border-radius: 0.8rem; box-shadow: 0 4px 0 #cbd5e1; }
+        }
+
+        /* --- Pedagogical Correction Immersive Viewport Overlay --- */
+        .learning-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.75); /* Darkened semi-transparent backdrop */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 9999; /* Ensure it floats completely over headers and sidebars */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            box-sizing: border-box;
+        }
+
+        .learning-card {
+            background: #ffffff;
+            border-radius: 2.25rem;
+            box-shadow: 0 30px 70px -10px rgba(15, 23, 42, 0.4);
+            border: 4px solid rgba(255, 255, 255, 0.85);
+            padding: 2.5rem;
+            max-width: 650px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            box-sizing: border-box;
+            /* New organic bouncy spring and scale popup entrance animation */
+            animation: wrongCardBounce 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes wrongCardBounce {
+            0% { transform: scale(0.5) translateY(-80px); opacity: 0; }
+            55% { transform: scale(1.08) translateY(12px); opacity: 1; }
+            80% { transform: scale(0.97) translateY(-3px); }
+            100% { transform: scale(1) translateY(0); }
+        }
+
+        .learning-badge {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.75rem;
+            margin: 0 auto 0.5rem auto;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .learning-badge.wrong-badge {
+            background-color: #fee2e2;
+            color: #ef4444;
+            box-shadow: 0 0 25px rgba(239, 68, 68, 0.3);
+            /* Continuous playful attention wiggle for mistake card */
+            animation: badgeWiggle 2.2s ease-in-out infinite;
+        }
+
+        @keyframes badgeWiggle {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            10% { transform: rotate(-10deg) scale(1.08); }
+            20% { transform: rotate(10deg) scale(1.08); }
+            30% { transform: rotate(-7deg) scale(1.03); }
+            40% { transform: rotate(5deg) scale(1.03); }
+            50% { transform: rotate(0deg) scale(1); }
+        }
+
+        /* Large & Prominent Question Block with custom matching warning theme */
+        .learning-question-box {
+            text-align: center;
+            background: #fdf2f2;
+            border: 3px dashed #fca5a5;
+            border-radius: 1.25rem;
+            padding: 1.5rem 1.25rem;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .learning-question-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #ef4444;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .learning-question-content {
+            font-size: clamp(1.45rem, 2.5vw, 1.95rem); /* Visually larger than options */
+            font-weight: 900;
+            color: #0f172a;
+            line-height: 1.4;
+            font-family: 'Nunito', 'Comic Sans MS', sans-serif;
+        }
+
+        .comparison-box {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            text-align: left;
+        }
+
+        .comp-item {
+            padding: 1rem 1.25rem;
+            border-radius: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-weight: 700;
+            font-size: clamp(1.05rem, 1.8vw, 1.25rem); /* Responsive options text size */
+        }
+
+        .comp-item.wrong-item {
+            background-color: #fee2e2;
+            border: 2px solid #fca5a5;
+            color: #991b1b;
+        }
+
+        .comp-item.correct-item {
+            background-color: #dcfce7;
+            border: 2px solid #86efac;
+            color: #166534;
+        }
+
+        .btn-continue-learn {
+            background-color: var(--theme-color);
+            color: white;
+            border: none;
+            border-radius: 100px;
+            padding: 1rem 2.2rem;
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            font-weight: 800;
+            box-shadow: 0 6px 0 rgba(0,0,0,0.15);
+            transition: all 0.2s;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .btn-continue-learn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 9px 0 rgba(0,0,0,0.15);
+            filter: brightness(1.1);
+        }
+
+        .btn-continue-learn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 transparent;
+        }
+
+        @media (max-width: 768px) {
+            .learning-overlay {
+                padding: 0.75rem;
+            }
+            .learning-card {
+                padding: 1.5rem;
+                border-radius: 1.75rem;
+                gap: 1rem;
+            }
+            .learning-badge {
+                width: 65px;
+                height: 65px;
+                font-size: 2.25rem;
+            }
+            .learning-question-box {
+                padding: 1rem 0.75rem;
+                margin-bottom: 0.75rem;
+            }
+            .comp-item {
+                padding: 0.85rem 1rem;
+                gap: 10px;
+            }
+            .btn-continue-learn {
+                padding: 0.85rem 1.5rem;
+                margin-top: 0.25rem;
+            }
         }
 
         /* --- Progress Dashboard --- */
@@ -183,7 +460,11 @@
 <body>
 
     <!-- Main Header -->
-    <div class="header-bg text-center no-print no-distract" id="main-header">
+    <div class="header-bg text-center no-print no-distract" id="main-header" style="position: relative;">
+        <!-- Manual Native Fullscreen Toggle for fallbacks and immediate user overrides -->
+        <button class="btn btn-sm btn-outline-light position-absolute top-50 translate-middle-y end-0 me-3 rounded-pill px-3" onclick="toggleNativeFullScreen()" id="fs-toggle-btn">
+            <i class="bi bi-arrows-fullscreen me-1"></i> Fullscreen
+        </button>
         <h2 class="fw-bold mb-0" style="cursor: pointer;" onclick="setMobileTab('hub')">
             <i class="bi bi-mortarboard-fill me-2"></i>Smart Portal <span class="badge bg-warning text-dark fs-6 ms-2">✨ Class 2</span>
         </h2>
@@ -301,7 +582,7 @@
                 </div>
             </div>
 
-            <!-- VIEW 2: OFFLINE PREVIEW (PAPER GENERATOR) -->
+            <!-- VIEW 2: OFFLIVE PREVIEW (PAPER GENERATOR) -->
             <div id="preview-container" style="display: none; width: 100%;">
                 <div class="action-bar no-distract flex-wrap gap-2">
                     <div class="d-flex align-items-center gap-2 mb-1 mb-lg-0 w-100 w-lg-auto">
@@ -375,7 +656,7 @@
                     
                     <div class="row g-3 mb-4 text-center">
                         <div class="col-6 col-md-4"><div class="p-3 bg-primary bg-opacity-10 rounded-3 border border-primary border-opacity-25"><h3 class="fw-bold text-primary mb-0" id="stat-total-tests">0</h3><small class="text-muted fw-bold text-uppercase">Tests Taken</small></div></div>
-                        <div class="col-6 col-md-4"><div class="p-3 bg-success bg-opacity-10 rounded-3 border border-success border-opacity-25"><h3 class="fw-bold text-success mb-0" id="stat-avg-score">0%</h3><small class="text-muted fw-bold text-uppercase">Avg Score</small></div></div>
+                        <div class="col-6 col-md-4"><div class="p-3 bg-success bg-opacity-10 rounded-3 border border-success border-opacity-25"><h3 class="fw-bold text-success mb-0" id="stat-average-score">0%</h3><small class="text-muted fw-bold text-uppercase">Avg Score</small></div></div>
                         <div class="col-12 col-md-4"><div class="p-3 bg-warning bg-opacity-10 rounded-3 border border-warning border-opacity-25"><h3 class="fw-bold text-warning mb-0" id="stat-best-score">0%</h3><small class="text-muted fw-bold text-uppercase">Best Score</small></div></div>
                     </div>
 
@@ -386,6 +667,9 @@
 
         </main>
     </div>
+
+    <!-- 🌟 Portal Screen Viewport Overlay 🌟 -->
+    <div id="ot-learning-overlay" class="learning-overlay d-none"></div>
 
     <!-- 🌟 Supercharged Live Test Setup Modal 🌟 -->
     <div class="modal fade" id="liveTestModal" tabindex="-1">
@@ -486,186 +770,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- ========================================================== -->
-    <!-- 1. DATA: MULTI-SUBJECT DATABASE (ISOLATED)                 -->
+    <!-- 1. DATA: MULTI-SUBJECT DATABASE (INLINED)                 -->
     <!-- ========================================================== -->
-     
-    <script>
-        // Define how specific categories map to icons for the Kid's setup UI
-        const CATEGORY_ICONS = {
-            'one_word': { icon: '💬', title: 'One Word', desc: 'Quick Ans' },
-            'name_following': { icon: '🏷️', title: 'Name It', desc: 'Identify' },
-            'fill_blanks': { icon: '✍️', title: 'Fill Blanks', desc: 'Complete it' },
-            'true_false': { icon: '✔️', title: 'True/False', desc: 'Fact Check' },
-            'match_following': { icon: '🔗', title: 'Match Pairs', desc: 'Connect' },
-            'rearrange': { icon: '🧩', title: 'Rearrange', desc: 'Unscramble' },
-            'missing_letters': { icon: '🔤', title: 'Missing Ltrs', desc: 'Spell it' },
-            'mcq_standard': { icon: '🔘', title: 'MCQ', desc: 'Choose 1' },
-            'drawing': { icon: '✏️', title: 'Drawing', desc: 'Diagrams' } // Added to support computer subject drawing
-        };
-
-        const SUBJECT_DATA = {
-            "computer": {
-                id: "computer",
-                title: "Computer Science",
-                icon: "💻",
-                theme: "#8b5cf6", // Purple theme
-                gradient: "linear-gradient(135deg, #8b5cf6, #ec4899)",
-                sections: [
-                    { id: 'mcq_standard', title: 'Choose the correct answer', max: 20, default: 10, marksPerQ: 1 },
-                    { id: 'fill_blanks', title: 'Fill in the blanks', max: 15, default: 5, marksPerQ: 1 },
-                    { id: 'true_false', title: 'Write True or False', max: 14, default: 5, marksPerQ: 1 },
-                    { id: 'one_word', title: 'Name the following', max: 12, default: 5, marksPerQ: 1 },
-                    { id: 'match_following', title: 'Match the following', max: 10, default: 5, marksPerQ: 1 },
-                    { id: 'missing_letters', title: 'Missing Letters', max: 15, default: 5, marksPerQ: 1 },
-                    { id: 'rearrange', title: 'Re-arrange the words', max: 15, default: 5, marksPerQ: 1 },
-                    { id: 'drawing', title: 'Diagram & Drawing', max: 2, default: 1, marksPerQ: 5 }
-                ],
-                bank: {
-                    mcq_standard: [
-                        { q: "CD stands for ___", a: "Compact Disk", options: ["Compact Disk", "Combo Disk", "Combined Disk", "Computer Disk"] },
-                        { q: "A monitor and a printer are examples of ___ devices.", a: "Output", options: ["Output", "Input", "Storage", "Processing"] },
-                        { q: "Which of the following is used to record sound into the computer?", a: "Microphone", options: ["Microphone", "Speaker", "Printer", "Scanner"] },
-                        { q: "___ is used to move the page up and down on the monitor.", a: "Scroll wheel", options: ["Scroll wheel", "Single-click", "Double-click", "Right-click"] },
-                        { q: "___ is used to open the items on a monitor.", a: "Double-click", options: ["Double-click", "Single-click", "Scroll wheel", "Drag and drop"] },
-                        { q: "In schools, computers are used ___", a: "to keep the records of books", options: ["to keep the records of books", "to scan items purchased", "to track criminals", "to cook food"] },
-                        { q: "Computers are used to maintain a list of stock items and their prices in ___", a: "Malls", options: ["Malls", "Banks", "Police stations", "Railway stations"] },
-                        { q: "Computers are used for booking tickets at ___", a: "both of these", options: ["railway stations", "airports", "both of these", "hospitals"] },
-                        { q: "In shopping malls, computers are used ___", a: "to generate bills", options: ["to generate bills", "to type letters", "to send and receive mails", "to test eyesight"] },
-                        { q: "In the banks, computers are used to ___", a: "keep account details of the customers", options: ["keep account details of the customers", "maintain patients' records", "make animated movies", "scan luggage"] },
-                        { q: "AI assistants like Alexa are used to ___", a: "Answer questions and play music", options: ["Answer questions and play music", "Paint pictures", "Drive cars", "Perform operations"] },
-                        { q: "In hospitals, AI helps doctors by ___", a: "Diagnosing illnesses", options: ["Diagnosing illnesses", "Cleaning rooms", "Selling medicines", "Printing tickets"] },
-                        { q: "Which of the following are the basic parts of a computer?", a: "Monitor, keyboard, mouse, and CPU", options: ["Monitor, keyboard, mouse, and CPU", "Speaker, printer, and scanner", "Only monitor and CPU", "UPS and pen drive"] },
-                        { q: "Which of the following is a type of mouse?", a: "Optical mouse", options: ["Optical mouse", "Typing mouse", "Screen mouse", "Audio mouse"] },
-                        { q: "What is a wireless mouse?", a: "A mouse that works without a wire or cord", options: ["A mouse that works without a wire or cord", "A mouse with a very long wire", "A mouse that only works with laptops", "A mouse used only for gaming"] },
-                        { q: "Which of these is an action performed by a mouse?", a: "Drag and drop", options: ["Drag and drop", "Typing numbers", "Scanning documents", "Printing bills"] },
-                        { q: "How does a computer help an eye doctor?", a: "To test eyesight and keep patient records", options: ["To test eyesight and keep patient records", "To book train tickets", "To track criminals", "To withdraw money"] },
-                        { q: "How do computers help in police stations?", a: "To track criminal records and cases", options: ["To track criminal records and cases", "To generate shopping bills", "To print exam papers", "To play music"] },
-                        { q: "How does a computer help in airports?", a: "By booking tickets and tracking flight timings", options: ["By booking tickets and tracking flight timings", "By diagnosing patients", "By maintaining bank accounts", "By scanning groceries"] }
-                    ],
-                    fill_blanks: [
-                        { q: "A ___ looks like a typewriter.", a: "keyboard" },
-                        { q: "The devices which are used to give commands are known as ___ devices.", a: "input" },
-                        { q: "The ____ is also called as Visual Display unit.", a: "Monitor" },
-                        { q: "The ___ is used to play games and make a drawing as well.", a: "mouse" },
-                        { q: "The devices which are used to give results are called ___ devices.", a: "output" },
-                        { q: "A ___ uses computers to make test papers and exam reports.", a: "teacher" },
-                        { q: "A ___ looks like a television screen.", a: "monitor" },
-                        { q: "Computers help doctors to perform ___.", a: "operations" },
-                        { q: "Computers are used to withdraw money from ___.", a: "ATMs" },
-                        { q: "In banks, computers are used to maintain ___ of customers.", a: "accounts" },
-                        { q: "In shopping malls, computers are used to generate ___.", a: "bills" },
-                        { q: "Computers help in booking ___ at railway stations and airports.", a: "tickets" },
-                        { q: "Computers are used to prepare ___ for schools.", a: "timetables" },
-                        { q: "Students can draw and ___ with the help of a computer.", a: "colour" },
-                        { q: "You can solve ___ on a computer.", a: "sums" },
-                        { q: "AI helps doctors in _____.", a: "hospitals" },
-                        { q: "AI robots can ____ your house ", a: "clean" },
-                        { q: "AI helps at ____ to make lesson fun.", a: "schools" },
-                    ],
-                    true_false: [
-                        { q: "CPU is used to take the printout of the work done on a paper.", a: "False", options: ["True", "False"] },
-                        { q: "Speakers are multimedia devices used with a computer.", a: "True", options: ["True", "False"] },
-                        { q: "The monitor is the brain of the computer.", a: "False", options: ["True", "False"] },
-                        { q: "The devices which are used to give output, are called input devices.", a: "False", options: ["True", "False"] },
-                        { q: "The mouse is used to point, select, draw and play games.", a: "True", options: ["True", "False"] },
-                        { q: "Single-click is used to open a document or a window.", a: "False", options: ["True", "False"] },
-                        { q: "Computers are used to store information and data.", a: "True", options: ["True", "False"] },
-                        { q: "In a police station, computers are used to generate bills.", a: "False", options: ["True", "False"] },
-                        { q: "Computers cannot help doctors to test patients.", a: "False", options: ["True", "False"] },
-                        { q: "Computers at banks are used for calculations and to maintain records.", a: "True", options: ["True", "False"] },
-                        { q: "Doctors help computers to perform operations.", a: "False", options: ["True", "False"] },
-                        { q: "Computers are used to prepare timetables.", a: "True", options: ["True", "False"] },
-                        { q: "Computers in the library are used to make exam reports.", a: "False", options: ["True", "False"] },
-                        { q: "Computers at home are used to print medical reports.", a: "False", options: ["True", "False"] },
-                        { q: "Student can draw and colour with the help of a computer.", a: "True", options: ["True", "False"] },
-                        { q: "AI robots can clean your house.", a: "True", options: ["True", "False"] },
-                        { q: "AI helps at schools to make lessons fun.", a: "True", options: ["True", "False"] },
-                        { q: "Computers are used for booking tickets at railway stations and airports.", a: "True", options: ["True", "False"] }        
-                    ],
-                    one_word: [
-                        { q: "The device used to record your voice and other sounds into the computer.", a: "Microphone", options: ["Microphone", "Speaker", "Printer", "Scanner"] },
-                        { q: "A device used to play games and move the pointer on the screen.", a: "Mouse", options: ["Mouse", "Keyboard", "CPU", "Monitor"] },
-                        { q: "A device used to put pictures and documents from paper into the computer.", a: "Scanner", options: ["Scanner", "Printer", "Microphone", "Speaker"] },
-                        { q: "The printed copy of your work on a sheet of paper.", a: "Printout", options: ["Printout", "Soft copy", "Monitor", "Keyboard"] },
-                        { q: "The part that keeps a computer ON for a few minutes even when the electricity goes off.", a: "UPS", options: ["UPS", "CPU", "Pen Drive", "CD"] },
-                        { q: "A small, rectangular board on a laptop that works like a mouse.", a: "Touchpad", options: ["Touchpad", "Keyboard", "Screen", "Speaker"] },
-                        { q: "A small device used to store and transfer data from one computer to another.", a: "Pen drive", options: ["Pen drive", "Monitor", "Printer", "Scanner"] },
-                        { q: "A place where computers are used to make your school projects.", a: "Home", options: ["Home", "Police station", "Bank", "Hospital"] },
-                        { q: "A place where computers are used to track criminal records.", a: "Police station", options: ["Police station", "School", "Airport", "Shopping mall"] },
-                        { q: "A place where computers are used to make test papers.", a: "School", options: ["School", "Police station", "Airport", "Shopping mall"] },
-                        { q: "A place where computers are used to maintain a list of items and their prices.", a: "Shopping mall", options: ["Hospitals", "Schools", "Banks", "Shopping mall"] },
-                        { q: "A place where computers are used to scan the items purchased.", a: "Shopping mall", options: ["Shopping mall", "Hospital", "Bank", "Railway station"] },
-                        { q: "A place where computers are used to withdraw money from an ATM.", a: "Bank", options: ["Bank", "School", "Hospital", "Police station"] },
-                        { q: "The person who uses computers to prepare exam reports.", a: "Teacher", options: ["Teacher", "Doctor", "Police", "Pilot"] },
-                        { q: "A place where computers are used to make flight bookings.", a: "Airports", options: ["Airports", "Banks", "Hospitals", "Schools"] },
-                        { q: "A place where computers are used to keep patient records.", a: "Hospital", options: ["Hospital", "Bank", "School", "Police station"] }
-                    ],
-                    match_following: [
-                        { q: "It looks like a television screen. It has a power button to turn it ON and OFF.", a: "Monitor" },
-                        { q: "It controls the functioning of all parts of the computer.", a: "CPU" },
-                        { q: "I am used to take printouts of the work done on the computer.", a: "Printer" },
-                        { q: "It has several keys.", a: "Keyboard" },
-                        { q: "It is used to hear sounds and music without disturbing others.", a: "Headphones" },
-                        { q: "To make test papers and interactive lessons.", a: "School" },
-                        { q: "To help doctors diagnose patients.", a: "Hospital" },
-                        { q: "To manage accounts and keep money safe.", a: "Bank" },
-                        { q: "To book tickets for flights and trains.", a: "Airports" },
-                        { q: "A pointing device used to draw pictures and select items on the screen.", a: "Mouse" },
-                        { q: "Used to listen to loud music and sounds from the computer.", a: "Speakers" },
-                        { q: "Used to record your voice and other sounds into the computer.", a: "Microphone" },
-                        { q: "Keeps the computer ON for some time when the electricity goes off.", a: "UPS" },
-                        { q: "To track criminal records and keep information about cases.", a: "Police Station" },
-                        { q: "To scan purchased items and generate bills for customers.", a: "Shopping Mall" }
-                    ],
-                    missing_letters: [
-                        { q: "Complete the word: M _ U _ E", a: "MOUSE", options: ["MOUSE", "MAUSE", "MIUSE", "MEUSE"] },
-                        { q: "Complete the word: W I _ E _ E S S", a: "WIRELESS", options: ["WIRELESS", "WORELESS", "WARELESS", "WURELESS"] },
-                        { q: "Complete the word: O _ T I _ A L", a: "OPTICAL", options: ["OPTICAL", "OVTICAL", "OSTICAL", "ONTICAL"] },
-                        { q: "Complete the word: S C _ O _ L I N G", a: "SCROLLING", options: ["SCROLLING", "SCRALLING", "SCRELLING", "SCRULLING"] },
-                        { q: "Complete the word: K E _ B O _ R D", a: "KEYBOARD", options: ["KEYBOARD", "KAYBOARD", "KOYBOARD", "KIYBOARD"] },
-                        { q: "Complete the word: M O _ I _ O R", a: "MONITOR", options: ["MONITOR", "MANITOR", "MENITOR", "MUNITOR"] },
-                        { q: "Complete the word:S _ A N N_ R", a: "SCANNER", options: ["SCANNER", "SCANNAR", "SCANER", "SCANNIR"] },
-                        { q: "Complete the word: T _ M _ T A B _ E", a: "TIMETABLE", options: ["TIMETABLE", "TAMETABLE", "TOMETABLE", "TEMETABLE"] },
-                        { q: "Complete the word: H O _ P I T _ L", a: "HOSPITAL", options: ["HOSPITAL", "HASPITAL", "HESPITAL", "HUSPITAL"] },
-                        { q: "Complete the word: L I _ R A _ Y", a: "LIBRARY", options: ["LIBRARY", "LOBRARY", "LEBRARY", "LABRARY"] },
-                        { q: "Complete the word: M _ S S A _ E", a: "MESSAGE", options: ["MESSAGE", "MASSAGE", "MOSSAGE", "MISSAGE"] },
-                        { q: "Complete the word: D R A W _ N _", a: "DRAWING", options: ["DRAWING", "DROWING", "DREWING", "DREAWING"] },
-                        { q: "Complete the word: H O _ E W O _ K", a: "HOMEWORK", options: ["HOMEWORK", "HAMEWORK", "HEMEWORK", "HIMEWORK"] },
-                        { q: "Complete the word: T _ A C H I _ G", a: "TEACHING", options: ["TEACHING", "TOACHING", "TAACHING", "TUUCHING"] },
-                        { q: "Complete the word: B _ N K _ N G", a: "BANKING", options: ["BANKING", "BONKING", "BENKING", "BUNKING"] },
-                        { q: "Complete the word: R E _ O R _ S", a: "REPORTS", options: ["REPORTS", "RAPORTS", "RIPORTS", "ROPURTS"] },
-                        { q: "Complete the word: P R I N _ E R", a: "PRINTER", options: ["PRINTER", "PRINER", "PRINTR", "PRINTE"] },
-                        { q: "Complete the word: S P E A K _ R S", a: "SPEAKERS", options: ["SPEAKERS", "SPEEKARS", "SPAKERS", "SPOEKARS"] },
-                    ],
-                    rearrange: [
-                        { q: "Unscramble 'ROTINOM':", a: "MONITOR", options: ["MONITOR", "MINOTOR", "MONOTIR", "MONITER"] },
-                        { q: "Unscramble 'RDOABYEK':", a: "KEYBOARD", options: ["KEYBOARD", "KYEBOARD", "KEYBAORD", "KYEBOADR"] },
-                        { q: "Unscramble 'RETNIRP':", a: "PRINTER", options: ["PRINTER", "PRENTIR", "PRANTIR", "PRONTIR"] },
-                        { q: "Unscramble 'HPORCIMONE':", a: "MICROPHONE", options: ["MICROPHONE", "MACROPHONE", "MECROPHONE", "MOCROPHONE"] },
-                        { q: "Unscramble 'ESUOM':", a: "MOUSE", options: ["MOUSE", "MUOSE", "MESOU", "MOESU"] },
-                        { q: "Unscramble 'REKAPSES':", a: "SPEAKERS", options: ["SPEAKERS", "SPEEKARS", "SPAKERS", "SPOEKARS"] },
-                        { q: "Unscramble 'GNILLORCS':", a: "SCROLLING", options: ["SCROLLING", "SCRALLING", "SCROLLENG", "SCRULLING"] },
-                        { q: "Unscramble 'SSELERIW':", a: "WIRELESS", options: ["WIRELESS", "WIRELOSS", "WARILESS", "WERILESS"] },
-                        { q: "Unscramble 'EOMH':", a: "HOME", options: ["HOME", "HEMO", "HMOE", "HOEM"] },
-                        { q: "Unscramble 'CHOOSL':", a: "SCHOOL", options: ["SCHOOL", "SHCOOL", "SCOHOL", "SCHLOO"] },
-                        { q: "Unscramble 'NKBA':", a: "BANK", options: ["BANK", "BKNK", "BKAN", "BNAK"] },
-                        { q: "Unscramble 'OECIFF':", a: "OFFICE", options: ["OFFICE", "OFIFCE", "OFICFE", "OFCIFE"] },
-                        { q: "Unscramble 'HSPO':", a: "SHOP", options: ["SHOP", "SOHP", "SPHO", "SHPO"] },
-                        { q: "Unscramble 'IGNAMB':", a: "GAMING", options: ["GAMING", "GIMANG", "GAMNIG", "GANMIG"] },
-                        { q: "Unscramble 'ILLIGNB':", a: "BILLING", options: ["BILLING", "BILINGL", "BLLINIG", "BILNIGL"] },
-                        { q: "Unscramble 'TGNIEACH':", a: "TEACHING", options: ["TEACHING", "TAECHING", "TIECHING", "TOACHING"] },
-                        { q: "Unscramble 'ITALHOSP':", a: "HOSPITAL", options: ["HOSPITAL", "HOSPITEL", "HASPITAL", "HOSPITOL"] }
-                    ],
-                    drawing: [
-                        { q: "Draw and label any two parts of a computer.", a: "[Draw Diagram]", options: ["[Draw Diagram]"] },
-                        { q: "Draw two devices that are used to store data (e.g., Pen drive, CD).", a: "[Draw Storage Devices]", options: ["[Draw Storage Devices]"] }
-                    ]
-                }
-            }
-        };
-
-        const ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
-    </script>
+    <script src="subject-data.js"> </script>
 
     <!-- ========================================================== -->
     <!-- 2. APPLICATION LOGIC & TEST ENGINE                         -->
@@ -694,12 +801,17 @@
                     }
                     else if (category === 'fill_blanks') {
                         base.type = "fill_blank_click";
-                        let opts = [q.a, ...getDistractors(q.a, 3)];
+                        let opts;
+                        if (q.options && q.options.length > 0) {
+                            opts = q.options;
+                        } else {
+                            opts = [q.a, ...getDistractors(q.a, 3)];
+                        }
                         base.options = shuffleArray(opts).map((text, i) => ({ id: `opt_${i}`, text: text }));
                         base.segments = q.q.split('___');
                         if(base.segments.length === 1) base.segments.push(''); 
                     }
-                    else { // Default to MCQ (true_false, one_word, rearrange, mcq_standard, drawing)
+                    else { // Default to MCQ (true_false, one_word, rearrange, mcq_standard)
                         base.type = "mcq";
                         if (q.options) {
                             base.options = shuffleArray(q.options).map((txt, i) => ({ id: String.fromCharCode(65 + i), text: txt }));
@@ -733,7 +845,80 @@
         }
 
         // ==========================================
-        // 4. UI HANDLERS (HUB & ROUTING)
+        // 4. BROWSER-NATIVE FULLSCREEN SERVICES
+        // ==========================================
+        function enterFullScreen() {
+            const docEl = document.documentElement;
+            try {
+                let p;
+                if (docEl.requestFullscreen) {
+                    p = docEl.requestFullscreen();
+                } else if (docEl.webkitRequestFullscreen) {
+                    p = docEl.webkitRequestFullscreen();
+                } else if (docEl.msRequestFullscreen) {
+                    p = docEl.msRequestFullscreen();
+                }
+                if (p && typeof p.catch === 'function') {
+                    p.catch(err => console.warn("Fullscreen request declined: ", err));
+                }
+            } catch (err) {
+                console.warn("Fullscreen request declined or restricted by sandbox: ", err);
+            }
+        }
+        
+        function exitFullScreen() {
+            // Only attempt to exit if we are actually in fullscreen mode
+            if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                return;
+            }
+            try {
+                let p;
+                if (document.exitFullscreen) {
+                    p = document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    p = document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    p = document.msExitFullscreen();
+                }
+                if (p && typeof p.catch === 'function') {
+                    p.catch(err => console.warn("Exit fullscreen declined: ", err));
+                }
+            } catch (err) {
+                console.warn("Exit fullscreen declined: ", err);
+            }
+        }
+
+        function toggleNativeFullScreen() {
+            if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                enterFullScreen();
+                updateFsButton(true);
+            } else {
+                exitFullScreen();
+                updateFsButton(false);
+            }
+        }
+
+        function updateFsButton(isFS) {
+            const btn = document.getElementById('fs-toggle-btn');
+            if (btn) {
+                if (isFS) {
+                    btn.innerHTML = `<i class="bi bi-fullscreen-exit me-1"></i> Exit Full`;
+                } else {
+                    btn.innerHTML = `<i class="bi bi-arrows-fullscreen me-1"></i> Fullscreen`;
+                }
+            }
+        }
+
+        // Sync Fullscreen browser change triggers
+        document.addEventListener('fullscreenchange', () => {
+            updateFsButton(!!document.fullscreenElement);
+        });
+        document.addEventListener('webkitfullscreenchange', () => {
+            updateFsButton(!!document.webkitFullscreenElement);
+        });
+
+        // ==========================================
+        // 5. UI HANDLERS (HUB & ROUTING)
         // ==========================================
         function initHub() {
             const grid = document.getElementById('subject-grid');
@@ -751,6 +936,9 @@
         }
 
         function selectSubject(subjectKey) {
+            // Native Fullscreen mode engaged automatically on subject card clicks
+            enterFullScreen();
+
             currentSubject = SUBJECT_DATA[subjectKey];
             activeNormalizedBank = normalizeBank(currentSubject.bank);
             
@@ -791,6 +979,11 @@
             const sidebar = document.getElementById('sidebar');
             const mobileNav = document.getElementById('mobile-nav');
             const mainHeader = document.getElementById('main-header');
+
+            // Exit native fullscreen mode when explicitly returning back to the subject chooser hub
+            if (tab === 'hub') {
+                exitFullScreen();
+            }
 
             // Hide all first
             hub.style.display = 'none'; home.style.display = 'none'; preview.style.display = 'none'; 
@@ -833,7 +1026,7 @@
         }
 
         // ==========================================
-        // 5. OFFLINE GENERATOR LOGIC
+        // 6. OFFLINE GENERATOR LOGIC
         // ==========================================
         function initConfigUI() {
             if(!currentSubject) return;
@@ -866,6 +1059,7 @@
             document.getElementById('presetSize').value = 'custom'; updateLiveSummary();
         }
 
+        // Sync slider and numerical input inside teachers set configuration
         function syncInputs(id, source) {
             const slider = document.getElementById(`slider-${id}`); const num = document.getElementById(`num-${id}`); const max = parseInt(num.max); let val = parseInt(source === 'slider' ? slider.value : num.value);
             if (isNaN(val) || val < 1) val = 1; if (val > max) { val = max; showToast(`Maximum allowed is ${max}`, true); }
@@ -961,7 +1155,7 @@
 
             offlineState.sets.forEach((set, sIdx) => {
                 let pageHtml = buildPaperHeader(set.setName, offlineState.sets.length > 1);
-                set.sections.forEach((sec, secIdx) => { pageHtml += buildSectionHtml(sec, sIdx, secIdx); });
+                set.sections.forEach((sec, secIndex) => { pageHtml += buildSectionHtml(sec, sIdx, secIndex); });
                 pageHtml += buildPaperFooter();
                 wrapper.insertAdjacentHTML('beforeend', `<div class="a4-page shadow-sm">${pageHtml}</div>`);
             });
@@ -974,6 +1168,7 @@
             document.querySelectorAll('.btn-theme-bg').forEach(b => b.style.backgroundColor = currentSubject.theme);
         }
 
+        // corrected parameters of buildSectionHtml to prevent ReferenceErrors on sectionIndex / secIndex mismatch
         function buildSectionHtml(sec, setIndex, secIndex) {
             let markVal = (sec.items.length * sec.marksPerQ);
             let titleStr = `<b>${ROMAN[secIndex + 1]}. ${sec.title}:</b> <span style="float: right;">[${sec.items.length} x ${sec.marksPerQ} = ${markVal}]</span>`;
@@ -999,11 +1194,6 @@
                      let displayWord = qObj.question.replace("Unscramble ", "").replace(":", "");
                      content += `<div class="q-row px-1 py-1" style="margin-bottom: 8px;"><span>${i + 1}. ${displayWord}</span><span class="blank-line" style="width: 150px;"></span></div>`;
                  });
-            }
-            else if (['drawing'].includes(sec.id)) {
-                sec.items.forEach((qObj, i) => {
-                    content += `<div class="q-row px-1 py-1" style="margin-bottom: 8px; height: 150px;"><span>${i + 1}. ${qObj.question}</span></div>`;
-                });
             }
             else {
                 sec.items.forEach((qObj, i) => { content += `<div class="q-row px-1 py-1" style="margin-bottom: 8px;"><span>${i + 1}. ${qObj.question}</span> [ _________ ]</div>`; });
@@ -1032,7 +1222,7 @@
         }
 
         // ==========================================
-        // 6. LIVE TEST ENGINE (Kids Mode)
+        // 7. LIVE TEST ENGINE (Kids Mode)
         // ==========================================
         function validateStudentName() {
             const nameInput = document.getElementById('studentNameInput');
@@ -1063,6 +1253,9 @@
 
             const limitVal = document.getElementById('topicQLimit').value;
             if (limitVal !== 'all') { const limit = parseInt(limitVal); qsRaw = qsRaw.slice(0, limit); }
+            
+            // Fullscreen is automatically called here on student interaction
+            enterFullScreen();
             processAndLaunchLiveTest(qsRaw);
         }
 
@@ -1076,7 +1269,6 @@
             
             // Initialize available sections for the current subject
             currentSubject.sections.forEach(sec => {
-                if (sec.id === 'drawing') return; // Skip drawing for live test mix and match
                 screenCounts[sec.id] = 0;
                 let bLength = activeNormalizedBank[sec.id] ? activeNormalizedBank[sec.id].length : 0;
                 maxScreens[sec.id] = sec.id === 'match_following' ? Math.floor(bLength / 4) : bLength;
@@ -1101,11 +1293,14 @@
                 }
             }
             qsRaw = shuffleArray(qsRaw);
+
+            // Fullscreen engaged for play matches
+            enterFullScreen();
             processAndLaunchLiveTest(qsRaw);
         }
 
         function processAndLaunchLiveTest(rawQuestions) {
-            let interactiveQuestions = rawQuestions.filter(q => ['mcq', 'fill_blank_click', 'matching_pair_candidate'].includes(q.type) && q.category !== 'drawing');
+            let interactiveQuestions = rawQuestions.filter(q => ['mcq', 'fill_blank_click', 'matching_pair_candidate'].includes(q.type));
             let candidates = interactiveQuestions.filter(q => q.type === 'matching_pair_candidate');
             let otherQuestions = interactiveQuestions.filter(q => q.type !== 'matching_pair_candidate');
 
@@ -1146,6 +1341,7 @@
 
         function renderOnlineQuestion() {
             window.removeEventListener('resize', redrawMatchLines);
+            document.getElementById('ot-learning-overlay').classList.add('d-none');
             
             const qObj = onlineState.questions[onlineState.currentIndex]; 
             const qIndex = onlineState.currentIndex; 
@@ -1174,11 +1370,9 @@
                 document.getElementById('ot-interface').classList.add('full-width-grid'); document.getElementById('ot-left-panel').style.display = 'none';
                 let isTrueFalse = (qObj.category === 'true_false'); let gridClass = isTrueFalse ? 'mcq-grid-1x2' : 'mcq-grid-2x2';
                 let optionsHtml = `<div class="${gridClass} w-100">`;
-                if(qObj.options) {
-                    qObj.options.forEach((opt, idx) => {
-                        optionsHtml += `<button class="mcq-btn animate-fade" style="color: ${currentSubject.theme};" onclick="submitOnlineAnswer(this, '${opt.id}')"><span class="text-secondary opacity-75 fw-bolder me-3">(${String.fromCharCode(65 + idx)})</span><span>${opt.text}</span></button>`;
-                    });
-                }
+                qObj.options.forEach((opt, idx) => {
+                    optionsHtml += `<button class="mcq-btn animate-fade" style="color: ${currentSubject.theme};" onclick="submitOnlineAnswer(this, '${opt.id}')"><span class="text-secondary opacity-75 fw-bolder me-3">(${String.fromCharCode(65 + idx)})</span><span>${opt.text}</span></button>`;
+                });
                 optionsHtml += '</div>';
                 let displayQText = qObj.question.replace(/'([^']+)'/g, "<span class='highlight-word'>'$1'</span>");
                 document.getElementById('ot-options-box').innerHTML = `<div class="text-center w-100">${sectionTitleHtml}</div><h4 class="kid-question-text w-100 animate-fade text-center">${displayQText}</h4>${optionsHtml}`; 
@@ -1200,7 +1394,67 @@
                 document.getElementById(zone.getAttribute('data-btn-id')).classList.remove('hidden-pill');
                 zone.innerText = ''; zone.classList.replace('filled', 'empty'); zone.removeAttribute('data-btn-id');
                 zone.style.borderColor = ''; zone.style.color = ''; document.getElementById('btn-go-check').disabled = true;
+                zone.classList.remove('wrong-zone', 'correct-zone');
             }
+        }
+
+        /* --- IMMERSIVE WRONG RESPONSE PEDAGOGY ENGINE --- */
+        function showLearningOverlay(questionText, givenAns, correctAns, onContinueAction) {
+            const overlay = document.getElementById('ot-learning-overlay');
+            if (!overlay) return;
+
+            const gentleTips = [
+                "That's Okay! Let's Learn! 💡",
+                "Ah, So Close! Try This! 🔍",
+                "Mistakes Help Us Grow! 🌱",
+                "Super Tip for Next Time! ⚡"
+            ];
+
+            let title = gentleTips[Math.floor(Math.random() * gentleTips.length)];
+            let badgeClass = "wrong-badge";
+            let badgeEmoji = "💡";
+            let titleColor = "#ef4444";
+
+            // Fully responsive layout featuring the enlarged, outstanding Question Block
+            overlay.innerHTML = `
+                <div class="learning-card">
+                    <div class="learning-badge ${badgeClass}">${badgeEmoji}</div>
+                    <h2 class="fw-bold mb-2" style="color: ${titleColor}; font-family: 'Comic Sans MS', sans-serif; font-size: clamp(1.4rem, 3vw, 1.85rem);">${title}</h2>
+                    
+                    <div class="learning-question-box">
+                        <div class="learning-question-title"><i class="bi bi-question-circle-fill me-1"></i> The Question</div>
+                        <div class="learning-question-content">${questionText}</div>
+                    </div>
+
+                    <div class="comparison-box">
+                        <div class="comp-item wrong-item">
+                            <span style="font-size: 1.4rem;">❌</span>
+                            <div>
+                                <div class="small opacity-75" style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">Your Choice</div>
+                                <div>${givenAns}</div>
+                            </div>
+                        </div>
+                        <div class="comp-item correct-item">
+                            <span style="font-size: 1.4rem;">💡</span>
+                            <div>
+                                <div class="small opacity-75" style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">Correct Answer</div>
+                                <div>${correctAns}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-continue-learn text-white animate-fade" style="background-color: ${currentSubject.theme};" id="btn-continue-learning-card">
+                        Got It! Let's Keep Going 🚀
+                    </button>
+                </div>
+            `;
+
+            overlay.classList.remove('d-none');
+
+            document.getElementById('btn-continue-learning-card').onclick = () => {
+                overlay.classList.add('d-none');
+                onContinueAction();
+            };
         }
 
         function submitFillBlank() {
@@ -1216,10 +1470,25 @@
             } else { zone.classList.add('wrong-zone'); onlineState.wrongScore++; document.getElementById('ot-wrong').innerText = onlineState.wrongScore; }
 
             onlineState.answers.push({ category: q.category, question: q.question, givenAns: givenAns, correctAns: q.answerText, isCorrect: isPerfect });
-            const fbEl = document.getElementById('ot-feedback');
-            fbEl.innerHTML = isPerfect ? `<div class="text-success animate-fade"><i class="bi bi-star-fill text-warning bounce-anim me-2"></i> Perfect!</div>` : `<div class="text-danger animate-fade"><i class="bi bi-emoji-frown me-2"></i> Oops! The right word was <b>${q.answerText}</b></div>`;
             document.getElementById('btn-go-check').disabled = true;
-            setTimeout(() => { onlineState.currentIndex++; if (onlineState.currentIndex >= onlineState.questions.length) showFunResultModal(); else renderOnlineQuestion(); }, 3000);
+
+            if (isPerfect) {
+                // Instantly advance for correct answer after celebrating Victory
+                setTimeout(() => {
+                    onlineState.currentIndex++; 
+                    if (onlineState.currentIndex >= onlineState.questions.length) showFunResultModal(); 
+                    else renderOnlineQuestion();
+                }, 1500);
+            } else {
+                // Open learning overlay for wrong answers after shaking effect finishes
+                setTimeout(() => {
+                    showLearningOverlay(q.question, givenAns, q.answerText, () => {
+                        onlineState.currentIndex++; 
+                        if (onlineState.currentIndex >= onlineState.questions.length) showFunResultModal(); 
+                        else renderOnlineQuestion();
+                    });
+                }, 700);
+            }
         }
 
         function handleMatchCardClick(side, id) {
@@ -1245,9 +1514,30 @@
 
                 if (qObj.matchesMade >= qObj.totalMatches) {
                     onlineState.score++; document.getElementById('ot-right').innerText = onlineState.score; confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
-                    document.getElementById('ot-feedback').innerHTML = `<div class="text-success animate-fade"><i class="bi bi-star-fill text-warning bounce-anim me-2"></i> Perfect Matching!</div>`;
-                    let mistakes = qObj.tempErrors || 0; onlineState.answers.push({ category: qObj.category, question: "Matching Pairs: " + qObj.pairs.map(p=>p.left).join(', '), givenAns: mistakes === 0 ? "Perfect Match" : `Completed with ${mistakes} mistake(s)`, correctAns: "Match Perfectly", isCorrect: mistakes === 0 });
-                    setTimeout(() => { window.removeEventListener('resize', redrawMatchLines); onlineState.currentIndex++; if (onlineState.currentIndex >= onlineState.questions.length) showFunResultModal(); else renderOnlineQuestion(); }, 2000);
+                    let mistakes = qObj.tempErrors || 0; 
+                    onlineState.answers.push({ category: qObj.category, question: "Matching Pairs: " + qObj.pairs.map(p=>p.left).join(', '), givenAns: mistakes === 0 ? "Perfect Match" : `Completed with ${mistakes} mistake(s)`, correctAns: "Match Perfectly", isCorrect: mistakes === 0 });
+                    
+                    let matchesSummary = qObj.pairs.map(p => `<div style="font-size: 1.05rem; margin-bottom: 6px;">🔗 <b>${p.left}</b> matches with <b>${p.right}</b></div>`).join('');
+                    
+                    if (mistakes === 0) {
+                        // Direct Victory route (confetti, wait, next screen)
+                        setTimeout(() => {
+                            window.removeEventListener('resize', redrawMatchLines);
+                            onlineState.currentIndex++; 
+                            if (onlineState.currentIndex >= onlineState.questions.length) showFunResultModal(); 
+                            else renderOnlineQuestion();
+                        }, 1500);
+                    } else {
+                        // Open Overlay pedagogical advice for the matching errors
+                        setTimeout(() => {
+                            window.removeEventListener('resize', redrawMatchLines);
+                            showLearningOverlay(qObj.question, `Completed with ${mistakes} mistake(s)`, matchesSummary, () => {
+                                onlineState.currentIndex++; 
+                                if (onlineState.currentIndex >= onlineState.questions.length) showFunResultModal(); 
+                                else renderOnlineQuestion();
+                            });
+                        }, 1200);
+                    }
                 }
             } else {
                 drawMatchLine(leftEl, rightEl, '#ef4444', 'error-line'); leftEl.classList.add('error'); rightEl.classList.add('error');
@@ -1273,23 +1563,44 @@
 
         function submitOnlineAnswer(buttonElement, selectedId) {
             const q = onlineState.questions[onlineState.currentIndex]; const isCorrect = (q.answer === selectedId);
+            let selectedText = "";
+
             document.querySelectorAll('#ot-options-box button').forEach(b => {
                 b.disabled = true; b.style.color = ''; b.style.borderColor = ''; b.style.boxShadow = '';
-                if (q.options.find(o => o.id === q.answer).text === b.querySelector('span:nth-child(2)').innerText) b.classList.add('correct');
-                else if (b === buttonElement && !isCorrect) b.classList.add('wrong');
+                const btnText = b.querySelector('span:nth-child(2)').innerText;
+                if (q.options.find(o => o.id === q.answer).text === btnText) b.classList.add('correct');
+                if (b === buttonElement) {
+                    selectedText = btnText;
+                    if (!isCorrect) b.classList.add('wrong');
+                }
             });
+
             if (isCorrect) { onlineState.score++; document.getElementById('ot-right').innerText = onlineState.score; confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 }, zIndex: 2000 }); } 
             else { onlineState.wrongScore++; document.getElementById('ot-wrong').innerText = onlineState.wrongScore; }
 
             onlineState.answers.push({ category: q.category, question: q.question.replace(/<[^>]+>/g, ''), givenAns: q.options.find(o=>o.id === selectedId)?.text || '', correctAns: q.options.find(o=>o.id === q.answer).text, isCorrect: isCorrect });
-            const fbEl = document.getElementById('ot-feedback');
-            fbEl.innerHTML = isCorrect ? `<div class="text-success animate-fade"><i class="bi bi-star-fill text-warning bounce-anim me-2"></i> Excellent!</div>` : `<div class="text-danger animate-fade"><i class="bi bi-emoji-frown me-2"></i> Oops! It was <b>${q.options.find(o => o.id === q.answer).text}</b></div>`;
 
-            setTimeout(() => { onlineState.currentIndex++; if (onlineState.currentIndex >= onlineState.questions.length) showFunResultModal(); else renderOnlineQuestion(); }, 2500);
+            if (isCorrect) {
+                // Instantly advance for correct answer after celebrating Victory
+                setTimeout(() => {
+                    onlineState.currentIndex++; 
+                    if (onlineState.currentIndex >= onlineState.questions.length) showFunResultModal(); 
+                    else renderOnlineQuestion();
+                }, 1500);
+            } else {
+                // Open overlay advice for the wrong answer after visual shake completes
+                setTimeout(() => {
+                    showLearningOverlay(q.question, selectedText, q.options.find(o => o.id === q.answer).text, () => {
+                        onlineState.currentIndex++; 
+                        if (onlineState.currentIndex >= onlineState.questions.length) showFunResultModal(); 
+                        else renderOnlineQuestion();
+                    });
+                }, 700);
+            }
         }
 
         // ==========================================
-        // 7. RESULTS & STATS DASHBOARD
+        // 8. RESULTS & STATS DASHBOARD
         // ==========================================
         function showFunResultModal() {
             document.getElementById('ot-interface').classList.add('d-none');
@@ -1330,7 +1641,7 @@
         function renderProgressDashboard() {
             const history = JSON.parse(localStorage.getItem('portalQuizHistory') || '[]');
             if (history.length === 0) {
-                document.getElementById('stat-total-tests').innerText = '0'; document.getElementById('stat-avg-score').innerText = '0%'; document.getElementById('stat-best-score').innerText = '0%';
+                document.getElementById('stat-total-tests').innerText = '0'; document.getElementById('stat-average-score').innerText = '0%'; document.getElementById('stat-best-score').innerText = '0%';
                 document.getElementById('progress-history-list').innerHTML = '<div class="text-center w-100 text-muted my-5 fw-bold fs-5">No tests taken yet. Start exploring to see your progress!</div>';
                 return;
             }
@@ -1356,7 +1667,7 @@
             });
 
             document.getElementById('stat-total-tests').innerText = history.length;
-            document.getElementById('stat-avg-score').innerText = Math.round(totalPercentage / history.length) + '%';
+            document.getElementById('stat-average-score').innerText = Math.round(totalPercentage / history.length) + '%';
             document.getElementById('stat-best-score').innerText = bestScore + '%';
             document.getElementById('progress-history-list').innerHTML = historyHtml;
         }
@@ -1417,7 +1728,7 @@
         }
 
         // ==========================================
-        // 8. EXPORT UTILITIES 
+        // 9. EXPORT UTILITIES 
         // ==========================================
         function copyTestText() {
             const wrapper = document.getElementById('paper-wrapper'); if (wrapper.children.length === 0 || wrapper.innerHTML.includes('Configure sections')) { showToast("Generate a paper first!", true); return; }
