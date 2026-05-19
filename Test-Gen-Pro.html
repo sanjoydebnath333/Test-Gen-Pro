@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 2 Smart Learning Portal</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Confetti Animation Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <!-- HTML to PDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <style>
+        :root {
+            --primary-bg: #f8fafc;
+            --sidebar-width: 380px;
+            --theme-color: #10b981;
+            --theme-gradient: linear-gradient(135deg, #10b981, #3b82f6);
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease;
+        }
+
+        /* --- UI Layout & Sidebars --- */
+        .header-bg {
+            background: var(--theme-gradient);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+            transition: background 0.5s ease;
+        }
+
+        .layout-container { display: flex; gap: 1.5rem; max-width: 1600px; margin: 0 auto; padding: 1.5rem; transition: all 0.3s ease; }
+        .sidebar { display: flex; width: var(--sidebar-width); flex-shrink: 0; position: sticky; top: 1.5rem; height: calc(100vh - 120px); overflow-y: auto; border-radius: 0.5rem; }
+        .sidebar::-webkit-scrollbar { width: 6px; }
+        .sidebar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .main-content { flex-grow: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; }
+
+        @media (max-width: 991px) {
+            body:not(.distraction-free) { padding-bottom: 90px; }
+            .layout-container { flex-direction: column; padding: 1rem; gap: 1rem; }
+            .sidebar { width: 100%; position: static; height: auto; overflow-y: visible; }
+            .a4-page { width: 100% !important; padding: 15px !important; font-size: 14px !important; }
+            .btn, .form-control, .form-select, .nav-link { min-height: 48px; display: flex; align-items: center; justify-content: center; }
+            .form-control, .form-select { justify-content: flex-start; }
+        }
+
+        .action-bar { position: sticky; top: 1.5rem; z-index: 100; width: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(5px); padding: 1rem; border-radius: 0.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+
+        /* --- Hub & Splash Screens --- */
+        .hub-container, .home-container { width: 100%; max-width: 1000px; padding: 2rem 1rem; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 70vh; animation: fadeSlideUp 0.6s ease; }
+        
+        .subject-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; width: 100%; margin-top: 2rem; }
+        .subject-card { background: white; border-radius: 1.5rem; padding: 2rem; text-align: center; cursor: pointer; border: 4px solid transparent; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; }
+        .subject-card:hover { transform: translateY(-8px); box-shadow: 0 20px 35px -5px rgba(0,0,0,0.1); }
+        .subject-icon { font-size: 4rem; margin-bottom: 1rem; }
+
+        .home-card-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; width: 100%; margin-top: 2rem; }
+        @media (min-width: 768px) { .home-card-grid { grid-template-columns: 1fr 1fr; } }
+        .big-home-card { background: white; border-radius: 2rem; padding: 3rem 2rem; text-align: center; cursor: pointer; border: 4px solid transparent; box-shadow: 0 15px 35px -5px rgba(0,0,0,0.05); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; }
+        .card-live { border-color: #ecfdf5; }
+        .card-live:hover { transform: translateY(-10px) scale(1.02); border-color: var(--theme-color); box-shadow: 0 25px 45px -5px rgba(0,0,0,0.1); }
+        .card-offline { border-color: #f1f5f9; }
+        .card-offline:hover { transform: translateY(-10px) scale(1.02); border-color: #475569; }
+        .home-icon-wrap { width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; margin-bottom: 1.5rem; background: #f8fafc; color: var(--theme-color); }
+
+        /* --- Kid Modal Styles --- */
+        .kid-modal-content { border-radius: 2rem; border: none; overflow: hidden; }
+        .kid-modal-header { background: var(--theme-gradient); color: white; padding: 1.5rem; border: none; }
+        .topic-btn { border: 3px solid #e2e8f0; border-radius: 1.5rem; background: white; padding: 1rem; font-weight: 800; font-size: 1.2rem; color: #334155; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.2s; cursor: pointer; box-shadow: 0 6px 0 #cbd5e1; height: 100%; }
+        .topic-btn:hover { border-color: var(--theme-color); transform: translateY(-4px); box-shadow: 0 10px 0 var(--theme-color); color: var(--theme-color); }
+        .topic-btn:active { transform: translateY(6px); box-shadow: 0 0px 0 var(--theme-color); }
+
+        /* --- A4 Paper --- */
+        .paper-wrapper { display: flex; flex-direction: column; gap: 2rem; align-items: center; padding-bottom: 3rem; width: 100%; }
+        .a4-page { width: 210mm; min-height: 297mm; padding: 20mm; background: white; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-radius: 4px; font-family: 'Times New Roman', Times, serif; font-size: 16px; line-height: 1.6; position: relative; transition: all 0.3s ease; }
+        .section-block { position: relative; padding: 0.5rem; margin-bottom: 0.5rem; border: 1px dashed transparent; border-radius: 4px; transition: all 0.2s ease; }
+        .section-block:hover { border-color: #94a3b8; background-color: #f8fafc; }
+        .q-row { position: relative; transition: background-color 0.2s; border-radius: 4px; }
+        .q-row:hover { background-color: rgba(16, 185, 129, 0.05); }
+        .regen-btn { position: absolute; top: -5px; right: -5px; background: var(--theme-color); color: white; border: none; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transform: scale(0.8); transition: all 0.2s ease; z-index: 5; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .section-block:hover .regen-btn { opacity: 1; transform: scale(1); }
+        .paper-header { text-align: center; margin-bottom: 1.5rem; }
+        .paper-meta { display: flex; justify-content: space-between; font-weight: bold; margin-top: 10px; border-bottom: 2px solid #000; padding-bottom: 5px; }
+
+        /* --- Distraction Free Game UI --- */
+        html.distraction-free, body.distraction-free { padding: 0 !important; background: radial-gradient(circle at 50% 0%, #f8fafc, #e2e8f0) !important; min-height: 100vh; min-height: 100dvh; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0; overflow-x: hidden !important; overflow-y: auto !important; }
+        body.distraction-free .no-distract { display: none !important; }
+        body.distraction-free .layout-container { padding: 1rem; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto; }
+        body.distraction-free .main-content { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; margin: 0 auto; }
+        #online-container { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto; }
+
+        .game-hud { width: 100%; max-width: 1100px; display: flex; justify-content: space-between; align-items: center; margin: 0 auto 1rem auto; padding: 0 0.5rem; }
+        .hud-btn-quit { background: rgba(255,255,255,0.8); backdrop-filter: blur(5px); border: 2px solid white; color: #ef4444; font-weight: 800; border-radius: 100px; padding: 0.5rem 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.2s; }
+        .hud-stats { background: white; border-radius: 100px; padding: 0.5rem 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 15px; font-weight: 800; font-size: 1.1rem; }
+
+        .kid-test-card { background: #ffffff; border-radius: 2rem !important; box-shadow: 0 20px 50px -10px rgba(0,0,0, 0.1); width: 100%; max-width: 1100px; display: flex; flex-direction: column; overflow: hidden; margin: 0 auto 2rem auto; border-top: 8px solid var(--theme-color); }
+        .kid-card-header { padding: 1.2rem 2rem !important; background: #ffffff; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #f8fafc; }
+        .ot-interface-grid { display: grid; grid-template-columns: 1fr; background: #ffffff; }
+        @media (min-width: 1024px) { .ot-interface-grid { grid-template-columns: 1.3fr 0.9fr; min-height: 450px; } .ot-interface-grid.full-width-grid { grid-template-columns: 1fr; } }
+
+        .left-panel { padding: 2.5rem; background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .right-panel { padding: 2.5rem; display: flex; flex-direction: column; justify-content: center; align-items: center; border-top: 3px solid #f1f5f9; }
+        @media (min-width: 1024px) { .right-panel { border-top: none; border-left: 3px solid #f1f5f9; } .full-width-grid .right-panel { border-left: none; border-top: none; } }
+
+        /* Game Text & Interactions */
+        .kid-question-text { font-size: clamp(1.65rem, 4.5vw, 2.1rem); font-weight: 900; color: #0f172a; font-family: 'Nunito', 'Comic Sans MS', sans-serif; margin-bottom: 3.5rem !important; line-height: 1.4; text-shadow: 2px 3px 6px rgba(0,0,0,0.15); }
+        .highlight-word { background-color: #fef08a; border: 3px dotted #f97316; box-shadow: 4px 4px 0px rgba(0,0,0,0.15); padding: 0 12px; border-radius: 8px; display: inline-block; margin: 0 6px; color: #0f172a; text-shadow: none; white-space: nowrap; transform: rotate(-4deg); }
+        
+        .mcq-grid-1x2 { display: grid; grid-template-columns: 1fr; gap: 15px; width: 100%; max-width: 600px; margin: 0 auto; }
+        .mcq-grid-2x2 { display: grid; grid-template-columns: 1fr; gap: 15px; width: 100%; max-width: 800px; margin: 0 auto; }
+        @media (min-width: 577px) { .mcq-grid-1x2 { grid-template-columns: repeat(2, 1fr); } .mcq-grid-2x2 { grid-template-columns: repeat(2, 1fr); } }
+
+        .mcq-btn { background: #ffffff; border: 2px solid #e2e8f0; border-radius: 1.2rem; font-size: clamp(1.1rem, 3vw, 1.4rem); font-weight: 800; color: var(--theme-color); padding: 1.2rem 1.5rem; box-shadow: 0 6px 0 #cbd5e1; transition: all 0.3s; cursor: pointer; text-align: left; display: flex; align-items: center; }
+        .mcq-btn:hover:not(:disabled) { background: #f8fafc; border-color: var(--theme-color); transform: scale(1.05) translateY(-5px); box-shadow: 0 15px 25px rgba(0,0,0,0.1), 0 8px 0 var(--theme-color); z-index: 10; }
+        .mcq-btn:active:not(:disabled) { transform: translateY(6px) scale(0.97); box-shadow: 0 0px 0 #cbd5e1; }
+        .mcq-btn.correct { background: #4ade80; border-color: #22c55e; color: white; box-shadow: 0 6px 0 #16a34a; }
+        .mcq-btn.wrong { background: #f87171; border-color: #ef4444; color: white; box-shadow: 0 6px 0 #dc2626; }
+
+        .btn-theme-bg { background-color: var(--theme-color) !important; color: white !important; transition: all 0.3s ease; }
+        .btn-theme-bg:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
+
+        .btn-go-check { background-color: var(--theme-color); border: none; box-shadow: 0 6px 0 rgba(0,0,0,0.2); color: white; padding: 1rem 3rem; font-size: 1.5rem; border-radius: 100px; transition: all 0.2s; font-weight: 800; }
+        .btn-go-check:hover:not(:disabled) { transform: translateY(-4px); box-shadow: 0 10px 0 rgba(0,0,0,0.2); filter: brightness(1.1); }
+        .btn-go-check:active:not(:disabled) { transform: translateY(6px); box-shadow: 0 0px 0 transparent; }
+
+        .blank-dropzone { display: inline-block; min-width: 140px; height: 60px; text-align: center; border-bottom: 4px dashed #94a3b8; padding: 0 15px; margin: 0 10px; cursor: pointer; font-weight: 800; color: transparent; transition: all 0.2s; vertical-align: middle; position: relative; }
+        .blank-dropzone.empty::after { content: "?"; color: #cbd5e1; font-size: 2.5rem; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+        .blank-dropzone.filled { border: 3px solid var(--theme-color); border-radius: 1rem; color: var(--theme-color); transform: scale(1.05); line-height: 52px; font-size: 2rem; background: white;}
+        .soft-pill-btn { background-color: #f8fafc; border: 2px solid #cbd5e1; color: #475569; border-radius: 50rem; padding: 0.8rem 2rem; font-size: 1.3rem; font-weight: 800; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin: 0.5rem; }
+        .soft-pill-btn:hover { transform: translateY(-4px) scale(1.05); border-color: var(--theme-color); color: var(--theme-color); }
+        .soft-pill-btn.hidden-pill { opacity: 0; transform: scale(0.5); pointer-events: none; }
+
+        .match-card { background-color: #ffffff; border: 3px solid #e2e8f0; border-radius: 1.2rem; padding: 1.2rem; font-size: clamp(1rem, 3vmin, 1.4rem); font-weight: 800; color: #475569; text-align: center; cursor: pointer; transition: all 0.2s; box-shadow: 0 6px 0 #cbd5e1; user-select: none; position: relative; z-index: 20; min-height: 80px; display: flex; align-items: center; justify-content: center;}
+        .match-card:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 10px 0 #cbd5e1; border-color: var(--theme-color); color: var(--theme-color); z-index: 25; }
+        .match-card.selected { border-color: var(--theme-color); color: var(--theme-color); box-shadow: 0 6px 0 var(--theme-color); transform: scale(1.05); z-index: 30; }
+        .match-card.matched { background-color: #dcfce7; border-color: #22c55e; color: #166534; box-shadow: 0 0px 0 transparent; transform: scale(0.95); opacity: 0.8; pointer-events: none; }
+        @keyframes card-shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(4px); } }
+        .match-card.error { animation: card-shake 0.4s both; background-color: #fee2e2 !important; border-color: #ef4444 !important; color: #991b1b !important; box-shadow: 0 4px 0 #ef4444 !important; }
+
+        /* --- Progress Dashboard --- */
+        .progress-card { background: #fff; border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 2px solid #e2e8f0; width: 100%; max-width: 1000px; }
+        .history-list { max-height: 400px; overflow-y: auto; padding-right: 10px; }
+        .history-item { border: 2px solid #f1f5f9; padding: 1rem; border-radius: 1rem; margin-bottom: 0.8rem; display: flex; justify-content: space-between; align-items: center; transition: transform 0.2s; background: white; }
+        
+        @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade { animation: fadeSlideUp 0.4s ease forwards; }
+        @keyframes bounceEmoji { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        .bounce-anim { animation: bounceEmoji 2s infinite ease-in-out; display: inline-block; }
+
+        @media print {
+            body { background: white; }
+            .sidebar, .action-bar, .header-bg, .no-print, .d-lg-none { display: none !important; }
+            .layout-container { display: block; padding: 0; margin: 0; }
+            .paper-wrapper { gap: 0; display: block; }
+            .a4-page { box-shadow: none; margin: 0; padding: 15mm; page-break-after: always; }
+        }
+        .blank-line { display: inline-block; border-bottom: 1px solid #000; width: 100px; margin: 0 5px; }
+    </style>
+</head>
+<body>
+
+    <!-- Main Header -->
+    <div class="header-bg text-center no-print no-distract" id="main-header">
+        <h2 class="fw-bold mb-0" style="cursor: pointer;" onclick="setMobileTab('hub')">
+            <i class="bi bi-mortarboard-fill me-2"></i>Smart Portal <span class="badge bg-warning text-dark fs-6 ms-2">✨ Class 2</span>
+        </h2>
+        <p class="mb-0 text-white-50" id="header-subtitle">Select a subject to begin</p>
+    </div>
+
+    <!-- Mobile Top Navigation Tabs -->
+    <div class="d-lg-none bg-white border-bottom shadow-sm sticky-top z-3 no-print no-distract" id="mobile-nav" style="display: none;">
+        <div class="nav nav-pills nav-fill p-2 gap-1">
+            <button class="nav-link border px-1" onclick="setMobileTab('hub')" id="mt-hub"><i class="bi bi-grid-fill"></i> Subjects</button>
+            <button class="nav-link border px-1" onclick="setMobileTab('home')" id="mt-home"><i class="bi bi-house-door"></i> Menu</button>
+            <button class="nav-link border px-1" onclick="setMobileTab('config')" id="mt-config"><i class="bi bi-printer"></i> Paper</button>
+            <button class="nav-link border px-1" onclick="openLiveTestModal()" id="mt-online"><i class="bi bi-controller"></i> Play</button>
+        </div>
+    </div>
+
+    <!-- Application Layout Container -->
+    <div class="layout-container">
+        
+        <!-- SIDEBAR: Configuration Panel -->
+        <aside class="sidebar flex-column gap-3 no-distract" id="sidebar" style="display: none;">
+            <div class="summary-panel shadow-sm p-3 bg-white rounded">
+                <h6 class="text-uppercase text-secondary fw-bold mb-3"><i class="bi bi-speedometer2 me-2"></i>Paper Summary</h6>
+                <div class="row text-center g-2">
+                    <div class="col-4"><div class="fs-4 fw-bold text-warning" id="sum-marks">0</div><small class="text-secondary opacity-75">Marks</small></div>
+                    <div class="col-4"><div class="fs-4 fw-bold text-info" id="sum-qs">0</div><small class="text-secondary opacity-75">Questions</small></div>
+                    <div class="col-4"><div class="fs-4 fw-bold text-success" id="sum-secs">0</div><small class="text-secondary opacity-75">Sections</small></div>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white fw-bold py-3"><i class="bi bi-gear-fill me-2" style="color: var(--theme-color);"></i>Settings</div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-bold">Preset Paper Generator</label>
+                        <select class="form-select fw-bold border-success text-success" id="presetSize" onchange="applyPreset(this.value)">
+                            <option value="50" selected>50 Marks (Full Test)</option>
+                            <option value="25">25 Marks (Half Test)</option>
+                            <option value="custom">Custom / Mixed</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-bold">Number of Sets (A, B...)</label>
+                        <select class="form-select fw-bold" id="numSets">
+                            <option value="1" selected>1 Set (Standard)</option>
+                            <option value="2">2 Sets (A, B)</option>
+                        </select>
+                    </div>
+                    <div class="form-check form-switch mb-0">
+                        <input class="form-check-input" type="checkbox" id="toggleAnswerKey" checked>
+                        <label class="form-check-label text-muted small fw-bold" for="toggleAnswerKey">Generate Answer Key</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm flex-grow-1 mb-lg-0 mb-4">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+                    <span class="fw-bold"><i class="bi bi-list-check me-2" style="color: var(--theme-color);"></i>Sections</span>
+                    <button class="btn btn-sm btn-link text-decoration-none p-0 fw-bold" onclick="resetConfig()">Reset</button>
+                </div>
+                <div class="card-body p-2" id="config-sections">
+                    <!-- Config blocks injected via JS -->
+                </div>
+                <!-- Generate Button for Mobile -->
+                <div class="card-footer bg-white border-0 p-3 d-lg-none position-sticky bottom-0 shadow" style="z-index: 10;">
+                    <button class="btn w-100 fw-bold shadow-sm text-white btn-theme-bg py-3 fs-5" onclick="handleGenerateAction()">
+                        <i class="bi bi-magic me-2"></i>Generate Paper
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+            
+            <!-- VIEW 0: SUBJECT HUB -->
+            <div id="hub-container" class="hub-container">
+                <div class="text-center mb-4">
+                    <h1 class="display-4 fw-bold text-dark" style="font-family: 'Comic Sans MS', sans-serif;">Hello Explorer!</h1>
+                    <p class="fs-4 text-muted">Which subject do you want to learn today?</p>
+                </div>
+                <div class="subject-grid" id="subject-grid">
+                    <!-- Injected via JS -->
+                </div>
+                <div class="mt-5 pt-3">
+                    <button class="btn btn-warning btn-lg rounded-pill fw-bold shadow-sm px-5 py-3" onclick="setMobileTab('progress')">
+                        <i class="bi bi-star-fill text-dark me-2"></i> View My Global Progress
+                    </button>
+                </div>
+            </div>
+
+            <!-- VIEW 1: SUBJECT HOME MENU -->
+            <div id="home-container" class="home-container" style="display: none;">
+                <div class="w-100 mb-2">
+                    <button class="btn btn-light fw-bold shadow-sm rounded-pill px-4" onclick="setMobileTab('hub')"><i class="bi bi-arrow-left me-2"></i>Change Subject</button>
+                </div>
+                <div class="text-center mb-4">
+                    <div id="sh-icon" style="font-size: 5rem;" class="bounce-anim mb-2">🌍</div>
+                    <h1 class="display-4 fw-bold text-dark" id="sh-title" style="font-family: 'Comic Sans MS', sans-serif;">Subject Name</h1>
+                </div>
+
+                <div class="home-card-grid">
+                    <div class="big-home-card card-live" onclick="openLiveTestModal()">
+                        <div class="home-icon-wrap icon-live"><i class="bi bi-controller"></i></div>
+                        <h2 class="fw-bold text-dark mb-2">Play Game!</h2>
+                        <p class="text-muted fs-5 mb-0">Interactive quizzes and matching fun.</p>
+                        <div class="mt-4"><span class="badge bg-success fs-6 rounded-pill px-3 py-2">For Students</span></div>
+                    </div>
+                    <div class="big-home-card card-offline" onclick="setMobileTab('config')">
+                        <div class="home-icon-wrap icon-offline"><i class="bi bi-printer"></i></div>
+                        <h2 class="fw-bold text-dark mb-2">Make a Paper</h2>
+                        <p class="text-muted fs-5 mb-0">Generate print-ready mock tests.</p>
+                        <div class="mt-4"><span class="badge bg-secondary fs-6 rounded-pill px-3 py-2">For Teachers</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 2: OFFLINE PREVIEW (PAPER GENERATOR) -->
+            <div id="preview-container" style="display: none; width: 100%;">
+                <div class="action-bar no-distract flex-wrap gap-2">
+                    <div class="d-flex align-items-center gap-2 mb-1 mb-lg-0 w-100 w-lg-auto">
+                        <button class="btn btn-outline-dark fw-bold shadow-sm d-none d-lg-block" onclick="setMobileTab('home')"><i class="bi bi-house-door"></i> Menu</button>
+                        <button class="btn px-4 fw-bold shadow-sm text-white btn-theme-bg flex-grow-1 flex-lg-grow-0" onclick="handleGenerateAction()"><i class="bi bi-magic me-2"></i>Generate Paper</button>
+                        <div id="generation-status" class="text-success fw-bold d-none"><i class="bi bi-check-circle-fill me-1"></i> Ready</div>
+                    </div>
+                    <div class="d-flex gap-2 w-100 w-lg-auto overflow-auto pb-1">
+                        <button class="btn btn-outline-secondary shadow-sm flex-fill text-nowrap" onclick="togglePreviewMode()" id="btn-preview"><i class="bi bi-eye"></i> Preview</button>
+                        <button class="btn btn-outline-primary shadow-sm flex-fill text-nowrap" onclick="copyTestText()"><i class="bi bi-clipboard"></i> Copy</button>
+                        <button class="btn btn-danger shadow-sm fw-bold flex-fill text-nowrap" onclick="exportToPDF()"><i class="bi bi-file-earmark-pdf d-none d-sm-inline me-1"></i> PDF</button>
+                        <button class="btn btn-success shadow-sm fw-bold flex-fill text-nowrap" onclick="exportToWord()"><i class="bi bi-file-earmark-word d-none d-sm-inline me-1"></i> Word</button>
+                    </div>
+                </div>
+                <div id="paper-wrapper" class="paper-wrapper">
+                    <div class="text-center text-muted mt-5 pt-5 w-100">
+                        <i class="bi bi-file-earmark-text display-1 opacity-25"></i>
+                        <h4 class="mt-3 opacity-50">Configure sections and click Generate Paper</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 3: ONLINE TEST ENGINE -->
+            <div id="online-container" style="display: none;">
+                <div class="game-hud animate-fade">
+                    <button class="hud-btn-quit" onclick="showFunResultModal()"><i class="bi bi-x-lg fw-bold"></i><span class="d-none d-sm-inline ms-2">Quit</span></button>
+                    <div class="hud-stats text-success">
+                        <span><i class="bi bi-check-circle-fill text-success"></i> <span id="ot-right">0</span></span>
+                        <span class="text-secondary opacity-50">|</span>
+                        <span><i class="bi bi-x-circle-fill text-danger"></i> <span id="ot-wrong">0</span></span>
+                    </div>
+                </div>
+                <div class="kid-test-card animate-fade" id="game-card">
+                    <div class="kid-card-header">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="p-2 rounded-circle border shadow-sm bounce-anim" id="game-icon" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; background: #f8fafc;">🌍</div>
+                            <div><h5 class="fw-bold mb-0" id="game-title" style="font-family: 'Comic Sans MS', sans-serif;">Explorer</h5></div>
+                        </div>
+                        <div class="d-flex flex-column align-items-end" style="width: 150px;">
+                            <span class="badge py-1 px-3 rounded-pill fs-6 mb-2 border text-dark" id="ot-progress-text" style="background:#f8fafc;">Q 1 / 10</span>
+                            <div class="progress w-100" style="height: 8px; background-color: #f1f5f9; border-radius: 10px;">
+                                <div class="progress-bar rounded-pill" id="ot-progress-bar" style="width: 10%; transition: width 0.4s ease; background-color: var(--theme-color);"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="ot-interface" class="ot-interface-grid">
+                        <div class="left-panel" id="ot-left-panel">
+                            <div id="ot-question-box" class="w-100 h-100 d-flex flex-column justify-content-center align-items-center"></div>
+                        </div>
+                        <div class="right-panel position-relative" id="ot-right-panel">
+                            <div id="ot-options-box" class="w-100 d-flex flex-column align-items-center"></div>
+                            <div id="ot-feedback" class="mt-4 fw-bold text-center w-100" style="font-size: 1.5rem; min-height: 40px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 4: PROGRESS DASHBOARD -->
+            <div id="progress-container" style="display: none;" class="w-100 p-2 p-md-4">
+                <div class="progress-card mx-auto p-4 p-md-5">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <button class="btn btn-light border rounded-circle shadow-sm d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;" onclick="setMobileTab('hub')">
+                                <i class="bi bi-arrow-left fs-4 text-dark"></i>
+                            </button>
+                            <h2 class="fw-bold text-dark mb-0"><i class="bi bi-graph-up-arrow me-2"></i>Global Progress</h2>
+                        </div>
+                        <button class="btn btn-outline-danger btn-sm rounded-pill fw-bold px-3 py-2" onclick="clearProgressHistory()"><i class="bi bi-trash3 me-1"></i> Clear</button>
+                    </div>
+                    
+                    <div class="row g-3 mb-4 text-center">
+                        <div class="col-6 col-md-4"><div class="p-3 bg-primary bg-opacity-10 rounded-3 border border-primary border-opacity-25"><h3 class="fw-bold text-primary mb-0" id="stat-total-tests">0</h3><small class="text-muted fw-bold text-uppercase">Tests Taken</small></div></div>
+                        <div class="col-6 col-md-4"><div class="p-3 bg-success bg-opacity-10 rounded-3 border border-success border-opacity-25"><h3 class="fw-bold text-success mb-0" id="stat-avg-score">0%</h3><small class="text-muted fw-bold text-uppercase">Avg Score</small></div></div>
+                        <div class="col-12 col-md-4"><div class="p-3 bg-warning bg-opacity-10 rounded-3 border border-warning border-opacity-25"><h3 class="fw-bold text-warning mb-0" id="stat-best-score">0%</h3><small class="text-muted fw-bold text-uppercase">Best Score</small></div></div>
+                    </div>
+
+                    <h5 class="fw-bold text-dark mt-5 mb-3">Detailed History</h5>
+                    <div class="history-list" id="progress-history-list"></div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- 🌟 Supercharged Live Test Setup Modal 🌟 -->
+    <div class="modal fade" id="liveTestModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content kid-modal-content shadow-lg">
+          <div class="kid-modal-header d-flex justify-content-between align-items-center" id="modal-header-bg">
+            <h3 class="modal-title fw-bold mb-0"><i class="bi bi-controller me-2"></i> Game Setup</h3>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body p-4 p-md-5">
+            <div class="mb-5 text-center">
+                <label class="form-label fw-bold text-muted fs-5 mb-3">Who is playing today? 👋 <span class="text-danger">*</span></label>
+                <input type="text" id="studentNameInput" class="form-control form-control-lg text-center rounded-pill fw-bold border-3 mx-auto name-input-glow" style="max-width: 400px; font-size: 1.5rem;" placeholder="Type your name..." maxlength="20">
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-7 border-end-md">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold text-dark mb-0"><i class="bi bi-star-fill text-warning me-2"></i>Specific Topics</h5>
+                        <select id="topicQLimit" class="form-select form-select-sm fw-bold border-2 shadow-sm" style="width: 100px; border-radius: 1rem;">
+                            <option value="5">5 Qs</option><option value="10" selected>10 Qs</option><option value="all">All Qs</option>
+                        </select>
+                    </div>
+                    <div class="row g-3" id="dynamic-topic-buttons">
+                        <!-- Injected via JS based on selected subject -->
+                    </div>
+                </div>
+
+                <div class="col-md-5 d-flex flex-column justify-content-center pt-4 pt-md-0">
+                    <h5 class="fw-bold text-dark mb-3 text-center"><i class="bi bi-shuffle text-success me-2"></i>Mix & Match</h5>
+                    <div class="d-grid gap-3">
+                        <button class="btn btn-outline-success btn-lg fw-bold rounded-pill border-2 shadow-sm" onclick="launchLiveTest(10)">Quick Play (10 Q)</button>
+                        <button class="btn btn-outline-primary btn-lg fw-bold rounded-pill border-2 shadow-sm" onclick="launchLiveTest(20)">Standard (20 Q)</button>
+                        <button class="btn btn-outline-warning btn-lg fw-bold rounded-pill border-2 shadow-sm text-dark" onclick="launchLiveTest(30)">Challenge (30 Q)</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ✨ Fun Result Modal ✨ -->
+    <div class="modal fade" id="funResultModal" tabindex="-1" data-bs-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-5 overflow-hidden">
+          <div class="modal-header border-0 pb-0 justify-content-center text-center mt-3">
+             <h2 class="modal-title fw-bold" id="funResultTitle"></h2>
+          </div>
+          <div class="modal-body text-center pt-2 pb-4 px-4">
+              <div id="funResultEmoji" class="bounce-anim" style="font-size: 6rem; line-height: 1.2;"></div>
+              <div class="mx-auto my-3 d-flex align-items-center justify-content-center bg-opacity-10 rounded-circle shadow-sm" id="result-circle" style="width: 160px; height: 160px; border: 8px solid var(--theme-color); background-color: #f8fafc;">
+                  <div style="line-height: 1.1;">
+                      <span class="display-3 fw-bold" id="funResultScore" style="color: var(--theme-color);"></span>
+                      <hr class="my-1 opacity-50" style="border-width: 3px; border-color: var(--theme-color);">
+                      <span class="fs-4 fw-bold text-muted" id="funResultTotal"></span>
+                  </div>
+              </div>
+              <div class="d-flex justify-content-center gap-3 mb-2">
+                  <div class="p-3 bg-success bg-opacity-10 rounded-4 text-success border border-success border-opacity-25 shadow-sm" style="flex: 1;">
+                      <i class="bi bi-check-circle-fill fs-2 mb-1 d-block"></i><div class="fs-3 fw-bold" id="funResultRight">0</div><div class="small fw-bold text-uppercase">Right</div>
+                  </div>
+                  <div class="p-3 bg-danger bg-opacity-10 rounded-4 text-danger border border-danger border-opacity-25 shadow-sm" style="flex: 1;">
+                      <i class="bi bi-x-circle-fill fs-2 mb-1 d-block"></i><div class="fs-3 fw-bold" id="funResultWrong">0</div><div class="small fw-bold text-uppercase">Wrong</div>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer bg-light border-0 d-flex flex-column gap-2 p-3 p-md-4">
+              <button type="button" class="btn btn-lg fw-bold rounded-pill px-4 shadow-sm w-100 text-white btn-theme-bg" onclick="closeFunResultAndRetake()"><i class="bi bi-arrow-repeat me-1"></i> Play Again!</button>
+              <div class="d-flex w-100 gap-2">
+                  <button type="button" class="btn btn-info btn-lg fw-bold rounded-pill px-2 shadow-sm w-50 text-white" onclick="openResultAnalysisFromModal()"><i class="bi bi-file-bar-graph-fill me-1"></i> Analysis</button>
+                  <button type="button" class="btn btn-dark btn-lg fw-bold rounded-pill px-2 shadow-sm w-50" onclick="closeFunResultAndExit()"><i class="bi bi-house-door-fill me-1"></i> Menu</button>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ✨ Test Analysis Modal ✨ -->
+    <div class="modal fade" id="testAnalysisModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 2rem; overflow: hidden;">
+                <div class="modal-header d-flex justify-content-between align-items-center" style="background: var(--theme-gradient); color: white; padding: 1.5rem; border: none;">
+                    <h4 class="modal-title fw-bold mb-0"><i class="bi bi-graph-up me-2"></i> Deeper Analysis</h4>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4 p-md-5" id="testAnalysisContent" style="background-color: #f8fafc;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3 no-print">
+        <div id="alertToast" class="toast align-items-center text-white border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex"><div class="toast-body fw-bold" id="toastMessage"></div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ========================================================== -->
+    <!-- 1. DATA: MULTI-SUBJECT DATABASE (ISOLATED)                 -->
+    <!-- ========================================================== -->
+     
+    <script src="subject-data.js"> </script>
+
+    <!-- ========================================================== -->
+    <!-- 2. APPLICATION LOGIC & TEST ENGINE                         -->
+    <!-- ========================================================== -->
+    <script>
+        // ==========================================
+        // 2. NORMALIZATION LAYER
+        // ==========================================
+        const DUMMY_POOL = ["pets", "snow", "mammal", "Asia", "food", "plants", "vegetables", "bridge", "pack", "speak", "scientist", "lyrics", "mouse", "hardware", "keyboard", "printer"];
+
+        function getDistractors(correct, count = 2) {
+            let pool = DUMMY_POOL.filter(d => d.toLowerCase() !== correct.toLowerCase());
+            return shuffleArray(pool).slice(0, count);
+        }
+
+        // Processes raw JSON into standard formats for the test engine based on Category
+        function normalizeBank(rawBank) {
+            const normalized = {};
+            for (let category in rawBank) {
+                normalized[category] = rawBank[category].map((q, i) => {
+                    let base = { id: `${category}_${i}`, category: category, question: q.q, options: [], answer: "", answerText: q.a };
+
+                    if (category === 'match_following') {
+                        base.type = "matching_pair_candidate";
+                        base.leftWord = q.q; base.rightWord = q.a;
+                    }
+                    else if (category === 'fill_blanks') {
+                        base.type = "fill_blank_click";
+                        let opts = [q.a, ...getDistractors(q.a, 3)];
+                        base.options = shuffleArray(opts).map((text, i) => ({ id: `opt_${i}`, text: text }));
+                        base.segments = q.q.split('___');
+                        if(base.segments.length === 1) base.segments.push(''); 
+                    }
+                    else { // Default to MCQ (true_false, one_word, rearrange, mcq_standard)
+                        base.type = "mcq";
+                        base.options = shuffleArray(q.options).map((txt, i) => ({ id: String.fromCharCode(65 + i), text: txt }));
+                        let correctOpt = base.options.find(o => o.text.toLowerCase() === q.a.toLowerCase());
+                        base.answer = correctOpt ? correctOpt.id : "A";
+                    }
+                    return base;
+                });
+            }
+            return normalized;
+        }
+
+        // ==========================================
+        // 3. APP STATE & UTILITIES
+        // ==========================================
+        let appMode = 'hub';
+        let currentSubject = null;
+        let activeNormalizedBank = {};
+        
+        let offlineState = { sets: [], totalMarks: 0, isPreviewMode: false };
+        let onlineState = { testId: "", questions: [], currentIndex: 0, score: 0, wrongScore: 0, totalPoints: 0, studentName: "Student", answers: [] };
+
+        function shuffleArray(array) { let arr = [...array]; for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
+        function getRandomItems(array, n) { return shuffleArray(array).slice(0, Math.min(n, array.length)); }
+        function showToast(msg, isError = false) {
+            const toastEl = document.getElementById('alertToast'); const toastMsg = document.getElementById('toastMessage');
+            toastEl.classList.remove('bg-danger', 'bg-success'); toastEl.classList.add(isError ? 'bg-danger' : 'bg-success');
+            toastMsg.innerHTML = isError ? `<i class="bi bi-exclamation-triangle-fill me-2"></i> ${msg}` : msg;
+            new bootstrap.Toast(toastEl, { delay: 3000 }).show();
+        }
+
+        // ==========================================
+        // 4. UI HANDLERS (HUB & ROUTING)
+        // ==========================================
+        function initHub() {
+            const grid = document.getElementById('subject-grid');
+            grid.innerHTML = '';
+            for (let key in SUBJECT_DATA) {
+                const sub = SUBJECT_DATA[key];
+                grid.innerHTML += `
+                    <div class="subject-card" onclick="selectSubject('${key}')">
+                        <div class="subject-icon">${sub.icon}</div>
+                        <h3 class="fw-bold mb-1" style="color: ${sub.theme};">${sub.title}</h3>
+                        <div class="text-muted small">Class 2</div>
+                    </div>
+                `;
+            }
+        }
+
+        function selectSubject(subjectKey) {
+            currentSubject = SUBJECT_DATA[subjectKey];
+            activeNormalizedBank = normalizeBank(currentSubject.bank);
+            
+            // Update UI Theme Colors
+            document.documentElement.style.setProperty('--theme-color', currentSubject.theme);
+            document.documentElement.style.setProperty('--theme-gradient', currentSubject.gradient);
+            
+            document.getElementById('sh-icon').innerText = currentSubject.icon;
+            document.getElementById('sh-title').innerText = currentSubject.title;
+            document.getElementById('game-icon').innerText = currentSubject.icon;
+            document.getElementById('game-title').innerText = currentSubject.title;
+            document.getElementById('header-subtitle').innerText = currentSubject.title;
+            
+            // Build buttons dynamically in Kid Modal
+            const dynamicBtns = document.getElementById('dynamic-topic-buttons');
+            dynamicBtns.innerHTML = '';
+            currentSubject.sections.forEach(sec => {
+                const iconData = CATEGORY_ICONS[sec.id] || CATEGORY_ICONS['mcq_standard'];
+                dynamicBtns.innerHTML += `
+                    <div class="col-6 col-md-4">
+                        <div class="topic-btn" onclick="launchSpecificQuiz(['${sec.id}'])">
+                            <span style="font-size: 2.5rem;">${iconData.icon}</span>
+                            <span class="text-center">${iconData.title}<br><small class="text-muted fs-6">${iconData.desc}</small></span>
+                        </div>
+                    </div>`;
+            });
+            
+            initConfigUI();
+            setMobileTab('home');
+        }
+
+        function setMobileTab(tab) {
+            const hub = document.getElementById('hub-container');
+            const home = document.getElementById('home-container');
+            const preview = document.getElementById('preview-container');
+            const online = document.getElementById('online-container');
+            const progress = document.getElementById('progress-container');
+            const sidebar = document.getElementById('sidebar');
+            const mobileNav = document.getElementById('mobile-nav');
+            const mainHeader = document.getElementById('main-header');
+
+            // Hide all first
+            hub.style.display = 'none'; home.style.display = 'none'; preview.style.display = 'none'; 
+            online.style.display = 'none'; progress.style.display = 'none'; sidebar.style.display = 'none';
+            document.documentElement.classList.remove('distraction-free'); document.body.classList.remove('distraction-free');
+            
+            // Manage Active Nav Button State
+            ['hub', 'home', 'config', 'preview', 'online', 'progress'].forEach(t => {
+                const btn = document.getElementById(`mt-${t}`);
+                if(btn) {
+                    if (t === tab || (tab === 'preview' && t === 'config')) {
+                        btn.classList.add('active', 'text-white'); btn.style.backgroundColor = currentSubject ? currentSubject.theme : '#10b981';
+                    } else { btn.classList.remove('active', 'text-white'); btn.style.backgroundColor = ''; }
+                }
+            });
+
+            if (tab === 'hub') {
+                hub.style.display = 'flex'; appMode = 'hub'; mobileNav.style.display = 'none';
+                document.getElementById('header-subtitle').innerText = "Select a subject to begin";
+                document.documentElement.style.setProperty('--theme-gradient', 'linear-gradient(135deg, #10b981, #3b82f6)'); // Reset theme
+            }
+            else if (tab === 'home') {
+                home.style.display = 'flex'; appMode = 'home'; mobileNav.style.display = 'flex';
+            } 
+            else if (tab === 'config' || tab === 'preview') {
+                if (window.innerWidth < 992) { if(tab === 'config') sidebar.style.display = 'flex'; if(tab === 'preview') preview.style.display = 'block'; } 
+                else { sidebar.style.display = 'flex'; preview.style.display = 'block'; }
+                appMode = 'offline'; mobileNav.style.display = 'flex';
+            } 
+            else if (tab === 'online') {
+                online.style.display = 'block'; document.documentElement.classList.add('distraction-free'); document.body.classList.add('distraction-free');
+                appMode = 'online'; mobileNav.style.display = 'none';
+            }
+            else if (tab === 'progress') {
+                progress.style.display = 'block'; renderProgressDashboard(); appMode = 'progress';
+                mobileNav.style.display = currentSubject ? 'flex' : 'none'; // Only show nav if a subject is selected
+            }
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ==========================================
+        // 5. OFFLINE GENERATOR LOGIC
+        // ==========================================
+        function initConfigUI() {
+            if(!currentSubject) return;
+            const container = document.getElementById('config-sections'); container.innerHTML = ''; 
+            currentSubject.sections.forEach(sec => {
+                container.innerHTML += `
+                    <div class="card p-3 mb-2 config-card shadow-sm" id="card-${sec.id}">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div class="d-flex align-items-start gap-2 flex-grow-1 pe-2">
+                                <div class="form-check form-switch mb-0 mt-1"><input class="form-check-input m-0" type="checkbox" id="cb-${sec.id}" checked onchange="toggleSection('${sec.id}')"></div>
+                                <div><label class="form-check-label fw-bold text-dark fs-6 mb-0 d-inline" for="cb-${sec.id}">${sec.title}</label></div>
+                            </div>
+                            <span class="badge bg-secondary rounded-pill flex-shrink-0 mt-1">Max: ${sec.max}</span>
+                        </div>
+                        <div class="controls-wrapper mt-2" id="controls-${sec.id}">
+                            <div class="d-flex align-items-center gap-3">
+                                <input type="range" class="form-range flex-grow-1" id="slider-${sec.id}" min="1" max="${sec.max}" value="${sec.default}" oninput="syncInputs('${sec.id}', 'slider')">
+                                <div class="input-group input-group-sm" style="width: 80px;"><input type="number" class="form-control text-center fw-bold fs-6" id="num-${sec.id}" min="1" max="${sec.max}" value="${sec.default}" oninput="syncInputs('${sec.id}', 'num')"></div>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+            updateLiveSummary();
+        }
+
+        function toggleSection(id) {
+            const isChecked = document.getElementById(`cb-${id}`).checked; const card = document.getElementById(`card-${id}`); const controls = document.getElementById(`controls-${id}`);
+            if (isChecked) { card.classList.remove('disabled-card'); controls.style.opacity = '1'; controls.style.pointerEvents = 'auto'; } 
+            else { card.classList.add('disabled-card'); controls.style.opacity = '0.4'; controls.style.pointerEvents = 'none'; }
+            document.getElementById('presetSize').value = 'custom'; updateLiveSummary();
+        }
+
+        function syncInputs(id, source) {
+            const slider = document.getElementById(`slider-${id}`); const num = document.getElementById(`num-${id}`); const max = parseInt(num.max); let val = parseInt(source === 'slider' ? slider.value : num.value);
+            if (isNaN(val) || val < 1) val = 1; if (val > max) { val = max; showToast(`Maximum allowed is ${max}`, true); }
+            slider.value = val; num.value = val;
+            const cb = document.getElementById(`cb-${id}`); if(!cb.checked) { cb.checked = true; toggleSection(id); }
+            document.getElementById('presetSize').value = 'custom'; updateLiveSummary();
+        }
+
+        function updateLiveSummary() {
+            if(!currentSubject) return; let tMarks = 0, tQs = 0, tSecs = 0;
+            currentSubject.sections.forEach(sec => {
+                if (document.getElementById(`cb-${sec.id}`).checked) {
+                    tSecs++; let count = parseInt(document.getElementById(`num-${sec.id}`).value) || 0;
+                    tQs += count; tMarks += (count * sec.marksPerQ);
+                }
+            });
+            document.getElementById('sum-marks').innerText = tMarks; document.getElementById('sum-qs').innerText = tQs; document.getElementById('sum-secs').innerText = tSecs;
+        }
+
+        function applyPreset(target) {
+            if (target === 'custom' || !currentSubject) return; target = parseInt(target); 
+            currentSubject.sections.forEach(sec => { document.getElementById(`cb-${sec.id}`).checked = true; toggleSection(sec.id); });
+
+            if(target === 50) {
+                currentSubject.sections.forEach(sec => { document.getElementById(`num-${sec.id}`).value = Math.min(7, sec.max); document.getElementById(`slider-${sec.id}`).value = Math.min(7, sec.max); });
+            } else {
+                let ratio = target / 50.0;
+                currentSubject.sections.forEach(sec => {
+                    let newVal = Math.max(1, Math.round(7 * ratio));
+                    document.getElementById(`num-${sec.id}`).value = Math.min(newVal, sec.max); document.getElementById(`slider-${sec.id}`).value = Math.min(newVal, sec.max);
+                });
+            }
+            updateLiveSummary(); showToast(`Preset applied: ~${target} Marks`);
+        }
+
+        function resetConfig() {
+            initConfigUI(); document.getElementById('numSets').value = "1"; document.getElementById('toggleAnswerKey').checked = true;
+            document.getElementById('presetSize').value = "50"; applyPreset(50); showToast("Settings reset to default");
+        }
+
+        function togglePreviewMode() {
+            offlineState.isPreviewMode = !offlineState.isPreviewMode;
+            const wrapper = document.getElementById('paper-wrapper'); const btn = document.getElementById('btn-preview');
+            if (offlineState.isPreviewMode) {
+                wrapper.style.transform = 'scale(0.85)'; wrapper.style.transformOrigin = 'top center';
+                btn.classList.replace('btn-outline-secondary', 'btn-secondary'); btn.innerHTML = `<i class="bi bi-eye-slash"></i> Exit Preview`;
+            } else {
+                wrapper.style.transform = 'none'; btn.classList.replace('btn-secondary', 'btn-outline-secondary'); btn.innerHTML = `<i class="bi bi-eye"></i> Preview`;
+            }
+        }
+
+        function handleGenerateAction() { generateTestProcess(); setMobileTab(window.innerWidth < 992 ? 'preview' : 'config'); }
+
+        function generateTestProcess() {
+            if(!currentSubject) return;
+            const numSets = parseInt(document.getElementById('numSets').value) || 1;
+            const activeSections = []; let currentTotalMarks = 0;
+            
+            currentSubject.sections.forEach(sec => {
+                if (document.getElementById(`cb-${sec.id}`).checked) {
+                    const count = parseInt(document.getElementById(`num-${sec.id}`).value);
+                    activeSections.push({ ...sec, count }); currentTotalMarks += (count * sec.marksPerQ);
+                }
+            });
+
+            if (activeSections.length === 0) { showToast("Please enable at least one section to generate paper.", true); return; }
+
+            offlineState.totalMarks = currentTotalMarks; offlineState.sets = [];
+            const setNames = ["A", "B"];
+
+            for (let i = 0; i < numSets; i++) {
+                let setData = { setName: setNames[i], sections: [] };
+                activeSections.forEach(secDef => {
+                    let items = getRandomItems(activeNormalizedBank[secDef.id], secDef.count);
+                    setData.sections.push({ id: secDef.id, title: secDef.title, marksPerQ: secDef.marksPerQ, items: items });
+                });
+                offlineState.sets.push(setData);
+            }
+            renderAllPapers();
+            const status = document.getElementById('generation-status'); if(status) { status.classList.remove('d-none'); setTimeout(() => status.classList.add('d-none'), 2000); }
+            showToast("Test Papers Generated Successfully!");
+        }
+
+        function regenerateSection(setIndex, sectionIndex) {
+            const set = offlineState.sets[setIndex]; const sec = set.sections[sectionIndex];
+            sec.items = getRandomItems(activeNormalizedBank[sec.id], sec.items.length);
+            renderAllPapers(); showToast(`Section regenerated!`);
+        }
+
+        function renderAllPapers() {
+            const wrapper = document.getElementById('paper-wrapper'); wrapper.innerHTML = ''; 
+            const wantsAnswerKey = document.getElementById('toggleAnswerKey').checked;
+
+            offlineState.sets.forEach((set, sIdx) => {
+                let pageHtml = buildPaperHeader(set.setName, offlineState.sets.length > 1);
+                set.sections.forEach((sec, secIdx) => { pageHtml += buildSectionHtml(sec, sIdx, secIdx); });
+                pageHtml += buildPaperFooter();
+                wrapper.insertAdjacentHTML('beforeend', `<div class="a4-page shadow-sm">${pageHtml}</div>`);
+            });
+
+            if (wantsAnswerKey) {
+                offlineState.sets.forEach((set) => { wrapper.insertAdjacentHTML('beforeend', `<div class="a4-page shadow-sm answer-key-page">${buildAnswerKeyHtml(set)}</div>`); });
+            }
+            
+            // Inject dynamic style class for thematic elements
+            document.querySelectorAll('.btn-theme-bg').forEach(b => b.style.backgroundColor = currentSubject.theme);
+        }
+
+        function buildSectionHtml(sec, setIndex, secIndex) {
+            let markVal = (sec.items.length * sec.marksPerQ);
+            let titleStr = `<b>${ROMAN[secIndex + 1]}. ${sec.title}:</b> <span style="float: right;">[${sec.items.length} x ${sec.marksPerQ} = ${markVal}]</span>`;
+            let regenBtn = `<button class="regen-btn no-print no-export" style="background-color:${currentSubject.theme};" onclick="regenerateSection(${setIndex}, ${secIndex})"><i class="bi bi-arrow-clockwise"></i></button>`;
+            let content = '';
+
+            if (['one_word', 'name_following'].includes(sec.id)) {
+                sec.items.forEach((qObj, i) => { content += `<div class="q-row px-1 py-1" style="margin-bottom: 8px; margin-top: 10px;"><span>${i + 1}. ${qObj.question}</span></div><div style="height: 25px; border-bottom: 1px dotted #888; margin-bottom: 10px;"></div>`; });
+            }
+            else if (['match_following'].includes(sec.id)) {
+                 content += `<table style="width: 100%; border-collapse: collapse; border: none; margin-top: 10px;"><tr>`;
+                 sec.items.forEach((qObj, i) => {
+                     content += `<td style="vertical-align: top; padding: 5px; border: none; width: 50%;"><div class="q-row px-1 py-1"><span>${i + 1}. ${qObj.leftWord} - </span><span class="blank-line"></span></div></td>`;
+                     if ((i + 1) % 2 === 0 && i !== sec.items.length - 1) content += `</tr><tr>`;
+                 });
+                 if (sec.items.length % 2 !== 0) content += `<td style="border: none;"></td>`; content += `</tr></table>`;
+            }
+            else if (['fill_blanks', 'missing_letters'].includes(sec.id)) {
+                 sec.items.forEach((qObj, i) => { content += `<div class="q-row px-1 py-1" style="margin-bottom: 8px;"><span>${i + 1}. ${qObj.question}</span></div>`; });
+            }
+            else if (['rearrange'].includes(sec.id)) {
+                 sec.items.forEach((qObj, i) => {
+                     let displayWord = qObj.question.replace("Unscramble ", "").replace(":", "");
+                     content += `<div class="q-row px-1 py-1" style="margin-bottom: 8px;"><span>${i + 1}. ${displayWord}</span><span class="blank-line" style="width: 150px;"></span></div>`;
+                 });
+            }
+            else {
+                sec.items.forEach((qObj, i) => { content += `<div class="q-row px-1 py-1" style="margin-bottom: 8px;"><span>${i + 1}. ${qObj.question}</span> [ _________ ]</div>`; });
+            }
+            return `<div class="section-block">${regenBtn}<div style="margin-bottom: 10px; font-size: 16px;">${titleStr}</div><div style="margin-bottom: 20px;">${content}</div></div>`;
+        }
+
+        function buildPaperHeader(setName, showSetLabel) { return `<div class="paper-header"><div class="paper-title">HOLY CROSS SCHOOL, AGARTALA</div><div style="font-size: 18px; margin-top: 5px; font-weight: bold;">HALF YEARLY EXAMINATION - 2026</div><div style="font-size: 18px; margin-top: 5px; font-weight:bold;">Class - II</div></div><div class="paper-meta"><span>Time: 2 Hrs.</span><span>${currentSubject.title}</span><span>Total Marks : ${offlineState.totalMarks}</span></div><div class="paper-meta" style="border-bottom: 2px solid #000; padding-bottom: 5px; margin-top: 5px;"><span>${showSetLabel ? `<b>SET - ${setName}</b>` : '&nbsp;'}</span></div><hr style="border-top: 2px solid #000; margin: 0px 0 20px 0;">`; }
+        function buildPaperFooter() { return `<div class="paper-footer" style="margin-top: 40px; border-top: 1px dashed #ccc; padding-top: 10px; text-align: center; font-style: italic;">============= END =============</div>`; }
+        function buildAnswerKeyHtml(set) {
+            let html = `<div style="text-align: center; margin-bottom: 2rem;"><h3 style="font-weight: bold; text-decoration: underline;">ANSWER KEY - ${offlineState.sets.length > 1 ? `SET ${set.setName}` : `PAPER`}</h3><p class="text-muted">${currentSubject.title} - Class 2</p></div>`;
+            set.sections.forEach((sec, secIdx) => {
+                html += `<div style="margin-bottom: 15px;"><b>${ROMAN[secIdx + 1]}. ${sec.title}</b><br>`;
+                let ansList = [];
+                sec.items.forEach((qObj, i) => { 
+                    let ans = qObj.answerText || qObj.a || (qObj.leftWord ? `${qObj.leftWord} - ${qObj.rightWord}` : ''); ansList.push(`${i + 1}) ${ans}`); 
+                });
+                if(['match_following', 'rearrange', 'missing_letters'].includes(sec.id)) {
+                   html += `<table style="width: 100%; border: none; margin-top: 5px; border-collapse: collapse;"><tr>`;
+                   ansList.forEach((a, i) => { html += `<td style="border: none; padding: 2px;">${a}</td>`; if ((i + 1) % 2 === 0 && i !== ansList.length - 1) html += `</tr><tr>`; });
+                   if (ansList.length % 2 !== 0) html += `<td style="border: none;"></td>`; html += `</tr></table>`;
+                } else { ansList.forEach(a => html += `<div style="margin-bottom: 4px;">${a}</div>`); }
+                html += `</div>`;
+            });
+            return html;
+        }
+
+        // ==========================================
+        // 6. LIVE TEST ENGINE (Kids Mode)
+        // ==========================================
+        function validateStudentName() {
+            const nameInput = document.getElementById('studentNameInput');
+            if (!nameInput.value.trim()) {
+                nameInput.classList.add('border-danger'); nameInput.classList.remove('border-success'); showToast("Please enter your name to start!", true);
+                setTimeout(() => { nameInput.classList.remove('border-danger'); }, 3000); return false;
+            }
+            onlineState.studentName = nameInput.value.trim(); return true;
+        }
+
+        function openLiveTestModal() { 
+            // Set dynamic button color
+            document.querySelectorAll('.btn-outline-success, .btn-outline-primary, .btn-outline-warning, .btn-outline-danger').forEach(b => {
+                b.style.borderColor = currentSubject.theme; b.style.color = currentSubject.theme;
+                b.onmouseover = function() { this.style.backgroundColor = currentSubject.theme; this.style.color = "white"; }
+                b.onmouseout = function() { this.style.backgroundColor = "transparent"; this.style.color = currentSubject.theme; }
+            });
+            new bootstrap.Modal(document.getElementById('liveTestModal')).show(); 
+        }
+
+        function launchSpecificQuiz(categoryIds) {
+            if (!validateStudentName()) return;
+            const modalObj = bootstrap.Modal.getInstance(document.getElementById('liveTestModal')); if (modalObj) modalObj.hide();
+            
+            let qsRaw = [];
+            categoryIds.forEach(catId => { if (activeNormalizedBank[catId]) qsRaw.push(...activeNormalizedBank[catId]); });
+            qsRaw = shuffleArray(qsRaw);
+
+            const limitVal = document.getElementById('topicQLimit').value;
+            if (limitVal !== 'all') { const limit = parseInt(limitVal); qsRaw = qsRaw.slice(0, limit); }
+            processAndLaunchLiveTest(qsRaw);
+        }
+
+        function launchLiveTest(size) {
+            if (!validateStudentName()) return;
+            const modalObj = bootstrap.Modal.getInstance(document.getElementById('liveTestModal')); if (modalObj) modalObj.hide();
+
+            let target = parseInt(size);
+            let screenCounts = {};
+            let maxScreens = {};
+            
+            // Initialize available sections for the current subject
+            currentSubject.sections.forEach(sec => {
+                screenCounts[sec.id] = 0;
+                let bLength = activeNormalizedBank[sec.id] ? activeNormalizedBank[sec.id].length : 0;
+                maxScreens[sec.id] = sec.id === 'match_following' ? Math.floor(bLength / 4) : bLength;
+            });
+
+            let availableCats = Object.keys(screenCounts);
+            
+            // Smart Proportional Allocator
+            for (let i = 0; i < target; i++) {
+                let validCats = availableCats.filter(c => screenCounts[c] < maxScreens[c]);
+                if (validCats.length === 0) break;
+                validCats = shuffleArray(validCats).sort((a, b) => screenCounts[a] - screenCounts[b]);
+                screenCounts[validCats[0]]++;
+            }
+
+            let qsRaw = [];
+            for (let cat in screenCounts) {
+                let count = screenCounts[cat];
+                if (count > 0) {
+                    let itemsToPull = cat === 'match_following' ? count * 4 : count;
+                    qsRaw.push(...getRandomItems(activeNormalizedBank[cat], itemsToPull));
+                }
+            }
+            qsRaw = shuffleArray(qsRaw);
+            processAndLaunchLiveTest(qsRaw);
+        }
+
+        function processAndLaunchLiveTest(rawQuestions) {
+            let interactiveQuestions = rawQuestions.filter(q => ['mcq', 'fill_blank_click', 'matching_pair_candidate'].includes(q.type));
+            let candidates = interactiveQuestions.filter(q => q.type === 'matching_pair_candidate');
+            let otherQuestions = interactiveQuestions.filter(q => q.type !== 'matching_pair_candidate');
+
+            let groupedMatching = [];
+            if (candidates.length > 0) {
+                let pairs = candidates.map((c, idx) => ({ id: `pair_${Date.now()}_${idx}`, left: c.leftWord, right: c.rightWord }));
+                for (let i = 0; i < pairs.length; i += 4) {
+                    let chunk = pairs.slice(i, i + 4);
+                    groupedMatching.push({
+                        type: "matching_pairs", question: "Match the correct pairs!", category: "match_following",
+                        pairs: chunk, leftSide: shuffleArray(chunk.map(p => ({ id: p.id, text: p.left, side: 'left' }))), rightSide: shuffleArray(chunk.map(p => ({ id: p.id, text: p.right, side: 'right' }))),
+                        matchesMade: 0, totalMatches: chunk.length
+                    });
+                }
+            }
+
+            onlineState.questions = shuffleArray([...otherQuestions, ...groupedMatching]);
+
+            if (onlineState.questions.length === 0) { showToast("No questions found for this topic.", true); setMobileTab('home'); return; }
+            
+            onlineState.testId = currentSubject.id.toUpperCase() + '_' + Date.now().toString(36).toUpperCase() + '_' + Math.random().toString(36).substr(2, 5);
+            onlineState.totalPoints = onlineState.questions.length; onlineState.currentIndex = 0; onlineState.score = 0; onlineState.wrongScore = 0; onlineState.answers = [];
+            
+            document.getElementById('ot-right').innerText = '0'; document.getElementById('ot-wrong').innerText = '0';
+            
+            // Adjust card theme colors
+            document.getElementById('game-card').style.borderTopColor = currentSubject.theme;
+            document.getElementById('ot-progress-bar').style.backgroundColor = currentSubject.theme;
+            
+            document.getElementById('ot-interface').classList.remove('d-none');
+            setMobileTab('online'); renderOnlineQuestion();
+        }
+
+        function getCategoryTitle(categoryId) {
+            const section = currentSubject.sections.find(sec => sec.id === categoryId);
+            return section ? section.title : "Question";
+        }
+
+        function renderOnlineQuestion() {
+            window.removeEventListener('resize', redrawMatchLines);
+            
+            const qObj = onlineState.questions[onlineState.currentIndex]; 
+            const qIndex = onlineState.currentIndex; 
+            const totalScreens = onlineState.questions.length;
+            
+            document.getElementById('ot-progress-text').innerText = `Q ${qIndex + 1} / ${totalScreens}`;
+            document.getElementById('ot-progress-bar').style.width = `${((qIndex + 1) / totalScreens) * 100}%`;
+
+            const sectionTitle = getCategoryTitle(qObj.category);
+            const sectionTitleHtml = `<div class="badge text-white mb-3 shadow-sm py-2 px-3" style="font-size: 0.9rem; background-color: ${currentSubject.theme};"><i class="bi bi-info-circle me-1"></i> ${sectionTitle}</div>`;
+
+            if (qObj.type === 'fill_blank_click') {
+                document.getElementById('ot-interface').classList.add('full-width-grid'); document.getElementById('ot-left-panel').style.display = 'none';
+                let sentenceHtml = `<div class="kid-question-text w-100 animate-fade text-center">${qObj.segments[0]}<span id="blank-zone" class="blank-dropzone empty" onclick="handleBlankZoneClick()"></span>${qObj.segments.length > 1 ? qObj.segments[1] : ''}</div>`;
+                let pillsHtml = `<div class="d-flex flex-wrap justify-content-center gap-2 gap-sm-3 animate-fade" style="max-width: 600px; margin: 0 auto;">${qObj.options.map(opt => `<button id="${opt.id}" class="soft-pill-btn" onclick="handleOptionPillClick('${opt.id}', '${opt.text}')">${opt.text}</button>`).join('')}</div>`;
+                document.getElementById('ot-options-box').innerHTML = `<div class="text-center w-100">${sectionTitleHtml}</div><div class="text-muted fs-4 fw-bold mb-4 animate-fade text-center"><i class="bi bi-cursor-fill me-2" style="color:${currentSubject.theme};"></i>Tap a word to fill the blank!</div>${sentenceHtml}${pillsHtml}<button id="btn-go-check" class="btn-go-check animate-fade w-100 mt-5 mx-auto d-block" style="max-width: 300px; background-color:${currentSubject.theme};" onclick="submitFillBlank()" disabled>GO!</button>`;
+            } 
+            else if (qObj.type === 'matching_pairs') {
+                document.getElementById('ot-interface').classList.add('full-width-grid'); document.getElementById('ot-left-panel').style.display = 'none';
+                let leftHtml = qObj.leftSide.map(item => `<div class="match-card left-card animate-fade" id="match-left-${item.id}" onclick="handleMatchCardClick('left', '${item.id}')">${item.text}</div>`).join('');
+                let rightHtml = qObj.rightSide.map(item => `<div class="match-card right-card animate-fade" id="match-right-${item.id}" onclick="handleMatchCardClick('right', '${item.id}')">${item.text}</div>`).join('');
+                document.getElementById('ot-options-box').innerHTML = `<div class="text-center w-100">${sectionTitleHtml}</div><div class="kid-question-text w-100 animate-fade text-center">${qObj.question}</div><div class="w-100 position-relative animate-fade" id="match-game-container" style="max-width: 800px; margin: 0 auto; display: flex; justify-content: space-between; padding: 10px 0;"><svg id="match-lines-svg" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index: 10;"></svg><div class="match-col match-col-left" id="match-col-left">${leftHtml}</div><div class="match-col match-col-right" id="match-col-right">${rightHtml}</div></div>`;
+                onlineState.matchSelection = { left: null, right: null }; onlineState.matchLines = []; window.addEventListener('resize', redrawMatchLines);
+            }
+            else {
+                document.getElementById('ot-interface').classList.add('full-width-grid'); document.getElementById('ot-left-panel').style.display = 'none';
+                let isTrueFalse = (qObj.category === 'true_false'); let gridClass = isTrueFalse ? 'mcq-grid-1x2' : 'mcq-grid-2x2';
+                let optionsHtml = `<div class="${gridClass} w-100">`;
+                qObj.options.forEach((opt, idx) => {
+                    optionsHtml += `<button class="mcq-btn animate-fade" style="color: ${currentSubject.theme};" onclick="submitOnlineAnswer(this, '${opt.id}')"><span class="text-secondary opacity-75 fw-bolder me-3">(${String.fromCharCode(65 + idx)})</span><span>${opt.text}</span></button>`;
+                });
+                optionsHtml += '</div>';
+                let displayQText = qObj.question.replace(/'([^']+)'/g, "<span class='highlight-word'>'$1'</span>");
+                document.getElementById('ot-options-box').innerHTML = `<div class="text-center w-100">${sectionTitleHtml}</div><h4 class="kid-question-text w-100 animate-fade text-center">${displayQText}</h4>${optionsHtml}`; 
+            }
+            document.getElementById('ot-feedback').innerHTML = '';
+        }
+
+        function handleOptionPillClick(btnId, wordText) {
+            const zone = document.getElementById('blank-zone');
+            if (zone.classList.contains('filled')) { const oldBtn = document.getElementById(zone.getAttribute('data-btn-id')); if(oldBtn) oldBtn.classList.remove('hidden-pill'); }
+            zone.innerText = wordText; zone.classList.replace('empty', 'filled'); zone.setAttribute('data-btn-id', btnId);
+            zone.style.borderColor = currentSubject.theme; zone.style.color = currentSubject.theme;
+            document.getElementById(btnId).classList.add('hidden-pill'); document.getElementById('btn-go-check').disabled = false;
+        }
+
+        function handleBlankZoneClick() {
+            const zone = document.getElementById('blank-zone');
+            if (zone.classList.contains('filled')) {
+                document.getElementById(zone.getAttribute('data-btn-id')).classList.remove('hidden-pill');
+                zone.innerText = ''; zone.classList.replace('filled', 'empty'); zone.removeAttribute('data-btn-id');
+                zone.style.borderColor = ''; zone.style.color = ''; document.getElementById('btn-go-check').disabled = true;
+            }
+        }
+
+        function submitFillBlank() {
+            const q = onlineState.questions[onlineState.currentIndex]; const zone = document.getElementById('blank-zone');
+            if (!zone.classList.contains('filled')) return;
+            const givenAns = zone.innerText; const isPerfect = (givenAns.toLowerCase() === q.answerText.toLowerCase());
+
+            zone.onclick = null; zone.style.cursor = 'default'; document.querySelectorAll('.soft-pill-btn').forEach(b => { b.onclick = null; b.style.cursor = 'default'; });
+
+            if (isPerfect) {
+                zone.classList.add('correct-zone'); onlineState.score++; document.getElementById('ot-right').innerText = onlineState.score;
+                confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 }, zIndex: 2000 });
+            } else { zone.classList.add('wrong-zone'); onlineState.wrongScore++; document.getElementById('ot-wrong').innerText = onlineState.wrongScore; }
+
+            onlineState.answers.push({ category: q.category, question: q.question, givenAns: givenAns, correctAns: q.answerText, isCorrect: isPerfect });
+            const fbEl = document.getElementById('ot-feedback');
+            fbEl.innerHTML = isPerfect ? `<div class="text-success animate-fade"><i class="bi bi-star-fill text-warning bounce-anim me-2"></i> Perfect!</div>` : `<div class="text-danger animate-fade"><i class="bi bi-emoji-frown me-2"></i> Oops! The right word was <b>${q.answerText}</b></div>`;
+            document.getElementById('btn-go-check').disabled = true;
+            setTimeout(() => { onlineState.currentIndex++; if (onlineState.currentIndex >= onlineState.questions.length) showFunResultModal(); else renderOnlineQuestion(); }, 3000);
+        }
+
+        function handleMatchCardClick(side, id) {
+            const cardEl = document.getElementById(`match-${side}-${id}`); if (cardEl.classList.contains('matched')) return;
+            if (onlineState.matchSelection[side]) { const prevEl = document.getElementById(`match-${side}-${onlineState.matchSelection[side]}`); if (prevEl) {prevEl.classList.remove('selected'); prevEl.style.borderColor=''; prevEl.style.color=''; prevEl.style.boxShadow='';} }
+            onlineState.matchSelection[side] = id; cardEl.classList.add('selected'); 
+            cardEl.style.borderColor = currentSubject.theme; cardEl.style.color = currentSubject.theme; cardEl.style.boxShadow = `0 6px 0 ${currentSubject.theme}`;
+            if (onlineState.matchSelection.left && onlineState.matchSelection.right) checkMatch();
+        }
+
+        function checkMatch() {
+            const leftId = onlineState.matchSelection.left; const rightId = onlineState.matchSelection.right; const qObj = onlineState.questions[onlineState.currentIndex];
+            const leftEl = document.getElementById(`match-left-${leftId}`); const rightEl = document.getElementById(`match-right-${rightId}`);
+            document.querySelectorAll('.match-card').forEach(c => c.style.pointerEvents = 'none');
+
+            if (leftId === rightId) {
+                drawMatchLine(leftEl, rightEl, '#22c55e', `line-${leftId}`); onlineState.matchLines.push({ el1: leftEl, el2: rightEl, color: '#22c55e', id: `line-${leftId}` });
+                leftEl.classList.remove('selected'); rightEl.classList.remove('selected'); leftEl.classList.add('matched'); rightEl.classList.add('matched');
+                leftEl.style.boxShadow=''; rightEl.style.boxShadow='';
+                confetti({ particleCount: 30, spread: 50, origin: { y: 0.8 }, colors: ['#22c55e'] });
+                qObj.matchesMade++; onlineState.matchSelection = { left: null, right: null };
+                document.querySelectorAll('.match-card:not(.matched)').forEach(c => c.style.pointerEvents = 'auto');
+
+                if (qObj.matchesMade >= qObj.totalMatches) {
+                    onlineState.score++; document.getElementById('ot-right').innerText = onlineState.score; confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+                    document.getElementById('ot-feedback').innerHTML = `<div class="text-success animate-fade"><i class="bi bi-star-fill text-warning bounce-anim me-2"></i> Perfect Matching!</div>`;
+                    let mistakes = qObj.tempErrors || 0; onlineState.answers.push({ category: qObj.category, question: "Matching Pairs: " + qObj.pairs.map(p=>p.left).join(', '), givenAns: mistakes === 0 ? "Perfect Match" : `Completed with ${mistakes} mistake(s)`, correctAns: "Match Perfectly", isCorrect: mistakes === 0 });
+                    setTimeout(() => { window.removeEventListener('resize', redrawMatchLines); onlineState.currentIndex++; if (onlineState.currentIndex >= onlineState.questions.length) showFunResultModal(); else renderOnlineQuestion(); }, 2000);
+                }
+            } else {
+                drawMatchLine(leftEl, rightEl, '#ef4444', 'error-line'); leftEl.classList.add('error'); rightEl.classList.add('error');
+                qObj.tempErrors = (qObj.tempErrors || 0) + 1; onlineState.wrongScore++; document.getElementById('ot-wrong').innerText = onlineState.wrongScore;
+                setTimeout(() => {
+                    leftEl.classList.remove('error', 'selected'); rightEl.classList.remove('error', 'selected'); leftEl.style.borderColor=''; leftEl.style.color=''; leftEl.style.boxShadow=''; rightEl.style.borderColor=''; rightEl.style.color=''; rightEl.style.boxShadow='';
+                    const errorLine = document.getElementById('error-line'); if (errorLine) errorLine.remove();
+                    onlineState.matchSelection = { left: null, right: null }; document.querySelectorAll('.match-card:not(.matched)').forEach(c => c.style.pointerEvents = 'auto');
+                }, 600);
+            }
+        }
+
+        function drawMatchLine(el1, el2, color, id) {
+            const svg = document.getElementById('match-lines-svg'); const container = document.getElementById('match-game-container'); if (!svg || !container || !el1 || !el2) return;
+            const containerRect = container.getBoundingClientRect(); const rect1 = el1.getBoundingClientRect(); const rect2 = el2.getBoundingClientRect();
+            const x1 = (rect1.right - containerRect.left); const y1 = (rect1.top + rect1.height / 2) - containerRect.top; const x2 = (rect2.left - containerRect.left); const y2 = (rect2.top + rect2.height / 2) - containerRect.top;
+            const controlOffset = Math.abs(x2 - x1) / 2; const pathData = `M ${x1} ${y1} C ${x1 + controlOffset} ${y1}, ${x2 - controlOffset} ${y2}, ${x2} ${y2}`;
+            let path = document.getElementById(id); if (!path) { path = document.createElementNS("http://www.w3.org/2000/svg", "path"); path.setAttribute("id", id); svg.appendChild(path); }
+            path.setAttribute("d", pathData); path.setAttribute("fill", "none"); path.setAttribute("stroke", color); path.setAttribute("stroke-width", "5"); path.setAttribute("stroke-linecap", "round");
+            const length = path.getTotalLength(); if (length && id !== 'error-line') { path.style.strokeDasharray = length; path.style.strokeDashoffset = length; path.style.transition = 'stroke-dashoffset 0.3s ease-in-out'; path.getBoundingClientRect(); path.style.strokeDashoffset = '0'; }
+        }
+        function redrawMatchLines() { if (!onlineState.matchLines) return; onlineState.matchLines.forEach(line => { drawMatchLine(line.el1, line.el2, line.color, line.id); }); }
+
+        function submitOnlineAnswer(buttonElement, selectedId) {
+            const q = onlineState.questions[onlineState.currentIndex]; const isCorrect = (q.answer === selectedId);
+            document.querySelectorAll('#ot-options-box button').forEach(b => {
+                b.disabled = true; b.style.color = ''; b.style.borderColor = ''; b.style.boxShadow = '';
+                if (q.options.find(o => o.id === q.answer).text === b.querySelector('span:nth-child(2)').innerText) b.classList.add('correct');
+                else if (b === buttonElement && !isCorrect) b.classList.add('wrong');
+            });
+            if (isCorrect) { onlineState.score++; document.getElementById('ot-right').innerText = onlineState.score; confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 }, zIndex: 2000 }); } 
+            else { onlineState.wrongScore++; document.getElementById('ot-wrong').innerText = onlineState.wrongScore; }
+
+            onlineState.answers.push({ category: q.category, question: q.question.replace(/<[^>]+>/g, ''), givenAns: q.options.find(o=>o.id === selectedId)?.text || '', correctAns: q.options.find(o=>o.id === q.answer).text, isCorrect: isCorrect });
+            const fbEl = document.getElementById('ot-feedback');
+            fbEl.innerHTML = isCorrect ? `<div class="text-success animate-fade"><i class="bi bi-star-fill text-warning bounce-anim me-2"></i> Excellent!</div>` : `<div class="text-danger animate-fade"><i class="bi bi-emoji-frown me-2"></i> Oops! It was <b>${q.options.find(o => o.id === q.answer).text}</b></div>`;
+
+            setTimeout(() => { onlineState.currentIndex++; if (onlineState.currentIndex >= onlineState.questions.length) showFunResultModal(); else renderOnlineQuestion(); }, 2500);
+        }
+
+        // ==========================================
+        // 7. RESULTS & STATS DASHBOARD
+        // ==========================================
+        function showFunResultModal() {
+            document.getElementById('ot-interface').classList.add('d-none');
+            const acc = onlineState.totalPoints > 0 ? Math.round((onlineState.score / onlineState.totalPoints) * 100) : 0;
+            
+            let msg = acc >= 80 ? 'Champion! 🌟' : acc >= 50 ? 'Great Job! 👍' : 'Good Try! 💪';
+            let emoji = acc >= 80 ? '🏆' : acc >= 50 ? '⭐' : '🎈';
+
+            document.getElementById('funResultTitle').innerHTML = `<span style="color: ${currentSubject.theme}">${msg}</span>`;
+            document.getElementById('funResultEmoji').innerHTML = emoji;
+            document.getElementById('funResultScore').innerText = onlineState.score;
+            document.getElementById('funResultTotal').innerText = onlineState.totalPoints;
+            document.getElementById('funResultRight').innerText = onlineState.score;
+            document.getElementById('funResultWrong').innerText = onlineState.wrongScore;
+            
+            // Set dynamic colors
+            document.getElementById('result-circle').style.borderColor = currentSubject.theme;
+            document.getElementById('funResultScore').style.color = currentSubject.theme;
+            document.querySelectorAll('.btn-theme-bg').forEach(b => b.style.backgroundColor = currentSubject.theme);
+            
+            const history = JSON.parse(localStorage.getItem('portalQuizHistory') || '[]');
+            const now = new Date();
+            history.push({ 
+                testId: onlineState.testId, subjectId: currentSubject.id, subjectTitle: currentSubject.title,
+                name: onlineState.studentName, correct: onlineState.score, wrong: onlineState.wrongScore, total: onlineState.totalPoints, percentage: acc, 
+                date: now.toLocaleDateString() + ' ' + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}), answers: onlineState.answers
+            });
+            localStorage.setItem('portalQuizHistory', JSON.stringify(history));
+            
+            renderProgressDashboard();
+            new bootstrap.Modal(document.getElementById('funResultModal')).show();
+        }
+
+        function closeFunResultAndRetake() { bootstrap.Modal.getInstance(document.getElementById('funResultModal')).hide(); openLiveTestModal(); }
+        function closeFunResultAndExit() { bootstrap.Modal.getInstance(document.getElementById('funResultModal')).hide(); setMobileTab('home'); }
+        function openResultAnalysisFromModal() { bootstrap.Modal.getInstance(document.getElementById('funResultModal')).hide(); setMobileTab('progress'); viewTestAnalysis(onlineState.testId); }
+
+        function renderProgressDashboard() {
+            const history = JSON.parse(localStorage.getItem('portalQuizHistory') || '[]');
+            if (history.length === 0) {
+                document.getElementById('stat-total-tests').innerText = '0'; document.getElementById('stat-avg-score').innerText = '0%'; document.getElementById('stat-best-score').innerText = '0%';
+                document.getElementById('progress-history-list').innerHTML = '<div class="text-center w-100 text-muted my-5 fw-bold fs-5">No tests taken yet. Start exploring to see your progress!</div>';
+                return;
+            }
+
+            let totalPercentage = 0; let bestScore = 0; let historyHtml = '';
+            [...history].reverse().forEach((attempt) => {
+                totalPercentage += attempt.percentage; if (attempt.percentage > bestScore) bestScore = attempt.percentage;
+                let badgeClass = attempt.percentage >= 80 ? 'bg-success' : attempt.percentage < 50 ? 'bg-danger' : 'bg-primary';
+                let subTheme = SUBJECT_DATA[attempt.subjectId] ? SUBJECT_DATA[attempt.subjectId].theme : '#64748b';
+                
+                historyHtml += `
+                    <div class="history-item shadow-sm">
+                        <div>
+                            <div class="fw-bold text-dark fs-5"><span style="color:${subTheme}">●</span> ${attempt.name} <small class="text-muted fs-6 ms-2">(${attempt.subjectTitle})</small></div>
+                            <div class="text-muted small"><i class="bi bi-calendar-event me-1"></i>${attempt.date}</div>
+                            <div class="text-muted fw-bold mt-1">Score: <span class="text-success">${attempt.correct}</span> / ${attempt.total}</div>
+                        </div>
+                        <div class="text-end d-flex flex-column align-items-end justify-content-center">
+                            <span class="badge ${badgeClass} rounded-pill fs-5 p-2 px-3">${attempt.percentage}%</span>
+                            <button class="btn btn-sm btn-outline-dark rounded-pill fw-bold mt-2" onclick="viewTestAnalysis('${attempt.testId}')"><i class="bi bi-search me-1"></i>Details</button>
+                        </div>
+                    </div>`;
+            });
+
+            document.getElementById('stat-total-tests').innerText = history.length;
+            document.getElementById('stat-avg-score').innerText = Math.round(totalPercentage / history.length) + '%';
+            document.getElementById('stat-best-score').innerText = bestScore + '%';
+            document.getElementById('progress-history-list').innerHTML = historyHtml;
+        }
+
+        function viewTestAnalysis(testId) {
+            const history = JSON.parse(localStorage.getItem('portalQuizHistory') || '[]');
+            const test = history.find(h => h.testId === testId);
+            if (!test) return;
+            
+            let sub = SUBJECT_DATA[test.subjectId] || currentSubject; // fallback
+
+            let html = `<div class="mb-4 pb-3 border-bottom d-flex justify-content-between align-items-end">
+                            <div><h4 class="fw-bold mb-1" style="color:${sub.theme}">${test.name} - ${test.subjectTitle}</h4><small class="text-muted fw-bold">Score: ${test.correct}/${test.total} (${test.percentage}%)</small></div>
+                            <div class="text-muted small fw-bold">${test.date}</div>
+                        </div>`;
+
+            let catStats = {};
+            if (test.answers && test.answers.length > 0) {
+                test.answers.forEach(a => {
+                    let cat = a.category || 'general';
+                    if (!catStats[cat]) catStats[cat] = { total: 0, correct: 0 };
+                    catStats[cat].total++; if (a.isCorrect) catStats[cat].correct++;
+                });
+
+                html += `<h5 class="fw-bold text-dark mb-3"><i class="bi bi-bar-chart-fill text-info me-2"></i>Topic Strengths</h5><div class="row g-3 mb-5">`;
+                for (let cat in catStats) {
+                    let catName = sub.sections.find(s => s.id === cat)?.title || cat;
+                    let stat = catStats[cat]; let pct = Math.round((stat.correct / stat.total) * 100);
+                    let color = pct >= 80 ? 'success' : pct >= 50 ? 'warning' : 'danger';
+                    html += `<div class="col-md-6"><div class="p-3 border rounded-4 bg-white shadow-sm d-flex justify-content-between align-items-center"><span class="fw-bold text-secondary" style="font-size:0.95rem;">${catName}</span><span class="badge bg-${color} rounded-pill fs-6 px-3 py-2">${stat.correct}/${stat.total} <small class="ms-1 opacity-75">(${pct}%)</small></span></div></div>`;
+                }
+                html += `</div><h5 class="fw-bold text-dark mb-3"><i class="bi bi-list-check text-primary me-2"></i>Question Breakdown</h5><div class="list-group list-group-flush mb-3">`;
+                test.answers.forEach((a, idx) => {
+                    let icon = a.isCorrect ? '<i class="bi bi-check-circle-fill text-success fs-3"></i>' : '<i class="bi bi-x-circle-fill text-danger fs-3"></i>';
+                    html += `
+                        <div class="list-group-item d-flex gap-3 align-items-center py-3 bg-white rounded-4 mb-2 border shadow-sm">
+                            <div>${icon}</div>
+                            <div class="flex-grow-1">
+                                <div class="fw-bold text-dark mb-2" style="font-size: 1.1rem;">Q${idx+1}. ${a.question}</div>
+                                <div class="d-flex flex-wrap gap-3 p-2 bg-light rounded-3">
+                                    <span class="text-muted fw-bold">Given Answer: <b class="${a.isCorrect ? 'text-success' : 'text-danger'}">${a.givenAns}</b></span>
+                                    ${!a.isCorrect ? `<span class="text-success fw-bold"><i class="bi bi-arrow-right-short text-muted"></i> Correct: <b>${a.correctAns}</b></span>` : ''}
+                                </div>
+                            </div>
+                        </div>`;
+                });
+                html += `</div>`;
+            } else { html += `<div class="alert alert-secondary text-center fw-bold rounded-4 border-2">Detailed tracking wasn't recorded for this older test.</div>`; }
+
+            document.getElementById('testAnalysisContent').innerHTML = html;
+            new bootstrap.Modal(document.getElementById('testAnalysisModal')).show();
+        }
+
+        function clearProgressHistory() {
+            if(confirm("Are you sure you want to clear all progress history?")) {
+                localStorage.removeItem('portalQuizHistory'); renderProgressDashboard(); showToast("Learning history cleared successfully!");
+            }
+        }
+
+        // ==========================================
+        // 8. EXPORT UTILITIES 
+        // ==========================================
+        function copyTestText() {
+            const wrapper = document.getElementById('paper-wrapper'); if (wrapper.children.length === 0 || wrapper.innerHTML.includes('Configure sections')) { showToast("Generate a paper first!", true); return; }
+            const clone = wrapper.cloneNode(true); clone.querySelectorAll('.no-export').forEach(e => e.remove());
+            const range = document.createRange(); range.selectNodeContents(clone); const selection = window.getSelection(); selection.removeAllRanges(); selection.addRange(range);
+            try { document.execCommand('copy'); showToast("Successfully copied to clipboard!"); } catch (err) { showToast("Failed to copy. Please select text manually.", true); }
+            selection.removeAllRanges();
+        }
+
+        function exportToPDF() {
+            const wrapper = document.getElementById('paper-wrapper'); if (wrapper.children.length === 0 || wrapper.innerHTML.includes('Configure sections')) { showToast("Generate a paper first!", true); return; }
+            const noExportElems = wrapper.querySelectorAll('.no-export'); noExportElems.forEach(e => e.style.display = 'none');
+            const origWrapperStyle = wrapper.getAttribute('style') || '';
+            wrapper.style.gap = '0'; wrapper.style.padding = '0'; wrapper.style.margin = '0'; wrapper.style.width = '210mm'; wrapper.style.alignItems = 'flex-start';
+            const pages = wrapper.querySelectorAll('.a4-page'); const originalStyles = [];
+            pages.forEach((page) => { originalStyles.push({ boxShadow: page.style.boxShadow, margin: page.style.margin, pageBreakAfter: page.style.pageBreakAfter, borderRadius: page.style.borderRadius }); page.style.boxShadow = 'none'; page.style.margin = '0'; page.style.borderRadius = '0'; page.style.pageBreakAfter = 'always'; });
+
+            showToast("Generating PDF... Please wait.");
+            let filenameStr = currentSubject ? `${currentSubject.id}_Mock_Test.pdf` : 'Mock_Test.pdf';
+            
+            html2pdf().set({ margin: 0, filename: filenameStr, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, scrollY: 0 }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }, pagebreak: { mode: 'css', avoid: 'tr' } }).from(wrapper).save().then(() => {
+                noExportElems.forEach(e => e.style.display = ''); wrapper.setAttribute('style', origWrapperStyle);
+                pages.forEach((page, index) => { page.style.boxShadow = originalStyles[index].boxShadow; page.style.margin = originalStyles[index].margin; page.style.pageBreakAfter = originalStyles[index].pageBreakAfter; page.style.borderRadius = originalStyles[index].borderRadius; });
+                showToast("PDF Document downloaded!");
+            });
+        }
+
+        function exportToWord() {
+            const wrapper = document.getElementById('paper-wrapper'); if (wrapper.children.length === 0 || wrapper.innerHTML.includes('Configure sections')) { showToast("Generate a paper first!", true); return; }
+            const clone = wrapper.cloneNode(true); clone.querySelectorAll('.no-export').forEach(e => e.remove());
+            const pages = clone.querySelectorAll('.a4-page');
+            pages.forEach((page, index) => { page.style.boxShadow = 'none'; page.style.margin = '0'; page.style.padding = '0'; page.style.width = '100%'; if (index < pages.length - 1) page.insertAdjacentHTML('beforeend', "<br clear=all style='mso-special-character:line-break;page-break-after:always'>"); });
+
+            const html = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Mock Test</title><style>body { font-family: 'Times New Roman', Times, serif; font-size: 12pt; } table { width: 100%; border-collapse: collapse; } th, td { padding: 4pt; text-align: left; vertical-align: top; } .blank-line { display: inline-block; border-bottom: 1px solid #000; width: 100px; margin: 0 5px; }</style></head><body>` + clone.innerHTML + "</body></html>";
+            const blob = new Blob(['\uFEFF', html], { type: 'application/msword' }); const url = URL.createObjectURL(blob);
+            const downloadLink = document.createElement("a"); downloadLink.href = url; downloadLink.download = currentSubject ? `${currentSubject.id}_Mock_Test.doc` : `Mock_Test.doc`;
+            document.body.appendChild(downloadLink); downloadLink.click(); document.body.removeChild(downloadLink); URL.revokeObjectURL(url);
+            showToast("Word Document downloaded!");
+        }
+
+        window.onload = () => { initHub(); setMobileTab('hub'); };
+    </script>
+</body>
+</html>
