@@ -866,7 +866,7 @@
                     </div>
 
                     <!-- Progress Area Chart -->
-                    <div class="analytics-chart-container animate-fade mb-4" style="animation-delay: 0.5s;">
+                    <div id="chart-container-card" class="analytics-chart-container animate-fade mb-4" style="animation-delay: 0.5s;">
                         <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
                             <div>
                                 <h6 class="text-uppercase fw-bold text-muted mb-1" style="font-size: 0.75rem; letter-spacing: 1.5px;">Performance Trajectory</h6>
@@ -999,8 +999,7 @@
     <!-- 1. DATA: MULTI-SUBJECT DATABASE (INLINED)                 -->
     <!-- ========================================================== -->
     <script src="subject-data.js"></script>
-
-
+   
     <!-- ========================================================== -->
     <!-- 2. APPLICATION LOGIC & TEST ENGINE                         -->
     <!-- ========================================================== -->
@@ -1876,6 +1875,15 @@
             const timeSelect = document.getElementById('timeFilter');
             const currentTimeFilter = timeSelect ? timeSelect.value : '7';
 
+            const chartCard = document.getElementById('chart-container-card');
+            if (chartCard) {
+                if (currentStudentFilter === 'ALL' && currentSubjectFilter === 'ALL') {
+                    chartCard.style.display = 'none';
+                } else {
+                    chartCard.style.display = 'block';
+                }
+            }
+
             let filteredHistory = history;
             if (currentStudentFilter !== 'ALL') filteredHistory = filteredHistory.filter(h => h.name === currentStudentFilter);
             if (currentSubjectFilter !== 'ALL') filteredHistory = filteredHistory.filter(h => h.subjectId === currentSubjectFilter);
@@ -1916,9 +1924,12 @@
 
                 historyHtml += `
                     <div class="history-item animate-fade" style="animation-delay: ${0.6 + (index * 0.05)}s;">
-                        <div>
+                        <div class="flex-grow-1">
                             <div class="fw-bold text-body fs-5 mb-1"><span style="color:${subTheme}; font-size: 1.2rem;">●</span> ${attempt.name} <span class="badge ms-2" style="background-color: ${subTheme}15; color: ${subTheme}; font-size: 0.75rem;">${attempt.subjectTitle}</span></div>
-                            <div class="text-muted small fw-bold" style="letter-spacing: 0.5px;"><i class="bi bi-clock me-1"></i>${dateDisplay}</div>
+                            <div class="text-muted small fw-bold mb-2" style="letter-spacing: 0.5px;"><i class="bi bi-clock me-1"></i>${dateDisplay}</div>
+                            <button class="btn btn-sm btn-outline-primary fw-bold rounded-pill px-3 mt-1" onclick="viewTestAnalysis('${attempt.testId}')">
+                                <i class="bi bi-journal-text me-1"></i> See Details
+                            </button>
                         </div>
                         <div class="text-end d-flex flex-column align-items-end justify-content-center">
                             <span class="badge ${badgeClass} rounded-pill fs-5 p-2 px-3 shadow-sm">${attempt.percentage}%</span>
@@ -1962,16 +1973,15 @@
                 }
             }
 
-            const dataPoints = processed.map(d => ({
-                x: d._t,
-                y: d.percentage,
-                subjectTitle: d.subjectTitle
-            }));
+            const labels = processed.map(d => {
+                const dateObj = new Date(d._t);
+                return dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }); // e.g. "7 May"
+            });
 
             // Handle horizontal scrolling dynamically
             const scrollWrapper = document.getElementById('chart-scroll-wrapper');
-            if (dataPoints.length > 15) {
-                scrollWrapper.style.width = Math.max(100, dataPoints.length * 5) + '%';
+            if (processed.length > 15) {
+                scrollWrapper.style.width = Math.max(100, processed.length * 5) + '%';
             } else {
                 scrollWrapper.style.width = '100%';
             }
@@ -1979,9 +1989,10 @@
             progressChartInstance = new Chart(ctx, {
                 type: 'line',
                 data: {
+                    labels: labels,
                     datasets: [{
                         label: 'Score (%)',
-                        data: dataPoints,
+                        data: processed.map(d => d.percentage),
                         fill: true,
                         clip: false, // CRITICAL FIX: Prevents clipping of the curve, markers, and hover effects at the Y-axis ceiling
                         backgroundColor: function(context) {
@@ -2035,13 +2046,14 @@
                             displayColors: false,
                             callbacks: {
                                 title: function(context) {
-                                    const raw = context[0].raw;
-                                    const dateObj = new Date(raw.x);
+                                    const idx = context[0].dataIndex;
+                                    const item = processed[idx];
+                                    const dateObj = new Date(item._t);
                                     let timeStr = isNaN(dateObj.getTime()) ? "Recent" : dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-                                    return raw.subjectTitle + '\n' + timeStr;
+                                    return item.subjectTitle + '\n' + timeStr;
                                 },
                                 label: function(context) {
-                                    return 'Score Achieved: ' + context.parsed.y + '%';
+                                    return 'Score Achieved: ' + context.raw + '%';
                                 }
                             }
                         }
@@ -2054,26 +2066,12 @@
                             ticks: { stepSize: 20, font: { weight: 'bold', color: '#94a3b8', size: 11 } }
                         },
                         x: {
-                            type: 'time',
-                            time: {
-                                tooltipFormat: 'MMM d, yyyy - h:mm a',
-                                displayFormats: {
-                                    millisecond: 'd MMM, h:mm a',
-                                    second: 'd MMM, h:mm a',
-                                    minute: 'h:mm a',
-                                    hour: 'h:mm a',
-                                    day: 'd MMM',
-                                    week: 'MMM d',
-                                    month: 'MMM yyyy',
-                                    year: 'yyyy'
-                                }
-                            },
                             grid: { display: false, drawBorder: false },
                             ticks: { 
                                 font: { weight: '600', color: '#94a3b8', size: 11 }, 
-                                maxRotation: 0,
+                                maxRotation: 45,
                                 autoSkip: true,
-                                maxTicksLimit: 7 // Limits ticks to meaningful intervals automatically
+                                maxTicksLimit: 15
                             }
                         }
                     }
@@ -2086,7 +2084,8 @@
             const test = history.find(h => h.testId === testId);
             if (!test) return;
             
-            let sub = SUBJECT_DATA[test.subjectId] || currentSubject; 
+            // Add fallback in case subject data is missing to prevent JS errors
+            let sub = SUBJECT_DATA[test.subjectId] || currentSubject || { theme: '#10b981', title: test.subjectTitle || 'Test', sections: [] }; 
 
             let html = `<div class="mb-4 pb-3 border-bottom d-flex justify-content-between align-items-end">
                             <div><h4 class="fw-bold mb-1" style="color:${sub.theme}">${test.name} - ${test.subjectTitle}</h4><small class="text-muted fw-bold">Score: ${test.correct}/${test.total} (${test.percentage}%)</small></div>
@@ -2163,7 +2162,14 @@
             } else { html += `<div class="alert alert-secondary text-center fw-bold rounded-4 border-2">Detailed tracking wasn't recorded for this older test.</div>`; }
 
             document.getElementById('testAnalysisContent').innerHTML = html;
-            new bootstrap.Modal(document.getElementById('testAnalysisModal')).show();
+            
+            // Safely instantiate and show the Bootstrap modal
+            const modalEl = document.getElementById('testAnalysisModal');
+            let modalInstance = bootstrap.Modal.getInstance(modalEl);
+            if (!modalInstance) {
+                modalInstance = new bootstrap.Modal(modalEl);
+            }
+            modalInstance.show();
         }
 
         function applyAnalysisFilter() {
