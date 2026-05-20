@@ -34,32 +34,78 @@ const SUBJECT_DATA = {
     ],
     bank: {
         mcq_standard: [
-            // Chapter 3: A new friend (Q&A and Spellings)
-            { q: "Where did Hasmina and Saif live?", a: "Ajanta Apartments", options: ["Ajanta Apartments", "Skyline Apartments", "Rose Apartments", "Sunshine Apartments"] },
-            { q: "Choose the correct spelling:", a: "Apartment", options: ["Apartment", "Appartment", "Apartmant", "Appertment"] },
-            { q: "Choose the correct spelling:", a: "Frightened", options: ["Frightened", "Fritened", "Frightend", "Frightned"] },
-            { q: "Choose the correct spelling:", a: "Suddenly", options: ["Suddenly", "Sudenly", "Suddnly", "Sudenley"] },
             
-            // Chapter 4: Like a Bird (Q&A and Spellings)
-            { q: "Who stood near their flying machine?", a: "Wilbur and Orville Wright", options: ["Wilbur and Orville Wright", "James and Thomas", "Albert and Isaac", "Only Wilbur Wright"] },
-            { q: "How long did the first aeroplane fly for?", a: "For a count of twelve", options: ["For a count of twelve", "For one hour", "For five minutes", "For a whole day"] },
-            { q: "What did the Wright brothers do after their first flight?", a: "Returned home to make their design better", options: ["Returned home to make their design better", "Went to sleep", "Started a factory", "Sold the aeroplane"] },
-            { q: "How has the Wright brother's model helped people?", a: "To travel to far-off places", options: ["To travel to far-off places", "To cook food faster", "To talk to friends", "To wash clothes"] },
-            { q: "Choose the correct spelling:", a: "Propellers", options: ["Propellers", "Propellars", "Proppelers", "Propellors"] },
-            { q: "Choose the correct spelling:", a: "Machine", options: ["Machine", "Masheen", "Macheen", "Mashine"] },
+   
+           
+            // Spelling questions for Chapter 3
+            {"q": "Choose the correct spelling:", "a": "Apartment", "options": ["Apartment", "Appartment", "Apartmentt", "Apartement"]},
+            {"q": "Choose the correct spelling:", "a": "Frightened", "options": ["Frightened", "Frithaned", "Frigtened", "Frightend"]},
+            {"q": "Choose the correct spelling:", "a": "Lovely", "options": ["Lovely", "Lovly", "Loveley", "Lively"]},
+            {"q": "Choose the correct spelling:", "a": "Turned", "options": ["Turned", "Turnd", "Ternd", "Turnned"]},
+            {"q": "Choose the correct spelling:", "a": "Laughed", "options": ["Laughed", "Laghed", "Laft", "Laughd"]},
+            {"q": "Choose the correct spelling:", "a": "Watched", "options": ["Watched", "Wached", "Watched", "Watchd"]},
+            {"q": "Choose the correct spelling:", "a": "Suddenly", "options": ["Suddenly", "Sudenly", "Suddnly", "Sudenley"]},
+            {"q": "Choose the correct spelling:", "a": "Cheered", "options": ["Cheered", "Chered", "Cheerd", "Chiered"]},
+            
+            // Spelling from chapter 4 :Like a Bird
+            {"q": "Choose the correct spelling:", "a": "Glider", "options": ["Glider", "Glyder", "Glidder", "Glidor"]},
+            {"q": "Choose the correct spelling:", "a": "Canvas", "options": ["Canvas", "Canvase", "Canvass", "Kanvas"]},
+            {"q": "Choose the correct spelling:", "a": "Propellers", "options": ["Propellers", "Propellors", "Propelers", "Propehlers"]},
+            {"q": "Choose the correct spelling:", "a": "Cord", "options": ["Cord", "Chord", "Courd", "Corde"]},
+            {"q": "Choose the correct spelling:", "a": "Pedal", "options": ["Pedal", "Peddle", "Pedel", "Paddal"]},
+            {"q": "Choose the correct spelling:", "a": "Design", "options": ["Design", "Dezign", "Disign", "Desine"]},
+            {"q": "Choose the correct spelling:", "a": "Machine", "options": ["Machine", "Masheen", "Machin", "Mashine"]},
+            {"q": "Choose the correct spelling:", "a": "Engine", "options": ["Engine", "Engin", "Enjine", "Ingine"]},
+            {"q": "Choose the correct spelling:", "a": "Travel", "options": ["Travel", "Travle", "Travvel", "Traval"]},
+            {"q": "Choose the correct spelling:", "a": "Modern", "options": ["Modern", "Modren", "Modurn", "Moddin"]},
+            
+            // Chapter 5: The King of all stories (Spellings)
+            {"q": "Choose the correct spelling:", "a": "Demands", "options": ["Demands", "Demannds", "Dimands", "Demandz"]},
+            {"q": "Choose the correct spelling:", "a": "Gourd", "options": ["Gourd", "Gord", "Goord", "Gowrd"]},
+            {"q": "Choose the correct spelling:", "a": "Shelter", "options": ["Shelter", "Sheltar", "Shellter", "Shilter"]},
+            {"q": "Choose the correct spelling:", "a": "Hornets", "options": ["Hornets", "Hornits", "Hornetts", "Honets"]},
+            {"q": "Choose the correct spelling:", "a": "Quarrel", "options": ["Quarrel", "Quarel", "Quarril", "Kwarrel"]},
+            {"q": "Choose the correct spelling:", "a": "Patch", "options": ["Patch", "Pach", "Patche", "Paatch"]},
+            {"q": "Choose the correct spelling:", "a": "Nyame", "options": ["Nyame", "Niame", "Nyam", "Neyame"]},
+            {"q": "Choose the correct spelling:", "a": "Anansi", "options": ["Anansi", "Annansi", "Anansee", "Anansie"]},
+            {"q": "Choose the correct spelling:", "a": "Python", "options": ["Python", "Pithon", "Pythun", "Pythonn"]},
+            {"q": "Choose the correct spelling:", "a": "Osebo", "options": ["Osebo", "Osebbo", "Ossebo", "Ocebo"]},
+           
+            // Ch=6 : Pinocchio (Spellings)
+            {"q": "Choose the correct spelling:", "a": "Lonely", "options": ["Lonely", "Lovly", "Loneley", "Lonly"]},
+            {"q": "Choose the correct spelling:", "a": "Carpenter", "options": ["Carpenter", "Carpenter", "Carpantar", "Carpinter"]},
+            {"q": "Choose the correct spelling:", "a": "Puppet", "options": ["Puppet", "Pupet", "Puppit", "Puppat"]},
+            {"q": "Choose the correct spelling:", "a": "Pinocchio", "options": ["Pinocchio", "Pinochio", "Pinokio", "Pinnocchio"]},
+            {"q": "Choose the correct spelling:", "a": "Gepetto", "options": ["Gepetto", "Geppetto", "Gepeto", "Gipetto"]},
+            {"q": "Choose the correct spelling:", "a": "Dragged", "options": ["Dragged", "Draged", "Draggt", "Draggid"]},
+            {"q": "Choose the correct spelling:", "a": "Thieves", "options": ["Thieves", "Theives", "Theeves", "Thivs"]},
+            {"q": "Choose the correct spelling:", "a": "Promised", "options": ["Promised", "Promisd", "Promissed", "Pranised"]},
+            {"q": "Choose the correct spelling:", "a": "Hugged", "options": ["Hugged", "Huged", "Huggt", "Huggid"]},
+            {"q": "Choose the correct spelling:", "a": "Suddenly", "options": ["Suddenly", "Sudenly", "Suddnly", "Sudenley"]},
+        
+            // // Chapter 3: A new friend (Q&A and Spellings)
+            // { q: "Where did Hasmina and Saif live?", a: "Ajanta Apartments", options: ["Ajanta Apartments", "Skyline Apartments", "Rose Apartments", "Sunshine Apartments"] },
+            // { q: "Who stood near their flying machine?", a: "Wilbur and Orville Wright", options: ["Wilbur and Orville Wright", "James and Thomas", "Albert and Isaac", "Only Wilbur Wright"] },
+            // { q: "How long did the first aeroplane fly for?", a: "For a count of twelve", options: ["For a count of twelve", "For one hour", "For five minutes", "For a whole day"] },
+            // { q: "What did the Wright brothers do after their first flight?", a: "Returned home to make their design better", options: ["Returned home to make their design better", "Went to sleep", "Started a factory", "Sold the aeroplane"] },
+            // { q: "How has the Wright brother's model helped people?", a: "To travel to far-off places", options: ["To travel to far-off places", "To cook food faster", "To talk to friends", "To wash clothes"] },
+          
 
-            // Chapter 5: The King of All Stories (Q&A and Spellings)
-            { q: "Who were Anansi and Nyame?", a: "A clever spider and the Sky God", options: ["A clever spider and the Sky God", "A lion and a tiger", "Two young boys", "A bird and a tree"] },
-            { q: "What did Nyame ask Anansi to bring him as a price?", a: "Hornets, Python, and Leopard", options: ["Hornets, Python, and Leopard", "Gold, Silver, and Diamonds", "Water, Fire, and Air", "Apples, Mangoes, and Grapes"] },
-            { q: "Why did the Hornets fly into the gourd?", a: "To stay dry from the fake rain", options: ["To stay dry from the fake rain", "To eat honey", "To hide from a bird", "To build a nest"] },
-            { q: "Choose the correct spelling:", a: "Quarrel", options: ["Quarrel", "Quarel", "Quarrell", "Qurrel"] },
+            // // Chapter 5: The King of All Stories (Q&A and Spellings)
+            // { q: "Who were Anansi and Nyame?", a: "A clever spider and the Sky God", options: ["A clever spider and the Sky God", "A lion and a tiger", "Two young boys", "A bird and a tree"] },
+            // { q: "What did Nyame ask Anansi to bring him as a price?", a: "Hornets, Python, and Leopard", options: ["Hornets, Python, and Leopard", "Gold, Silver, and Diamonds", "Water, Fire, and Air", "Apples, Mangoes, and Grapes"] },
+            // { q: "Why did the Hornets fly into the gourd?", a: "To stay dry from the fake rain", options: ["To stay dry from the fake rain", "To eat honey", "To hide from a bird", "To build a nest"] },
+
             
-            // Chapter 6: Pinocchio (Q&A and Spellings)
-            { q: "Who was Pinocchio?", a: "A wooden toy that became a real boy", options: ["A wooden toy that became a real boy", "A clever spider", "A young fairy", "A rich king"] },
-            { q: "What happened each time Pinocchio lied?", a: "His nose grew longer", options: ["His nose grew longer", "His ears grew big", "He lost a gold coin", "He fell asleep"] },
-            { q: "What happened when Pinocchio sat near the fire?", a: "His feet caught fire and burned off", options: ["His feet caught fire and burned off", "He cooked his food", "He got very cold", "His nose grew longer"] },
-            { q: "Choose the correct spelling:", a: "Carpenter", options: ["Carpenter", "Carpentar", "Carpంటర్", "Carpinter"] },
-            { q: "Choose the correct spelling:", a: "Thieves", options: ["Thieves", "Theives", "Theeves", "Thievs"] }
+                        
+            // // Chapter 6: Pinocchio (Q&A and Spellings)
+            // { q: "Who was Pinocchio?", a: "A wooden toy that became a real boy", options: ["A wooden toy that became a real boy", "A clever spider", "A young fairy", "A rich king"] },
+            // { q: "What happened each time Pinocchio lied?", a: "His nose grew longer", options: ["His nose grew longer", "His ears grew big", "He lost a gold coin", "He fell asleep"] },
+            // { q: "What happened when Pinocchio sat near the fire?", a: "His feet caught fire and burned off", options: ["His feet caught fire and burned off", "He cooked his food", "He got very cold", "His nose grew longer"] },
+            // { q: "Choose the correct spelling:", a: "Carpenter", options: ["Carpenter", "Carpentar", "Carpంటర్", "Carpinter"] },
+            // { q: "Choose the correct spelling:", a: "Thieves", options: ["Thieves", "Theives", "Theeves", "Thievs"] }
+            
+
         ],
         fill_blanks: [
             // Chapter 3: A new friend
