@@ -1,4 +1,3 @@
-// Define how specific categories map to icons for the Kid's setup UI
 const CATEGORY_ICONS = {
   'one_word': { icon: '💬', title: 'One Word', desc: 'Quick Ans' },
             'name_following': { icon: '🏷️', title: 'Name It', desc: 'Identify' },
@@ -16,9 +15,9 @@ const CATEGORY_ICONS = {
 };
 
 const SUBJECT_DATA = {
-   "english_language": {
-    id: "english_language",
-    title: "English Language",
+   "english_literature": {
+    id: "english_literature",
+    title: "English Literature",
     icon: "📚",
     theme: "#ec4899", // Pink theme for English
     gradient: "linear-gradient(135deg, #ec4899, #8b5cf6)",
@@ -34,9 +33,8 @@ const SUBJECT_DATA = {
     ],
     bank: {
         mcq_standard: [
-            
-   
-           
+         
+        
             // Spelling questions for Chapter 3
             {"q": "Choose the correct spelling:", "a": "Apartment", "options": ["Apartment", "Appartment", "Apartmentt", "Apartement"]},
             {"q": "Choose the correct spelling:", "a": "Frightened", "options": ["Frightened", "Frithaned", "Frigtened", "Frightend"]},
@@ -73,7 +71,7 @@ const SUBJECT_DATA = {
            
             // Ch=6 : Pinocchio (Spellings)
             {"q": "Choose the correct spelling:", "a": "Lonely", "options": ["Lonely", "Lovly", "Loneley", "Lonly"]},
-            {"q": "Choose the correct spelling:", "a": "Carpenter", "options": ["Carpenter", "Carpenter", "Carpantar", "Carpinter"]},
+            {"q": "Choose the correct spelling:", "a": "Carpenter", "options": ["Carpenter", "Carpentar", "Carpinter", "Carpetner"]},
             {"q": "Choose the correct spelling:", "a": "Puppet", "options": ["Puppet", "Pupet", "Puppit", "Puppat"]},
             {"q": "Choose the correct spelling:", "a": "Pinocchio", "options": ["Pinocchio", "Pinochio", "Pinokio", "Pinnocchio"]},
             {"q": "Choose the correct spelling:", "a": "Gepetto", "options": ["Gepetto", "Geppetto", "Gepeto", "Gipetto"]},
@@ -83,27 +81,27 @@ const SUBJECT_DATA = {
             {"q": "Choose the correct spelling:", "a": "Hugged", "options": ["Hugged", "Huged", "Huggt", "Huggid"]},
             {"q": "Choose the correct spelling:", "a": "Suddenly", "options": ["Suddenly", "Sudenly", "Suddnly", "Sudenley"]},
         
-            // // Chapter 3: A new friend (Q&A and Spellings)
-            // { q: "Where did Hasmina and Saif live?", a: "Ajanta Apartments", options: ["Ajanta Apartments", "Skyline Apartments", "Rose Apartments", "Sunshine Apartments"] },
-            // { q: "Who stood near their flying machine?", a: "Wilbur and Orville Wright", options: ["Wilbur and Orville Wright", "James and Thomas", "Albert and Isaac", "Only Wilbur Wright"] },
-            // { q: "How long did the first aeroplane fly for?", a: "For a count of twelve", options: ["For a count of twelve", "For one hour", "For five minutes", "For a whole day"] },
-            // { q: "What did the Wright brothers do after their first flight?", a: "Returned home to make their design better", options: ["Returned home to make their design better", "Went to sleep", "Started a factory", "Sold the aeroplane"] },
-            // { q: "How has the Wright brother's model helped people?", a: "To travel to far-off places", options: ["To travel to far-off places", "To cook food faster", "To talk to friends", "To wash clothes"] },
+            // Chapter 3: A new friend (Q&A and Spellings)
+            { q: "Where did Hasmina and Saif live?", a: "Ajanta Apartments", options: ["Ajanta Apartments", "Skyline Apartments", "Rose Apartments", "Sunshine Apartments"] },
+            { q: "Who stood near their flying machine?", a: "Wilbur and Orville Wright", options: ["Wilbur and Orville Wright", "James and Thomas", "Albert and Isaac", "Only Wilbur Wright"] },
+            { q: "How long did the first aeroplane fly for?", a: "For a count of twelve", options: ["For a count of twelve", "For one hour", "For five minutes", "For a whole day"] },
+            { q: "What did the Wright brothers do after their first flight?", a: "Returned home to make their design better", options: ["Returned home to make their design better", "Went to sleep", "Started a factory", "Sold the aeroplane"] },
+            { q: "How has the Wright brother's model helped people?", a: "To travel to far-off places", options: ["To travel to far-off places", "To cook food faster", "To talk to friends", "To wash clothes"] },
           
 
-            // // Chapter 5: The King of All Stories (Q&A and Spellings)
-            // { q: "Who were Anansi and Nyame?", a: "A clever spider and the Sky God", options: ["A clever spider and the Sky God", "A lion and a tiger", "Two young boys", "A bird and a tree"] },
-            // { q: "What did Nyame ask Anansi to bring him as a price?", a: "Hornets, Python, and Leopard", options: ["Hornets, Python, and Leopard", "Gold, Silver, and Diamonds", "Water, Fire, and Air", "Apples, Mangoes, and Grapes"] },
-            // { q: "Why did the Hornets fly into the gourd?", a: "To stay dry from the fake rain", options: ["To stay dry from the fake rain", "To eat honey", "To hide from a bird", "To build a nest"] },
+            // Chapter 5: The King of All Stories (Q&A and Spellings)
+            { q: "Who were Anansi and Nyame?", a: "A clever spider and the Sky God", options: ["A clever spider and the Sky God", "A lion and a tiger", "Two young boys", "A bird and a tree"] },
+            { q: "What did Nyame ask Anansi to bring him as a price?", a: "Hornets, Python, and Leopard", options: ["Hornets, Python, and Leopard", "Gold, Silver, and Diamonds", "Water, Fire, and Air", "Apples, Mangoes, and Grapes"] },
+            { q: "Why did the Hornets fly into the gourd?", a: "To stay dry from the fake rain", options: ["To stay dry from the fake rain", "To eat honey", "To hide from a bird", "To build a nest"] },
 
             
                         
-            // // Chapter 6: Pinocchio (Q&A and Spellings)
-            // { q: "Who was Pinocchio?", a: "A wooden toy that became a real boy", options: ["A wooden toy that became a real boy", "A clever spider", "A young fairy", "A rich king"] },
-            // { q: "What happened each time Pinocchio lied?", a: "His nose grew longer", options: ["His nose grew longer", "His ears grew big", "He lost a gold coin", "He fell asleep"] },
-            // { q: "What happened when Pinocchio sat near the fire?", a: "His feet caught fire and burned off", options: ["His feet caught fire and burned off", "He cooked his food", "He got very cold", "His nose grew longer"] },
-            // { q: "Choose the correct spelling:", a: "Carpenter", options: ["Carpenter", "Carpentar", "Carpంటర్", "Carpinter"] },
-            // { q: "Choose the correct spelling:", a: "Thieves", options: ["Thieves", "Theives", "Theeves", "Thievs"] }
+            // Chapter 6: Pinocchio (Q&A and Spellings)
+            { q: "Who was Pinocchio?", a: "A wooden toy that became a real boy", options: ["A wooden toy that became a real boy", "A clever spider", "A young fairy", "A rich king"] },
+            { q: "What happened each time Pinocchio lied?", a: "His nose grew longer", options: ["His nose grew longer", "His ears grew big", "He lost a gold coin", "He fell asleep"] },
+            { q: "What happened when Pinocchio sat near the fire?", a: "His feet caught fire and burned off", options: ["His feet caught fire and burned off", "He cooked his food", "He got very cold", "His nose grew longer"] },
+            { q: "Choose the correct spelling:", a: "Carpenter", options: ["Carpenter", "Carpentar", "Carpంటర్", "Carpinter"] },
+            { q: "Choose the correct spelling:", a: "Thieves", options: ["Thieves", "Theives", "Theeves", "Thievs"] }
             
 
         ],
@@ -114,7 +112,7 @@ const SUBJECT_DATA = {
             { q: "The children became good at flying ___.", a: "kites", options: ["kites", "aeroplanes", "birds", "balloons"] },
             
             // Chapter 4: Like a Bird
-            { q: "___ flew the first aeroplane.", a: "Orville", options: ["Orville", "Wilbur", "James", "Thomas"] },
+            { q: "Orville flew the first ___.", a: "aeroplane", options: ["aeroplane", "glider", "bird", "eagle"] },
             { q: "The Wright brothers called their first aeroplane a ___.", a: "flyer", options: ["flyer", "glider", "bird", "eagle"] },
             { q: "There were two ___ in the front.", a: "propellers", options: ["propellers", "wheels", "engines", "wings"] },
             { q: "They tossed the coin and ___ won.", a: "Orville", options: ["Orville", "Wilbur", "Father", "Mother"] },
@@ -122,16 +120,19 @@ const SUBJECT_DATA = {
 
             // Chapter 5: The King of All Stories
             { q: "Anansi makes a small hole in an empty ___ and fills it with water.", a: "gourd", options: ["gourd", "pot", "cup", "bowl"] },
-            { q: "The Hornets came out buzzing ___.", a: "angrily", options: ["angrily", "happily", "loudly", "softly"] },
-            { q: "Anansi lay the ___ on the ground.", a: "pole", options: ["pole", "stick", "rope", "net"] },
-            { q: "Anansi leads Osebo all the way to ___.", a: "Nyame", options: ["Nyame", "the forest", "the river", "the village"] },
+            { q: "The Hornets came out ___ angrily.", a: "buzzing", options: ["buzzing", "Fuzzying", "Scuzzing:", "Muzzing"] },
+            { q: "Anansi lay the pole on the ___.", a: "ground", options: ["ground", "dirt", "grass", "floor"] },
+            { q: "Anansi leads ___ all the way to Nyame.", a: "Osebo", options: ["Osebo", "Mmoobora", "Onini", "Rebeka", "Kavari"] },
 
             // Chapter 6: Pinocchio
-            { q: "Gepetto was a poor carpenter who lived in ___.", a: "Italy", options: ["Italy", "India", "France", "Japan"] },
-            { q: "Gepetto kissed the toy on the ___.", a: "cheek", options: ["cheek", "head", "hand", "nose"] },
+            { q: "Gepetto was a poor ___ who lived in Italy.", a: "carpenter", options: ["carpenter", "Painter", "Farmer", "Wood cutter"] },
+            { q: "___ kissed the toy on the cheek.", a: "Gepetto", options: ["Gepetto", "Pinocchio", "Anansi", "Nyame"] },
             { q: "The puppet master gave him ___ gold coins.", a: "five", options: ["five", "two", "ten", "three"] },
+            { q: "The ___ master gave him five gold coins.", a: "puppet", options: ["puppet", "doll", "Toy", "dance"] },
             { q: "Two thieves saw the money in Pinocchio's ___.", a: "hand", options: ["hand", "pocket", "bag", "box"] },
-            { q: "Pinocchio became a real ___.", a: "boy", options: ["boy", "puppet", "animal", "king"] }
+             { q: "Two ___ saw the money in Pinocchio's hand.", a: "thieves", options: ["thieves", "men", "women", "Policemen"] },
+            { q: "Pinocchio became a real ___.", a: "boy", options: ["boy", "puppet", "animal", "teddy"] },
+            { q: "___ became a real boy.", a: "Pinocchio", options: ["Pinocchio", "Gepetto", "Anansi", "Nyame"] }
         ],
         true_false: [
             // Chapter 3: A new friend
@@ -180,35 +181,40 @@ const SUBJECT_DATA = {
         ],
         word_meaning: [
             // Chapter 3
-            { q: "What is the meaning of 'Lovely'?", a: "Pretty, beautiful", options: ["Pretty, beautiful", "Ugly and scary", "Angry and mad", "Tall and heavy"] },
-            { q: "What is the meaning of 'Apartment'?", a: "A set of rooms on one floor", options: ["A set of rooms on one floor", "A playground", "A large vehicle", "A marketplace"] },
-            { q: "What is the meaning of 'Frightened'?", a: "Scared", options: ["Scared", "Happy", "Excited", "Sleepy"] },
+            { q: "Word meaning of 'Lovely'?", a: "Pretty, beautiful", options: ["Pretty, beautiful", "Ugly and scary", "Angry and mad", "Tall and heavy"] },
+            { q: "Word meaning of 'Apartment'?", a: "A set of rooms on one floor", options: ["A set of rooms on one floor", "A playground", "A large vehicle", "A marketplace"] },
+            { q: "Word meaning of 'Frightened'?", a: "Scared", options: ["Scared", "Happy", "Excited", "Sleepy"] },
             // Chapter 4
-            { q: "What is a 'Glider'?", a: "A light aircraft without an engine", options: ["A light aircraft without an engine", "A fast moving car", "A large ship", "A hot air balloon"] },
-            { q: "What are 'Propellers'?", a: "Things with blades that help move a plane", options: ["Things with blades that help move a plane", "Wheels of a car", "The windows of an aeroplane", "The seats for passengers"] },
-            { q: "What does 'Took-off' mean?", a: "Left the ground and began to fly", options: ["Left the ground and began to fly", "Stopped moving", "Broke into pieces", "Fell down quickly"] },
-            { q: "What is a 'Model'?", a: "A thing used as an example to copy", options: ["A thing used as an example to copy", "A machine to wash clothes", "A book to read", "A toy for pets"] },
+            { q: "Word meaning of 'Glider'?", a: "A light aircraft without an engine", options: ["A light aircraft without an engine", "A fast moving car", "A large ship", "A hot air balloon"] },
+            { q: "Word meaning of 'Propellers'?", a: "Things with blades that help move a plane", options: ["Things with blades that help move a plane", "Wheels of a car", "The windows of an aeroplane", "The seats for passengers"] },
+            { q: "Word meaning of 'Took-off'?", a: "Left the ground and began to fly", options: ["Left the ground and began to fly", "Stopped moving", "Broke into pieces", "Fell down quickly"] },
+            { q: "Word meaning of 'Model'?", a: "A thing used as an example to copy", options: ["A thing used as an example to copy", "A machine to wash clothes", "A book to read", "A toy for pets"] },
             // Chapter 5
-            { q: "What are 'Hornets'?", a: "Flying insects with bad stings", options: ["Flying insects with bad stings", "Beautiful small birds", "Large furry animals", "Sweet juicy fruits"] },
-            { q: "What is a 'Python'?", a: "A very large snake", options: ["A very large snake", "A dangerous tiger", "A tiny spider", "A flying insect"] },
-            { q: "What is the meaning of 'Shelter'?", a: "A safe place to stay", options: ["A safe place to stay", "A dangerous forest", "A deep river", "A high mountain"] },
-            { q: "What does 'Quarrel' mean?", a: "A fight", options: ["A fight", "A hug", "A friendly game", "A loud song"] },
+            { q: "Word meaning of 'Hornets'?", a: "Flying insects with bad stings", options: ["Flying insects with bad stings", "Beautiful small birds", "Large furry animals", "Sweet juicy fruits"] },
+            { q: "Word meaning of 'Python'?", a: "A very large snake", options: ["A very large snake", "A dangerous tiger", "A tiny spider", "A flying insect"] },
+            { q: "Word meaning of 'Shelter'?", a: "A safe place to stay", options: ["A safe place to stay", "A dangerous forest", "A deep river", "A high mountain"] },
+            { q: "Word meaning of 'Quarrel'?", a: "A fight", options: ["A fight", "A hug", "A friendly game", "A loud song"] },
+             { q: "Word meaning of 'Pole'?", a: "A long thin rod", options: ["A long thin rod", "A short thick stick", "A soft cushion", "A hard stone"] },
+              { q: "Word meaning of 'Meet my demands'?", a: "give me what I want", options: ["give me what I want", "ignore me", "leave me alone", "help me"] },
+              
             // Chapter 6
-            { q: "What does a 'Carpenter' do?", a: "Makes things out of wood", options: ["Makes things out of wood", "Paints beautiful pictures", "Fixes broken cars", "Sews clothes"] },
-            { q: "Who is a 'Puppet master'?", a: "Someone who makes puppets speak and move", options: ["Someone who makes puppets speak and move", "Someone who buys toys", "A person who catches thieves", "A rich king"] }
+            { q: "Word meaning of 'Carpenter'?", a: "Makes things out of wood", options: ["Makes things out of wood", "Paints beautiful pictures", "Fixes broken cars", "Sews clothes"] },
+            { q: "Word meaning of 'Puppet master'?", a: "Someone who makes puppets speak and move", options: ["Someone who makes puppets speak and move", "Someone who buys toys", "A person who catches thieves", "A rich king"] }
         ],
         rhyming_words: [
             // Poem: The Lily Pool
-            { q: "Which word rhymes with 'Pool'?", a: "Cool", options: ["Cool", "Tall", "Pill", "Fall"] },
-            { q: "Which word rhymes with 'White'?", a: "Night", options: ["Night", "Wait", "Cat", "Hat"] },
-            { q: "Which word rhymes with 'Bloom'?", a: "Gloom", options: ["Gloom", "Slow", "Run", "Green"] },
-            { q: "Which word rhymes with 'Curls'?", a: "Pearls", options: ["Pearls", "Girls", "Calls", "Pulls"] },
-            { q: "Which word rhymes with 'Pink'?", a: "Sink", options: ["Sink", "Drink", "Sand", "Hand"] },
+            { q: "What is a rhyming word for 'Pool'?", a: "Cool", options: ["Cool", "Tall", "Pill", "Fall"] },
+            { q: "What is a rhyming word for 'White'?", a: "Night", options: ["Night", "Wait", "Cat", "Hat"] },
+            { q: "What is a rhyming word for 'Bloom'?", a: "Gloom", options: ["Gloom", "Slow", "Run", "Green"] },
+            { q: "What is a rhyming word for 'Curls'?", a: "Pearls", options: ["Pearls", "Girls", "Calls", "Pulls"] },
+            { q: "What is a rhyming word for 'Pink'?", a: "Sink", options: ["Sink", "Drink", "Sand", "Hand"] },
+            { q: "What is a rhyming word for 'Do'?", a: "too", options: ["too", "two", "cow", "tow"] },
+            
             // Poem: Fireflies
-            { q: "Which word rhymes with 'Night'?", a: "Light", options: ["Light", "Late", "Kite", "Rat"] },
-            { q: "Which word rhymes with 'Air'?", a: "There", options: ["There", "Here", "Near", "Far"] },
-            { q: "Which word rhymes with 'Tree'?", a: "Me", options: ["Me", "You", "Us", "They"] },
-            { q: "Which word rhymes with 'One'?", a: "Fun", options: ["Fun", "Run", "Sun", "Man"] }
+            { q: "What is a rhyming word for 'Night'?", a: "Light", options: ["Light", "Late", "Kite", "Rat"] },
+            { q: "What is a rhyming word for 'Air'?", a: "There", options: ["There", "Here", "Near", "Far"] },
+            { q: "What is a rhyming word for 'Tree'?", a: "Me", options: ["Me", "You", "Us", "They"] },
+            { q: "What is a rhyming word for 'One'?", a: "Fun", options: ["Fun", "Run", "Sun", "Man"] }
         ],
         opposite_word: [
             // Opposite Words list
@@ -227,30 +233,78 @@ const SUBJECT_DATA = {
         ],
         textual_grammar: [
             // Plurals
-            { q: "What is the plural of 'Box'?", a: "Boxes", options: ["Boxes", "Boxs", "Boxies", "Boxen"] },
-            { q: "What is the plural of 'Party'?", a: "Parties", options: ["Parties", "Partys", "Partees", "Party"] },
-            { q: "What is the plural of 'Wolf'?", a: "Wolves", options: ["Wolves", "Wolfs", "Wolvies", "Wolven"] },
-            { q: "What is the plural of 'City'?", a: "Cities", options: ["Cities", "Citys", "Cites", "Citie"] },
-            { q: "What is the plural of 'Knife'?", a: "Knives", options: ["Knives", "Knifes", "Knif", "Knivees"] },
+            { q: "Choose the plural of 'Box'?", a: "Boxes", options: ["Boxes", "Boxs", "Boxies", "Boxen"] },
+            { q: "Choose the plural of 'Party'?", a: "Parties", options: ["Partys", "Parties", "Partyes", "Partyses"] },
+            { q: "Choose the plural of 'Wolf'?", a: "Wolves", options: ["Wolfs", "Wolves", "Wolfes", "Wolvez"] },
+            { q: "Choose the plural of 'Class'?", a: "Classes", options: ["Classs", "Classes", "Classies", "Class"] },
+            { q: "Choose the plural of 'City'?", a: "Cities", options: ["Citys", "Cities", "Cityes", "Citis"] },
+            { q: "Choose the plural of 'Knife'?", a: "Knives", options: ["Knifes", "Knives", "Knifees", "Knifves"] },
+            { q: "Choose the plural of 'Glass'?", a: "Glasses", options: ["Glasss", "Glasses", "Glassies", "Glasees"] },
+            { q: "Choose the plural of 'Bus'?", a: "Buses", options: ["Buss", "Buses", "Busies", "Bus"] },
+            { q: "Choose the plural of 'Dish'?", a: "Dishes", options: ["Dishs", "Dishes", "Disheses", "Dish"] },
+            { q: "Choose the plural of 'Story'?", a: "Stories", options: ["Storys", "Stories", "Storyes", "Storiez"] },
+
             // Gender
-            { q: "What is the feminine gender of 'King'?", a: "Queen", options: ["Queen", "Princess", "Lady", "Duchess"] },
-            { q: "What is the masculine gender of 'Aunt'?", a: "Uncle", options: ["Uncle", "Nephew", "Brother", "Father"] },
-            { q: "What gender is the word 'Book'?", a: "Neuter", options: ["Neuter", "Common", "Masculine", "Feminine"] },
-            { q: "What gender is the word 'Teacher'?", a: "Common", options: ["Common", "Neuter", "Feminine", "Masculine"] },
+            { q: "What gender is the word 'Lady'?", a: "👩🏻 Feminine", options: ["👩🏻 Feminine", "👨🏻 Masculine", "👫Common", "Neuter"] },
+            { q: "What gender is the word 'King'?", a: "👨🏻 Masculine", options: ["👨🏻 Masculine", "👩🏻 Feminine", "👫Common", "Neuter"] },
+            { q: "What gender is the word 'Tailor'?", a: "👫Common", options: ["👨🏻 Masculine", "👫Common", "👩🏻 Feminine", "Neuter"] },
+            { q: "What gender is the word 'Book'?", a: "Neuter", options: ["Neuter", "👫Common", "👨🏻 Masculine", "👩🏻 Feminine"] },
+            { q: "What gender is the word 'Lioness'?", a: "👩🏻 Feminine", options: ["👩🏻 Feminine", "👨🏻 Masculine", "👫Common", "Neuter"] },
+            { q: "What is the 👩🏻 Feminine gender of 'King'?", a: "Queen", options: ["Queen", "Princess", "Lady", "Duchess"] },
+            { q: "What is the 👨🏻 Masculine gender of 'Aunt'?", a: "Uncle", options: ["Uncle", "Nephew", "Brother", "Father"] },
+            { q: "What gender is the word 'Book'?", a: "Neuter", options: ["Neuter", "👫Common", "👨🏻 Masculine", "👩🏻 Feminine"] },
+            { q: "What gender is the word 'Teacher'?", a: "👫Common", options: ["👫Common", "Neuter", "👩🏻 Feminine", "👨🏻 Masculine"] },
+            { q: "What gender is the word 'School'?", a: "⚲ Neuter", options: ["⚲ Neuter", "👫Common", "👩🏻 Feminine", "👨🏻 Masculine"] },
+            { q: "What gender is the word 'President'?", a: "👫Common", options: ["👨🏻 Masculine", "👫Common", "👩🏻 Feminine", "⚲ Neuter"] },
+            { q: "What gender is the word 'Aunt'?", a: "👩🏻 Feminine", options: ["👩🏻 Feminine", "👨🏻 Masculine", "👫Common", "⚲ Neuter"] },
+            { q: "What gender is the word 'Road'?", a: "⚲ Neuter", options: ["⚲ Neuter", "👫Common", "👩🏻 Feminine", "👨🏻 Masculine"] },
+            { q: "What gender is the word 'Husband'?", a: "👨🏻 Masculine", options: ["👨🏻 Masculine", "👩🏻 Feminine", "👫Common", "⚲ Neuter"] },
+            { q: "What gender is the word 'Sea'?", a: "⚲ Neuter", options: ["⚲ Neuter", "👩🏻 Feminine", "👨🏻 Masculine", "👫Common"] },
+            { q: "What gender is the word 'Nephew'?", a: "👨🏻 Masculine", options: ["👨🏻 Masculine", "👩🏻 Feminine", "👫Common", "⚲ Neuter"] },
+            { q: "What gender is the word 'Singer'?", a: "👫Common", options: ["👫Common", "👨🏻 Masculine", "👩🏻 Feminine", "⚲ Neuter"] },
+            { q: "What gender is the word 'Daughter'?", a: "👩🏻 Feminine", options: ["👩🏻 Feminine", "👨🏻 Masculine", "👫Common", "⚲ Neuter"] },
+            { q: "What gender is the word 'Teacher'?", a: "👫Common", options: ["👫Common", "⚲ Neuter", "👩🏻 Feminine", "👨🏻 Masculine"] },
+            { q: "What gender is the word 'Man'?", a: "👨🏻 Masculine", options: ["👨🏻 Masculine", "👩🏻 Feminine", "👫Common", "⚲ Neuter"] },
+
             // Pronouns
             { q: "Choose the correct pronoun: Amit is my friend. ___ is very clever.", a: "He", options: ["He", "She", "It", "They"] },
-            { q: "Choose the correct pronoun: Mishel is sleeping. Don't disturb ___.", a: "her", options: ["her", "she", "it", "him"] },
-            { q: "Choose the correct pronoun: Kirti loves flowers. She buys ___ every morning.", a: "them", options: ["them", "her", "him", "she"] },
+            { q: "Choose the correct pronoun: Where is the parrot? ___ flew away.", a: "It", options: ["He", "She", "It", "They"] },
+            { q: "Choose the correct pronoun: You are hurt. ___ will help you.", a: "We", options: ["We", "Us", "He", "They"] },
+            { q: "Choose the correct pronoun: Mishel is sleeping. Don't disturb ___.", a: "Her", options: ["She", "Her", "It", "Them"] },
+            { q: "Choose the correct pronoun: Noel and Samarth are in the library. Please call ___.", a: "Them", options: ["They", "Them", "We", "Us"] },
+            { q: "Choose the correct pronoun: My parents play tennis together. ___ play every Sunday.", a: "They", options: ["Them", "They", "We", "Us"] },
+            { q: "Choose the correct pronoun: Kirti loves flowers. ___ buys them every morning.", a: "She", options: ["Her", "Him", "She", "They"] },
+            { q: "Choose the correct pronoun: Alia visited Mumbai. She bought gifts for ___.", a: "Me", options: ["I", "Me", "It", "Us"] },
+
             // Adjectives
-            { q: "Identify the adjective in the sentence: 'We cut two cakes on my birthday.'", a: "two", options: ["two", "cut", "cakes", "birthday"] },
-            { q: "Identify the adjective in the sentence: 'Tanu saw a pretty butterfly.'", a: "pretty", options: ["pretty", "saw", "butterfly", "Tanu"] },
+          { q: "Identify the adjective in the sentence: 'We cut two cakes on my birthday.'", a: "two", options: ["two", "cut", "cakes", "birthday"] },
+            { q: "Identify the adjective in the sentence: 'The red uniforms are ready.'", a: "red", options: ["red", "uniforms", "ready", "are"] },
+            { q: "Identify the adjective in the sentence: 'Grandfather gave me a sweet mango.'", a: "sweet", options: ["sweet", "mango", "gave", "Grandfather"] },
+            { q: "Identify the adjective in the sentence: 'Tanu saw a pretty butterfly.'", a: "pretty", options: ["pretty", "butterfly", "saw", "Tanu"] },
+            { q: "Identify the adjective in the sentence: 'There are bulbuls in the tall tree.'", a: "tall", options: ["tall", "tree", "bulbuls", "There"] },
+            { q: "Identify the adjective in the sentence: 'The square lunch box belongs to me.'", a: "square", options: ["square", "lunch", "belongs", "me"] },
             { q: "Identify the adjective in the sentence: 'The pillow is very soft.'", a: "soft", options: ["soft", "pillow", "very", "is"] },
+            { q: "Identify the adjective in the sentence: 'Hurry! There are huge clouds in the sky.'", a: "huge", options: ["huge", "clouds", "sky", "Hurry"] },
+
             // ie or ei Spellings
-            { q: "Complete the word correctly: Fr _ _ nd", a: "ie", options: ["ie", "ei", "ea", "ee"] },
+                        { q: "Complete the word correctly: Fr _ _ nd", a: "ie", options: ["ie", "ei", "ea", "ee"] },
+            { q: "Complete the word correctly: N _ _ gh", a: "ei", options: ["ei", "ie", "ea", "ee"] },
+            { q: "Complete the word correctly: P _ _ ce", a: "ie", options: ["ie", "ei", "ea", "ee"] },
+            { q: "Complete the word correctly: W _ _ ght", a: "ei", options: ["ei", "ie", "ea", "ee"] },
+            { q: "Complete the word correctly: F _ _ ld", a: "ie", options: ["ie", "ei", "ea", "ee"] },
             { q: "Complete the word correctly: R _ c _ _ ve", a: "ei", options: ["ei", "ie", "ea", "ee"] },
+            { q: "Complete the word correctly: M _ sch _ _ f", a: "ie", options: ["ie", "ei", "ea", "ee"] },
+            { q: "Complete the word correctly: Th _ _ f", a: "ie", options: ["ie", "ei", "ea", "ee"] },
+            { q: "Complete the word correctly: Th _ _ r", a: "ei", options: ["ei", "ie", "ea", "ee"] },
+            { q: "Complete the word correctly: C _ _ ling", a: "ei", options: ["ei", "ie", "ea", "ee"] },
+
             // Read the clues
-            { q: "Read the clue: 'Tells us the time'", a: "Clock", options: ["Clock", "Book", "Radio", "Bell"] },
-            { q: "Read the clue: 'A place where we can keep our money'", a: "Bank", options: ["Bank", "School", "Hospital", "Market"] }
+           { q: "Read the clue: 'Tells us the time'", a: "Clock", options: ["Clock", "Book", "Radio", "Bell"] },
+            { q: "Read the clue: 'Opposite of hot'", a: "Cold", options: ["Cold", "Warm", "Dry", "Fast"] },
+            { q: "Read the clue: 'You beat a drum with it'", a: "Stick", options: ["Stick", "Rope", "Brush", "Stone"] },
+            { q: "Read the clue: 'Birds do this in the sky'", a: "Fly", options: ["Fly", "Swim", "Run", "Jump"] },
+            { q: "Read the clue: 'Soldiers do this'", a: "March", options: ["March", "Dance", "Sleep", "Paint"] },
+            { q: "Read the clue: 'A place where we can keep our money or take it out from'", a: "Bank", options: ["Bank", "School", "Hospital", "Library"] },
         ]
     }
 },
