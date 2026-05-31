@@ -1,17 +1,25 @@
 const CATEGORY_ICONS = {
+  // Existing Categories
   'one_word': { icon: '💬', title: 'One Word', desc: 'Quick Ans' },
-            'name_following': { icon: '🏷️', title: 'Name It', desc: 'Identify' },
-            'fill_blanks': { icon: '✍️', title: 'Fill Blanks', desc: 'Complete it' },
-            'true_false': { icon: '✔️', title: 'True/False', desc: 'Fact Check' },
-            'match_following': { icon: '🔗', title: 'Match Pairs', desc: 'Connect' },
-            'rearrange': { icon: '🧩', title: 'Rearrange', desc: 'Unscramble' },
-            'missing_letters': { icon: '🔤', title: 'Missing Ltrs', desc: 'Spell it' },
-            'mcq_standard': { icon: '🔘', title: 'MCQ', desc: 'Choose 1' },
-            'word_meaning': { icon: '📖', title: 'Meanings', desc: 'Define it' },
-            'rhyming_words': { icon: '🎵', title: 'Rhymes', desc: 'Match Sound' },
-            'opposite_word': { icon: '🔄', title: 'Opposites', desc: 'Antonyms' },
-            'textual_grammar': { icon: '📝', title: 'Grammar', desc: 'Rules' },
-            'drawing': { icon: '✏️', title: 'Drawing', desc: 'Diagrams' }
+  'name_following': { icon: '🏷️', title: 'Name It', desc: 'Identify' },
+  'fill_blanks': { icon: '✍️', title: 'Fill Blanks', desc: 'Complete it' },
+  'true_false': { icon: '✔️', title: 'True/False', desc: 'Fact Check' },
+  'match_following': { icon: '🔗', title: 'Match Pairs', desc: 'Connect' },
+  'rearrange': { icon: '🧩', title: 'Rearrange', desc: 'Unscramble' },
+  'missing_letters': { icon: '🅰️', title: 'Missing Ltrs', desc: 'Fill letters' },
+  'mcq_standard': { icon: '🔘', title: 'MCQ', desc: 'Choose correct answer' },
+  'spelling_check': { icon: '✅', title: 'Spell Check', desc: 'Correct spelling' },
+  'word_meaning': { icon: '📖', title: 'Meanings', desc: 'Define it' },
+  'rhyming_words': { icon: '🎵', title: 'Rhymes', desc: 'Match Sound' },
+  'opposite_word': { icon: '🔄', title: 'Opposites', desc: 'Antonyms' },
+  'drawing': { icon: '✏️', title: 'Drawing', desc: 'Diagrams' },
+  // Newly Refactored Categories
+  'change_plural': { icon: '📦', title: 'Plurals', desc: 'One to many' },
+  'change_gender': { icon: '👫', title: 'Genders', desc: 'Male/Female/Neuter' },
+  'adjective': { icon: '✨', title: 'Adjectives', desc: 'Describe it' },
+  'pronoun': { icon: '👤', title: 'Pronouns', desc: 'Replace noun' },
+  'spelling_rules': { icon: '🔤', title: 'Spell Rules', desc: 'ie or ei' },
+  'read_clues': { icon: '🕵️', title: 'Read Clues', desc: 'Solve it' }
 };
 
 const SUBJECT_DATA = {
@@ -22,20 +30,25 @@ const SUBJECT_DATA = {
     theme: "#ec4899", // Pink theme for English
     gradient: "linear-gradient(135deg, #ec4899, #8b5cf6)",
     sections: [
+        { id: 'spelling_check', title: 'Choose the correct spelling', max: 25, default: 10, marksPerQ: 1 },
         { id: 'mcq_standard', title: 'Choose the correct answer', max: 25, default: 10, marksPerQ: 1 },
-        { id: 'fill_blanks', title: 'Fill in the blanks', max: 15, default: 5, marksPerQ: 1 },
-        { id: 'true_false', title: 'Write True or False', max: 15, default: 5, marksPerQ: 1 },
-        { id: 'one_word', title: 'Answer in one word', max: 15, default: 5, marksPerQ: 1 },
-        { id: 'word_meaning', title: 'Word Meaning', max: 10, default: 5, marksPerQ: 1 },
-        { id: 'rhyming_words', title: 'Rhyming Words', max: 10, default: 5, marksPerQ: 1 },
-        { id: 'opposite_word', title: 'Opposite Words', max: 12, default: 5, marksPerQ: 1 },
-        { id: 'textual_grammar', title: 'Textual Grammar', max: 15, default: 5, marksPerQ: 1 }
+            { id: 'fill_blanks', title: 'Fill in the blanks', max: 20, default: 5, marksPerQ: 1 },
+            { id: 'true_false', title: 'Write True or False', max: 12, default: 5, marksPerQ: 1 },
+            { id: 'one_word', title: 'Answer in one word', max: 16, default: 5, marksPerQ: 1 },
+            { id: 'word_meaning', title: 'Word Meaning', max: 15, default: 5, marksPerQ: 1 },
+            { id: 'rhyming_words', title: 'Rhyming Words', max: 10, default: 5, marksPerQ: 1 },
+            { id: 'opposite_word', title: 'Opposite Words', max: 12, default: 5, marksPerQ: 1 },
+            // Newly refactored sections
+            { id: 'change_plural', title: 'Change the Plural', max: 10, default: 5, marksPerQ: 1 },
+            { id: 'change_gender', title: 'Change the Gender', max: 20, default: 5, marksPerQ: 1 },
+            { id: 'adjective', title: 'Identify the Adjective', max: 8, default: 5, marksPerQ: 1 },
+            { id: 'pronoun', title: 'Choose the Correct Pronoun', max: 8, default: 5, marksPerQ: 1 },
+            { id: 'spelling_rules', title: 'Complete the Word (ie/ei)', max: 10, default: 5, marksPerQ: 1 },
+            { id: 'read_clues', title: 'Read the Clues', max: 6, default: 5, marksPerQ: 1 }
     ],
     bank: {
-        mcq_standard: [
-         
-        
-            // Spelling questions for Chapter 3
+        spelling_check: [
+             // Spelling questions for Chapter 3
             {"q": "Choose the correct spelling:", "a": "Apartment", "options": ["Apartment", "Appartment", "Apartmentt", "Apartement"]},
             {"q": "Choose the correct spelling:", "a": "Frightened", "options": ["Frightened", "Frithaned", "Frigtened", "Frightend"]},
             {"q": "Choose the correct spelling:", "a": "Lovely", "options": ["Lovely", "Lovly", "Loveley", "Lively"]},
@@ -80,8 +93,12 @@ const SUBJECT_DATA = {
             {"q": "Choose the correct spelling:", "a": "Promised", "options": ["Promised", "Promisd", "Promissed", "Pranised"]},
             {"q": "Choose the correct spelling:", "a": "Hugged", "options": ["Hugged", "Huged", "Huggt", "Huggid"]},
             {"q": "Choose the correct spelling:", "a": "Suddenly", "options": ["Suddenly", "Sudenly", "Suddnly", "Sudenley"]},
-        
-            // Chapter 3: A new friend (Q&A and Spellings)
+        ],
+
+        mcq_standard: [
+         
+       
+            // Chapter 3: A new friend (Q&A )
             { q: "Where did Hasmina and Saif live?", a: "Ajanta Apartments", options: ["Ajanta Apartments", "Skyline Apartments", "Rose Apartments", "Sunshine Apartments"] },
             { q: "Who stood near their flying machine?", a: "Wilbur and Orville Wright", options: ["Wilbur and Orville Wright", "James and Thomas", "Albert and Isaac", "Only Wilbur Wright"] },
             { q: "How long did the first aeroplane fly for?", a: "For a count of twelve", options: ["For a count of twelve", "For one hour", "For five minutes", "For a whole day"] },
@@ -89,14 +106,13 @@ const SUBJECT_DATA = {
             { q: "How has the Wright brother's model helped people?", a: "To travel to far-off places", options: ["To travel to far-off places", "To cook food faster", "To talk to friends", "To wash clothes"] },
           
 
-            // Chapter 5: The King of All Stories (Q&A and Spellings)
+            // Chapter 5: The King of All Stories (Q&A)
             { q: "Who were Anansi and Nyame?", a: "A clever spider and the Sky God", options: ["A clever spider and the Sky God", "A lion and a tiger", "Two young boys", "A bird and a tree"] },
             { q: "What did Nyame ask Anansi to bring him as a price?", a: "Hornets, Python, and Leopard", options: ["Hornets, Python, and Leopard", "Gold, Silver, and Diamonds", "Water, Fire, and Air", "Apples, Mangoes, and Grapes"] },
             { q: "Why did the Hornets fly into the gourd?", a: "To stay dry from the fake rain", options: ["To stay dry from the fake rain", "To eat honey", "To hide from a bird", "To build a nest"] },
 
-            
-                        
-            // Chapter 6: Pinocchio (Q&A and Spellings)
+                                    
+            // Chapter 6: Pinocchio (Q&A )
             { q: "Who was Pinocchio?", a: "A wooden toy that became a real boy", options: ["A wooden toy that became a real boy", "A clever spider", "A young fairy", "A rich king"] },
             { q: "What happened each time Pinocchio lied?", a: "His nose grew longer", options: ["His nose grew longer", "His ears grew big", "He lost a gold coin", "He fell asleep"] },
             { q: "What happened when Pinocchio sat near the fire?", a: "His feet caught fire and burned off", options: ["His feet caught fire and burned off", "He cooked his food", "He got very cold", "His nose grew longer"] },
@@ -231,81 +247,83 @@ const SUBJECT_DATA = {
             { q: "What is the opposite of 'New'?", a: "Old", options: ["Old", "Fresh", "Recent", "Young"] },
             { q: "What is the opposite of 'Thick'?", a: "Thin", options: ["Thin", "Fat", "Heavy", "Wide"] }
         ],
-        textual_grammar: [
-            // Plurals
-            { q: "Choose the plural of 'Box'?", a: "Boxes", options: ["Boxes", "Boxs", "Boxies", "Boxen"] },
-            { q: "Choose the plural of 'Party'?", a: "Parties", options: ["Partys", "Parties", "Partyes", "Partyses"] },
-            { q: "Choose the plural of 'Wolf'?", a: "Wolves", options: ["Wolfs", "Wolves", "Wolfes", "Wolvez"] },
-            { q: "Choose the plural of 'Class'?", a: "Classes", options: ["Classs", "Classes", "Classies", "Class"] },
-            { q: "Choose the plural of 'City'?", a: "Cities", options: ["Citys", "Cities", "Cityes", "Citis"] },
-            { q: "Choose the plural of 'Knife'?", a: "Knives", options: ["Knifes", "Knives", "Knifees", "Knifves"] },
-            { q: "Choose the plural of 'Glass'?", a: "Glasses", options: ["Glasss", "Glasses", "Glassies", "Glasees"] },
-            { q: "Choose the plural of 'Bus'?", a: "Buses", options: ["Buss", "Buses", "Busies", "Bus"] },
-            { q: "Choose the plural of 'Dish'?", a: "Dishes", options: ["Dishs", "Dishes", "Disheses", "Dish"] },
-            { q: "Choose the plural of 'Story'?", a: "Stories", options: ["Storys", "Stories", "Storyes", "Storiez"] },
-
-            // Gender
-            { q: "What gender is the word 'Lady'?", a: "👩🏻 Feminine", options: ["👩🏻 Feminine", "👨🏻 Masculine", "👫Common", "Neuter"] },
-            { q: "What gender is the word 'King'?", a: "👨🏻 Masculine", options: ["👨🏻 Masculine", "👩🏻 Feminine", "👫Common", "Neuter"] },
-            { q: "What gender is the word 'Tailor'?", a: "👫Common", options: ["👨🏻 Masculine", "👫Common", "👩🏻 Feminine", "Neuter"] },
-            { q: "What gender is the word 'Book'?", a: "Neuter", options: ["Neuter", "👫Common", "👨🏻 Masculine", "👩🏻 Feminine"] },
-            { q: "What gender is the word 'Lioness'?", a: "👩🏻 Feminine", options: ["👩🏻 Feminine", "👨🏻 Masculine", "👫Common", "Neuter"] },
-            { q: "What is the 👩🏻 Feminine gender of 'King'?", a: "Queen", options: ["Queen", "Princess", "Lady", "Duchess"] },
-            { q: "What is the 👨🏻 Masculine gender of 'Aunt'?", a: "Uncle", options: ["Uncle", "Nephew", "Brother", "Father"] },
-            { q: "What gender is the word 'Book'?", a: "Neuter", options: ["Neuter", "👫Common", "👨🏻 Masculine", "👩🏻 Feminine"] },
-            { q: "What gender is the word 'Teacher'?", a: "👫Common", options: ["👫Common", "Neuter", "👩🏻 Feminine", "👨🏻 Masculine"] },
-            { q: "What gender is the word 'School'?", a: "⚲ Neuter", options: ["⚲ Neuter", "👫Common", "👩🏻 Feminine", "👨🏻 Masculine"] },
-            { q: "What gender is the word 'President'?", a: "👫Common", options: ["👨🏻 Masculine", "👫Common", "👩🏻 Feminine", "⚲ Neuter"] },
-            { q: "What gender is the word 'Aunt'?", a: "👩🏻 Feminine", options: ["👩🏻 Feminine", "👨🏻 Masculine", "👫Common", "⚲ Neuter"] },
-            { q: "What gender is the word 'Road'?", a: "⚲ Neuter", options: ["⚲ Neuter", "👫Common", "👩🏻 Feminine", "👨🏻 Masculine"] },
-            { q: "What gender is the word 'Husband'?", a: "👨🏻 Masculine", options: ["👨🏻 Masculine", "👩🏻 Feminine", "👫Common", "⚲ Neuter"] },
-            { q: "What gender is the word 'Sea'?", a: "⚲ Neuter", options: ["⚲ Neuter", "👩🏻 Feminine", "👨🏻 Masculine", "👫Common"] },
-            { q: "What gender is the word 'Nephew'?", a: "👨🏻 Masculine", options: ["👨🏻 Masculine", "👩🏻 Feminine", "👫Common", "⚲ Neuter"] },
-            { q: "What gender is the word 'Singer'?", a: "👫Common", options: ["👫Common", "👨🏻 Masculine", "👩🏻 Feminine", "⚲ Neuter"] },
-            { q: "What gender is the word 'Daughter'?", a: "👩🏻 Feminine", options: ["👩🏻 Feminine", "👨🏻 Masculine", "👫Common", "⚲ Neuter"] },
-            { q: "What gender is the word 'Teacher'?", a: "👫Common", options: ["👫Common", "⚲ Neuter", "👩🏻 Feminine", "👨🏻 Masculine"] },
-            { q: "What gender is the word 'Man'?", a: "👨🏻 Masculine", options: ["👨🏻 Masculine", "👩🏻 Feminine", "👫Common", "⚲ Neuter"] },
-
-            // Pronouns
-            { q: "Choose the correct pronoun: Amit is my friend. ___ is very clever.", a: "He", options: ["He", "She", "It", "They"] },
-            { q: "Choose the correct pronoun: Where is the parrot? ___ flew away.", a: "It", options: ["He", "She", "It", "They"] },
-            { q: "Choose the correct pronoun: You are hurt. ___ will help you.", a: "We", options: ["We", "Us", "He", "They"] },
-            { q: "Choose the correct pronoun: Mishel is sleeping. Don't disturb ___.", a: "Her", options: ["She", "Her", "It", "Them"] },
-            { q: "Choose the correct pronoun: Noel and Samarth are in the library. Please call ___.", a: "Them", options: ["They", "Them", "We", "Us"] },
-            { q: "Choose the correct pronoun: My parents play tennis together. ___ play every Sunday.", a: "They", options: ["Them", "They", "We", "Us"] },
-            { q: "Choose the correct pronoun: Kirti loves flowers. ___ buys them every morning.", a: "She", options: ["Her", "Him", "She", "They"] },
-            { q: "Choose the correct pronoun: Alia visited Mumbai. She bought gifts for ___.", a: "Me", options: ["I", "Me", "It", "Us"] },
-
-            // Adjectives
-          { q: "Identify the adjective in the sentence: 'We cut two cakes on my birthday.'", a: "two", options: ["two", "cut", "cakes", "birthday"] },
-            { q: "Identify the adjective in the sentence: 'The red uniforms are ready.'", a: "red", options: ["red", "uniforms", "ready", "are"] },
-            { q: "Identify the adjective in the sentence: 'Grandfather gave me a sweet mango.'", a: "sweet", options: ["sweet", "mango", "gave", "Grandfather"] },
-            { q: "Identify the adjective in the sentence: 'Tanu saw a pretty butterfly.'", a: "pretty", options: ["pretty", "butterfly", "saw", "Tanu"] },
-            { q: "Identify the adjective in the sentence: 'There are bulbuls in the tall tree.'", a: "tall", options: ["tall", "tree", "bulbuls", "There"] },
-            { q: "Identify the adjective in the sentence: 'The square lunch box belongs to me.'", a: "square", options: ["square", "lunch", "belongs", "me"] },
-            { q: "Identify the adjective in the sentence: 'The pillow is very soft.'", a: "soft", options: ["soft", "pillow", "very", "is"] },
-            { q: "Identify the adjective in the sentence: 'Hurry! There are huge clouds in the sky.'", a: "huge", options: ["huge", "clouds", "sky", "Hurry"] },
-
-            // ie or ei Spellings
-                        { q: "Complete the word correctly: Fr _ _ nd", a: "ie", options: ["ie", "ei", "ea", "ee"] },
-            { q: "Complete the word correctly: N _ _ gh", a: "ei", options: ["ei", "ie", "ea", "ee"] },
-            { q: "Complete the word correctly: P _ _ ce", a: "ie", options: ["ie", "ei", "ea", "ee"] },
-            { q: "Complete the word correctly: W _ _ ght", a: "ei", options: ["ei", "ie", "ea", "ee"] },
-            { q: "Complete the word correctly: F _ _ ld", a: "ie", options: ["ie", "ei", "ea", "ee"] },
-            { q: "Complete the word correctly: R _ c _ _ ve", a: "ei", options: ["ei", "ie", "ea", "ee"] },
-            { q: "Complete the word correctly: M _ sch _ _ f", a: "ie", options: ["ie", "ei", "ea", "ee"] },
-            { q: "Complete the word correctly: Th _ _ f", a: "ie", options: ["ie", "ei", "ea", "ee"] },
-            { q: "Complete the word correctly: Th _ _ r", a: "ei", options: ["ei", "ie", "ea", "ee"] },
-            { q: "Complete the word correctly: C _ _ ling", a: "ei", options: ["ei", "ie", "ea", "ee"] },
-
-            // Read the clues
-           { q: "Read the clue: 'Tells us the time'", a: "Clock", options: ["Clock", "Book", "Radio", "Bell"] },
-            { q: "Read the clue: 'Opposite of hot'", a: "Cold", options: ["Cold", "Warm", "Dry", "Fast"] },
-            { q: "Read the clue: 'You beat a drum with it'", a: "Stick", options: ["Stick", "Rope", "Brush", "Stone"] },
-            { q: "Read the clue: 'Birds do this in the sky'", a: "Fly", options: ["Fly", "Swim", "Run", "Jump"] },
-            { q: "Read the clue: 'Soldiers do this'", a: "March", options: ["March", "Dance", "Sleep", "Paint"] },
-            { q: "Read the clue: 'A place where we can keep our money or take it out from'", a: "Bank", options: ["Bank", "School", "Hospital", "Library"] },
-        ]
+        change_plural: [
+                { q: "Choose the plural of 'Box'?", a: "Boxes", options: ["Boxes", "Boxs", "Boxies", "Boxen"] },
+                { q: "Choose the plural of 'Party'?", a: "Parties", options: ["Partys", "Parties", "Partyes", "Partyses"] },
+                { q: "Choose the plural of 'Wolf'?", a: "Wolves", options: ["Wolfs", "Wolves", "Wolfes", "Wolvez"] },
+                { q: "Choose the plural of 'Class'?", a: "Classes", options: ["Classs", "Classes", "Classies", "Class"] },
+                { q: "Choose the plural of 'City'?", a: "Cities", options: ["Citys", "Cities", "Cityes", "Citis"] },
+                { q: "Choose the plural of 'Knife'?", a: "Knives", options: ["Knifes", "Knives", "Knifees", "Knifves"] },
+                { q: "Choose the plural of 'Glass'?", a: "Glasses", options: ["Glasss", "Glasses", "Glassies", "Glasees"] },
+                { q: "Choose the plural of 'Bus'?", a: "Buses", options: ["Buss", "Buses", "Busies", "Bus"] },
+                { q: "Choose the plural of 'Dish'?", a: "Dishes", options: ["Dishs", "Dishes", "Disheses", "Dish"] },
+                { q: "Choose the plural of 'Story'?", a: "Stories", options: ["Storys", "Stories", "Storyes", "Storiez"] }
+            ],
+            change_gender: [
+                { q: "What gender is the word 'Lady'?", a: "👩🏻 Feminine", options: ["👩🏻 Feminine", "👨🏻 Masculine", "👫Common", "Neuter"] },
+                { q: "What gender is the word 'King'?", a: "👨🏻 Masculine", options: ["👨🏻 Masculine", "👩🏻 Feminine", "👫Common", "Neuter"] },
+                { q: "What gender is the word 'Tailor'?", a: "👫Common", options: ["👨🏻 Masculine", "👫Common", "👩🏻 Feminine", "Neuter"] },
+                { q: "What gender is the word 'Book'?", a: "Neuter", options: ["Neuter", "👫Common", "👨🏻 Masculine", "👩🏻 Feminine"] },
+                { q: "What gender is the word 'Lioness'?", a: "👩🏻 Feminine", options: ["👩🏻 Feminine", "👨🏻 Masculine", "👫Common", "Neuter"] },
+                { q: "What is the 👩🏻 Feminine gender of 'King'?", a: "Queen", options: ["Queen", "Princess", "Lady", "Duchess"] },
+                { q: "What is the 👨🏻 Masculine gender of 'Aunt'?", a: "Uncle", options: ["Uncle", "Nephew", "Brother", "Father"] },
+                { q: "What gender is the word 'Book'?", a: "Neuter", options: ["Neuter", "👫Common", "👨🏻 Masculine", "👩🏻 Feminine"] },
+                { q: "What gender is the word 'Teacher'?", a: "👫Common", options: ["👫Common", "Neuter", "👩🏻 Feminine", "👨🏻 Masculine"] },
+                { q: "What gender is the word 'School'?", a: "⚲ Neuter", options: ["⚲ Neuter", "👫Common", "👩🏻 Feminine", "👨🏻 Masculine"] },
+                { q: "What gender is the word 'President'?", a: "👫Common", options: ["👨🏻 Masculine", "👫Common", "👩🏻 Feminine", "⚲ Neuter"] },
+                { q: "What gender is the word 'Aunt'?", a: "👩🏻 Feminine", options: ["👩🏻 Feminine", "👨🏻 Masculine", "👫Common", "⚲ Neuter"] },
+                { q: "What gender is the word 'Road'?", a: "⚲ Neuter", options: ["⚲ Neuter", "👫Common", "👩🏻 Feminine", "👨🏻 Masculine"] },
+                { q: "What gender is the word 'Husband'?", a: "👨🏻 Masculine", options: ["👨🏻 Masculine", "👩🏻 Feminine", "👫Common", "⚲ Neuter"] },
+                { q: "What gender is the word 'Sea'?", a: "⚲ Neuter", options: ["⚲ Neuter", "👩🏻 Feminine", "👨🏻 Masculine", "👫Common"] },
+                { q: "What gender is the word 'Nephew'?", a: "👨🏻 Masculine", options: ["👨🏻 Masculine", "👩🏻 Feminine", "👫Common", "⚲ Neuter"] },
+                { q: "What gender is the word 'Singer'?", a: "👫Common", options: ["👫Common", "👨🏻 Masculine", "👩🏻 Feminine", "⚲ Neuter"] },
+                { q: "What gender is the word 'Daughter'?", a: "👩🏻 Feminine", options: ["👩🏻 Feminine", "👨🏻 Masculine", "👫Common", "⚲ Neuter"] },
+                { q: "What gender is the word 'Teacher'?", a: "👫Common", options: ["👫Common", "⚲ Neuter", "👩🏻 Feminine", "👨🏻 Masculine"] },
+                { q: "What gender is the word 'Man'?", a: "👨🏻 Masculine", options: ["👨🏻 Masculine", "👩🏻 Feminine", "👫Common", "⚲ Neuter"] }
+            ],
+            adjective: [
+                // Identify the adjective in the sentence
+                { q: "We cut two cakes on my birthday.", a: "two", options: ["two", "cut", "cakes", "birthday"] },
+                { q: "The red uniforms are ready.", a: "red", options: ["red", "uniforms", "ready", "are"] },
+                { q: "Grandfather gave me a sweet mango.", a: "sweet", options: ["sweet", "mango", "gave", "Grandfather"] },
+                { q: "Tanu saw a pretty butterfly.", a: "pretty", options: ["pretty", "butterfly", "saw", "Tanu"] },
+                { q: "There are bulbuls in the tall tree.", a: "tall", options: ["tall", "tree", "bulbuls", "There"] },
+                { q: "The square lunch box belongs to me.", a: "square", options: ["square", "lunch", "belongs", "me"] },
+                { q: "'The pillow is very soft.'", a: "soft", options: ["soft", "pillow", "very", "is"] },
+                { q: "Hurry! There are huge clouds in the sky.", a: "huge", options: ["huge", "clouds", "sky", "Hurry"] }
+            ],
+            pronoun: [
+                //Chose the correct pronoun
+                { q: " Amit is my friend. ___ is very clever.", a: "He", options: ["He", "She", "It", "They"] },
+                { q: " Where is the parrot? ___ flew away.", a: "It", options: ["He", "She", "It", "They"] },
+                { q: " You are hurt. ___ will help you.", a: "We", options: ["We", "Us", "He", "They"] },
+                { q: " Mishel is sleeping. Don't disturb ___.", a: "Her", options: ["She", "Her", "It", "Them"] },
+                { q: " Noel and Samarth are in the library. Please call ___.", a: "Them", options: ["They", "Them", "We", "Us"] },
+                { q: " My parents play tennis together. ___ play every Sunday.", a: "They", options: ["Them", "They", "We", "Us"] },
+                { q: " Kirti loves flowers. ___ buys them every morning.", a: "She", options: ["Her", "Him", "She", "They"] },
+                { q: " Alia visited Mumbai. She bought gifts for ___.", a: "Me", options: ["I", "Me", "It", "Us"] }
+            ],
+            spelling_rules: [
+                { q: "Complete the word correctly: Fr _ _ nd", a: "ie", options: ["ie", "ei", "ea", "ee"] },
+                { q: "Complete the word correctly: N _ _ gh", a: "ei", options: ["ei", "ie", "ea", "ee"] },
+                { q: "Complete the word correctly: P _ _ ce", a: "ie", options: ["ie", "ei", "ea", "ee"] },
+                { q: "Complete the word correctly: W _ _ ght", a: "ei", options: ["ei", "ie", "ea", "ee"] },
+                { q: "Complete the word correctly: F _ _ ld", a: "ie", options: ["ie", "ei", "ea", "ee"] },
+                { q: "Complete the word correctly: R _ c _ _ ve", a: "ei", options: ["ei", "ie", "ea", "ee"] },
+                { q: "Complete the word correctly: M _ sch _ _ f", a: "ie", options: ["ie", "ei", "ea", "ee"] },
+                { q: "Complete the word correctly: Th _ _ f", a: "ie", options: ["ie", "ei", "ea", "ee"] },
+                { q: "Complete the word correctly: Th _ _ r", a: "ei", options: ["ei", "ie", "ea", "ee"] },
+                { q: "Complete the word correctly: C _ _ ling", a: "ei", options: ["ei", "ie", "ea", "ee"] }
+            ],
+            read_clues: [
+                // Read the clue and choose the correct answer
+                { q: "Tells us the time", a: "Clock", options: ["Clock", "Book", "Radio", "Bell"] },
+                { q: "Opposite of 'hot'", a: "Cold", options: ["Cold", "Warm", "Dry", "Fast"] },
+                { q: "You 'beat a drum' with it", a: "Stick", options: ["Stick", "Rope", "Brush", "Stone"] },
+                { q: "'Birds' do this in the 'sky'", a: "Fly", options: ["Fly", "Swim", "Run", "Jump"] },
+                { q: "'Soldiers' do this", a: "March", options: ["March", "Dance", "Sleep", "Paint"] },
+                { q: "A 'place' where we can keep our 'money' or take it out from", a: "Bank", options: ["Bank", "School", "Hospital", "Library"] }
+            ]
     }
 },
 "bengali": {
@@ -1021,4 +1039,10 @@ const SUBJECT_DATA = {
 }
 };
 
-const ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
+const ROMAN = [
+  "", 
+  "I", "II", "III", "IV", "V", 
+  "VI", "VII", "VIII", "IX", "X", 
+  "XI", "XII", "XIII", "XIV", "XV", 
+  "XVI", "XVII", "XVIII", "XIX", "XX"
+];

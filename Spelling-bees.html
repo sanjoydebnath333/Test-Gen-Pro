@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Spelling Bee Champ 🐝</title>
     <!-- Bootstrap 5 CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -27,10 +27,12 @@
             font-family: 'Nunito', sans-serif;
             background: radial-gradient(circle, #f9f7ff 0%, #e8e2ff 100%);
             color: var(--text-main);
-            min-height: 100vh;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden; /* Avoids vertical and horizontal scrolling completely */
             display: flex;
             flex-direction: column;
-            overflow-x: hidden;
+            user-select: none;
         }
 
         h1, h2, h3, h4, .font-kids {
@@ -43,29 +45,49 @@
             background-color: #FFFFFF;
             box-shadow: 0 4px 12px rgba(74, 20, 140, 0.08);
             border-bottom: 4px solid var(--primary-color);
+            height: 60px;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+            z-index: 10;
+        }
+
+        /* Immersive viewport layout wrapper */
+        .app-content {
+            flex-grow: 1;
+            height: calc(100vh - 60px);
+            position: relative;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         /* Screen Wrapper */
         .screen {
             display: none;
+            width: 100%;
+            height: 100%;
             animation: fadeIn 0.4s ease-in-out forwards;
         }
 
         .screen.active {
-            display: block;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Buttons Custom with High-Contrast Hover Styles */
+        /* Custom Kid Buttons with tactile 3D hover effects */
         .btn-kid {
             font-family: 'Fredoka', sans-serif;
             border-radius: 30px;
-            padding: 12px 28px;
-            font-size: 1.25rem;
+            padding: 10px 24px;
+            font-size: 1.15rem;
             border: none;
             transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: inline-block;
@@ -75,48 +97,48 @@
         .btn-kid-primary {
             background-color: var(--primary-color);
             color: #5d4300 !important;
-            box-shadow: 0 6px 0 #c79100;
+            box-shadow: 0 5px 0 #c79100;
         }
         .btn-kid-primary:hover {
             background-color: #FFD54F !important;
             color: #5d4300 !important;
             transform: translateY(-2px);
-            box-shadow: 0 8px 0 #c79100;
+            box-shadow: 0 7px 0 #c79100;
         }
         .btn-kid-primary:active {
-            transform: translateY(4px) !important;
+            transform: translateY(3px) !important;
             box-shadow: 0 2px 0 #c79100 !important;
         }
 
         .btn-kid-success {
             background-color: var(--secondary-color);
             color: white !important;
-            box-shadow: 0 6px 0 #2e7d32;
+            box-shadow: 0 5px 0 #2e7d32;
         }
         .btn-kid-success:hover {
             background-color: #388E3C !important;
             color: white !important;
             transform: translateY(-2px);
-            box-shadow: 0 8px 0 #2e7d32;
+            box-shadow: 0 7px 0 #2e7d32;
         }
         .btn-kid-success:active {
-            transform: translateY(4px) !important;
+            transform: translateY(3px) !important;
             box-shadow: 0 2px 0 #2e7d32 !important;
         }
 
         .btn-kid-secondary {
             background-color: #9C27B0;
             color: white !important;
-            box-shadow: 0 6px 0 #6a1b9a;
+            box-shadow: 0 5px 0 #6a1b9a;
         }
         .btn-kid-secondary:hover {
             background-color: #7B1FA2 !important;
             color: white !important;
             transform: translateY(-2px);
-            box-shadow: 0 8px 0 #6a1b9a;
+            box-shadow: 0 7px 0 #6a1b9a;
         }
         .btn-kid-secondary:active {
-            transform: translateY(4px) !important;
+            transform: translateY(3px) !important;
             box-shadow: 0 2px 0 #6a1b9a !important;
         }
 
@@ -124,27 +146,33 @@
         .game-card {
             background: white;
             border: 4px solid #E1D8FF;
-            border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(74, 20, 140, 0.1);
+            border-radius: 26px;
+            box-shadow: 0 12px 28px rgba(74, 20, 140, 0.08);
             position: relative;
             overflow: hidden;
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
         }
 
         .game-card::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0;
-            height: 10px;
+            height: 8px;
             background: linear-gradient(90deg, #FFC107, #FF5722, #4CAF50, #00BCD4, #9C27B0);
         }
 
         /* Progress Bar Custom */
         .progress-kid-container {
             background-color: #eee9ff;
-            height: 20px;
+            height: 16px;
             border-radius: 10px;
             overflow: hidden;
             border: 2px solid #E1D8FF;
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
         }
         .progress-kid-bar {
             background: linear-gradient(90deg, #4CAF50, #8BC34A);
@@ -155,21 +183,19 @@
 
         /* Sound Bee Animation */
         .bee-speaker {
-            width: 130px;
-            height: 130px;
+            width: 100px;
+            height: 100px;
             cursor: pointer;
             transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
-        /* Slow gentle hover animation when idle */
         .bee-speaker:hover {
-            transform: scale(1.1) rotate(5deg);
+            transform: scale(1.08) rotate(3deg);
         }
         .bee-speaker:active {
             transform: scale(0.95);
         }
 
-        /* Active Flapping and bouncing classes triggered when speaking */
         .wings-flap {
             transform-origin: center;
         }
@@ -185,25 +211,31 @@
             to { transform: scaleY(0.3) skewX(4deg); }
         }
         @keyframes beeSpeakBounce {
-            from { transform: scale(1.05) translateY(-3px); }
-            to { transform: scale(1.05) translateY(3px); }
+            from { transform: scale(1.03) translateY(-2px); }
+            to { transform: scale(1.03) translateY(2px); }
         }
 
-        /* Letter Display Boxes (Inputs) */
+        /* Letter Input layout inside the focused area */
+        .input-group-kids {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
         .kids-input-box {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: 800;
             text-align: center;
-            letter-spacing: 4px;
+            letter-spacing: 2px;
             text-transform: uppercase;
             border: 3px solid #DDD1FF;
             border-radius: 15px;
             background-color: #FBF9FF;
             color: var(--dark-purple);
-            padding: 10px;
-            width: 100%;
-            max-width: 320px;
-            margin: auto;
+            padding: 6px 12px;
             outline: none;
             box-shadow: inset 0 3px 6px rgba(0,0,0,0.05);
             transition: all 0.3s;
@@ -211,22 +243,44 @@
         .kids-input-box:focus {
             border-color: #9C27B0;
             background-color: #FFFFFF;
-            box-shadow: 0 0 12px rgba(156, 39, 176, 0.2), inset 0 3px 6px rgba(0,0,0,0.05);
+            box-shadow: 0 0 10px rgba(156, 39, 176, 0.15), inset 0 3px 6px rgba(0,0,0,0.05);
         }
 
-        /* Virtual Keyboard */
-        .virtual-keyboard {
-            background-color: #F5F1FF;
-            border-radius: 20px;
-            padding: 15px;
-            border: 2px solid #E4DDFF;
-            max-width: 650px;
-            margin: auto;
+        /* Overlay Virtual Keyboard Sheet sliding from bottom */
+        .keyboard-overlay {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(246, 241, 255, 0.96);
+            backdrop-filter: blur(8px);
+            border-top: 4px solid var(--dark-purple);
+            border-radius: 24px 24px 0 0;
+            box-shadow: 0 -10px 35px rgba(74, 20, 140, 0.15);
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+            z-index: 1040;
+            padding: 12px 8px 16px 8px;
+            max-width: 680px;
+            margin: 0 auto;
         }
+        .keyboard-overlay.show {
+            transform: translateY(0);
+        }
+        
+        .keyboard-drag-bar {
+            width: 45px;
+            height: 5px;
+            background-color: #DDD1FF;
+            border-radius: 3px;
+            margin: 0 auto 10px auto;
+            cursor: pointer;
+        }
+
         .key-row {
             display: flex;
             justify-content: center;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         .key-row:last-child {
             margin-bottom: 0;
@@ -234,13 +288,13 @@
         .kbd-key {
             background-color: #FFFFFF;
             border: 1px solid #D6CBFF;
-            border-bottom: 4px solid #C4B5FD;
+            border-bottom: 3.5px solid #C4B5FD;
             border-radius: 8px;
             font-weight: 800;
-            font-size: 1.2rem;
+            font-size: 1.05rem;
             color: #4A148C;
-            padding: 10px 0;
-            margin: 0 4px;
+            padding: 8px 0;
+            margin: 0 3px;
             width: 8.5%;
             text-align: center;
             cursor: pointer;
@@ -248,15 +302,39 @@
             transition: all 0.05s;
         }
         .kbd-key:active {
-            transform: translateY(2px);
+            transform: translateY(1.5px);
             border-bottom-width: 1px;
         }
         .kbd-key.action-key {
             width: 14%;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             background-color: #E0DBFF;
             border-color: #C0B7FF;
             border-bottom-color: #A091FF;
+        }
+
+        /* Keyboard trigger floating button */
+        .btn-keyboard-trigger {
+            background-color: #9C27B0;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 0 #6a1b9a;
+            transition: all 0.15s;
+        }
+        .btn-keyboard-trigger:hover {
+            background-color: #7B1FA2;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #6a1b9a;
+        }
+        .btn-keyboard-trigger:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #6a1b9a;
         }
 
         /* Confetti Canvas */
@@ -271,35 +349,35 @@
 
         /* Stars Reward Animation */
         .star-container {
-            font-size: 2.2rem;
+            font-size: 2rem;
             color: #FFD700;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.12);
         }
         .star-pop {
             animation: starBounce 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite alternate;
         }
         @keyframes starBounce {
             from { transform: scale(1); }
-            to { transform: scale(1.15) rotate(5deg); }
+            to { transform: scale(1.1) rotate(4deg); }
         }
 
         /* Badge Collection Custom UI */
         .badge-card {
             background: #FFFCEB;
             border: 2px dashed #FFD54F;
-            border-radius: 15px;
-            padding: 10px;
+            border-radius: 12px;
+            padding: 8px;
             text-align: center;
         }
         .badge-grayed {
-            filter: grayscale(1) opacity(0.3);
+            filter: grayscale(1) opacity(0.25);
         }
 
         /* Difficulty Pill Badges */
         .difficulty-badge {
-            font-size: 1rem;
+            font-size: 0.9rem;
             border-radius: 12px;
-            padding: 4px 12px;
+            padding: 4px 10px;
             font-family: 'Fredoka', sans-serif;
         }
         .diff-easy { background-color: #E8F5E9; color: #2E7D32; border: 1.5px solid #A5D6A7; }
@@ -311,17 +389,17 @@
             background: #FFF;
             border: 3px solid #9C27B0;
             border-radius: 15px;
-            padding: 10px 15px;
+            padding: 8px 12px;
             position: relative;
-            margin-bottom: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-bottom: 6px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.04);
         }
         .speech-bubble::after {
             content: '';
             position: absolute;
-            bottom: -15px; left: 50%;
+            bottom: -13px; left: 50%;
             transform: translateX(-50%);
-            border-width: 15px 15px 0;
+            border-width: 13px 13px 0;
             border-style: solid;
             border-color: #FFF transparent;
             display: block; width: 0;
@@ -329,9 +407,9 @@
         .speech-bubble::before {
             content: '';
             position: absolute;
-            bottom: -19px; left: 50%;
+            bottom: -17px; left: 50%;
             transform: translateX(-50%);
-            border-width: 16px 16px 0;
+            border-width: 14px 14px 0;
             border-style: solid;
             border-color: #9C27B0 transparent;
             display: block; width: 0;
@@ -340,33 +418,78 @@
 
         /* Score Overlay Dialog */
         .overlay-dialog {
-            background-color: rgba(43, 11, 88, 0.5);
-            backdrop-filter: blur(5px);
+            background-color: rgba(43, 11, 88, 0.45);
+            backdrop-filter: blur(4px);
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 1050;
+        }
+
+        /* Responsive Layout Optimization for Single Window experience */
+        @media (min-width: 992px) {
+            .app-content {
+                max-height: calc(100vh - 60px);
+                padding: 2rem 4rem;
+            }
+            .game-card {
+                max-width: 850px;
+                padding: 3.5rem !important;
+                border-radius: 35px;
+            }
+            .progress-kid-container {
+                max-width: 850px;
+                height: 24px;
+            }
+            .kids-input-box {
+                font-size: 2.5rem;
+                max-width: 550px;
+                padding: 12px 24px;
+            }
+            .bee-speaker {
+                width: 160px;
+                height: 160px;
+            }
+            #speech-bubble-text {
+                font-size: 1.35rem !important;
+            }
+            .input-group-kids {
+                max-width: 650px;
+            }
+            .btn-keyboard-trigger {
+                width: 65px;
+                height: 65px;
+            }
+            .btn-keyboard-trigger i {
+                font-size: 2rem !important;
+            }
+            .btn-kid {
+                font-size: 1.3rem;
+                padding: 14px 32px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Confetti Canvas Background for Rewards -->
+    <!-- Confetti Emitter -->
     <canvas id="confetti-canvas"></canvas>
 
-    <!-- App Header containing Kids Logo and Stats -->
+    <!-- App Header -->
     <header class="app-header py-2 px-3">
         <div class="container-fluid d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
                 <span class="fs-2 me-2">🐝</span>
-                <span class="fs-3 text-dark-purple h1 mb-0 font-kids d-none d-sm-inline">Spelling Bee <span style="color: #FF9800;">Champ</span></span>
-                <span class="fs-4 text-dark-purple h1 mb-0 font-kids d-inline d-sm-none">Spelling Bee</span>
+                <span class="fs-3 text-dark-purple h1 mb-0 font-kids">Spelling Bee <span style="color: #FF9800;">Champ</span></span>
             </div>
             
-            <!-- Quick Info Header Tracker -->
             <div class="d-flex align-items-center gap-2">
+                <!-- Immersive Fullscreen Mode Activation Controls -->
+                <button id="fullscreen-btn" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 d-flex align-items-center gap-1" onclick="toggleImmersiveView()">
+                    <i id="fullscreen-icon" class="bi bi-fullscreen"></i> <span class="small d-none d-sm-inline">Fullscreen</span>
+                </button>
                 <div class="bg-light rounded-pill px-3 py-1 border d-flex align-items-center gap-1">
                     <span class="text-warning"><i class="bi bi-star-fill"></i></span>
                     <span id="star-count-header" class="fw-bold text-dark">0</span>
@@ -374,357 +497,387 @@
                 <div id="header-kid-name" class="bg-light rounded-pill px-3 py-1 border fw-bold text-primary d-none">
                     👧 Player
                 </div>
-                <button id="btn-show-stats" class="btn btn-outline-dark btn-sm rounded-pill px-3 d-flex align-items-center gap-1" style="display:none !important;">
-                    <i class="bi bi-graph-up-arrow"></i> Stats
-                </button>
             </div>
         </div>
     </header>
 
-    <div class="container flex-grow-1 py-4 d-flex flex-column justify-content-center">
-        
-        <!-- ================= SCREEN 1: WELCOME SCREEN ================= -->
-        <div id="screen-welcome" class="screen active text-center">
-            <div class="max-width-600 mx-auto">
-                <div class="mb-4">
-                    <!-- SVG Animated Bee Character -->
-                    <svg class="mx-auto" style="width: 160px; height: 160px;" viewBox="0 0 100 100">
-                        <!-- Wings Left -->
-                        <ellipse cx="38" cy="28" rx="8" ry="14" fill="#E0F7FA" stroke="#00838F" stroke-width="2" class="wings-flap" />
-                        <!-- Wings Right -->
-                        <ellipse cx="62" cy="28" rx="8" ry="14" fill="#E0F7FA" stroke="#00838F" stroke-width="2" class="wings-flap" />
-                        <!-- Body -->
-                        <ellipse cx="50" cy="55" rx="20" ry="24" fill="#FFC107" stroke="#3E2723" stroke-width="3" />
-                        <!-- Stripes -->
-                        <path d="M 33 46 Q 50 50 67 46" fill="none" stroke="#3E2723" stroke-width="4" />
-                        <path d="M 30 56 Q 50 60 70 56" fill="none" stroke="#3E2723" stroke-width="4" />
-                        <path d="M 33 66 Q 50 70 67 66" fill="none" stroke="#3E2723" stroke-width="4" />
-                        <!-- Antennae -->
-                        <path d="M 45 35 Q 40 20 35 23" fill="none" stroke="#3E2723" stroke-width="2" />
-                        <circle cx="35" cy="23" r="3" fill="#3E2723" />
-                        <path d="M 55 35 Q 60 20 65 23" fill="none" stroke="#3E2723" stroke-width="2" />
-                        <circle cx="65" cy="23" r="3" fill="#3E2723" />
-                        <!-- Eyes -->
-                        <circle cx="43" cy="40" r="4" fill="#FFFFFF" stroke="#3E2723" stroke-width="1.5" />
-                        <circle cx="43" cy="40" r="1.5" fill="#3E2723" />
-                        <circle cx="57" cy="40" r="4" fill="#FFFFFF" stroke="#3E2723" stroke-width="1.5" />
-                        <circle cx="57" cy="40" r="1.5" fill="#3E2723" />
-                        <!-- Cute Smile -->
-                        <path d="M 46 48 Q 50 52 54 48" fill="none" stroke="#3E2723" stroke-width="2" stroke-linecap="round" />
-                        <!-- Cheeks -->
-                        <circle cx="38" cy="45" r="2.5" fill="#FF8A80" />
-                        <circle cx="62" cy="45" r="2.5" fill="#FF8A80" />
-                        <!-- Bee Sting -->
-                        <polygon points="50,79 47,85 53,85" fill="#3E2723" />
-                    </svg>
-                </div>
+    <!-- Main Container -->
+    <main class="app-content">
 
-                <h1 class="text-dark-purple display-4 mb-2">Ready to Buzz & Spell?</h1>
-                <p class="text-muted fs-5 mb-4">Let's learn new English words with clear voice and sweet rewards!</p>
+        <!-- ================= STREAMING_CHUNK:Structuring the dynamic home screen... -->
+        <!-- ================= SCREEN 1: WELCOME SCREEN (2-Column Desktop Grid) ================= -->
+        <div id="screen-welcome" class="screen active">
+            <div class="row align-items-center justify-content-center g-4 max-w-5xl mx-auto w-100">
                 
-                <div class="card p-4 shadow-sm border-0 rounded-4 mx-auto mb-4" style="max-width: 450px; background-color: rgba(255,255,255,0.9);">
-                    <div class="mb-3 text-start">
-                        <label for="kidName" class="form-label font-kids text-dark-purple fs-5">What's your name, Champ?</label>
-                        <input type="text" id="kidName" class="form-control form-control-lg rounded-pill border-2 px-3" placeholder="Enter your name" style="border-color: #DDD1FF;" value="Sara">
+                <!-- Left Column: Illustration -->
+                <div class="col-12 col-lg-5 text-center text-lg-start">
+                    <div class="mb-2 text-center text-lg-start">
+                        <!-- SVG Animated Bee Character -->
+                        <svg class="mx-auto mx-lg-0" style="width: 120px; height: 120px;" viewBox="0 0 100 100">
+                            <!-- Wings Left -->
+                            <ellipse cx="38" cy="28" rx="8" ry="14" fill="#E0F7FA" stroke="#00838F" stroke-width="2" class="wings-flap" />
+                            <!-- Wings Right -->
+                            <ellipse cx="62" cy="28" rx="8" ry="14" fill="#E0F7FA" stroke="#00838F" stroke-width="2" class="wings-flap" />
+                            <!-- Body -->
+                            <ellipse cx="50" cy="55" rx="20" ry="24" fill="#FFC107" stroke="#3E2723" stroke-width="3" />
+                            <!-- Stripes -->
+                            <path d="M 33 46 Q 50 50 67 46" fill="none" stroke="#3E2723" stroke-width="4" />
+                            <path d="M 30 56 Q 50 60 70 56" fill="none" stroke="#3E2723" stroke-width="4" />
+                            <path d="M 33 66 Q 50 70 67 66" fill="none" stroke="#3E2723" stroke-width="4" />
+                            <!-- Antennae -->
+                            <path d="M 45 35 Q 40 20 35 23" fill="none" stroke="#3E2723" stroke-width="2" />
+                            <circle cx="35" cy="23" r="3" fill="#3E2723" />
+                            <path d="M 55 35 Q 60 20 65 23" fill="none" stroke="#3E2723" stroke-width="2" />
+                            <circle cx="65" cy="23" r="3" fill="#3E2723" />
+                            <!-- Eyes -->
+                            <circle cx="43" cy="40" r="4" fill="#FFFFFF" stroke="#3E2723" stroke-width="1.5" />
+                            <circle cx="43" cy="40" r="1.5" fill="#3E2723" />
+                            <circle cx="57" cy="40" r="4" fill="#FFFFFF" stroke="#3E2723" stroke-width="1.5" />
+                            <circle cx="57" cy="40" r="1.5" fill="#3E2723" />
+                            <!-- Smile -->
+                            <path d="M 46 48 Q 50 52 54 48" fill="none" stroke="#3E2723" stroke-width="2" stroke-linecap="round" />
+                            <!-- Rosy Cheeks -->
+                            <circle cx="38" cy="45" r="2.5" fill="#FF8A80" />
+                            <circle cx="62" cy="45" r="2.5" fill="#FF8A80" />
+                            <!-- Sting -->
+                            <polygon points="50,79 47,85 53,85" fill="#3E2723" />
+                        </svg>
                     </div>
 
-                    <div class="mb-4 text-start">
-                        <label class="form-label font-kids text-dark-purple fs-5">Choose Spelling Mode:</label>
-                        <div class="row g-2">
-                            <div class="col-12">
-                                <div class="form-check p-3 rounded-4 border-2 border text-start d-flex align-items-center cursor-pointer" style="border-color: #C8E6C9; background-color: #F1F8E9;">
-                                    <input class="form-check-input ms-1 me-3" type="radio" name="gameMode" id="modeAdaptive" value="adaptive" checked>
-                                    <label class="form-check-label flex-grow-1 cursor-pointer" for="modeAdaptive">
-                                        <strong>⭐ Smart Auto-Adjust (Adaptive)</strong><br>
-                                        <small class="text-muted">Changes levels based on correct spellings!</small>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-12 mt-2">
-                                <div class="form-check p-3 rounded-4 border-2 border text-start d-flex align-items-center cursor-pointer" style="border-color: #FFE082; background-color: #FFFDE7;">
-                                    <input class="form-check-input ms-1 me-3" type="radio" name="gameMode" id="modeManual" value="manual">
-                                    <label class="form-check-label flex-grow-1 cursor-pointer" for="modeManual">
-                                        <strong>🎯 Pick Level Manually</strong><br>
-                                        <select id="startDifficultySelect" class="form-select form-select-sm mt-1 border-primary rounded-pill" disabled style="width: auto;">
-                                            <option value="easy">Easy (3-Letter Sight Words)</option>
-                                            <option value="medium" selected>Medium (4-Letter Sight Words)</option>
-                                            <option value="hard">Hard (5-6 Letter Words)</option>
-                                        </select>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Voice customisation settings preview inside Main Welcome -->
-                    <div class="text-start border-top pt-3">
-                        <p class="font-kids text-dark-purple fs-6 mb-1"><i class="bi bi-gear-fill"></i> Sound Settings:</p>
-                        <div class="row g-2">
-                            <div class="col-12">
-                                <label class="small text-muted mb-0">Indian Voice Preference:</label>
-                                <select id="voiceSelect" class="form-select form-select-sm rounded-pill border-2"></select>
-                            </div>
-                            <div class="col-12">
-                                <div class="d-flex justify-content-between align-items-center mt-1">
-                                    <label class="small text-muted mb-0">Speed (Pace):</label>
-                                    <span id="speedValue" class="badge bg-secondary rounded-pill">Slow (0.65x)</span>
-                                </div>
-                                <input type="range" class="form-range" id="speechRate" min="0.4" max="1.0" step="0.05" value="0.65">
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button id="btn-start" class="btn btn-kid btn-kid-primary w-100 mt-4 py-3 text-white fs-4">Play Now! 🚀</button>
+                    <h1 class="text-dark-purple display-5 mb-2">Ready to Buzz & Spell?</h1>
+                    <p class="text-muted fs-5 mb-0">Learn 100+ English sight words with clear voice synthesis and custom rewards!</p>
                 </div>
+
+                <!-- Right Column: Settings Card -->
+                <div class="col-12 col-lg-6">
+                    <div class="card p-3 shadow-sm border-0 rounded-4 mx-auto" style="max-width: 440px; background-color: rgba(255,255,255,0.96); border: 2.5px solid #E1D8FF;">
+                        <div class="mb-2 text-start">
+                            <label for="kidName" class="form-label font-kids text-dark-purple fs-6 mb-1">What's your name, Champ?</label>
+                            <input type="text" id="kidName" class="form-control form-control-md rounded-pill border-2 px-3" placeholder="Enter your name" style="border-color: #DDD1FF;" value="Sara">
+                        </div>
+
+                        <div class="mb-2 text-start">
+                            <label class="form-label font-kids text-dark-purple fs-6 mb-1">Choose Spelling Mode:</label>
+                            <div class="row g-2">
+                                <div class="col-12">
+                                    <div class="form-check p-2 rounded-3 border-2 border text-start d-flex align-items-center cursor-pointer" style="border-color: #C8E6C9; background-color: #F1F8E9;">
+                                        <input class="form-check-input ms-1 me-3" type="radio" name="gameMode" id="modeAdaptive" value="adaptive" checked>
+                                        <label class="form-check-label flex-grow-1 cursor-pointer" for="modeAdaptive">
+                                            <strong class="text-dark">⭐ Smart Auto-Adjust (Adaptive)</strong><br>
+                                            <small class="text-muted">Changes levels based on correct spellings!</small>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check p-2 rounded-3 border-2 border text-start d-flex align-items-center cursor-pointer" style="border-color: #FFE082; background-color: #FFFDE7;">
+                                        <input class="form-check-input ms-1 me-3" type="radio" name="gameMode" id="modeManual" value="manual">
+                                        <label class="form-check-label flex-grow-1 cursor-pointer" for="modeManual">
+                                            <strong class="text-dark">🎯 Pick Level Manually</strong><br>
+                                            <select id="startDifficultySelect" class="form-select form-select-sm mt-1 border-primary rounded-pill" disabled style="width: auto;">
+                                                <option value="easy">Easy (3-Letter Words)</option>
+                                                <option value="medium" selected>Medium (4-Letter Words)</option>
+                                                <option value="hard">Hard (5-6 Letter Words)</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sound Settings panel -->
+                        <div class="text-start border-top pt-2">
+                            <p class="font-kids text-dark-purple mb-1" style="font-size: 0.9rem;"><i class="bi bi-gear-fill text-warning"></i> Sound Settings:</p>
+                            <div class="row g-2">
+                                <div class="col-12">
+                                    <label class="small text-muted mb-0">Voice Accent Selection:</label>
+                                    <select id="voiceSelect" class="form-select form-select-sm rounded-pill border-2"></select>
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <label class="small text-muted mb-0">Speech Speed:</label>
+                                        <span id="speedValue" class="badge bg-secondary rounded-pill" style="font-size: 0.75rem;">Slow (0.65x)</span>
+                                    </div>
+                                    <input type="range" class="form-range" id="speechRate" min="0.4" max="1.0" step="0.05" value="0.65">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button id="btn-start" class="btn btn-kid btn-kid-primary w-100 mt-3 py-2.5 text-white fs-5">Play Now! 🚀</button>
+                    </div>
+                </div>
+
             </div>
         </div>
 
-        <!-- ================= SCREEN 2: MAIN GAMEPLAY SCREEN ================= -->
+        <!-- ================= STREAMING_CHUNK:Configuring the single-screen gameplay arena... -->
+        <!-- ================= SCREEN 2: MAIN GAMEPLAY SCREEN (Centered Compact Stack) ================= -->
         <div id="screen-game" class="screen">
-            <div class="row justify-content-center">
-                <div class="col-12 col-lg-8">
+            <div class="max-w-2xl mx-auto w-100 d-flex flex-column justify-content-center h-100">
+                
+                <!-- Progress Indicator and Pill badges -->
+                <div class="d-flex justify-content-between align-items-center mb-2 px-1">
+                    <div>
+                        <span class="fs-6 text-muted font-kids d-none d-sm-inline">Current Word:</span>
+                        <span id="question-index-counter" class="badge bg-purple px-3 py-1.5 rounded-pill text-white fw-bold fs-6 ms-1" style="background-color: var(--dark-purple);">1 / 10</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-1">
+                        <span id="difficulty-indicator" class="difficulty-badge diff-easy">Easy Level</span>
+                    </div>
+                </div>
+
+                <!-- Game Progress Bar -->
+                <div class="progress-kid-container mb-3">
+                    <div id="game-progress" class="progress-kid-bar" style="width: 10%;"></div>
+                </div>
+
+                <!-- Main Active Card containing Bee Speaker -->
+                <div class="game-card p-3 p-sm-4 text-center">
                     
-                    <!-- Progress Stats & Current Level Indicator -->
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div>
-                            <span class="fs-6 text-muted font-kids">Current Target Word:</span>
-                            <span id="question-index-counter" class="badge bg-purple px-3 py-2 rounded-pill text-white fw-bold fs-6 ms-2" style="background-color: var(--dark-purple);">1 / 10</span>
-                        </div>
-                        <div class="d-flex align-items-center gap-1">
-                            <span id="difficulty-indicator" class="difficulty-badge diff-easy">Easy Level</span>
-                        </div>
+                    <!-- Bubble feedback instruction (Hides spelling words entirely) -->
+                    <div class="speech-bubble mx-auto mb-2 text-center text-secondary font-kids d-inline-block shadow-sm" style="max-width: 420px; width: 100%;">
+                        <span id="speech-bubble-text" style="font-size: 1.05rem; font-weight: 700;">Listen carefully... 🎧</span>
                     </div>
 
-                    <!-- Progress Bar -->
-                    <div class="progress-kid-container mb-4">
-                        <div id="game-progress" class="progress-kid-bar" style="width: 10%;"></div>
+                    <div class="mb-3">
+                        <!-- Tap Bee Graphic to Speak Word -->
+                        <div class="mx-auto d-inline-block" onclick="speakCurrentWord()">
+                            <svg class="bee-speaker mx-auto" viewBox="0 0 100 100" style="width: 110px; height: 110px;">
+                                <!-- Wings Left -->
+                                <ellipse cx="38" cy="28" rx="8" ry="14" fill="#E0F7FA" stroke="#00838F" stroke-width="2" class="wings-flap" />
+                                <!-- Wings Right -->
+                                <ellipse cx="62" cy="28" rx="8" ry="14" fill="#E0F7FA" stroke="#00838F" stroke-width="2" class="wings-flap" />
+                                <!-- Body -->
+                                <ellipse cx="50" cy="55" rx="20" ry="24" fill="#FFC107" stroke="#3E2723" stroke-width="3" />
+                                <!-- Stripes -->
+                                <path d="M 33 46 Q 50 50 67 46" fill="none" stroke="#3E2723" stroke-width="4" />
+                                <path d="M 30 56 Q 50 60 70 56" fill="none" stroke="#3E2723" stroke-width="4" />
+                                <path d="M 33 66 Q 50 70 67 66" fill="none" stroke="#3E2723" stroke-width="4" />
+                                <!-- Antennae -->
+                                <path d="M 45 35 Q 40 20 35 23" fill="none" stroke="#3E2723" stroke-width="2" />
+                                <circle cx="35" cy="23" r="3" fill="#3E2723" />
+                                <path d="M 55 35 Q 60 20 65 23" fill="none" stroke="#3E2723" stroke-width="2" />
+                                <circle cx="65" cy="23" r="3" fill="#3E2723" />
+                                <!-- Eyes -->
+                                <circle cx="43" cy="40" r="4" fill="#FFFFFF" stroke="#3E2723" stroke-width="1.5" />
+                                <circle cx="43" cy="40" r="1.5" fill="#3E2723" />
+                                <circle cx="57" cy="40" r="4" fill="#FFFFFF" stroke="#3E2723" stroke-width="1.5" />
+                                <circle cx="57" cy="40" r="1.5" fill="#3E2723" />
+                                <!-- Smile -->
+                                <path d="M 46 48 Q 50 52 54 48" fill="none" stroke="#3E2723" stroke-width="2" stroke-linecap="round" />
+                                <!-- Cheeks -->
+                                <circle cx="38" cy="45" r="2.5" fill="#FF8A80" />
+                                <circle cx="62" cy="45" r="2.5" fill="#FF8A80" />
+                                <!-- Wave signs -->
+                                <path d="M 72 40 Q 75 45 72 50" fill="none" stroke="#00C853" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M 76 36 Q 81 45 76 54" fill="none" stroke="#00C853" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <span class="d-block text-muted small mt-1" style="font-size: 0.8rem;"><i class="bi bi-hand-index-thumb"></i> Click Bee to listen again!</span>
                     </div>
 
-                    <!-- Main Game Action Card -->
-                    <div class="game-card p-4 p-md-5 mb-4 text-center">
-                        
-                        <!-- Visual representation of speaker bee -->
-                        <div class="speech-bubble mx-auto mb-3 text-center text-secondary font-kids d-inline-block shadow-sm" style="max-width: 380px;">
-                            <span id="speech-bubble-text">Hi, tap me to listen to your spelling word! 📣</span>
-                        </div>
-
-                        <div class="mb-4">
-                            <!-- Tap Bee Graphic to Speak -->
-                            <div class="mx-auto" onclick="speakCurrentWord()">
-                                <svg class="bee-speaker mx-auto" viewBox="0 0 100 100">
-                                    <!-- Wings Left -->
-                                    <ellipse cx="38" cy="28" rx="8" ry="14" fill="#E0F7FA" stroke="#00838F" stroke-width="2" class="wings-flap" />
-                                    <!-- Wings Right -->
-                                    <ellipse cx="62" cy="28" rx="8" ry="14" fill="#E0F7FA" stroke="#00838F" stroke-width="2" class="wings-flap" />
-                                    <!-- Body -->
-                                    <ellipse cx="50" cy="55" rx="20" ry="24" fill="#FFC107" stroke="#3E2723" stroke-width="3" />
-                                    <!-- Stripes -->
-                                    <path d="M 33 46 Q 50 50 67 46" fill="none" stroke="#3E2723" stroke-width="4" />
-                                    <path d="M 30 56 Q 50 60 70 56" fill="none" stroke="#3E2723" stroke-width="4" />
-                                    <path d="M 33 66 Q 50 70 67 66" fill="none" stroke="#3E2723" stroke-width="4" />
-                                    <!-- Antennae -->
-                                    <path d="M 45 35 Q 40 20 35 23" fill="none" stroke="#3E2723" stroke-width="2" />
-                                    <circle cx="35" cy="23" r="3" fill="#3E2723" />
-                                    <path d="M 55 35 Q 60 20 65 23" fill="none" stroke="#3E2723" stroke-width="2" />
-                                    <circle cx="65" cy="23" r="3" fill="#3E2723" />
-                                    <!-- Eyes -->
-                                    <circle cx="43" cy="40" r="4" fill="#FFFFFF" stroke="#3E2723" stroke-width="1.5" />
-                                    <circle cx="43" cy="40" r="1.5" fill="#3E2723" />
-                                    <circle cx="57" cy="40" r="4" fill="#FFFFFF" stroke="#3E2723" stroke-width="1.5" />
-                                    <circle cx="57" cy="40" r="1.5" fill="#3E2723" />
-                                    <!-- Happy Smile -->
-                                    <path d="M 46 48 Q 50 52 54 48" fill="none" stroke="#3E2723" stroke-width="2" stroke-linecap="round" />
-                                    <!-- Rosy Cheeks -->
-                                    <circle cx="38" cy="45" r="2.5" fill="#FF8A80" />
-                                    <circle cx="62" cy="45" r="2.5" fill="#FF8A80" />
-                                    <!-- Speaker waves when idle -->
-                                    <path d="M 72 40 Q 75 45 72 50" fill="none" stroke="#00C853" stroke-width="2" stroke-linecap="round"/>
-                                    <path d="M 76 36 Q 81 45 76 54" fill="none" stroke="#00C853" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                            </div>
-                            <span class="d-block text-muted small mt-2"><i class="bi bi-hand-index-thumb"></i> Click Bee to hear word again!</span>
-                        </div>
-
-                        <!-- Secondary Assistance Buttons (Sentence, Hint) -->
-                        <div class="d-flex justify-content-center gap-2 mb-4">
-                            <button class="btn btn-outline-primary rounded-pill px-3 py-2 btn-sm d-flex align-items-center gap-1" onclick="speakSentence()">
-                                <i class="bi bi-chat-left-quote"></i> Sentence (বাক্যে প্রয়োগ)
-                            </button>
-                            <button class="btn btn-outline-info rounded-pill px-3 py-2 btn-sm d-flex align-items-center gap-1" onclick="showHint()">
-                                <i class="bi bi-lightbulb"></i> Letter Hint
-                            </button>
-                        </div>
-
-                        <!-- Typing input area -->
-                        <div class="mb-4">
-                            <input type="text" id="mainWordInput" class="kids-input-box" placeholder="Type word here" autocomplete="off" autofocus>
-                        </div>
-
-                        <!-- Help Guidance Placeholders -->
-                        <div id="game-tip-box" class="alert alert-warning py-2 rounded-3 mx-auto max-width-500 d-none" style="font-size: 0.95rem;">
-                            Hint: The word has 4 letters! It starts with letter <b>B</b>.
-                        </div>
-
-                        <!-- Submit Buttons -->
-                        <div class="d-flex justify-content-center gap-3">
-                            <button class="btn btn-kid btn-kid-success px-5 py-3 fs-5" onclick="checkAnswer()">Submit spelling 🍯</button>
-                        </div>
-                    </div>
-
-                    <!-- Virtual Keyboard -->
-                    <div class="virtual-keyboard d-none d-md-block shadow-sm">
-                        <div class="key-row">
-                            <div class="kbd-key" onclick="pressKey('q')">Q</div>
-                            <div class="kbd-key" onclick="pressKey('w')">W</div>
-                            <div class="kbd-key" onclick="pressKey('e')">E</div>
-                            <div class="kbd-key" onclick="pressKey('r')">R</div>
-                            <div class="kbd-key" onclick="pressKey('t')">T</div>
-                            <div class="kbd-key" onclick="pressKey('y')">Y</div>
-                            <div class="kbd-key" onclick="pressKey('u')">U</div>
-                            <div class="kbd-key" onclick="pressKey('i')">I</div>
-                            <div class="kbd-key" onclick="pressKey('o')">O</div>
-                            <div class="kbd-key" onclick="pressKey('p')">P</div>
-                        </div>
-                        <div class="key-row">
-                            <div class="kbd-key" onclick="pressKey('a')">A</div>
-                            <div class="kbd-key" onclick="pressKey('s')">S</div>
-                            <div class="kbd-key" onclick="pressKey('d')">D</div>
-                            <div class="kbd-key" onclick="pressKey('f')">F</div>
-                            <div class="kbd-key" onclick="pressKey('g')">G</div>
-                            <div class="kbd-key" onclick="pressKey('h')">H</div>
-                            <div class="kbd-key" onclick="pressKey('j')">J</div>
-                            <div class="kbd-key" onclick="pressKey('k')">K</div>
-                            <div class="kbd-key" onclick="pressKey('l')">L</div>
-                        </div>
-                        <div class="key-row">
-                            <div class="kbd-key action-key" onclick="pressKey('backspace')">Backspace ⌫</div>
-                            <div class="kbd-key" onclick="pressKey('z')">Z</div>
-                            <div class="kbd-key" onclick="pressKey('x')">X</div>
-                            <div class="kbd-key" onclick="pressKey('c')">C</div>
-                            <div class="kbd-key" onclick="pressKey('v')">V</div>
-                            <div class="kbd-key" onclick="pressKey('b')">B</div>
-                            <div class="kbd-key" onclick="pressKey('n')">N</div>
-                            <div class="kbd-key" onclick="pressKey('m')">M</div>
-                            <div class="kbd-key action-key" onclick="pressKey('clear')">Clear ❌</div>
-                        </div>
-                    </div>
-
-                    <!-- Return Home & Force Skip buttons -->
-                    <div class="text-center mt-4 mb-5">
-                        <button class="btn btn-sm btn-outline-danger px-4 rounded-pill" onclick="confirmQuit()">
-                            <i class="bi bi-box-arrow-left"></i> Quit Game
+                    <!-- Voice Helpers -->
+                    <div class="d-flex justify-content-center gap-2 mb-3">
+                        <button class="btn btn-outline-primary rounded-pill px-3 py-1.5 btn-sm d-flex align-items-center gap-1" onclick="speakSentence()">
+                            <i class="bi bi-chat-left-quote"></i> Sentence (বাক্য)
+                        </button>
+                        <button class="btn btn-outline-info rounded-pill px-3 py-1.5 btn-sm d-flex align-items-center gap-1" onclick="showHint()">
+                            <i class="bi bi-lightbulb"></i> Letter Hint
                         </button>
                     </div>
 
+                    <!-- Input block integrated with custom bottom sheet overlay keyboard trigger -->
+                    <div class="mb-3">
+                        <div class="input-group-kids">
+                            <input type="text" id="mainWordInput" class="kids-input-box w-100 flex-grow-1" placeholder="Type word here" autocomplete="off" autofocus>
+                            <button class="btn-keyboard-trigger" type="button" onclick="toggleOverlayKeyboard(true)" title="Open Virtual Keyboard">
+                                <i class="bi bi-keyboard-fill fs-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Interactive hint boxes -->
+                    <div id="game-tip-box" class="alert alert-warning py-1.5 px-3 rounded-3 mx-auto d-none" style="font-size: 0.85rem; max-width: 420px;"></div>
+
+                    <!-- Submit trigger -->
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-kid btn-kid-success px-5 py-2 fs-5 w-100" style="max-width: 320px;" onclick="checkAnswer()">Submit spelling 🍯</button>
+                    </div>
                 </div>
+
+                <!-- Return Home Controls -->
+                <div class="text-center mt-3">
+                    <button class="btn btn-sm btn-outline-danger px-4 py-1.5 rounded-pill" onclick="confirmQuit()">
+                        <i class="bi bi-box-arrow-left"></i> Quit Game
+                    </button>
+                </div>
+
             </div>
         </div>
 
-        <!-- ================= SCREEN 3: END/SCORE REVIEW SCREEN ================= -->
-        <div id="screen-score" class="screen text-center">
-            <div class="max-width-700 mx-auto">
-                <div class="star-container star-pop mb-3">
-                    🏆 <i class="bi bi-star-fill text-warning"></i> Super Speller Champ! <i class="bi bi-star-fill text-warning"></i> 🏆
-                </div>
+        <!-- ================= STREAMING_CHUNK:Structuring score reports & parents practice grids... -->
+        <!-- ================= SCREEN 3: END/SCORE REVIEW SCREEN (2-Column Desktop Grid) ================= -->
+        <div id="screen-score" class="screen">
+            <div class="row g-3 align-items-stretch max-w-5xl mx-auto w-100 overflow-y-auto" style="max-height: calc(100vh - 80px);">
+                
+                <!-- Left Column: Celebration Header, Score Matrix & Actions -->
+                <div class="col-12 col-lg-5 d-flex flex-column justify-content-between text-center py-2">
+                    <div>
+                        <div class="star-container star-pop mb-1">
+                            🏆 <i class="bi bi-star-fill text-warning"></i> Super Speller! <i class="bi bi-star-fill text-warning"></i> 🏆
+                        </div>
 
-                <h1 class="text-dark-purple display-5 mb-2">Awesome Job, <span id="kid-name-congrats">Sara</span>!</h1>
-                <p class="text-muted mb-4">You did amazing. Check out your rewards and spelling report card below.</p>
+                        <h2 class="text-dark-purple mb-1">Awesome Job, <span id="kid-name-congrats">Sara</span>!</h2>
+                        <p class="text-muted small mb-3">You completed your spelling test. Check your achievements below!</p>
 
-                <!-- Points & Accuracies Summary Panels -->
-                <div class="row g-3 mb-4 justify-content-center">
-                    <div class="col-6 col-sm-3">
-                        <div class="card p-3 border-2 rounded-4 h-100 bg-white" style="border-color: #E1D8FF;">
-                            <span class="fs-4">🌟</span>
-                            <h4 id="score-stars-earned" class="text-dark-purple mb-0 mt-2">0</h4>
-                            <span class="text-muted small">Stars Earned</span>
-                        </div>
-                    </div>
-                    <div class="col-6 col-sm-3">
-                        <div class="card p-3 border-2 rounded-4 h-100 bg-white" style="border-color: #E1D8FF;">
-                            <span class="fs-4">🎯</span>
-                            <h4 id="score-accuracy" class="text-dark-purple mb-0 mt-2">0%</h4>
-                            <span class="text-muted small">Accuracy</span>
-                        </div>
-                    </div>
-                    <div class="col-6 col-sm-3">
-                        <div class="card p-3 border-2 rounded-4 h-100 bg-white" style="border-color: #E1D8FF;">
-                            <span class="fs-4">🐝</span>
-                            <h4 id="score-words-completed" class="text-dark-purple mb-0 mt-2">10/10</h4>
-                            <span class="text-muted small">Words Cleared</span>
-                        </div>
-                    </div>
-                    <div class="col-6 col-sm-3">
-                        <div class="card p-3 border-2 rounded-4 h-100 bg-white" style="border-color: #E1D8FF;">
-                            <span class="fs-4">🎓</span>
-                            <h4 id="score-max-streak" class="text-dark-purple mb-0 mt-2">0</h4>
-                            <span class="text-muted small">Max Streak</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Badges Collection Tracker -->
-                <div class="card p-4 rounded-4 border-2 bg-white mb-4" style="border-color: #DDD1FF;">
-                    <h3 class="font-kids text-dark-purple text-start mb-3"><i class="bi bi-trophy-fill text-warning"></i> Badges Unlocked</h3>
-                    <div class="row g-2">
-                        <div class="col-6 col-md-3">
-                            <div id="badge-first-step" class="badge-card badge-grayed">
-                                <span class="fs-2">🐝</span>
-                                <h6 class="font-kids text-dark mb-0 mt-2">First Step</h6>
-                                <p class="text-muted small mb-0">Completed 1st word</p>
+                        <!-- Stats panels -->
+                        <div class="row g-2 mb-3 justify-content-center">
+                            <div class="col-6">
+                                <div class="card p-2 border-2 rounded-4 h-100 bg-white" style="border-color: #E1D8FF;">
+                                    <span class="fs-4">🌟</span>
+                                    <h5 id="score-stars-earned" class="text-dark-purple mb-0 mt-1 fw-bold">0</h5>
+                                    <span class="text-muted small" style="font-size: 0.75rem;">Stars Earned</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <div id="badge-streak-wizard" class="badge-card badge-grayed">
-                                <span class="fs-2">🔥</span>
-                                <h6 class="font-kids text-dark mb-0 mt-2">Streak Wizard</h6>
-                                <p class="text-muted small mb-0">3 spelling streak</p>
+                            <div class="col-6">
+                                <div class="card p-2 border-2 rounded-4 h-100 bg-white" style="border-color: #E1D8FF;">
+                                    <span class="fs-4">🎯</span>
+                                    <h5 id="score-accuracy" class="text-dark-purple mb-0 mt-1 fw-bold">0%</h5>
+                                    <span class="text-muted small" style="font-size: 0.75rem;">Accuracy</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <div id="badge-word-wizard" class="badge-card badge-grayed">
-                                <span class="fs-2">🧙‍♂️</span>
-                                <h6 class="font-kids text-dark mb-0 mt-2">Bee Master</h6>
-                                <p class="text-muted small mb-0">Cleared Hard level</p>
+                            <div class="col-6">
+                                <div class="card p-2 border-2 rounded-4 h-100 bg-white" style="border-color: #E1D8FF;">
+                                    <span class="fs-4">🐝</span>
+                                    <h5 id="score-words-completed" class="text-dark-purple mb-0 mt-1 fw-bold">10/10</h5>
+                                    <span class="text-muted small" style="font-size: 0.75rem;">Words Cleared</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <div id="badge-perfectionist" class="badge-card badge-grayed">
-                                <span class="fs-2">💎</span>
-                                <h6 class="font-kids text-dark mb-0 mt-2">Perfectionist</h6>
-                                <p class="text-muted small mb-0">100% Correct</p>
+                            <div class="col-6">
+                                <div class="card p-2 border-2 rounded-4 h-100 bg-white" style="border-color: #E1D8FF;">
+                                    <span class="fs-4">🎓</span>
+                                    <h5 id="score-max-streak" class="text-dark-purple mb-0 mt-1 fw-bold">0</h5>
+                                    <span class="text-muted small" style="font-size: 0.75rem;">Max Streak</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Parents Corner & Trouble Words List -->
-                <div class="card p-4 rounded-4 border-2 bg-white text-start mb-4" style="border-color: #FFCDD2;">
-                    <h4 class="font-kids text-danger mb-2"><i class="bi bi-heart-pulse-fill"></i> Parents' Practice Corner</h4>
-                    <p class="text-muted small mb-3">Here are the words your child can practice more next time (Words that were spelled incorrectly):</p>
-                    <div id="trouble-words-list-container" class="d-flex flex-wrap gap-2">
-                        <!-- Filled dynamically -->
-                        <span class="text-muted italic">Great job! No trouble words found this round! 🎉</span>
+                    <!-- End actions -->
+                    <div class="d-flex flex-column gap-2 mt-auto">
+                        <button class="btn btn-kid btn-kid-primary w-100 py-2.5 text-white" onclick="restartGame()">Play Another Session! 🔄</button>
+                        <button class="btn btn-kid btn-kid-secondary w-100 py-2.5 text-white" onclick="returnToMainMenu()">Main Menu 🏠</button>
                     </div>
                 </div>
 
-                <!-- End Buttons -->
-                <div class="d-flex justify-content-center gap-3 flex-wrap">
-                    <button class="btn btn-kid btn-kid-primary px-4 py-3" onclick="restartGame()">Play Another Session! 🔄</button>
-                    <button class="btn btn-kid btn-kid-secondary px-4 py-3" onclick="returnToMainMenu()">Main Menu 🏠</button>
+                <!-- Right Column: Badges & Practice diagnostics -->
+                <div class="col-12 col-lg-7 d-flex flex-column gap-2 py-2">
+                    
+                    <!-- Badges Grid -->
+                    <div class="card p-2.5 rounded-4 border-2 bg-white" style="border-color: #DDD1FF;">
+                        <h5 class="font-kids text-dark-purple mb-2" style="font-size: 1rem;"><i class="bi bi-trophy-fill text-warning"></i> Badges Unlocked</h5>
+                        <div class="row g-2">
+                            <div class="col-6 col-sm-3">
+                                <div id="badge-first-step" class="badge-card badge-grayed d-flex flex-column justify-content-center align-items-center">
+                                    <span class="fs-3">🐝</span>
+                                    <h6 class="font-kids text-dark mb-0 mt-1" style="font-size: 0.8rem;">First Step</h6>
+                                    <p class="text-muted small mb-0" style="font-size: 0.65rem;">Cleared 1 Word</p>
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm-3">
+                                <div id="badge-streak-wizard" class="badge-card badge-grayed d-flex flex-column justify-content-center align-items-center">
+                                    <span class="fs-3">🔥</span>
+                                    <h6 class="font-kids text-dark mb-0 mt-1" style="font-size: 0.8rem;">Streak Wizard</h6>
+                                    <p class="text-muted small mb-0" style="font-size: 0.65rem;">3 Correct Streak</p>
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm-3">
+                                <div id="badge-word-wizard" class="badge-card badge-grayed d-flex flex-column justify-content-center align-items-center">
+                                    <span class="fs-3">🧙‍♂️</span>
+                                    <h6 class="font-kids text-dark mb-0 mt-1" style="font-size: 0.8rem;">Bee Master</h6>
+                                    <p class="text-muted small mb-0" style="font-size: 0.65rem;">Cleared Hard Level</p>
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm-3">
+                                <div id="badge-perfectionist" class="badge-card badge-grayed d-flex flex-column justify-content-center align-items-center">
+                                    <span class="fs-3">💎</span>
+                                    <h6 class="font-kids text-dark mb-0 mt-1" style="font-size: 0.8rem;">Perfectionist</h6>
+                                    <p class="text-muted small mb-0" style="font-size: 0.65rem;">100% Accuracy</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Practice analytics breakdown -->
+                    <div class="card p-2.5 rounded-4 border-2 bg-white text-start flex-grow-1" style="border-color: #FFCDD2;">
+                        <h5 class="font-kids text-danger mb-1" style="font-size: 1rem;"><i class="bi bi-heart-pulse-fill"></i> Parents' Practice Corner</h5>
+                        <p class="text-muted small mb-2" style="font-size: 0.75rem;">Here are the words your child can practice more next time (Spelled incorrectly this round):</p>
+                        <div id="trouble-words-list-container" class="d-flex flex-wrap gap-2">
+                            <!-- Populated dynamically -->
+                            <span class="text-muted italic small">Great job! No trouble words found this round! 🎉</span>
+                        </div>
+                    </div>
+
                 </div>
+
             </div>
         </div>
 
+    </main>
+
+    <!-- ================= STREAMING_CHUNK:Constructing virtual overlays and slide-up drawers... -->
+    <!-- SLIDE-UP OVERLAY KEYBOARD SHEET -->
+    <div id="keyboard-overlay" class="keyboard-overlay">
+        <div class="keyboard-drag-bar" onclick="toggleOverlayKeyboard(false)"></div>
+        <div class="d-flex justify-content-between align-items-center px-3 mb-2">
+            <span class="text-muted fw-bold small font-kids"><i class="bi bi-keyboard"></i> Magic Keyboard Drawer</span>
+            <button class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-0.5" style="font-size: 0.75rem;" onclick="toggleOverlayKeyboard(false)">
+                Hide <i class="bi bi-chevron-down"></i>
+            </button>
+        </div>
+        
+        <div class="key-row">
+            <div class="kbd-key" onclick="pressKey('q')">Q</div>
+            <div class="kbd-key" onclick="pressKey('w')">W</div>
+            <div class="kbd-key" onclick="pressKey('e')">E</div>
+            <div class="kbd-key" onclick="pressKey('r')">R</div>
+            <div class="kbd-key" onclick="pressKey('t')">T</div>
+            <div class="kbd-key" onclick="pressKey('y')">Y</div>
+            <div class="kbd-key" onclick="pressKey('u')">U</div>
+            <div class="kbd-key" onclick="pressKey('i')">I</div>
+            <div class="kbd-key" onclick="pressKey('o')">O</div>
+            <div class="kbd-key" onclick="pressKey('p')">P</div>
+        </div>
+        <div class="key-row">
+            <div class="kbd-key" onclick="pressKey('a')">A</div>
+            <div class="kbd-key" onclick="pressKey('s')">S</div>
+            <div class="kbd-key" onclick="pressKey('d')">D</div>
+            <div class="kbd-key" onclick="pressKey('f')">F</div>
+            <div class="kbd-key" onclick="pressKey('g')">G</div>
+            <div class="kbd-key" onclick="pressKey('h')">H</div>
+            <div class="kbd-key" onclick="pressKey('j')">J</div>
+            <div class="kbd-key" onclick="pressKey('k')">K</div>
+            <div class="kbd-key" onclick="pressKey('l')">L</div>
+        </div>
+        <div class="key-row">
+            <div class="kbd-key action-key" onclick="pressKey('backspace')">Backspace ⌫</div>
+            <div class="kbd-key" onclick="pressKey('z')">Z</div>
+            <div class="kbd-key" onclick="pressKey('x')">X</div>
+            <div class="kbd-key" onclick="pressKey('c')">C</div>
+            <div class="kbd-key" onclick="pressKey('v')">V</div>
+            <div class="kbd-key" onclick="pressKey('b')">B</div>
+            <div class="kbd-key" onclick="pressKey('n')">N</div>
+            <div class="kbd-key" onclick="pressKey('m')">M</div>
+            <div class="kbd-key action-key" onclick="pressKey('clear')">Clear ❌</div>
+        </div>
     </div>
 
-    <!-- ================= MODALS & ABSOLUTE DIALOG OVERLAYS ================= -->
-    
-    <!-- Answer Feedback Popups (Replaces alert) -->
+    <!-- Feedback dialog for corrected/wrong states -->
     <div id="feedback-overlay" class="overlay-dialog" style="display: none;">
-        <div class="card text-center p-4 p-md-5 rounded-4 shadow-lg border-4" id="feedback-card" style="max-width: 420px; width: 90%; transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
-            <div id="feedback-icon" class="mb-3" style="font-size: 4rem;">🎉</div>
-            <h2 id="feedback-title" class="font-kids mb-2">Wonderful!</h2>
-            <div id="feedback-message" class="text-muted mb-4 fs-5">Correct! You spelled **apple** perfectly.</div>
+        <div class="card text-center p-4 rounded-4 shadow-lg border-4" id="feedback-card" style="max-width: 420px; width: 90%; transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+            <div id="feedback-icon" class="mb-2" style="font-size: 3.5rem;">🎉</div>
+            <h3 id="feedback-title" class="font-kids mb-1">Wonderful!</h3>
+            <!-- Hides absolute correct word answers, showing them only in contextual diagnostics -->
+            <div id="feedback-message" class="text-muted mb-3 fs-5"></div>
             
             <button id="feedback-btn-next" class="btn btn-kid btn-kid-success w-100 py-3 text-white">Next Word ➡️</button>
         </div>
@@ -732,20 +885,21 @@
 
     <!-- Confirm Exit Overlay -->
     <div id="quit-overlay" class="overlay-dialog" style="display: none;">
-        <div class="card text-center p-4 rounded-4 shadow-lg border-2 border-warning" style="max-width: 400px; width: 90%;">
-            <div class="fs-1 mb-2">🤔</div>
-            <h3 class="font-kids text-dark-purple">Want to stop playing?</h3>
-            <p class="text-muted">Your current session points will be lost, but you'll keep all total lifetime stats.</p>
-            <div class="d-flex gap-3 justify-content-center mt-3">
-                <button class="btn btn-secondary rounded-pill px-4" onclick="closeQuitModal()">Keep Playing 🎮</button>
-                <button class="btn btn-danger rounded-pill px-4" onclick="quitGameConfirmed()">Yes, Exit 🏠</button>
+        <div class="card text-center p-3 rounded-4 shadow-lg border-2 border-warning" style="max-width: 380px; width: 90%;">
+            <div class="fs-1 mb-1">🤔</div>
+            <h3 class="font-kids text-dark-purple">Stop playing?</h3>
+            <p class="text-muted small">Your active round progress will be lost, but you'll keep all lifetime rewards.</p>
+            <div class="d-flex gap-3 justify-content-center mt-2">
+                <button class="btn btn-secondary rounded-pill px-4 btn-sm" onclick="closeQuitModal()">Keep Playing 🎮</button>
+                <button class="btn btn-danger rounded-pill px-4 btn-sm" onclick="quitGameConfirmed()">Yes, Exit 🏠</button>
             </div>
         </div>
     </div>
 
-
-    <!-- Bootstrap & Custom Game Controller Script -->
+    <!-- Core Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- ================= STREAMING_CHUNK:Implementing JavaScript logic blocks... -->
     <script>
         // WORD BANK DESIGN (100 sight & common 3-4-5-6 letter words)
         const wordBank = {
@@ -860,16 +1014,16 @@
         // GAME CONTROLLER STATE
         let gameState = {
             kidName: "Sara",
-            gameMode: "adaptive", // adaptive or manual
-            currentDifficulty: "easy", // easy, medium, hard
-            currentLevelIndex: 0, // Current word index (0 to 9)
-            sessionWordsList: [], // Pre-selected 10 words for current game session
-            score: 0, // Total score
-            streak: 0, // Active streak of correct answers
-            maxStreakInSession: 0, // Maximum streak in this session
-            wrongStreak: 0, // Track consecutive failures for downgrades
-            troubleWords: [], // List of wrong spelled words
-            starPoints: 0, // Gamification reward stars
+            gameMode: "adaptive",
+            currentDifficulty: "easy",
+            currentLevelIndex: 0, 
+            sessionWordsList: [],
+            score: 0,
+            streak: 0,
+            maxStreakInSession: 0,
+            wrongStreak: 0,
+            troubleWords: [],
+            starPoints: 0,
             badgesUnlocked: {
                 firstStep: false,
                 streakWizard: false,
@@ -878,19 +1032,23 @@
             }
         };
 
-        // TTS (Text-to-Speech) System Init
         let synthesisVoices = [];
         let chosenVoice = null;
-
-        // Sound System Web Audio Synth (Offline beep generation)
+        let modalTimeout = null;
+        let countdownInterval = null;
         let audioCtx = null;
+
         function getAudioContext() {
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             }
+            if (audioCtx.state === "suspended") {
+                audioCtx.resume();
+            }
             return audioCtx;
         }
 
+        // Offline Synth beep generator
         function playSynthSound(freqs, duration = 0.2, type = "sine") {
             try {
                 const ctx = getAudioContext();
@@ -904,7 +1062,7 @@
                     osc.type = type;
                     osc.frequency.setValueAtTime(freq, time + idx * 0.1);
                     
-                    gain.gain.setValueAtTime(0.15, time + idx * 0.1);
+                    gain.gain.setValueAtTime(0.12, time + idx * 0.1);
                     gain.gain.exponentialRampToValueAtTime(0.001, time + idx * 0.1 + duration);
                     
                     osc.connect(gain);
@@ -914,26 +1072,23 @@
                     osc.stop(time + idx * 0.1 + duration);
                 });
             } catch(e) {
-                console.log("Audio play blocked/failed: ", e);
+                console.log("Audio play blocked: ", e);
             }
         }
 
         function playCorrectSound() {
-            // Happy cheerful high-pitch melody
-            playSynthSound([523.25, 659.25, 783.99, 1046.50], 0.35, "triangle"); // C5-E5-G5-C6
+            playSynthSound([523.25, 659.25, 783.99, 1046.50], 0.35, "triangle");
         }
 
         function playWrongSound() {
-            // Sad low tone slide
-            playSynthSound([220.00, 196.00], 0.45, "sawtooth"); // A3-G3
+            playSynthSound([220.00, 196.00], 0.45, "sawtooth");
         }
 
         function playLevelUpSound() {
-            // Triumphant Fanfare
             playSynthSound([523.25, 523.25, 523.25, 783.99, 1046.50], 0.5, "sine");
         }
 
-        // TEXT TO SPEECH SETUP
+        // ================= STREAMING_CHUNK:Configuring the text-to-speech preferences...
         function initSpeechSystem() {
             if ('speechSynthesis' in window) {
                 const populateVoices = () => {
@@ -941,30 +1096,32 @@
                     const voiceSelect = document.getElementById("voiceSelect");
                     voiceSelect.innerHTML = "";
                     
-                    // Filter specifically for Indian English (en-IN), or English variants
                     const targetVoices = synthesisVoices.filter(v => v.lang.toLowerCase().includes("in") || v.lang.toLowerCase().includes("en"));
-                    
-                    // Prioritize Indian Accent Voices
                     let indianVoices = targetVoices.filter(v => v.lang.toLowerCase().includes("en-in") || v.name.toLowerCase().includes("india"));
-                    
-                    // Fallbacks
                     let displayList = indianVoices.length > 0 ? indianVoices : targetVoices;
                     if (displayList.length === 0) displayList = synthesisVoices;
                     
-                    displayList.forEach((voice, index) => {
+                    const savedVoiceName = localStorage.getItem("spellingBee_lastVoiceName");
+
+                    displayList.forEach((voice) => {
                         const option = document.createElement("option");
                         option.value = voice.name;
                         option.textContent = `${voice.name} (${voice.lang})`;
-                        if (voice.lang.toLowerCase().includes("en-in") || voice.name.toLowerCase().includes("india")) {
+                        
+                        if (savedVoiceName && voice.name === savedVoiceName) {
+                            option.selected = true;
+                            chosenVoice = voice;
+                        } else if (!savedVoiceName && (voice.lang.toLowerCase().includes("en-in") || voice.name.toLowerCase().includes("india"))) {
                             option.selected = true;
                             chosenVoice = voice;
                         }
                         voiceSelect.appendChild(option);
                     });
 
-                    // Select first available if none selected as default
                     if(!chosenVoice && displayList.length > 0) {
                         chosenVoice = displayList[0];
+                        const matchedOpt = Array.from(voiceSelect.options).find(o => o.value === chosenVoice.name);
+                        if (matchedOpt) matchedOpt.selected = true;
                     }
                 };
 
@@ -972,18 +1129,29 @@
                 if (window.speechSynthesis.onvoiceschanged !== undefined) {
                     window.speechSynthesis.onvoiceschanged = populateVoices;
                 }
-            } else {
-                console.warn("Speech Synthesis API not supported.");
+
+                const savedSpeed = localStorage.getItem("spellingBee_lastSpeed");
+                if (savedSpeed) {
+                    const rateInput = document.getElementById("speechRate");
+                    rateInput.value = parseFloat(savedSpeed);
+                    
+                    const val = parseFloat(savedSpeed);
+                    let desc = "Normal (1.0x)";
+                    if (val <= 0.5) desc = "Slower (0.5x)";
+                    else if (val <= 0.7) desc = "Slow (0.65x)";
+                    else if (val <= 0.85) desc = "Medium-Slow (0.8x)";
+                    document.getElementById("speedValue").textContent = `${desc}`;
+                }
             }
         }
 
-        // Capture voice dropdown changes manually
+        // Listen for selection settings modifications
         document.getElementById("voiceSelect").addEventListener("change", (e) => {
             const voiceName = e.target.value;
             chosenVoice = synthesisVoices.find(v => v.name === voiceName);
+            localStorage.setItem("spellingBee_lastVoiceName", voiceName);
         });
 
-        // Speed Slider update text
         document.getElementById("speechRate").addEventListener("input", (e) => {
             const val = parseFloat(e.target.value);
             let desc = "Normal (1.0x)";
@@ -991,40 +1159,40 @@
             else if (val <= 0.7) desc = "Slow (0.65x)";
             else if (val <= 0.85) desc = "Medium-Slow (0.8x)";
             document.getElementById("speedValue").textContent = `${desc}`;
+            localStorage.setItem("spellingBee_lastSpeed", val);
         });
 
-        // SPEAK UTTERANCE CORE FUNCTION
+        // CORE AUDIO UTTERANCE ENGINE
         function speakText(text) {
             if ('speechSynthesis' in window) {
-                // Cancel ongoing speeches to avoid overlapping issues
                 window.speechSynthesis.cancel();
                 
-                // CRITICAL BUGFIX: Chrome/Safari can silently lock Synthesis unless explicitly resumed
-                window.speechSynthesis.resume();
+                // Add a micro-delay to allow previous cancellations to clear. Fixes audio dropouts.
+                setTimeout(() => {
+                    window.speechSynthesis.resume();
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    if (chosenVoice) {
+                        utterance.voice = chosenVoice;
+                    }
+                    
+                    const rateInput = document.getElementById("speechRate").value;
+                    utterance.rate = parseFloat(rateInput);
+                    utterance.pitch = 1.08;
+                    
+                    utterance.onstart = () => { toggleBeeSpeakingState(true); };
+                    utterance.onend = () => { toggleBeeSpeakingState(false); };
+                    utterance.onerror = (e) => { 
+                        toggleBeeSpeakingState(false); 
+                        if (e.error !== 'interrupted' && e.error !== 'canceled') {
+                            console.error("TTS engine error: ", e);
+                        }
+                    };
 
-                const utterance = new SpeechSynthesisUtterance(text);
-                if (chosenVoice) {
-                    utterance.voice = chosenVoice;
-                }
-                
-                // Fetch dynamic pace (speed)
-                const rateInput = document.getElementById("speechRate").value;
-                utterance.rate = parseFloat(rateInput);
-                utterance.pitch = 1.05; // Slightly high and playful for kids
-                
-                // Hook speech states with the interactive Speaking UI
-                utterance.onstart = () => { toggleBeeSpeakingState(true); };
-                utterance.onend = () => { toggleBeeSpeakingState(false); };
-                utterance.onerror = (e) => { 
-                    toggleBeeSpeakingState(false); 
-                    console.error("Speech Synthesis Error:", e);
-                };
-
-                window.speechSynthesis.speak(utterance);
+                    window.speechSynthesis.speak(utterance);
+                }, 50);
             }
         }
 
-        // Animated speaking states (mouth/wing shake feedback)
         function toggleBeeSpeakingState(isSpeaking) {
             const beeSpeaker = document.querySelector(".bee-speaker");
             if (beeSpeaker) {
@@ -1036,16 +1204,17 @@
             }
         }
 
-        // UTILITY FUNCTIONS for the active session word
+        // UTILITY FUNCTIONS
         function getCurrentWordObj() {
             return gameState.sessionWordsList[gameState.currentLevelIndex];
         }
 
+        // AUDIO GENERATOR ACTIONS
         function speakCurrentWord() {
             const wordObj = getCurrentWordObj();
             if (wordObj) {
-                speakText(`The spelling word is. ${wordObj.word}.`);
-                document.getElementById("speech-bubble-text").textContent = `Spell: "${wordObj.word.toUpperCase()}" 🗣️`;
+                speakText(wordObj.word);
+                document.getElementById("speech-bubble-text").textContent = `Listen carefully... 🎧`;
             }
         }
 
@@ -1057,45 +1226,32 @@
             }
         }
 
+        // Safe visual hint (never exposes full word)
         function showHint() {
             const wordObj = getCurrentWordObj();
             if (wordObj) {
                 const len = wordObj.word.length;
                 const firstLet = wordObj.word.charAt(0).toUpperCase();
                 
-                // Update warning block
                 const tipBox = document.getElementById("game-tip-box");
-                tipBox.innerHTML = `🌟 <b>Hint:</b> Starts with letter <strong>${firstLet}</strong> and is <strong>${len}</strong> letters long.<br><small>${wordObj.hint}</small>`;
+                tipBox.innerHTML = `🌟 <b>Hint:</b> Starts with <strong>${firstLet}</strong> and has <strong>${len}</strong> letters.<br><small>${wordObj.hint}</small>`;
                 tipBox.classList.remove("d-none");
                 
                 speakText(`The word starts with the letter ${firstLet}, and has ${len} letters.`);
             }
         }
 
-
-        // GENERATE WORD SESSION (10 questions of mixed/filtered levels)
-        function createSessionWords(mode, initialDiff) {
-            let selectedList = [];
-            gameState.currentDifficulty = initialDiff;
-            
-            if (mode === 'manual') {
-                // Purely random select 10 from chosen difficulty
-                let pool = [...wordBank[initialDiff]];
-                // Shuffle pool
-                pool.sort(() => Math.random() - 0.5);
-                selectedList = pool.slice(0, 10);
+        // ================= STREAMING_CHUNK:Implementing custom overlay keyboard sliders...
+        // Keyboard Drawer handlers
+        function toggleOverlayKeyboard(show) {
+            const overlay = document.getElementById("keyboard-overlay");
+            if (show) {
+                overlay.classList.add("show");
             } else {
-                // Adaptive setup
-                let poolEasy = [...wordBank.easy].sort(() => Math.random() - 0.5).slice(0, 4);
-                let poolMed = [...wordBank.medium].sort(() => Math.random() - 0.5).slice(0, 3);
-                let poolHard = [...wordBank.hard].sort(() => Math.random() - 0.5).slice(0, 3);
-                selectedList = [...poolEasy, ...poolMed, ...poolHard];
+                overlay.classList.remove("show");
             }
-            
-            gameState.sessionWordsList = selectedList;
         }
 
-        // VIRTUAL KEYBOARD PRESSED ACTIONS
         function pressKey(val) {
             const inputField = document.getElementById("mainWordInput");
             if (val === 'backspace') {
@@ -1108,34 +1264,43 @@
             inputField.focus();
         }
 
-        // Track Physical Keyboard Inputs
-        document.getElementById("mainWordInput").addEventListener("keydown", (e) => {
-            if (e.key === "Enter") {
-                checkAnswer();
+        // Close keyboard when clicking outside of it (anywhere on the screen main area)
+        document.querySelector(".app-content").addEventListener("click", (e) => {
+            if (!e.target.closest("#keyboard-overlay") && !e.target.closest(".btn-keyboard-trigger") && !e.target.closest(".kbd-key")) {
+                toggleOverlayKeyboard(false);
             }
         });
 
+        // VIEWPORT ENGINE IMMERSIVE CONTROLS
+        function toggleImmersiveView() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().then(() => {
+                    document.getElementById("fullscreen-icon").className = "bi bi-fullscreen-exit";
+                }).catch((err) => {
+                    console.log(`Immersive window blocked: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen().then(() => {
+                    document.getElementById("fullscreen-icon").className = "bi bi-fullscreen";
+                });
+            }
+        }
 
-        // GAME LEVEL LOAD / RELOAD AT LEVEL INDEX
+        // ================= STREAMING_CHUNK:Refinement of the quiz core loops and transitions...
         function loadLevel() {
-            // Close any active feedback popup
             document.getElementById("feedback-overlay").style.display = "none";
+            toggleOverlayKeyboard(false);
             
-            // Re-focus on input
             const inputField = document.getElementById("mainWordInput");
             inputField.value = "";
             inputField.focus();
             
-            // Hide custom tip box
             document.getElementById("game-tip-box").classList.add("d-none");
 
-            // Update Progress Bars
             const progressPct = ((gameState.currentLevelIndex) / 10) * 100;
             document.getElementById("game-progress").style.width = `${progressPct}%`;
-            
             document.getElementById("question-index-counter").textContent = `${gameState.currentLevelIndex + 1} / 10`;
 
-            // Adjust difficulty indicators dynamically
             const diffIndicator = document.getElementById("difficulty-indicator");
             diffIndicator.className = "difficulty-badge";
             if (gameState.currentDifficulty === "easy") {
@@ -1149,27 +1314,33 @@
                 diffIndicator.textContent = "Hard Level 🔴";
             }
 
-            // Custom dynamic speech bubbles greeting at first levels
-            if (gameState.currentLevelIndex === 0) {
-                document.getElementById("speech-bubble-text").textContent = `Welcome, ${gameState.kidName}! Click me to listen!`;
-            } else {
-                document.getElementById("speech-bubble-text").textContent = `Here comes Word #${gameState.currentLevelIndex + 1}! Let's hear it.`;
-            }
+            document.getElementById("speech-bubble-text").textContent = `Listen carefully... 🎧`;
 
-            // Automatically speak word on load
             setTimeout(() => {
                 speakCurrentWord();
-            }, 600);
+            }, 650);
         }
 
-        // DIALOG OVERLAYS TRIGGERS
+        // RESTORED POPUP FEEDBACK OVERLAYS & AUTO-SUBSIDE TIMING CONTROLLERS
         function triggerAnswerModal(isCorrect, rightAnswer) {
+            toggleOverlayKeyboard(false); // Fix overlap: explicitly hide the keyboard overlay
+
             const overlay = document.getElementById("feedback-overlay");
             const card = document.getElementById("feedback-card");
             const icon = document.getElementById("feedback-icon");
             const title = document.getElementById("feedback-title");
             const message = document.getElementById("feedback-message");
             const btn = document.getElementById("feedback-btn-next");
+
+            // Guarantee any ongoing intervals/timeouts are terminated to avoid double-triggers
+            if (modalTimeout) {
+                clearTimeout(modalTimeout);
+                modalTimeout = null;
+            }
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+                countdownInterval = null;
+            }
 
             if (isCorrect) {
                 playCorrectSound();
@@ -1179,21 +1350,41 @@
                 title.textContent = getRandomSuccessPhrase();
                 title.style.color = "var(--secondary-color)";
                 card.style.borderColor = "var(--secondary-color)";
-                message.innerHTML = `That's correct! You spelled <strong>${rightAnswer.toUpperCase()}</strong> perfectly. <br><span class="badge bg-success rounded-pill mt-2">+10 points!</span>`;
-                
+                message.innerHTML = `Great job! Correct spelling score.<br><span class="badge bg-success rounded-pill mt-2 px-3">+10 points!</span>`;
                 btn.className = "btn btn-kid btn-kid-success w-100 py-3 text-white";
-                btn.textContent = "Next Word ➡️";
+
+                // Setup 3-second auto transition clock
+                let remainingSec = 3;
+                btn.textContent = `Next Word ➡️ (${remainingSec}s)`;
+
+                countdownInterval = setInterval(() => {
+                    remainingSec--;
+                    if (remainingSec > 0) {
+                        btn.textContent = `Next Word ➡️ (${remainingSec}s)`;
+                    } else {
+                        clearInterval(countdownInterval);
+                        countdownInterval = null;
+                    }
+                }, 1000);
+
+                modalTimeout = setTimeout(() => {
+                    handleModalProceed();
+                }, 3000);
+
             } else {
                 playWrongSound();
 
                 icon.textContent = "🧸";
-                title.textContent = "Keep Trying!";
+                title.textContent = "Keep Practicing!";
                 title.style.color = "#FF5722";
                 card.style.borderColor = "#FF5722";
-                message.innerHTML = `Not quite right. The correct spelling is:<br><strong class="fs-2 text-success tracking-wide">${rightAnswer.toUpperCase()}</strong><br><small class="text-muted mt-2 d-block">Let's practice this word!</small>`;
                 
+                // Only showing spelling here within correction diagnostic so children can review/learn
+                message.innerHTML = `Not quite right. The correct spelling is:<br><strong class="fs-1 text-success tracking-wide">${rightAnswer.toUpperCase()}</strong><br><small class="text-muted mt-2 d-block">Study the word, then press Enter to continue!</small>`;
                 btn.className = "btn btn-kid btn-kid-secondary w-100 py-3 text-white";
                 btn.textContent = "Got it! Continue ➡️";
+
+                // Remains indefinitely - no timeouts set for errors!
             }
 
             overlay.style.display = "flex";
@@ -1201,12 +1392,22 @@
                 card.style.transform = "scale(1)";
             }, 50);
 
-            // Hook the button to load the next step
-            btn.onclick = () => {
+            // Double Proceed Guard integrated
+            const handleModalProceed = () => {
+                if (modalTimeout) {
+                    clearTimeout(modalTimeout);
+                    modalTimeout = null;
+                }
+                if (countdownInterval) {
+                    clearInterval(countdownInterval);
+                    countdownInterval = null;
+                }
                 overlay.style.display = "none";
                 card.style.transform = "scale(0.9)";
                 proceedNextLevel();
             };
+
+            btn.onclick = handleModalProceed;
         }
 
         function getRandomSuccessPhrase() {
@@ -1222,73 +1423,58 @@
             return phrases[Math.floor(Math.random() * phrases.length)];
         }
 
-
-        // ADAPTIVE DIFFICULTY ENGINE ALGORITHM (CORE DESIGN RULE)
+        // DYNAMIC GAME ADAPTATION ALGORITHMS
         function adaptDifficulty(isCorrect) {
-            if (gameState.gameMode !== "adaptive") return; // manual mode has fixed difficulty set at start
+            if (gameState.gameMode !== "adaptive") return;
 
             if (isCorrect) {
                 gameState.streak++;
                 gameState.wrongStreak = 0;
                 
-                // Track max streak
                 if (gameState.streak > gameState.maxStreakInSession) {
                     gameState.maxStreakInSession = gameState.streak;
                 }
 
-                // If Correct Streak reaches 3, promote difficulty!
                 if (gameState.streak >= 3) {
                     if (gameState.currentDifficulty === "easy") {
                         gameState.currentDifficulty = "medium";
-                        gameState.streak = 0; // Reset streak counter for next tier
+                        gameState.streak = 0; 
                         playLevelUpSound();
-                        
-                        // Pick next word dynamically from Medium pool to load next
                         swapSessionWordAtNextIndex("medium");
                     } else if (gameState.currentDifficulty === "medium") {
                         gameState.currentDifficulty = "hard";
                         gameState.streak = 0;
                         playLevelUpSound();
-                        
                         swapSessionWordAtNextIndex("hard");
                     }
                 }
             } else {
-                // Incorrect
-                gameState.streak = 0; // Break active correct streak
+                gameState.streak = 0;
                 gameState.wrongStreak++;
 
-                // If user misses 2 words in a row, demote difficulty!
                 if (gameState.wrongStreak >= 2) {
                     if (gameState.currentDifficulty === "hard") {
                         gameState.currentDifficulty = "medium";
-                        gameState.wrongStreak = 0; // Reset count
-                        
+                        gameState.wrongStreak = 0;
                         swapSessionWordAtNextIndex("medium");
                     } else if (gameState.currentDifficulty === "medium") {
                         gameState.currentDifficulty = "easy";
                         gameState.wrongStreak = 0;
-                        
                         swapSessionWordAtNextIndex("easy");
                     }
                 }
             }
         }
 
-        // Dynamically swaps placeholder word with appropriate level difficulty word
         function swapSessionWordAtNextIndex(targetLevel) {
             const nextIdx = gameState.currentLevelIndex + 1;
-            if (nextIdx >= 10) return; // reached end anyway
+            if (nextIdx >= 10) return;
 
             const pool = [...wordBank[targetLevel]];
             const randomPick = pool[Math.floor(Math.random() * pool.length)];
-            
-            // Swap live
             gameState.sessionWordsList[nextIdx] = randomPick;
         }
 
-
-        // SPELLING VERIFICATION logic
         function checkAnswer() {
             const inputVal = document.getElementById("mainWordInput").value.trim().toLowerCase();
             if (inputVal === "") {
@@ -1297,50 +1483,56 @@
             }
 
             const currentObj = getCurrentWordObj();
-            const correctSpelling = currentObj.word.trim().toLowerCase();
+            if (!currentObj) return;
 
+            const correctSpelling = currentObj.word.trim().toLowerCase();
             let isCorrect = (inputVal === correctSpelling);
 
-            // Update user state
             if (isCorrect) {
                 gameState.score += 10;
                 gameState.starPoints += 1;
                 document.getElementById("star-count-header").textContent = gameState.starPoints;
             } else {
-                // Log trouble word for parents analysis
                 if (!gameState.troubleWords.includes(currentObj.word)) {
                     gameState.troubleWords.push(currentObj.word);
                 }
             }
 
-            // Adapt difficulty
             adaptDifficulty(isCorrect);
-
-            // Open popup feedback dialog
             triggerAnswerModal(isCorrect, correctSpelling);
         }
 
-        // PROGRESS TO NEXT WORD OR SCORE GAME END
         function proceedNextLevel() {
             gameState.currentLevelIndex++;
-            
             if (gameState.currentLevelIndex >= 10) {
-                // Game finished! Show summary report
                 endGameSession();
             } else {
-                // Play next word
                 loadLevel();
             }
         }
 
+        function createSessionWords(mode, initialDiff) {
+            let selectedList = [];
+            gameState.currentDifficulty = initialDiff;
+            
+            if (mode === 'manual') {
+                let pool = [...wordBank[initialDiff]];
+                pool.sort(() => Math.random() - 0.5);
+                selectedList = pool.slice(0, 10);
+            } else {
+                let poolEasy = [...wordBank.easy].sort(() => Math.random() - 0.5).slice(0, 4);
+                let poolMed = [...wordBank.medium].sort(() => Math.random() - 0.5).slice(0, 3);
+                let poolHard = [...wordBank.hard].sort(() => Math.random() - 0.5).slice(0, 3);
+                selectedList = [...poolEasy, ...poolMed, ...poolHard];
+            }
+            gameState.sessionWordsList = selectedList;
+        }
 
-        // CONCLUDE GAME SESSION & REWARDS REPORT
+        // REWARD TRIGGERS
         function endGameSession() {
-            // Hide Gameplay screen, show Scores
             document.getElementById("screen-game").classList.remove("active");
             document.getElementById("screen-score").classList.add("active");
 
-            // Populate Stats report card
             document.getElementById("kid-name-congrats").textContent = gameState.kidName;
             document.getElementById("score-stars-earned").textContent = gameState.starPoints;
             
@@ -1349,15 +1541,12 @@
             document.getElementById("score-words-completed").textContent = `${10 - gameState.troubleWords.length} / 10`;
             document.getElementById("score-max-streak").textContent = gameState.maxStreakInSession;
 
-            // Badges Trigger logic
             processBadges(accuracy);
 
-            // Render Trouble words list for Parents Corner
             const troubleContainer = document.getElementById("trouble-words-list-container");
             troubleContainer.innerHTML = "";
             if (gameState.troubleWords.length === 0) {
-                troubleContainer.innerHTML = `<span class="badge bg-success rounded-pill fs-6 px-3 py-2"><i class="bi bi-heart-fill"></i> Zero Trouble Words! Outstanding Work!</span>`;
-                // Play winner cheer sound
+                troubleContainer.innerHTML = `<span class="badge bg-success rounded-pill fs-6 px-3 py-2"><i class="bi bi-heart-fill"></i> Zero mistakes! You're a Champion!</span>`;
                 playSynthSound([523.25, 659.25, 783.99, 1046.50, 1318.51], 0.6, "triangle");
             } else {
                 gameState.troubleWords.forEach(word => {
@@ -1370,42 +1559,28 @@
         }
 
         function processBadges(accuracy) {
-            // Check & Unlock Badges visually
             const bFirst = document.getElementById("badge-first-step");
             const bStreak = document.getElementById("badge-streak-wizard");
             const bWizard = document.getElementById("badge-word-wizard");
             const bPerf = document.getElementById("badge-perfectionist");
 
-            // Reset
             bFirst.classList.add("badge-grayed");
             bStreak.classList.add("badge-grayed");
             bWizard.classList.add("badge-grayed");
             bPerf.classList.add("badge-grayed");
 
-            // Unlock logic
-            bFirst.classList.remove("badge-grayed"); // Easy baseline
-
-            if (gameState.maxStreakInSession >= 3) {
-                bStreak.classList.remove("badge-grayed");
-            }
-
-            if (gameState.currentDifficulty === "hard") {
-                bWizard.classList.remove("badge-grayed");
-            }
-
-            if (accuracy === 100) {
-                bPerf.classList.remove("badge-grayed");
-            }
+            bFirst.classList.remove("badge-grayed");
+            if (gameState.maxStreakInSession >= 3) bStreak.classList.remove("badge-grayed");
+            if (gameState.currentDifficulty === "hard") bWizard.classList.remove("badge-grayed");
+            if (accuracy === 100) bPerf.classList.remove("badge-grayed");
         }
 
-        // CONFETTI CELEBRATORY EMITTER SYSTEM
-        let confettiInterval = null;
+        // CONFETTI CELEBRATIONS
         function triggerConfetti() {
             const canvas = document.getElementById("confetti-canvas");
             const ctx = canvas.getContext("2d");
             canvas.style.display = "block";
             
-            // Set canvas size
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
 
@@ -1435,9 +1610,7 @@
                     p.x += Math.sin(p.tiltAngle);
                     p.tilt = Math.sin(p.tiltAngle - idx/3) * 15;
 
-                    if (p.y <= canvas.height) {
-                        processing = true;
-                    }
+                    if (p.y <= canvas.height) processing = true;
 
                     ctx.beginPath();
                     ctx.lineWidth = p.r;
@@ -1455,53 +1628,50 @@
             }
 
             draw();
-
-            // Auto stop animation after 4 seconds
             setTimeout(() => {
                 cancelAnimationFrame(animationFrameId);
                 canvas.style.display = "none";
             }, 4000);
         }
 
-
-        // NAVIGATION CONTROLLER & FLOW TRIGGERS
+        // GAME INITIATIONS
         document.getElementById("btn-start").onclick = () => {
+            // Request automatic fullscreen on play (requires user gesture like this click)
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().then(() => {
+                    document.getElementById("fullscreen-icon").className = "bi bi-fullscreen-exit";
+                }).catch((err) => console.log("Fullscreen blocked by browser policy."));
+            }
+
+            // Un-suspend and strictly unblock Audio and TTS engines on click
+            getAudioContext().resume();
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.resume();
+            }
+
             const kidNameInput = document.getElementById("kidName").value.trim();
             if (kidNameInput === "") {
                 speakText("Please enter your name first!");
                 return;
             }
 
-            // CRITICAL AUDIO UNLOCK ON FIRST ACTIVE USER GESTURE
-            // Safari, Chrome, iOS require speaking an empty block directly during click event to authorize synthesis
-            if ('speechSynthesis' in window) {
-                const unlockUtterance = new SpeechSynthesisUtterance(" ");
-                unlockUtterance.volume = 0; // Completely silent
-                window.speechSynthesis.speak(unlockUtterance);
-            }
-
             gameState.kidName = kidNameInput;
             document.getElementById("header-kid-name").textContent = `👧 ${gameState.kidName}`;
             document.getElementById("header-kid-name").classList.remove("d-none");
 
-            // Get mode
             const isAdaptive = document.getElementById("modeAdaptive").checked;
             gameState.gameMode = isAdaptive ? "adaptive" : "manual";
             
-            // Resolve difficulty
             let startDiff = "easy";
             if (!isAdaptive) {
                 startDiff = document.getElementById("startDifficultySelect").value;
             }
 
-            // Build Question stack
             createSessionWords(gameState.gameMode, startDiff);
 
-            // Switch Screen layout
             document.getElementById("screen-welcome").classList.remove("active");
             document.getElementById("screen-game").classList.add("active");
 
-            // Initialize Game State Values
             gameState.currentLevelIndex = 0;
             gameState.score = 0;
             gameState.starPoints = 0;
@@ -1510,11 +1680,9 @@
             gameState.maxStreakInSession = 0;
             gameState.troubleWords = [];
 
-            // Load Level
             loadLevel();
         };
 
-        // Enable / disable selection base on mode choice
         document.getElementById("modeAdaptive").addEventListener("change", () => {
             document.getElementById("startDifficultySelect").disabled = true;
         });
@@ -1540,7 +1708,7 @@
             document.getElementById("screen-score").classList.remove("active");
             document.getElementById("screen-welcome").classList.add("active");
             document.getElementById("header-kid-name").classList.add("d-none");
-            
+            toggleOverlayKeyboard(false);
             window.speechSynthesis.cancel();
         }
 
@@ -1548,10 +1716,8 @@
             document.getElementById("screen-score").classList.remove("active");
             document.getElementById("screen-game").classList.add("active");
 
-            // Rebuild words list
             createSessionWords(gameState.gameMode, "easy");
 
-            // Reset round stats
             gameState.currentLevelIndex = 0;
             gameState.score = 0;
             gameState.starPoints = 0;
@@ -1563,14 +1729,63 @@
             loadLevel();
         }
 
-
-        // INITIALIZATION ON LOAD
+        // INITIALIZATION EVENTS ON WINDOW LOAD
         window.onload = function() {
             initSpeechSystem();
-            // Start silent audio context initialization on user gesture
+            
             document.body.addEventListener('click', () => {
                 getAudioContext();
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    window.speechSynthesis.resume();
+                    const unlockSpeech = new SpeechSynthesisUtterance(" ");
+                    unlockSpeech.volume = 0;
+                    window.speechSynthesis.speak(unlockSpeech);
+                }
             }, { once: true });
+
+            document.getElementById("kidName").addEventListener("keydown", (e) => {
+                if (e.key === "Enter") {
+                    e.preventDefault();
+                    document.getElementById("btn-start").click();
+                }
+            });
+
+            // Global modal keyboard navigations and game shortcuts
+            document.addEventListener("keydown", (e) => {
+                const gameScreen = document.getElementById("screen-game");
+                const gameActive = gameScreen && gameScreen.classList.contains("active");
+                const feedbackOverlay = document.getElementById("feedback-overlay");
+                const feedbackVisible = feedbackOverlay && feedbackOverlay.style.display === "flex";
+                
+                if (e.key === "Enter") {
+                    if (feedbackVisible) {
+                        e.preventDefault();
+                        const nextBtn = document.getElementById("feedback-btn-next");
+                        if (nextBtn) {
+                            nextBtn.click();
+                        }
+                    } else if (gameActive) {
+                        e.preventDefault();
+                        checkAnswer();
+                    }
+                } else if (e.code === "Space") {
+                    const quitOverlay = document.getElementById("quit-overlay");
+                    const quitVisible = quitOverlay && quitOverlay.style.display === "flex";
+                    
+                    if (gameActive && !feedbackVisible && !quitVisible) {
+                        e.preventDefault(); // Prevent typing space in the single-word spelling input
+                        speakCurrentWord(); // Pronounce the word and animate bee
+                        
+                        // Add a quick visual pop to the bee to indicate physical interaction
+                        const bee = document.querySelector(".bee-speaker");
+                        if (bee) {
+                            bee.style.transform = "scale(1.1) rotate(5deg)";
+                            setTimeout(() => { bee.style.transform = ""; }, 200);
+                        }
+                    }
+                }
+            });
         }
     </script>
 </body>
