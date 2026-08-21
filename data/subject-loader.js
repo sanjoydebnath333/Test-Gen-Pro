@@ -44,6 +44,8 @@ function registerSubjects(registry) {
 
 const SUBJECT_REGISTRY = registerSubjects([
   { key: 'english_literature', data: typeof SUBJECT_ENGLISH_LITERATURE !== 'undefined' ? SUBJECT_ENGLISH_LITERATURE : null },
+  { key: 'english_language', data: typeof SUBJECT_ENGLISH_LANGUAGE !== 'undefined' ? SUBJECT_ENGLISH_LANGUAGE : null },
+  { key: 'maths', data: typeof SUBJECT_MATHS !== 'undefined' ? SUBJECT_MATHS : null },
   { key: 'bengali', data: typeof SUBJECT_BENGALI !== 'undefined' ? SUBJECT_BENGALI : null },
   { key: 'gk', data: typeof SUBJECT_GK !== 'undefined' ? SUBJECT_GK : null },
   { key: 'computer', data: typeof SUBJECT_COMPUTER !== 'undefined' ? SUBJECT_COMPUTER : null },

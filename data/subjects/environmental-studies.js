@@ -73,1016 +73,488 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
 ],
   chapters: [
   {
-    "id": "ch4",
-    "number": 4,
-    "title": "Food We Eat",
+    "id": "ch10",
+    "number": 10,
+    "title": "Safety Rules",
     "bank": {
       "mcq_standard": [
         {
-          "q": "We get pulses from ___",
-          "a": "plants",
-          "options": [
-            "plants",
-            "animals",
-            "water",
-            "air"
-          ]
-        },
-        {
-          "q": "Which food keeps our bones and teeth strong?",
-          "a": "milk",
-          "options": [
-            "milk",
-            "wheat",
-            "rice",
-            "sugar"
-          ]
-        },
-        {
-          "q": "Protective foods are ___",
-          "a": "Fruits and vegetables",
-          "options": [
-            "Fruits and vegetables",
-            "Pizza and burger",
-            "Chips and fries",
-            "Soft drinks"
-          ]
-        },
-        {
-          "q": "What are the two main sources of food?",
-          "a": "Plants and animals",
-          "options": [
-            "Plants and animals",
-            "Sun and moon",
-            "Soil and water",
-            "Air and wind"
-          ]
-        },
-        {
-          "q": "What are energy-giving foods?",
-          "a": "Foods that give energy to work and play",
-          "options": [
-            "Foods that give energy to work and play",
-            "Foods that make us sleep",
-            "Foods that make us sick",
-            "Foods that we don't eat"
-          ]
-        },
-        {
-          "q": "Why is eating too much junk food not good?",
-          "a": "It can make us sick",
-          "options": [
-            "It can make us sick",
-            "It makes us strong",
-            "It makes us tall",
-            "It cleans our body"
-          ]
-        },
-        {
-          "q": "Why do babies and old people eat soft food?",
-          "a": "It is easy to chew and digest",
-          "options": [
-            "It is easy to chew and digest",
-            "It is very hard",
-            "It looks beautiful",
-            "It is very cold"
-          ]
-        }
-      ],
-      "fill_blanks": [
-        {
-          "q": "Babies and old people eat ___ food.",
-          "a": "soft",
-          "options": [
-            "soft",
-            "hard",
-            "spicy",
-            "crunchy"
-          ]
-        },
-        {
-          "q": "People who do not eat meat or fish are called ___.",
-          "a": "vegetarians",
-          "options": [
-            "vegetarians",
-            "non-vegetarians",
-            "farmers",
-            "doctors"
-          ]
-        },
-        {
-          "q": "___ in food helps us in digestion.",
-          "a": "Fibre",
-          "options": [
-            "Fibre",
-            "Sugar",
-            "Salt",
-            "Water"
-          ]
-        }
-      ],
-      "true_false": [
-        {
-          "q": "Sugar is the body building food.",
-          "a": "False",
-          "options": [
-            "True",
-            "False"
-          ]
-        },
-        {
-          "q": "Sugar is the energy giving food.",
-          "a": "True",
-          "options": [
-            "True",
-            "False"
-          ]
-        },
-        {
-          "q": "Burger is a healthy food.",
-          "a": "False",
-          "options": [
-            "True",
-            "False"
-          ]
-        },
-        {
-          "q": "Meat and fish are body-building food.",
-          "a": "True",
-          "options": [
-            "True",
-            "False"
-          ]
-        }
-      ],
-      "one_word": [
-        {
-          "q": "Name two junk foods.",
-          "a": "Pizza and Chips",
-          "options": [
-            "Pizza and Chips",
-            "Dal and Rice",
-            "Fruits and Vegetables",
-            "Milk and Egg"
-          ]
-        },
-        {
-          "q": "People who eat meat and fish are called ___",
-          "a": "Non-vegetarians",
-          "options": [
-            "Non-vegetarians",
-            "Vegetarians",
-            "Herbivores",
-            "Farmers"
-          ]
-        }
-      ],
-      "missing_letters": [
-        {
-          "q": "Complete the word: M _ L _",
-          "a": "MILK",
-          "options": [
-            "MILK",
-            "MALK",
-            "MOLK",
-            "MELK"
-          ]
-        },
-        {
-          "q": "Complete the word: M _ A _",
-          "a": "MEAT",
-          "options": [
-            "MEAT",
-            "MOAT",
-            "MIAT",
-            "MUAT"
-          ]
-        },
-        {
-          "q": "Complete the word: W _ E A T",
-          "a": "WHEAT",
-          "options": [
-            "WHEAT",
-            "WHOAT",
-            "WHIAT",
-            "WHUAT"
-          ]
-        },
-        {
-          "q": "Complete the word: D _ G E S T",
-          "a": "DIGEST",
-          "options": [
-            "DIGEST",
-            "DAGEST",
-            "DOGEST",
-            "DUGEST"
-          ]
-        },
-        {
-          "q": "Complete the word: F R _ I T S",
-          "a": "FRUITS",
-          "options": [
-            "FRUITS",
-            "FROITS",
-            "FREITS",
-            "FRAITS"
-          ]
-        }
-      ],
-      "rearrange": [
-        {
-          "q": "Unscramble 'RONGST':",
-          "a": "STRONG",
-          "options": [
-            "STRONG",
-            "STONG",
-            "STRANG",
-            "STRUNG"
-          ]
-        },
-        {
-          "q": "Unscramble 'BREFI':",
-          "a": "FIBRE",
-          "options": [
-            "FIBRE",
-            "FABRE",
-            "FEBRI",
-            "FOBRE"
-          ]
-        }
-      ],
-      "drawing": [
-        {
-          "q": "Draw and name any two foods we get from animals.",
-          "a": "[Draw Food from Animals]",
-          "options": [
-            "[Draw Food from Animals]"
-          ]
-        },
-        {
-          "q": "Draw any two junk foods and name them.",
-          "a": "[Draw Junk Food]",
-          "options": [
-            "[Draw Junk Food]"
-          ]
-        }
-      ]
-    }
-  },
-  {
-    "id": "ch5",
-    "number": 5,
-    "title": "Water around Us",
-    "bank": {
-      "mcq_standard": [
-        {
-          "q": "Which is a man-made source of water?",
-          "a": "Well",
-          "options": [
-            "Well",
-            "River",
-            "Rain",
-            "Ocean"
-          ]
-        },
-        {
-          "q": "Drinking dirty water makes us ___",
-          "a": "ill",
-          "options": [
-            "ill",
-            "healthy",
-            "strong",
-            "happy"
-          ]
-        },
-        {
-          "q": "Where do we get water from?",
-          "a": "Rivers, lakes, and rainwater",
-          "options": [
-            "Rivers, lakes, and rainwater",
-            "Sun and moon",
-            "Trees and plants",
-            "Fire and soil"
-          ]
-        }
-      ],
-      "fill_blanks": [
-        {
-          "q": "___ kills the germs present in water.",
-          "a": "Boiling",
-          "options": [
-            "Boiling",
-            "Freezing",
-            "Cooling",
-            "Washing"
-          ]
-        },
-        {
-          "q": "Drinking or using polluted water is ___ for our health.",
-          "a": "bad",
-          "options": [
-            "bad",
-            "good",
-            "safe",
-            "healthy"
-          ]
-        },
-        {
-          "q": "We use boat and ship to travell on ___.",
-          "a": "Water",
-          "options": [
-            "Water",
-            "Land",
-            "Air",
-            "Roads"
-          ]
-        },
-        {
-          "q": "We should drink ___ glasses of water every day.",
-          "a": "8 to 10",
-          "options": [
-            "8 to 10",
-            "1 to 2",
-            "20 to 30",
-            "50 to 100"
-          ]
-        }
-      ],
-      "true_false": [
-        {
-          "q": "Plants and animals need water to live.",
-          "a": "True",
-          "options": [
-            "True",
-            "False"
-          ]
-        },
-        {
-          "q": "We should drink dirty water.",
-          "a": "False",
-          "options": [
-            "True",
-            "False"
-          ]
-        },
-        {
-          "q": "We should use water wisely.",
-          "a": "True",
-          "options": [
-            "True",
-            "False"
-          ]
-        },
-        {
-          "q": "We should store water in dirty containers.",
-          "a": "False",
-          "options": [
-            "True",
-            "False"
-          ]
-        },
-        {
-          "q": "We should not throw garbage in water bodies.",
-          "a": "True",
-          "options": [
-            "True",
-            "False"
-          ]
-        },
-        {
-          "q": "We should use clean water for cooking food.",
-          "a": "True",
-          "options": [
-            "True",
-            "False"
-          ]
-        },
-        {
-          "q": "We should use  clean water for drinking.",
-          "a": "True",
-          "options": [
-            "True",
-            "False"
-          ]
-        }
-      ],
-      "one_word": [
-        {
-          "q": "Very tiny living beings that make the water impure.",
-          "a": "Germs",
-          "options": [
-            "Germs",
-            "Fish",
-            "Plants",
-            "Stones"
-          ]
-        },
-        {
-          "q": "The water present below the ground.",
-          "a": "Groundwater",
-          "options": [
-            "Groundwater",
-            "Rainwater",
-            "River water",
-            "Sea water"
-          ]
-        }
-      ],
-      "match_following": [
-        {
-          "q": "Drink",
-          "a": "8 to 10 glasses of water"
-        },
-        {
-          "q": "Clean water",
-          "a": "Filtering"
-        }
-      ],
-      "missing_letters": [
-        {
-          "q": "Complete the word: R _ I N W _ TER",
-          "a": "RAINWATER",
-          "options": [
-            "RAINWATER",
-            "REINWATER",
-            "ROINWATER",
-            "RUNWATER"
-          ]
-        }
-      ],
-      "rearrange": [
-        {
-          "q": "Unscramble 'TERWA':",
-          "a": "WATER",
-          "options": [
-            "WATER",
-            "WETER",
-            "WOTER",
-            "WITER"
-          ]
-        },
-        {
-          "q": "Unscramble 'LLSWE':",
-          "a": "WELLS",
-          "options": [
-            "WELLS",
-            "WALLS",
-            "WILLS",
-            "WOLLS"
-          ]
-        }
-      ]
-    }
-  },
-  {
-    "id": "ch6",
-    "number": 6,
-    "title": "Clothes & Houses",
-    "bank": {
-      "mcq_standard": [
-        {
-          "q": "We get cotton from ___",
-          "a": "cotton plants",
-          "options": [
-            "cotton plants",
-            "sheep",
-            "cows",
-            "silk worms"
-          ]
-        }
-      ],
-      "fill_blanks": [
-        {
-          "q": "The house we live in is called ___.",
-          "a": "Home",
-          "options": [
-            "Home",
-            "School",
-            "Office",
-            "Market"
-          ]
-        },
-        {
-          "q": "Some pepole live in a floating house called ___.",
-          "a": "Houseboat",
-          "options": [
-            "Houseboat",
-            "Igloo",
-            "Tent",
-            "Caravan"
-          ]
-        },
-        {
-          "q": "A house with two floors is called a ___.",
-          "a": "duplex",
-          "options": [
-            "duplex",
-            "flat",
-            "hut",
-            "tent"
-          ]
-        },
-        {
-          "q": "___ houses are strong houses made of bricks and cement.",
-          "a": "Pucca",
-          "options": [
-            "Pucca",
-            "Kutcha",
-            "Wooden",
-            "Mud"
-          ]
-        }
-      ],
-      "true_false": [
-        {
-          "q": "We should keep our surroundings clean.",
-          "a": "True",
-          "options": [
-            "True",
-            "False"
-          ]
-        },
-        {
-          "q": "Woollens keep us warm during winter.",
-          "a": "True",
-          "options": [
-            "True",
-            "False"
-          ]
-        },
-        {
-          "q": "Nylon and rayon are natural fibres.",
-          "a": "False",
-          "options": [
-            "True",
-            "False"
-          ]
-        },
-        {
-          "q": "Silk is a shiny fibre produced by silkworms.",
-          "a": "True",
-          "options": [
-            "True",
-            "False"
-          ]
-        }
-      ],
-      "one_word": [
-        {
-          "q": "The soft, thick hair on animals.",
-          "a": "Fur",
-          "options": [
-            "Fur",
-            "Skin",
-            "Feathers",
-            "Scales"
-          ]
-        },
-        {
-          "q": "Materials made of thread.",
-          "a": "Fibres",
-          "options": [
-            "Fibres",
-            "Bricks",
-            "Wood",
-            "Glass"
-          ]
-        },
-        {
-          "q": "Cleaning clothes without using water.",
-          "a": "Dry clean",
-          "options": [
-            "Dry clean",
-            "Washing",
-            "Ironing",
-            "Drying"
-          ]
-        }
-      ],
-      "match_following": [
-        {
-          "q": "Raincoat",
-          "a": "Rainy season"
-        },
-        {
-          "q": "Pullovers",
-          "a": "Winter season"
-        },
-        {
-          "q": "Ropes",
-          "a": "Jute"
-        },
-        {
-          "q": "Nylon",
-          "a": "Manmade fibres"
-        }
-      ],
-      "missing_letters": [
-        {
-          "q": "Complete the word: G U M B _ O T S",
-          "a": "GUMBOOTS",
-          "options": [
-            "GUMBOOTS",
-            "GAMBOOTS",
-            "GEMBOOTS",
-            "GIMBOOTS"
-          ]
-        }
-      ],
-      "rearrange": [
-        {
-          "q": "Unscramble 'PSHI':",
-          "a": "SHIP",
-          "options": [
-            "SHIP",
-            "SHEP",
-            "SHAP",
-            "SHOP"
-          ]
-        },
-        {
-          "q": "Unscramble 'KLSI':",
-          "a": "SILK",
-          "options": [
-            "SILK",
-            "SALK",
-            "SOLK",
-            "SELK"
-          ]
-        }
-      ]
-    }
-  },
-  {
-    "id": "ch7",
-    "number": 7,
-    "title": "Air & Health",
-    "bank": {
-      "mcq_standard": [
-        {
-          "q": "Which of these kills germs in the air?",
-          "a": "Sunlight",
-          "options": [
-            "Sunlight",
-            "Water",
-            "Moonlight",
-            "Wind"
-          ]
-        },
-        {
-          "q": "What do you understand by ventilation?",
-          "a": "The way air moves around inside a house",
-          "options": [
-            "The way air moves around inside a house",
-            "The way water flows",
-            "The way we cook food",
-            "The way we sleep"
-          ]
-        },
-        {
-          "q": "What is one thing we should do to stay healthy?",
-          "a": "Do exercise regularly",
-          "options": [
-            "Do exercise regularly",
-            "Eat only junk food",
-            "Sleep all day",
-            "Drink dirty water"
-          ]
-        },
-        {
-          "q": "Why should we grow more plants?",
-          "a": "They keep the air clean",
-          "options": [
-            "They keep the air clean",
-            "They make the air dirty",
-            "They give us plastic",
-            "They drink all our water"
-          ]
-        }
-      ],
-      "fill_blanks": [
-        {
-          "q": "We ___ clothes to make them look neat.",
-          "a": "iron",
-          "options": [
-            "iron",
-            "wash",
-            "fold",
-            "tear"
-          ]
-        },
-        {
-          "q": "Jute is a ___ fibre.",
-          "a": "plant",
-          "options": [
-            "plant",
-            "animal",
-            "plastic",
-            "toy"
-          ]
-        },
-        {
-          "q": "We wear ___ in winter.",
-          "a": "sweaters",
-          "options": [
-            "sweaters",
-            "raincoats",
-            "t-shirts",
-            "shorts"
-          ]
-        }
-      ],
-      "true_false": [
-        {
-          "q": "We should sleep for 8 to 9 hours everyday.",
-          "a": "True",
-          "options": [
-            "True",
-            "False"
-          ]
-        },
-        {
-          "q": "Sunlight kills the germs.",
-          "a": "True",
-          "options": [
-            "True",
-            "False"
-          ]
-        }
-      ],
-      "one_word": [
-        {
-          "q": "The process in which air and water get dirty.",
-          "a": "Pollution",
-          "options": [
-            "Pollution",
-            "Purification",
-            "Cleaning",
-            "Boiling"
-          ]
-        }
-      ],
-      "match_following": [
-        {
-          "q": "Breathing dirty air",
-          "a": "Makes us ill"
-        },
-        {
-          "q": "Exercise",
-          "a": "Yoga, jogging"
-        }
-      ]
-    }
-  },
-  {
-    "id": "ch8",
-    "number": 8,
-    "title": "Our Surroundings",
-    "bank": {
-      "mcq_standard": [
-        {
-          "q": "We should keep our surroundings ___",
-          "a": "clean and green",
-          "options": [
-            "clean and green",
-            "dirty and messy",
-            "noisy and crowded",
-            "polluted and dry"
-          ]
-        },
-        {
-          "q": "We should use bags made of ___",
-          "a": "cloth and paper",
-          "options": [
-            "cloth and paper",
-            "plastic",
-            "glass",
-            "iron"
-          ]
-        },
-        {
-          "q": "Dustbins should be ___",
-          "a": "covered",
-          "options": [
-            "covered",
-            "open",
-            "broken",
-            "dirty"
-          ]
-        },
-        {
-          "q": "Houses made of thick cloth used in deserts are called ___",
-          "a": "Tent",
-          "options": [
-            "Tent",
-            "Houseboat",
-            "Igloo",
-            "Duplex"
-          ]
-        },
-        {
-          "q": "Why should windows have wire nettings?",
-          "a": "To stop flies and mosquitoes",
-          "options": [
-            "To stop flies and mosquitoes",
-            "To stop sunlight",
-            "To stop rain",
-            "To stop air"
-          ]
-        },
-        {
-          "q": "Why are houses in small cities usually big?",
-          "a": "Land and building materials are cheaper",
-          "options": [
-            "Land and building materials are cheaper",
-            "Land is very expensive",
-            "There are no builders",
-            "People like small houses"
-          ]
-        }
-      ],
-      "true_false": [
-        {
-          "q": "We should use paper or cloth bags.",
-          "a": "True",
-          "options": [
-            "True",
-            "False"
-          ]
-        },
-        {
-          "q": "We should write on walls.",
-          "a": "False",
-          "options": [
-            "True",
-            "False"
-          ]
-        },
-        {
-          "q": "We should throw garbage in the open.",
-          "a": "False",
-          "options": [
-            "True",
-            "False"
-          ]
-        },
-        {
-          "q": "We should keep our surroundings clean.",
-          "a": "True",
-          "options": [
-            "True",
-            "False"
-          ]
-        },
-        {
-          "q": "We should use dustbins to throw garbage.",
-          "a": "True",
-          "options": [
-            "True",
-            "False"
-          ]
-        },
-        {
-          "q": "We should sleep  for 8 to 9 hours everyday.",
-          "a": "True",
-          "options": [
-            "True",
-            "False"
-          ]
-        }
-      ],
-      "one_word": [
-        {
-          "q": "A small round house made with blocks of snow.",
-          "a": "Igloo",
-          "options": [
-            "Igloo",
-            "Tent",
-            "Caravan",
-            "Duplex"
-          ]
-        },
-        {
-          "q": "Houses made of straw, mud and wood.",
-          "a": "Kuchcha house",
-          "options": [
-            "Kuchcha house",
-            "Pucca house",
-            "Igloo",
-            "Apartment"
-          ]
-        }
-      ],
-      "match_following": [
-        {
-          "q": "Waste",
-          "a": "Dustbin"
-        },
-        {
-          "q": "Plants",
-          "a": "Keep the air clean"
-        }
-      ],
-      "missing_letters": [
-        {
-          "q": "Complete the word: G _ R B A _ E",
-          "a": "GARBAGE",
-          "options": [
-            "GARBAGE",
-            "GERBAGE",
-            "GIRBAGE",
-            "GORBAGE"
-          ]
-        },
-        {
-          "q": "Complete the word: R _ B _ ISH",
-          "a": "RUBBISH",
-          "options": [
-            "RUBBISH",
-            "RABBISH",
-            "REBBISH",
-            "ROBBISH"
-          ]
-        },
-        {
-          "q": "Complete the word: B R _ C K S",
-          "a": "BRICKS",
-          "options": [
-            "BRICKS",
-            "BROCKS",
-            "BRACKS",
-            "BRECKS"
-          ]
-        },
-        {
-          "q": "Complete the word: D U P _ E X",
-          "a": "DUPLEX",
-          "options": [
-            "DUPLEX",
-            "DAPLEX",
-            "DIPLEX",
-            "DOPLEX"
-          ]
-        }
-      ],
-      "rearrange": [
-        {
-          "q": "Unscramble 'BAGGARE':",
-          "a": "GARBAGE",
-          "options": [
-            "GARBAGE",
-            "GERBAGE",
-            "GORBAGE",
-            "GIRBAGE"
-          ]
-        },
-        {
-          "q": "Unscramble 'ARPTAMNET':",
-          "a": "APARTMENT",
-          "options": [
-            "APARTMENT",
-            "APERTMENT",
-            "APORTMENT",
-            "OPARTMENT"
-          ]
-        }
-      ]
-    }
-  },
-  {
-    "id": "ch9",
-    "number": 9,
-    "title": "Cleanliness and Health",
-    "bank": {
-      "fill_blanks": [
-        {
-          "q": "Flies and mosquitoes breed on ___ dumps.",
-          "a": "garbage",
-          "options": [
-            "garbage",
-            "sand",
-            "flower",
-            "toy"
-          ]
-        },
-        {
-          "q": "Clean ___helps to keep us healthy.",
-          "a": "surroundings",
-          "options": [
-            "surroundings",
-            "classrooms",
-            "dustbins",
-            "clothes"
-          ]
-        },
-        {
-          "q": "We should throw garbage in a ___.",
+          "q": "We should always throw waste into a ___",
           "a": "dustbin",
           "options": [
             "dustbin",
+            "playground",
             "road",
-            "floor",
-            "park"
+            "river"
+          ]
+        },
+        {
+          "q": "Keep a ___ ready in school as well as at home.",
+          "a": "First-aid box",
+          "options": [
+            "First-aid box",
+            "Lunch box",
+            "Pencil box",
+            "Toy box"
+          ]
+        },
+        {
+          "q": "We should always cross the road at a ___ crossing.",
+          "a": "Zebra crossing",
+          "options": [
+            "Zebra crossing",
+            "Tiger crossing",
+            "Lion crossing",
+            "Elephant crossing"
+          ]
+        },
+        {
+          "q": "how does good touch make us feel?",
+          "a": "Happy and safe",
+          "options": [
+            "Happy and safe",
+            "Unhappy and safe",
+            "Sad and scared",
+            "Angry and unsafe",
+            "Confused and worried"
+          ]
+        },
+        {
+          "q": "We should use ___ over the cut on the wound.",
+          "a": "Antiseptic cream",
+          "options": [
+            "Antiseptic cream",
+            "Cotton",
+            "Paper",
+            "Baby lotion"
+               ]
+        },
+        {
+          "q": "Write any two safety rules that we should follow at home.",
+          "a": "Avoid playing with unsafe things like knife, iron etc. and do not touch electrical sockets with wet hands.",
+          "options": [
+            "Avoid playing with unsafe things like knife, iron etc. and do not touch electrical sockets with wet hands.",
+            "Play with sharp knives and touch wet switches.",
+            "Run on wet floors and jump on furniture.",
+            "Leave toys on stairs and play with fire."
+          ]
+        },
+        {
+          "q": "What is first aid?",
+          "a": "The help given to an injured person before a doctor arrives",
+          "options": [
+            "The help given to an injured person before a doctor arrives",
+            "Medicine given by a doctor in a hospital",
+            "Playing games after getting injured",
+            "Calling police during an emergency"
+          ]
+        },
+        {
+        "q": "What is good touch?",
+        "a": "A touch that makes us feel happy and safe",
+        "options": [
+        "A touch that makes us feel happy and safe",
+        "A touch that makes us feel sad and scared",
+        "A touch that makes us feel angry and unsafe",
+        "A touch that makes us feel confused and worried"
+        ]   
+        }
+      ],
+      "fill_blanks": [
+        {
+          "q": "Staying away from danger is called ___.",
+          "a": "safety",
+          "options": [
+            "safety",
+            "danger",
+            "careless",
+            "playing"
+          ]
+        },
+        {
+          "q": "A good touch makes us feel ___ and safe.",
+          "a": "happy",
+          "options": [
+            "happy",
+            "sad",
+            "angry",
+            "scared"
+          ]
+        },
+        {
+          "q": "We should not open the door for a ___.",
+          "a": "stranger",
+          "options": [
+            "stranger",
+            "friend",
+            "parent",
+            "teacher"
+          ]
+        },
+        {
+          "q": "We should always walk in a ___.",
+          "a": "queue",
+          "options": [
+            "queue",
+            "line",
+            "group",
+            "circle"
+          ]
+        },
+        {
+          "q": "We should use ___ crossing to cross the road.",
+          "a": "zebra",
+          "options": [
+            "zebra",
+            "tiger",
+            "simple",
+            "long"
+          ]
+        }
+      ],
+      "true_false": [
+        {
+          "q": "We should always walk in a queue.",
+          "a": "True",
+          "options": [
+            "True",
+            "False"
+          ]
+        },
+        {
+          "q": "We should touch hot pans.",
+          "a": "False",
+          "options": [
+            "True",
+            "False"
+          ]
+        },
+        {
+          "q": "We should stand in front of a moving swing.",
+          "a": "False",
+          "options": [
+            "True",
+            "False"
+          ]
+        },
+        {
+          "q": "We should cross the road with a grown-up.",
+          "a": "True",
+          "options": [
+            "True",
+            "False"
+          ]
+        },
+        {"q": "We should not push others on the stairs.",
+          "a": "True",
+          "options": [
+            "True",
+            "False"
+          ]
+        },
+        {
+          "q": "We should not touch electrical sockets with wet hands.",
+          "a": "True",
+          "options": [
+            "True",
+            "False"
+          ]
+        },
+
+      ],
+      "missing_letters": [
+        {
+          "q": "Complete the word: S _ I N G S",
+          "a": "SWINGS",
+          "options": [
+            "SWINGS",
+            "SENGS",
+            "SANGS",
+            "SONGS"
+          ]
+        },
+        {
+          "q": "Complete the word: W _ U N D",
+          "a": "WOUND",
+          "options": [
+            "WOUND",
+            "WAND",
+            "WIND",
+            "WEND"
+          ]
+        },
+        {
+          "q": "Complete the word: S _ F E T Y",
+          "a": "SAFETY",
+          "options": [
+            "SAFETY",
+            "SOFETY",
+            "SIFETY",
+            "SUFETY"
+          ]
+        },
+        {
+          "q": "Complete the word: S T _ I R S",
+          "a": "STAIRS",
+          "options": [
+            "STAIRS",
+            "STEIRS",
+            "STORS",
+            "STURS"
+          ]
+        },
+        {
+          "q": "Complete the word: S T _ A N _ E R",
+          "a": "STRANGER",
+          "options": [
+            "STRANGER",
+            "STAINER",
+            "STRENTH",
+            "STRENGTH"
+          ]
+        }
+      ],
+      "rearrange": [
+        {
+          "q": "Unscramble 'LBIRRAY':",
+          "a": "LIBRARY",
+          "options": [
+            "LIBRARY",
+            "LABRARY",
+            "LIBRERY",
+            "LIBRARE"
+          ]
+        }
+      ],
+      "one_word": [
+        {
+          "q": "The state of being safe.",
+          "a": "Safety",
+          "options": [
+            "Safety",
+            "Danger",
+            "Careless",
+            "Accident"
+          ]
+        },
+        {
+          "q": "Something that stops germs from causing an infection.",
+          "a": "Antiseptic",
+          "options": [
+            "Antiseptic",
+            "Water",
+            "Soap",
+            "Oil"
+          ]
+        },
+        {
+          "q": "A person who helps an injured person before a doctor arrives.",
+          "a": "First-aider",
+          "options": [
+            "First-aider",
+            "Doctor",
+            "Nurse",
+            "Paramedic"
+          ]
+          },
+        {"q": "FFree from danger or harm.",
+          "a": "Safe",
+          "options": [
+            "Safe",
+            "Unsafe",
+            "Dangerous",
+            "Harmful"
+          ]
+        },
+      {
+        "q": "A  smooth cream that can be rubbed on the skin to heal wounds.",
+        "a": "Ointment",
+        "options": [
+          "Ointment",
+          "Water",
+          "Soap",
+          "Oil"
+        ]  
+      }
+      ]
+    }
+  },
+  {
+    "id": "ch11",
+    "number": 11,
+    "title": "Places in Our Neighbourhood",
+    "bank": {
+      "mcq_standard": [
+        {
+          "q": "A part of a town where you live is called ___",
+          "a": "Neighbourhood",
+          "options": [
+            "Neighbourhood",
+            "Forest",
+            "Park",
+            "Hospital"
+          ]
+        },
+        {
+          "q": "Where do we buy medicines?",
+          "a": "Chemist's shop",
+          "options": [
+            "Chemist's shop",
+            "Stationery shop",
+            "Bakery",
+            "Post office"
+          ]
+        },
+        {
+          "q": "Where do we go to play and spend free time?",
+          "a": "Park",
+          "options": [
+            "Park",
+            "Market",
+            "Hospital",
+            "Fire station"
+          ]
+        },
+        {
+          "q": "What do we buy at a post office?",
+          "a": "Stamps, postcards and stamped envelopes",
+          "options": [
+            "Stamps, postcards and stamped envelopes",
+            "Fruits and vegetables",
+            "Medicines and bandages",
+            "Books and pencils"
+          ]
+        },
+        {
+          "q": "What is an ambulance?",
+          "a": "A special vehicle that takes us to a hospital in case of an emergency",
+          "options": [
+            "A special vehicle that takes us to a hospital in case of an emergency",
+            "A vehicle used to catch thieves",
+            "A bus used to carry schoolchildren",
+            "A vehicle used to put out fires"
+          ]
+        }
+      ],
+      "fill_blanks": [
+        {
+          "q": "The area near our house is called our ___.",
+          "a": "neighbourhood",
+          "options": [
+            "neighbourhood",
+            "city",
+            "country",
+            "village"
+          ]
+        },
+        {
+          "q": "We buy fruits and vegetables from a ___.",
+          "a": "green grocer",
+          "options": [
+            "green grocer",
+            "chemist",
+            "barber",
+            "tailor"
+          ]
+        },
+        {
+          "q": "We dial ___ to call up the fire station.",
+          "a": "101",
+          "options": [
+            "101",
+            "100",
+            "102",
+            "108"
+          ]
+        }
+      ],
+      "true_false": [
+        {
+          "q": "A policeman protects us from all kinds of danger.",
+          "a": "True",
+          "options": [
+            "True",
+            "False"
+          ]
+        },
+        {
+          "q": "Every neighbourhood needs a marketplace.",
+          "a": "True",
+          "options": [
+            "True",
+            "False"
+          ]
+        },
+        {
+          "q": "We can only send letters through a post office.",
+          "a": "False",
+          "options": [
+            "True",
+            "False"
+          ]
+        }
+      ],
+      "one_word": [
+        {
+          "q": "A smaller place than a hospital with a few doctors.",
+          "a": "Dispensary",
+          "options": [
+            "Dispensary",
+            "Post office",
+            "Police station",
+            "Bank"
+          ]
+        },
+        {
+          "q": "Activity done in our free time for fun.",
+          "a": "Recreation",
+          "options": [
+            "Recreation",
+            "Work",
+            "Study",
+            "Cleaning"
+          ]
+        }
+      ],
+      "rearrange": [
+        {
+          "q": "Unscramble 'LBIRRAY':",
+          "a": "LIBRARY",
+          "options": [
+            "LIBRARY",
+            "LABRARY",
+            "LIBRERY",
+            "LIBRARE"
+          ]
+        },
+        {
+          "q": "Unscramble 'PCRAEL':",
+          "a": "PARCEL",
+          "options": [
+            "PARCEL",
+            "PACREL",
+            "PERCEL",
+            "PARCLE"
+          ]
+        },
+        {
+          "q": "Unscramble 'GORECRY':",
+          "a": "GROCERY",
+          "options": [
+            "GROCERY",
+            "GRECORY",
+            "GROCERI",
+            "GOCERY"
+          ]
+        },
+        {
+          "q": "Unscramble 'SHOOLC':",
+          "a": "SCHOOL",
+          "options": [
+            "SCHOOL",
+            "SHCOOL",
+            "SCHOL",
+            "SKOOL"
           ]
         }
       ]

@@ -169,6 +169,8 @@
 
         .kid-test-card { background: var(--card-bg); border-radius: 2rem !important; box-shadow: 0 20px 50px -10px rgba(0,0,0, 0.1); width: 100%; max-width: 1100px; display: flex; flex-direction: column; overflow: hidden; margin: 0 auto 2rem auto; border-top: 8px solid var(--theme-color); position: relative; }
         .kid-card-header { padding: 1.2rem 2rem !important; background: var(--card-bg); display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--primary-bg); }
+        #game-title { line-height: 1.3; }
+        .game-title-chapter { font-size: 0.8em; font-weight: 600; color: var(--text-muted, #64748b); opacity: 0.85; margin-left: 0.35em; }
         .ot-interface-grid { display: grid; grid-template-columns: 1fr; background: var(--card-bg); }
         @media (min-width: 1024px) { .ot-interface-grid { grid-template-columns: 1.3fr 0.9fr; min-height: 450px; } .ot-interface-grid.full-width-grid { grid-template-columns: 1fr; } }
 
@@ -673,6 +675,12 @@
             <div class="card border-0 shadow-sm bg-body">
                 <div class="card-header bg-body fw-bold py-3 border-bottom"><i class="bi bi-gear-fill me-2" style="color: var(--theme-color);"></i>Settings</div>
                 <div class="card-body">
+                    <div class="mb-3 d-none" id="chapter-filter-sidebar-wrap">
+                        <label class="form-label text-muted small fw-bold">Chapter Scope</label>
+                        <select class="form-select fw-bold bg-body text-body" id="chapterFilter" onchange="setChapterFilter(this.value)">
+                            <option value="all">All Chapters</option>
+                        </select>
+                    </div>
                     <div class="mb-3">
                         <label class="form-label text-muted small fw-bold">Preset Paper Generator</label>
                         <select class="form-select fw-bold border-success text-success bg-body" id="presetSize" onchange="applyPreset(this.value)">
@@ -980,6 +988,16 @@
 
             <div class="row g-4">
                 <div class="col-md-7 border-end-md">
+                    <div class="mb-4 d-none" id="chapter-filter-modal-wrap">
+                        <label class="form-label fw-bold text-muted mb-2"><i class="bi bi-book me-2"></i>Chapter</label>
+                        <select id="chapterFilterModal" class="form-select fw-bold border-2 shadow-sm bg-body text-body" onchange="setChapterFilter(this.value)">
+                            <option value="all">All Chapters</option>
+                        </select>
+                    </div>
+                    <div class="mb-4 d-none" id="chapter-quiz-buttons-wrap">
+                        <label class="form-label fw-bold text-muted mb-2"><i class="bi bi-lightning-fill text-warning me-2"></i>Play Chapter Quiz</label>
+                        <div id="chapter-quiz-buttons" class="d-flex flex-wrap gap-2"></div>
+                    </div>
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5 class="fw-bold text-body mb-0"><i class="bi bi-star-fill text-warning me-2"></i>Specific Topics</h5>
                         <select id="topicQLimit" class="form-select form-select-sm fw-bold border-2 shadow-sm bg-body text-body" style="width: 100px; border-radius: 1rem;">
@@ -1063,9 +1081,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- ========================================================== -->
-    <!-- 1. DATA: MULTI-SUBJECT DATABASE (INLINED)                 -->
+    <!-- 1. DATA: MULTI-SUBJECT DATABASE (per-subject files)       -->
     <!-- ========================================================== -->
-    <script src="subject-data.js"></script>
+    <script src="data/category-icons.js"></script>
+    <script src="data/subjects/english-literature.js"></script>
+    <script src="data/subjects/bengali.js"></script>
+    <script src="data/subjects/gk.js"></script>
+    <script src="data/subjects/computer.js"></script>
+    <script src="data/subjects/moral-science.js"></script>
+    <script src="data/subjects/environmental-studies.js"></script>
+    <script src="data/subjects/english-language.js"></script>
+    <script src="data/subject-loader.js"></script>
 
 
     <!-- ========================================================== -->
@@ -1155,12 +1181,118 @@
         // 3. APP STATE & UTILITIES
         // ==========================================
         let appMode = 'hub';
+        let currentSubjectKey = null;
         let currentSubject = null;
+        let currentChapterFilter = 'all';
         let activeNormalizedBank = {};
         
-        let offlineState = { sets: [], totalMarks: 0, isPreviewMode: false };
+        let offlineState = { sets: [], totalMarks: 0, isPreviewMode: false, chapterFilter: 'all' };
         let onlineState = { testId: "", questions: [], currentIndex: 0, score: 0, wrongScore: 0, totalPoints: 0, studentName: "Student", answers: [] };
-        let progressChartInstance = null; // Chart instance tracker
+        let progressChartInstance = null;
+
+        function applySubjectView(chapterFilter) {
+            if (!currentSubjectKey || !SUBJECT_REGISTRY[currentSubjectKey]) return;
+            currentChapterFilter = chapterFilter || 'all';
+            currentSubject = buildSubjectView(SUBJECT_REGISTRY[currentSubjectKey], currentChapterFilter);
+            activeNormalizedBank = normalizeBank(currentSubject.bank);
+        }
+
+        function syncChapterFilterUI() {
+            const sidebarSel = document.getElementById('chapterFilter');
+            const modalSel = document.getElementById('chapterFilterModal');
+            if (sidebarSel) sidebarSel.value = currentChapterFilter;
+            if (modalSel) modalSel.value = currentChapterFilter;
+        }
+
+        function renderChapterSelectors() {
+            if (!currentSubject) return;
+            const rawSubject = SUBJECT_REGISTRY[currentSubjectKey];
+            const chapters = getChapterList(rawSubject);
+            const showChapters = chapters.length > 1;
+
+            const sidebarWrap = document.getElementById('chapter-filter-sidebar-wrap');
+            const modalWrap = document.getElementById('chapter-filter-modal-wrap');
+            const quizWrap = document.getElementById('chapter-quiz-buttons-wrap');
+            const sidebarSel = document.getElementById('chapterFilter');
+            const modalSel = document.getElementById('chapterFilterModal');
+            const quizBtns = document.getElementById('chapter-quiz-buttons');
+
+            if (sidebarWrap) sidebarWrap.classList.toggle('d-none', !showChapters);
+            if (modalWrap) modalWrap.classList.toggle('d-none', !showChapters);
+            if (quizWrap) quizWrap.classList.toggle('d-none', !showChapters);
+
+            const optionsHtml = `<option value="all">All Chapters</option>` + chapters.map((ch) => {
+                const label = ch.number > 0 ? `Chapter ${ch.number}: ${ch.title}` : ch.title;
+                return `<option value="${ch.id}">${label}</option>`;
+            }).join('');
+
+            if (sidebarSel) sidebarSel.innerHTML = optionsHtml;
+            if (modalSel) modalSel.innerHTML = optionsHtml;
+
+            if (quizBtns && showChapters) {
+                quizBtns.innerHTML = chapters.map((ch) => {
+                    const shortLabel = ch.number > 0 ? `Ch. ${ch.number}` : ch.title;
+                    return `<button type="button" class="btn btn-sm fw-bold rounded-pill border-2 shadow-sm" style="border-color:${currentSubject.theme};color:${currentSubject.theme};" onclick="launchChapterQuiz('${ch.id}', 10)">${shortLabel}</button>`;
+                }).join('');
+            }
+
+            syncChapterFilterUI();
+        }
+
+        function updateGameCardTitle() {
+            const titleEl = document.getElementById('game-title');
+            if (!titleEl || !currentSubject) return;
+            const subjectHtml = `<span class="game-title-subject">${currentSubject.title}</span>`;
+            if (currentChapterFilter !== 'all' && currentSubjectKey && SUBJECT_REGISTRY[currentSubjectKey]) {
+                const chapterLabel = getChapterLabel(SUBJECT_REGISTRY[currentSubjectKey], currentChapterFilter);
+                titleEl.innerHTML = `${subjectHtml}<span class="game-title-chapter">${chapterLabel}</span>`;
+            } else {
+                titleEl.innerHTML = subjectHtml;
+            }
+        }
+
+        function setChapterFilter(chapterId) {
+            applySubjectView(chapterId || 'all');
+            syncChapterFilterUI();
+            renderTopicButtons();
+            updateGameCardTitle();
+            if (appMode === 'config' || appMode === 'offline') initConfigUI();
+            if (appMode === 'study') renderStudyNotes();
+        }
+
+        function renderTopicButtons() {
+            if (!currentSubject) return;
+            const dynamicBtns = document.getElementById('dynamic-topic-buttons');
+            if (!dynamicBtns) return;
+            dynamicBtns.innerHTML = '';
+            currentSubject.sections.forEach(sec => {
+                if (sec.id === 'drawing') return;
+                const pool = activeNormalizedBank[sec.id] || [];
+                if (pool.length === 0) return;
+                const iconData = CATEGORY_ICONS[sec.id] || CATEGORY_ICONS['mcq_standard'];
+                dynamicBtns.innerHTML += `
+                    <div class="col-6 col-md-4">
+                        <div class="topic-btn" onclick="launchSpecificQuiz(['${sec.id}'])">
+                            <span style="font-size: 2.5rem;">${iconData.icon}</span>
+                            <span class="text-center">${iconData.title}<br><small class="text-muted fs-6">${iconData.desc}</small></span>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        function launchChapterQuiz(chapterId, size) {
+            if (!validateStudentName()) return;
+            setChapterFilter(chapterId);
+            const modalObj = bootstrap.Modal.getInstance(document.getElementById('liveTestModal'));
+            if (modalObj) modalObj.hide();
+            launchLiveTest(size || 10);
+        }
+
+        function getNormalizedBankForFilter(chapterFilter) {
+            if (!currentSubjectKey) return {};
+            const rawBank = normalizeBankForChapter(SUBJECT_REGISTRY[currentSubjectKey], chapterFilter || 'all');
+            return normalizeBank(rawBank);
+        }
 
         function shuffleArray(array) { let arr = [...array]; for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
         function getRandomItems(array, n) { if (!array || !Array.isArray(array)) return []; return shuffleArray(array).slice(0, Math.min(n, array.length)); }
@@ -1247,8 +1379,9 @@
         function selectSubject(subjectKey) {
             enterFullScreen();
 
-            currentSubject = SUBJECT_DATA[subjectKey];
-            activeNormalizedBank = normalizeBank(currentSubject.bank);
+            currentSubjectKey = subjectKey;
+            currentChapterFilter = 'all';
+            applySubjectView('all');
             
             document.documentElement.style.setProperty('--theme-color', currentSubject.theme);
             document.documentElement.style.setProperty('--theme-gradient', currentSubject.gradient);
@@ -1257,25 +1390,11 @@
             document.getElementById('sh-title').innerText = currentSubject.title;
             document.getElementById('sh-learn-title').innerText = `Learn ${currentSubject.title}`;
             document.getElementById('game-icon').innerText = currentSubject.icon;
-            document.getElementById('game-title').innerText = currentSubject.title;
+            updateGameCardTitle();
             document.getElementById('header-subtitle').innerText = currentSubject.title;
             
-            const dynamicBtns = document.getElementById('dynamic-topic-buttons');
-            dynamicBtns.innerHTML = '';
-            currentSubject.sections.forEach(sec => {
-                // Exclude drawing/diagram tasks from the live online quiz UI
-                if (sec.id === 'drawing') return; 
-                
-                const iconData = CATEGORY_ICONS[sec.id] || CATEGORY_ICONS['mcq_standard'];
-                dynamicBtns.innerHTML += `
-                    <div class="col-6 col-md-4">
-                        <div class="topic-btn" onclick="launchSpecificQuiz(['${sec.id}'])">
-                            <span style="font-size: 2.5rem;">${iconData.icon}</span>
-                            <span class="text-center">${iconData.title}<br><small class="text-muted fs-6">${iconData.desc}</small></span>
-                        </div>
-                    </div>`;
-            });
-            
+            renderChapterSelectors();
+            renderTopicButtons();
             initConfigUI();
             setMobileTab('home');
         }
@@ -1350,6 +1469,70 @@
             enterFullScreen();
         }
 
+        function buildStudyItemsHtml(sec, items, theme) {
+            let html = '';
+            if (sec.id === 'match_following') {
+                html += `<div class="note-item p-3 p-md-4 rounded-3" style="background: var(--primary-bg); border-left: 5px solid ${theme};">
+                    <div class="table-responsive">
+                        <table class="table table-borderless mb-0 align-middle fs-4 text-body" style="font-family: 'Comic Sans MS', 'Nunito', sans-serif;">
+                            <tbody>`;
+                items.forEach((item, idx) => {
+                    let leftText = item.leftWord || item.question;
+                    let rightText = item.rightWord || item.answerText || item.a;
+                    html += `
+                        <tr>
+                            <td class="text-muted opacity-50 py-3" style="width: 40px; vertical-align: top;">${idx + 1}.</td>
+                            <td class="fw-bold py-3" style="width: 45%; vertical-align: top; border-bottom: 1px dashed var(--border-color);">${leftText}</td>
+                            <td class="text-success fw-bold ps-4 py-3 border-start border-success border-3" style="font-family: 'Segoe UI', sans-serif; border-bottom: 1px dashed var(--border-color);">
+                                <i class="bi bi-check2-circle me-2"></i>${rightText}
+                            </td>
+                        </tr>`;
+                });
+                html += `</tbody></table></div></div>`;
+            } else {
+                items.forEach((item, idx) => {
+                    let qText = item.question;
+                    let aText = item.answerText;
+
+                    if (item.type === 'matching_pair_candidate') {
+                        qText = item.leftWord;
+                        aText = item.rightWord;
+                    } else if (item.type === 'fill_blank_click') {
+                        let filledQ = item.question.replace(/___/g, `<span class="text-success fw-bold text-decoration-underline mx-1">${aText}</span>`);
+                        html += `
+                        <div class="note-item p-3 p-md-4 rounded-3" style="background: var(--primary-bg); border-left: 5px solid ${theme};">
+                            <div class="fw-bold fs-4 text-body" style="font-family: 'Comic Sans MS', 'Nunito', sans-serif;">
+                                <span class="text-muted opacity-50 me-2">${idx + 1}.</span> ${filledQ}
+                            </div>
+                        </div>`;
+                        return;
+                    }
+
+                    if (sec.id === 'drawing') {
+                        html += `
+                        <div class="note-item p-3 p-md-4 rounded-3" style="background: var(--primary-bg); border-left: 5px solid ${theme};">
+                            <div class="fw-bold fs-4 text-body mb-2" style="font-family: 'Comic Sans MS', 'Nunito', sans-serif;">
+                                <span class="text-muted opacity-50 me-2">${idx + 1}.</span> ${qText}
+                            </div>
+                            <div class="fs-5 text-muted fst-italic mt-2"><i class="bi bi-pencil-square me-2"></i>Practice drawing this in your notebook.</div>
+                        </div>`;
+                        return;
+                    }
+
+                    html += `
+                    <div class="note-item p-3 p-md-4 rounded-3" style="background: var(--primary-bg); border-left: 5px solid ${theme};">
+                        <div class="fw-bold fs-4 text-body mb-3" style="font-family: 'Comic Sans MS', 'Nunito', sans-serif; line-height: 1.4;">
+                            <span class="text-muted opacity-50 me-2">${idx + 1}.</span> ${qText}
+                        </div>
+                        <div class="fs-4 text-success fw-bold ps-4 border-start border-success border-3 ms-1" style="font-family: 'Segoe UI', sans-serif;">
+                            <i class="bi bi-check2-circle me-2"></i>${aText}
+                        </div>
+                    </div>`;
+                });
+            }
+            return html;
+        }
+
         function renderStudyNotes() {
             const contentContainer = document.getElementById('study-notes-content');
             const navVertical = document.getElementById('study-nav-vertical');
@@ -1359,97 +1542,74 @@
             let navVertHtml = '';
             let navHorzHtml = '';
 
-            currentSubject.sections.forEach((sec, sIdx) => {
-                const items = activeNormalizedBank[sec.id] || [];
-                if(items.length === 0) return;
+            const rawSubject = SUBJECT_REGISTRY[currentSubjectKey];
+            const chapters = getChapterList(rawSubject);
+            const useChapterLayout = chapters.length > 1;
 
-                // Build Desktop Sidebar Link
-                navVertHtml += `<a href="#study-sec-${sec.id}" class="list-group-item list-group-item-action fw-bold study-nav-item border-start-0 border-end-0 border-top-0 border-bottom d-flex align-items-center" style="color: var(--text-main); border-color: var(--border-color); transition: all 0.2s; padding-top: 1.25rem; padding-bottom: 1.25rem; font-size: 1.15rem;">
-                                    ${ROMAN[sIdx + 1]}. ${sec.title}
-                                </a>`;
-                            
-                // Build Mobile Horizontal Pill
-                navHorzHtml += `<a href="#study-sec-${sec.id}" class="btn btn-outline-secondary rounded-pill text-nowrap fw-bold study-nav-item-mobile border-2 d-flex align-items-center justify-content-center" style="transition: all 0.2s; min-height: 55px; padding: 0 1.5rem; font-size: 1.1rem;">
-                                    ${ROMAN[sIdx + 1]}. ${sec.title}
-                                </a>`;
+            if (useChapterLayout) {
+                chapters.forEach((ch) => {
+                    const chBank = normalizeBank(ch.bank || {});
+                    const chLabel = ch.number > 0 ? `Chapter ${ch.number}: ${ch.title}` : ch.title;
+                    let chapterHasContent = false;
+                    let chapterHtml = '';
+                    let secIdxInChapter = 0;
 
-                // Build Content Section block
-                contentHtml += `<div id="study-sec-${sec.id}" class="mb-5 animate-fade study-section" style="animation-delay: ${0.1 * sIdx}s; scroll-margin-top: 160px;">
-                            <h4 class="fw-bold mb-4 pb-2 border-bottom text-uppercase" style="color: ${currentSubject.theme}; letter-spacing: 1px;">
-                                ${ROMAN[sIdx + 1]}. ${sec.title}
-                            </h4>
-                            <div class="d-flex flex-column gap-3">`;
+                    currentSubject.sections.forEach((sec) => {
+                        const items = chBank[sec.id] || [];
+                        if (items.length === 0) return;
+                        chapterHasContent = true;
+                        secIdxInChapter++;
+                        const secAnchor = `study-${ch.id}-${sec.id}`;
 
-                if (sec.id === 'match_following') {
-                    contentHtml += `<div class="note-item p-3 p-md-4 rounded-3" style="background: var(--primary-bg); border-left: 5px solid ${currentSubject.theme};">
-                        <div class="table-responsive">
-                            <table class="table table-borderless mb-0 align-middle fs-4 text-body" style="font-family: 'Comic Sans MS', 'Nunito', sans-serif;">
-                                <tbody>`;
-                    items.forEach((item, idx) => {
-                        let leftText = item.leftWord || item.question;
-                        let rightText = item.rightWord || item.answerText || item.a;
-                        contentHtml += `
-                            <tr>
-                                <td class="text-muted opacity-50 py-3" style="width: 40px; vertical-align: top;">${idx + 1}.</td>
-                                <td class="fw-bold py-3" style="width: 45%; vertical-align: top; border-bottom: 1px dashed var(--border-color);">${leftText}</td>
-                                <td class="text-success fw-bold ps-4 py-3 border-start border-success border-3" style="font-family: 'Segoe UI', sans-serif; border-bottom: 1px dashed var(--border-color);">
-                                    <i class="bi bi-check2-circle me-2"></i>${rightText}
-                                </td>
-                            </tr>`;
-                    });
-                    contentHtml += `</tbody></table></div></div>`;
-                } else {
-                    items.forEach((item, idx) => {
-                        let qText = item.question;
-                        let aText = item.answerText;
+                        navVertHtml += `<a href="#${secAnchor}" class="list-group-item list-group-item-action fw-bold study-nav-item border-start-0 border-end-0 border-top-0 border-bottom d-flex align-items-center" style="color: var(--text-main); border-color: var(--border-color); transition: all 0.2s; padding-top: 1rem; padding-bottom: 1rem; font-size: 1rem;">
+                            <span class="text-muted small me-2">${chLabel}</span><span>${ROMAN[secIdxInChapter]}. ${sec.title}</span>
+                        </a>`;
+                        navHorzHtml += `<a href="#${secAnchor}" class="btn btn-outline-secondary rounded-pill text-nowrap fw-bold study-nav-item-mobile border-2 d-flex align-items-center justify-content-center" style="transition: all 0.2s; min-height: 55px; padding: 0 1.25rem; font-size: 1rem;">
+                            ${ch.number > 0 ? `Ch.${ch.number}` : ch.title}: ${sec.title}
+                        </a>`;
 
-                        if (item.type === 'matching_pair_candidate') {
-                            qText = item.leftWord;
-                            aText = item.rightWord;
-                        } else if (item.type === 'fill_blank_click') {
-                            // Dynamically replace the blanks with the correct answer underlined in green
-                            let filledQ = item.question.replace(/___/g, `<span class="text-success fw-bold text-decoration-underline mx-1">${aText}</span>`);
-                            contentHtml += `
-                            <div class="note-item p-3 p-md-4 rounded-3" style="background: var(--primary-bg); border-left: 5px solid ${currentSubject.theme};">
-                                <div class="fw-bold fs-4 text-body" style="font-family: 'Comic Sans MS', 'Nunito', sans-serif;">
-                                    <span class="text-muted opacity-50 me-2">${idx + 1}.</span> ${filledQ}
-                                </div>
-                            </div>`;
-                            return; // Skip standard render
-                        }
-
-                        if (sec.id === 'drawing') {
-                            contentHtml += `
-                            <div class="note-item p-3 p-md-4 rounded-3" style="background: var(--primary-bg); border-left: 5px solid ${currentSubject.theme};">
-                                <div class="fw-bold fs-4 text-body mb-2" style="font-family: 'Comic Sans MS', 'Nunito', sans-serif;">
-                                    <span class="text-muted opacity-50 me-2">${idx + 1}.</span> ${qText}
-                                </div>
-                                <div class="fs-5 text-muted fst-italic mt-2"><i class="bi bi-pencil-square me-2"></i>Practice drawing this in your notebook.</div>
-                            </div>`;
-                            return;
-                        }
-
-                        // Standard Q & A render
-                        contentHtml += `
-                        <div class="note-item p-3 p-md-4 rounded-3" style="background: var(--primary-bg); border-left: 5px solid ${currentSubject.theme};">
-                            <div class="fw-bold fs-4 text-body mb-3" style="font-family: 'Comic Sans MS', 'Nunito', sans-serif; line-height: 1.4;">
-                                <span class="text-muted opacity-50 me-2">${idx + 1}.</span> ${qText}
-                            </div>
-                            <div class="fs-4 text-success fw-bold ps-4 border-start border-success border-3 ms-1" style="font-family: 'Segoe UI', sans-serif;">
-                                <i class="bi bi-check2-circle me-2"></i>${aText}
-                            </div>
+                        chapterHtml += `<div id="${secAnchor}" class="mb-4 animate-fade study-section" style="scroll-margin-top: 160px;">
+                            <h5 class="fw-bold mb-3 pb-2 border-bottom" style="color: ${currentSubject.theme};">
+                                ${ROMAN[secIdxInChapter]}. ${sec.title}
+                            </h5>
+                            <div class="d-flex flex-column gap-3">${buildStudyItemsHtml(sec, items, currentSubject.theme)}</div>
                         </div>`;
                     });
-                }
 
-                contentHtml += `</div></div>`;
-            });
+                    if (chapterHasContent) {
+                        contentHtml += `<div class="mb-5 study-chapter-block">
+                            <h3 class="fw-bold mb-4 pb-2 border-bottom text-body" style="border-color: ${currentSubject.theme} !important;">
+                                <i class="bi bi-book-half me-2" style="color: ${currentSubject.theme};"></i>${chLabel}
+                            </h3>
+                            ${chapterHtml}
+                        </div>`;
+                    }
+                });
+            } else {
+                currentSubject.sections.forEach((sec, sIdx) => {
+                    const items = activeNormalizedBank[sec.id] || [];
+                    if(items.length === 0) return;
+
+                    navVertHtml += `<a href="#study-sec-${sec.id}" class="list-group-item list-group-item-action fw-bold study-nav-item border-start-0 border-end-0 border-top-0 border-bottom d-flex align-items-center" style="color: var(--text-main); border-color: var(--border-color); transition: all 0.2s; padding-top: 1.25rem; padding-bottom: 1.25rem; font-size: 1.15rem;">
+                                        ${ROMAN[sIdx + 1]}. ${sec.title}
+                                    </a>`;
+                    navHorzHtml += `<a href="#study-sec-${sec.id}" class="btn btn-outline-secondary rounded-pill text-nowrap fw-bold study-nav-item-mobile border-2 d-flex align-items-center justify-content-center" style="transition: all 0.2s; min-height: 55px; padding: 0 1.5rem; font-size: 1.1rem;">
+                                        ${ROMAN[sIdx + 1]}. ${sec.title}
+                                    </a>`;
+
+                    contentHtml += `<div id="study-sec-${sec.id}" class="mb-5 animate-fade study-section" style="animation-delay: ${0.1 * sIdx}s; scroll-margin-top: 160px;">
+                                <h4 class="fw-bold mb-4 pb-2 border-bottom text-uppercase" style="color: ${currentSubject.theme}; letter-spacing: 1px;">
+                                    ${ROMAN[sIdx + 1]}. ${sec.title}
+                                </h4>
+                                <div class="d-flex flex-column gap-3">${buildStudyItemsHtml(sec, items, currentSubject.theme)}</div>
+                            </div>`;
+                });
+            }
             
             contentContainer.innerHTML = contentHtml;
             if(navVertical) navVertical.innerHTML = navVertHtml;
             if(navHorizontal) navHorizontal.innerHTML = navHorzHtml;
 
-            // Setup Scroll Spy logic to highlight active navigation items
             setTimeout(() => {
                 const sections = document.querySelectorAll('.study-section');
                 const navLinksDesk = document.querySelectorAll('.study-nav-item');
@@ -1460,7 +1620,6 @@
                         if (entry.isIntersecting) {
                             const targetId = '#' + entry.target.id;
                             
-                            // Update Desktop Sidebar
                             navLinksDesk.forEach(link => {
                                 link.classList.remove('active', 'text-white', 'shadow');
                                 link.style.backgroundColor = '';
@@ -1471,7 +1630,6 @@
                                 }
                             });
 
-                            // Update Mobile Horizontal Pills
                             navLinksMob.forEach(link => {
                                 link.style.backgroundColor = '';
                                 link.style.color = '';
@@ -1480,7 +1638,6 @@
                                     link.style.backgroundColor = currentSubject.theme;
                                     link.style.color = '#fff';
                                     link.style.borderColor = currentSubject.theme;
-                                    // Smoothly scroll the pill into view
                                     link.scrollIntoView({behavior: "smooth", block: "nearest", inline: "center"});
                                 }
                             });
@@ -1490,7 +1647,6 @@
 
                 sections.forEach(sec => observer.observe(sec));
                 
-                // Allow Smooth scrolling when clicking the navigation links
                 document.querySelectorAll('.study-nav-item, .study-nav-item-mobile').forEach(anchor => {
                     anchor.addEventListener('click', function (e) {
                         e.preventDefault();
@@ -1510,6 +1666,7 @@
             if(!currentSubject) return;
             const container = document.getElementById('config-sections'); container.innerHTML = ''; 
             currentSubject.sections.forEach(sec => {
+                if (sec.max <= 0 || !(activeNormalizedBank[sec.id] || []).length) return;
                 container.innerHTML += `
                     <div class="card p-3 mb-2 config-card shadow-sm bg-body border-color" id="card-${sec.id}">
                         <div class="d-flex justify-content-between align-items-start mb-2">
@@ -1548,7 +1705,9 @@
         function updateLiveSummary() {
             if(!currentSubject) return; let tMarks = 0, tQs = 0, tSecs = 0;
             currentSubject.sections.forEach(sec => {
-                if (document.getElementById(`cb-${sec.id}`).checked) {
+                const cb = document.getElementById(`cb-${sec.id}`);
+                if (!cb) return;
+                if (cb.checked) {
                     tSecs++; let count = parseInt(document.getElementById(`num-${sec.id}`).value) || 0;
                     tQs += count; tMarks += (count * sec.marksPerQ);
                 }
@@ -1558,21 +1717,34 @@
 
         function applyPreset(target) {
             if (target === 'custom' || !currentSubject) return; target = parseInt(target); 
-            currentSubject.sections.forEach(sec => { document.getElementById(`cb-${sec.id}`).checked = true; toggleSection(sec.id); });
+            currentSubject.sections.forEach(sec => {
+                const cb = document.getElementById(`cb-${sec.id}`);
+                if (!cb) return;
+                cb.checked = true; toggleSection(sec.id);
+            });
 
             if(target === 50) {
-                currentSubject.sections.forEach(sec => { document.getElementById(`num-${sec.id}`).value = Math.min(7, sec.max); document.getElementById(`slider-${sec.id}`).value = Math.min(7, sec.max); });
+                currentSubject.sections.forEach(sec => {
+                    const num = document.getElementById(`num-${sec.id}`);
+                    if (!num) return;
+                    num.value = Math.min(7, sec.max);
+                    document.getElementById(`slider-${sec.id}`).value = Math.min(7, sec.max);
+                });
             } else {
                 let ratio = target / 50.0;
                 currentSubject.sections.forEach(sec => {
+                    const num = document.getElementById(`num-${sec.id}`);
+                    if (!num) return;
                     let newVal = Math.max(1, Math.round(7 * ratio));
-                    document.getElementById(`num-${sec.id}`).value = Math.min(newVal, sec.max); document.getElementById(`slider-${sec.id}`).value = Math.min(newVal, sec.max);
+                    num.value = Math.min(newVal, sec.max);
+                    document.getElementById(`slider-${sec.id}`).value = Math.min(newVal, sec.max);
                 });
             }
             updateLiveSummary(); showToast(`Preset applied: ~${target} Marks`);
         }
 
         function resetConfig() {
+            setChapterFilter('all');
             initConfigUI(); document.getElementById('numSets').value = "1"; document.getElementById('toggleAnswerKey').checked = true;
             document.getElementById('presetSize').value = "50"; applyPreset(50); showToast("Settings reset to default");
         }
@@ -1596,15 +1768,17 @@
             const activeSections = []; let currentTotalMarks = 0;
             
             currentSubject.sections.forEach(sec => {
-                if (document.getElementById(`cb-${sec.id}`).checked) {
-                    const count = parseInt(document.getElementById(`num-${sec.id}`).value);
-                    activeSections.push({ ...sec, count }); currentTotalMarks += (count * sec.marksPerQ);
-                }
+                const cb = document.getElementById(`cb-${sec.id}`);
+                if (!cb || !cb.checked) return;
+                const count = parseInt(document.getElementById(`num-${sec.id}`).value);
+                activeSections.push({ ...sec, count }); currentTotalMarks += (count * sec.marksPerQ);
             });
 
             if (activeSections.length === 0) { showToast("Please enable at least one section to generate paper.", true); return; }
 
-            offlineState.totalMarks = currentTotalMarks; offlineState.sets = [];
+            offlineState.totalMarks = currentTotalMarks;
+            offlineState.chapterFilter = currentChapterFilter;
+            offlineState.sets = [];
             const setNames = ["A", "B"];
 
             for (let i = 0; i < numSets; i++) {
@@ -1622,7 +1796,8 @@
 
         function regenerateSection(setIndex, sectionIndex) {
             const set = offlineState.sets[setIndex]; const sec = set.sections[sectionIndex];
-            sec.items = getRandomItems(activeNormalizedBank[sec.id] || [], sec.items.length);
+            const bankForRegen = getNormalizedBankForFilter(offlineState.chapterFilter || 'all');
+            sec.items = getRandomItems(bankForRegen[sec.id] || [], sec.items.length);
             renderAllPapers(); showToast(`Section regenerated!`);
         }
 
@@ -1732,12 +1907,16 @@
             return `<div class="section-block">${regenBtn}<div style="margin-bottom: 10px; font-size: 16px;">${titleStr}</div><div style="margin-bottom: 20px;">${content}</div></div>`;
         }
 
-        function buildPaperHeader(setName, showSetLabel) { 
+        function buildPaperHeader(setName, showSetLabel) {
+            const chapterLine = currentChapterFilter !== 'all'
+                ? `<div style="font-size: 14px; margin-top: 4px; font-weight: bold;">${getChapterLabel(SUBJECT_REGISTRY[currentSubjectKey], currentChapterFilter)}</div>`
+                : '';
             return `
             <div class="paper-header" style="text-align: center; margin-bottom: 15px;">
                 <div style="font-size: 18px; font-weight: bold;">HOLY CROSS SCHOOL, AGARTALA</div>
                 <div style="font-size: 16px; margin-top: 5px; font-weight: bold;">HALF YEARLY EXAMINATION - 2026</div>
                 <div style="font-size: 16px; margin-top: 5px; font-weight: bold;">Class - II</div>
+                ${chapterLine}
             </div>
             <table style="width: 100%; font-weight: bold; margin-bottom: 5px; border-bottom: 2px solid #000; padding-bottom: 5px; border-collapse: collapse;">
                 <tr>
@@ -1784,6 +1963,8 @@
         }
 
         function openLiveTestModal() { 
+            renderChapterSelectors();
+            renderTopicButtons();
             document.querySelectorAll('.btn-outline-success, .btn-outline-primary, .btn-outline-warning, .btn-outline-danger').forEach(b => {
                 b.style.borderColor = currentSubject.theme; b.style.color = currentSubject.theme;
                 b.onmouseover = function() { this.style.backgroundColor = currentSubject.theme; this.style.color = "white"; }
@@ -1834,8 +2015,8 @@
                 maxScreens[sec.id] = sec.id === 'match_following' ? Math.floor(bLength / 4) : bLength;
             });
 
-            // Remove 'drawing' category from the available pool for mixed live tests
-            let availableCats = Object.keys(screenCounts).filter(c => c !== 'drawing');
+            // Remove 'drawing' and empty categories from the available pool for mixed live tests
+            let availableCats = Object.keys(screenCounts).filter(c => c !== 'drawing' && maxScreens[c] > 0);
             
             for (let i = 0; i < target; i++) {
                 let validCats = availableCats.filter(c => screenCounts[c] < maxScreens[c]);
@@ -1887,6 +2068,7 @@
             
             document.getElementById('game-card').style.borderTopColor = currentSubject.theme;
             document.getElementById('ot-progress-bar').style.backgroundColor = currentSubject.theme;
+            updateGameCardTitle();
             
             document.getElementById('ot-interface').classList.remove('d-none');
             setMobileTab('online'); renderOnlineQuestion();
