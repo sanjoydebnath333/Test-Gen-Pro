@@ -280,6 +280,81 @@
         .soft-pill-btn:hover { transform: translateY(-4px) scale(1.05); border-color: var(--theme-color); color: var(--theme-color); }
         .soft-pill-btn.hidden-pill { opacity: 0; transform: scale(0.5); pointer-events: none; }
 
+        /* --- Missing Letters Interactive Input Boxes --- */
+        .missing-letters-container {
+            max-width: 100%;
+            margin: 1rem auto 1.5rem auto;
+            padding: 0.5rem;
+        }
+
+        .missing-letter-box {
+            width: clamp(40px, 8.5vw, 62px);
+            height: clamp(50px, 10.5vw, 70px);
+            font-size: clamp(1.4rem, 3.8vw, 2.2rem);
+            font-weight: 900;
+            font-family: 'Comic Sans MS', 'Nunito', sans-serif;
+            border-radius: 14px;
+            transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+            box-sizing: border-box;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .missing-letter-box.locked-box {
+            background: var(--dashboard-bg);
+            border: 2.5px solid var(--border-color);
+            color: var(--text-main);
+            box-shadow: 0 4px 0 var(--border-dark);
+            user-select: none;
+        }
+
+        .missing-letter-box.input-box {
+            background: var(--card-bg);
+            border: 3px dashed var(--theme-color);
+            color: var(--theme-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            outline: none;
+            caret-color: var(--theme-color);
+            cursor: pointer;
+        }
+
+        .missing-letter-box.input-box:focus {
+            border-style: solid;
+            border-color: var(--theme-color);
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.25), 0 6px 16px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px) scale(1.05);
+            z-index: 5;
+        }
+
+        .missing-letter-box.input-box.correct-letter {
+            background: #dcfce7 !important;
+            border-color: #22c55e !important;
+            border-style: solid !important;
+            color: #15803d !important;
+            box-shadow: 0 4px 0 #16a34a !important;
+            animation: correct-pulse-zoom-dropzone 0.6s cubic-bezier(0.25, 1, 0.5, 1) both !important;
+        }
+
+        .missing-letter-box.input-box.wrong-letter {
+            background: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            border-style: solid !important;
+            color: #b91c1c !important;
+            box-shadow: 0 4px 0 #dc2626 !important;
+        }
+
+        .missing-letter-sep {
+            color: var(--text-muted);
+            font-size: clamp(1.5rem, 4vw, 2.4rem);
+            font-weight: 900;
+            padding: 0 0.35rem;
+            user-select: none;
+            line-height: 1;
+        }
+
         /* --- Beautiful Responsive Matching Columns --- */
         .match-game-wrapper { max-width: 1000px; margin: 0 auto; display: flex; justify-content: center; gap: 4rem; padding: 0.5rem; width: 100%; position: relative; }
         .match-col { display: flex; flex-direction: column; gap: 0.8rem; position: relative; z-index: 15; }
@@ -308,9 +383,7 @@
             .match-card { padding: 0.6rem; font-size: 0.95rem; min-height: 60px; border-radius: 0.8rem; box-shadow: 0 4px 0 var(--border-dark); }
         }
         
-        /* --- Study Notes Styles --- */
-        .note-item { transition: all 0.2s ease; border-right: 1px solid var(--border-color); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
-        .note-item:hover { transform: translateX(5px); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        /* --- Study Notes Styles defined in LEARN (STUDY) MODE section below --- */
 
         /* Hide Scrollbar for Horizontal Mobile Nav */
         .hide-scrollbar::-webkit-scrollbar { display: none; }
@@ -626,39 +699,212 @@
         }
 
         .study-title {
-            font-size: clamp(1.25rem, 2.8vw + 0.3rem, 2.25rem) !important;
+            font-size: clamp(1.2rem, 2.4vw + 0.3rem, 2.2rem) !important;
             letter-spacing: -0.02em;
             line-height: 1.2;
         }
 
         .study-chapter-heading {
-            font-size: clamp(1.2rem, 2.2vw + 0.3rem, 1.75rem);
+            font-size: clamp(1.25rem, 2vw + 0.2rem, 1.75rem);
             line-height: 1.3;
         }
 
         .study-section-heading {
-            font-size: clamp(1.05rem, 1.6vw + 0.25rem, 1.35rem);
+            font-size: clamp(1.1rem, 1.5vw + 0.2rem, 1.45rem);
             line-height: 1.35;
         }
 
         .study-q-text {
-            font-size: clamp(1rem, 1.3vw + 0.35rem, 1.35rem);
-            line-height: 1.5;
-            word-break: break-word;
-        }
-
-        .study-a-text {
-            font-size: clamp(0.95rem, 1.2vw + 0.3rem, 1.25rem);
+            font-size: clamp(1.05rem, 1.2vw + 0.4rem, 1.35rem);
             line-height: 1.45;
             word-break: break-word;
         }
 
+        .study-a-text {
+            font-size: clamp(1rem, 1.1vw + 0.35rem, 1.25rem);
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
         .study-match-table {
-            font-size: clamp(0.9rem, 1.1vw + 0.3rem, 1.2rem);
+            font-size: clamp(0.95rem, 1.1vw + 0.35rem, 1.2rem);
         }
 
         .study-match-table td {
             vertical-align: middle;
+        }
+
+        .study-notes-wrapper {
+            background: var(--card-bg);
+            border-radius: 1.25rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--border-color);
+            padding: 1.75rem 2rem;
+        }
+
+        /* --- Study Items Single Column Layout for All Screens --- */
+        .study-items-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .study-items-grid {
+                gap: 0.85rem;
+            }
+        }
+
+        .study-match-item {
+            width: 100%;
+        }
+
+        .note-item {
+            background: var(--card-bg);
+            border-radius: 0.85rem;
+            border: 1px solid var(--border-color);
+            border-left: 4.5px solid var(--theme-color);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            padding: 0.95rem 1.15rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @media (min-width: 768px) {
+            .note-item:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+            }
+        }
+
+        /* Tablet Screens (576px - 991px): Larger responsive typography, balanced workspace */
+        @media (min-width: 577px) and (max-width: 991px) {
+            .study-notes-wrapper {
+                padding: 1.25rem 1.35rem;
+                border-radius: 1.1rem;
+            }
+            .study-title {
+                font-size: 1.55rem !important;
+            }
+            .study-chapter-heading {
+                font-size: 1.48rem !important;
+            }
+            .study-section-heading {
+                font-size: 1.25rem !important;
+            }
+            .study-q-text {
+                font-size: 1.22rem !important;
+                line-height: 1.45 !important;
+            }
+            .study-a-text {
+                font-size: 1.14rem !important;
+                line-height: 1.4 !important;
+                padding-left: 0.75rem !important;
+            }
+            .note-item {
+                padding: 1rem 1.15rem;
+            }
+        }
+
+        /* Small Screens (Mobile < 576px): Edge-to-edge full width, eliminate nested paddings for native app feel */
+        @media (max-width: 576px) {
+            #study-container {
+                padding-top: 0 !important;
+                padding-bottom: 5.5rem !important;
+            }
+            .study-content-wrapper {
+                padding-left: 0.35rem !important;
+                padding-right: 0.35rem !important;
+                margin-top: 0.25rem !important;
+            }
+            .study-sticky-header {
+                padding-top: 0.4rem !important;
+                padding-bottom: 0.45rem !important;
+                margin-bottom: 0.6rem !important;
+                padding-left: 0.25rem !important;
+                padding-right: 0.25rem !important;
+            }
+            .study-sticky-header .btn-floating-back {
+                width: 36px !important;
+                height: 36px !important;
+                font-size: 1.1rem !important;
+            }
+            .study-btn-sections {
+                padding: 0.35rem 0.65rem !important;
+                font-size: 0.85rem !important;
+            }
+            .study-chapter-filter-btn {
+                padding: 0.35rem 0.65rem !important;
+                font-size: 0.85rem !important;
+            }
+            .study-title {
+                font-size: 1.15rem !important;
+                max-width: 175px;
+            }
+            .study-row {
+                --bs-gutter-x: 0 !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+            .study-col-content {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+            /* Eliminate outer card borders & background on mobile so notes get complete horizontal width */
+            .study-notes-wrapper {
+                background: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                padding: 0 !important;
+            }
+            .study-chapter-block {
+                margin-bottom: 1.5rem !important;
+            }
+            .study-chapter-heading {
+                font-size: 1.15rem !important;
+                margin-bottom: 0.65rem !important;
+                padding-bottom: 0.35rem !important;
+            }
+            .study-section {
+                margin-bottom: 1.1rem !important;
+                scroll-margin-top: 80px !important;
+            }
+            .study-section-heading {
+                font-size: 1.02rem !important;
+                margin-bottom: 0.45rem !important;
+                padding-bottom: 0.25rem !important;
+            }
+            .note-item {
+                padding: 0.65rem 0.75rem !important;
+                border-radius: 0.75rem !important;
+                border-left-width: 3.5px !important;
+                box-shadow: 0 1px 4px rgba(0,0,0,0.04) !important;
+            }
+            .study-q-text {
+                font-size: 1.02rem !important;
+                line-height: 1.38 !important;
+                margin-bottom: 0.35rem !important;
+            }
+            .study-a-text {
+                font-size: 0.96rem !important;
+                line-height: 1.32 !important;
+                padding-left: 0.45rem !important;
+                margin-left: 0 !important;
+                border-left-width: 2.5px !important;
+            }
+            .study-items-grid {
+                gap: 0.55rem !important;
+            }
+            .study-drawer-fab {
+                left: 1rem !important;
+                bottom: 1rem !important;
+                width: 46px !important;
+                height: 46px !important;
+            }
         }
 
         .study-drawer {
@@ -717,19 +963,6 @@
 
         .study-chapter-check-item:hover {
             background-color: var(--dashboard-bg);
-        }
-
-        @media (max-width: 576px) {
-            .study-sticky-header {
-                padding-top: 0.5rem !important;
-                padding-bottom: 0.75rem !important;
-            }
-            .study-drawer-fab {
-                left: 1rem;
-                bottom: 1.25rem;
-                width: 48px;
-                height: 48px;
-            }
         }
 
         @media print {
@@ -1045,15 +1278,15 @@
             </div>
 
             <!-- VIEW 5: DISTRACTION-FREE STUDY MODE -->
-            <div id="study-container" style="display: none;" class="w-100 pb-5 pt-2 position-relative">
-                <div class="w-100 mx-auto px-2 px-sm-3 px-md-4 mt-2 mt-md-3" style="max-width: 1400px;">
+            <div id="study-container" style="display: none;" class="w-100 pb-5 pt-1 pt-md-2 position-relative">
+                <div class="w-100 mx-auto px-1 px-sm-3 px-md-4 mt-1 mt-md-3 study-content-wrapper" style="max-width: 1400px;">
                     
                     <!-- Sticky Header with Title, Drawer Trigger, and Multi-select Chapter Filter -->
-                    <div class="d-flex flex-wrap align-items-center justify-content-between mb-3 pb-3 border-bottom gap-2 sticky-top study-sticky-header" style="z-index: 100; top: 0; padding-top: 1rem;">
-                        <div class="d-flex align-items-center gap-2 gap-sm-3 min-w-0">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between mb-2 mb-md-3 pb-2 pb-md-3 border-bottom gap-1 gap-sm-2 sticky-top study-sticky-header" style="z-index: 100; top: 0; padding-top: 0.75rem;">
+                        <div class="d-flex align-items-center gap-1.5 gap-sm-2 gap-md-3 min-w-0">
                             <button class="btn-floating-back flex-shrink-0" onclick="setMobileTab('home')" title="Back to Home"><i class="bi bi-x-lg"></i></button>
                             <!-- Tablet & Mobile Left Navigation Drawer Toggle Button -->
-                            <button class="btn btn-outline-secondary d-lg-none d-flex align-items-center gap-2 rounded-pill px-3 py-2 fw-bold shadow-sm flex-shrink-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#studyNavDrawer" aria-controls="studyNavDrawer" aria-label="Open Table of Contents">
+                            <button class="btn btn-outline-secondary d-lg-none d-flex align-items-center gap-1.5 rounded-pill px-2.5 py-1.5 px-sm-3 py-sm-2 fw-bold shadow-sm flex-shrink-0 study-btn-sections" type="button" data-bs-toggle="offcanvas" data-bs-target="#studyNavDrawer" aria-controls="studyNavDrawer" aria-label="Open Table of Contents">
                                 <i class="bi bi-layout-sidebar-inset"></i>
                                 <span class="d-none d-sm-inline">Sections</span>
                             </button>
@@ -1061,11 +1294,11 @@
                         </div>
 
                         <!-- Multi-select Chapter Dropdown at top -->
-                        <div class="d-flex align-items-center gap-2 flex-shrink-0 ms-auto" id="study-chapter-filter-container">
+                        <div class="d-flex align-items-center gap-1.5 gap-sm-2 flex-shrink-0 ms-auto" id="study-chapter-filter-container">
                             <div class="dropdown" id="study-chapter-filter-wrap">
-                                <button class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center gap-2 rounded-pill px-3 py-2 fw-semibold shadow-sm" type="button" id="studyChapterDropdownBtn" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                <button class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1.5 gap-sm-2 rounded-pill px-2.5 py-1.5 px-sm-3 py-sm-2 fw-semibold shadow-sm study-chapter-filter-btn" type="button" id="studyChapterDropdownBtn" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" title="Filter Chapters">
                                     <i class="bi bi-funnel-fill text-primary" id="studyChapterFilterIcon"></i>
-                                    <span id="studyChapterDropdownLabel">All Chapters</span>
+                                    <span id="studyChapterDropdownLabel" class="d-none d-sm-inline">All Chapters</span>
                                     <span class="badge rounded-pill bg-primary ms-1" id="studyChapterBadge">All</span>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-end p-3 shadow-lg rounded-4 border-0 study-chapter-dropdown-menu" aria-labelledby="studyChapterDropdownBtn">
@@ -1085,7 +1318,7 @@
                         </div>
                     </div>
                     
-                    <div class="row g-4">
+                    <div class="row g-2 g-md-4 study-row">
                         <!-- Desktop Vertical Nav (Left side navigation for >= 992px) -->
                         <div class="col-lg-3 d-none d-lg-block">
                             <div class="sticky-top z-3 hide-scrollbar" style="top: 100px; max-height: calc(100vh - 120px); overflow-y: auto;">
@@ -1096,8 +1329,8 @@
                         </div>
 
                         <!-- Content Area (Full width on tablet & mobile, 9-column on desktop) -->
-                        <div class="col-12 col-lg-9">
-                            <div id="study-notes-content" class="bg-body p-3 p-sm-4 p-md-5 rounded-4 shadow-sm border border-light-subtle"></div>
+                        <div class="col-12 col-lg-9 study-col-content">
+                            <div id="study-notes-content" class="study-notes-wrapper"></div>
                         </div>
                     </div>
                 </div>
@@ -1300,6 +1533,68 @@
             return shuffleArray(pool).slice(0, count);
         }
 
+        function parseMissingLettersWord(pattern, answer) {
+            const cleanAns = (answer || '').trim();
+            let cleanPattern = (pattern || '').replace(/^Complete the word:\s*/i, "").trim();
+            
+            const rawTokens = cleanPattern.split(/\s+/).filter(t => t.length > 0);
+            let patternTokens = [];
+            rawTokens.forEach(tok => {
+                for (let ch of tok) {
+                    patternTokens.push(ch);
+                }
+            });
+
+            const ansChars = cleanAns.split('');
+            let boxes = [];
+
+            if (patternTokens.length === ansChars.length) {
+                for (let i = 0; i < ansChars.length; i++) {
+                    const isSep = (ansChars[i] === '-' || ansChars[i] === ' ');
+                    const isBlank = (patternTokens[i] === '_');
+                    boxes.push({
+                        index: i,
+                        isSeparator: isSep,
+                        separatorChar: isSep ? ansChars[i] : '',
+                        isBlank: isBlank,
+                        expectedChar: ansChars[i].toUpperCase(),
+                        displayChar: isBlank ? '' : (isSep ? ansChars[i] : ansChars[i].toUpperCase())
+                    });
+                }
+            } else {
+                let pIdx = 0;
+                for (let i = 0; i < ansChars.length; i++) {
+                    const isSep = (ansChars[i] === '-' || ansChars[i] === ' ');
+                    if (isSep) {
+                        if (pIdx < patternTokens.length && patternTokens[pIdx] === ansChars[i]) {
+                            pIdx++;
+                        }
+                        boxes.push({
+                            index: i,
+                            isSeparator: true,
+                            separatorChar: ansChars[i],
+                            isBlank: false,
+                            expectedChar: ansChars[i],
+                            displayChar: ansChars[i]
+                        });
+                    } else {
+                        let pChar = pIdx < patternTokens.length ? patternTokens[pIdx] : '_';
+                        pIdx++;
+                        let isBlank = (pChar === '_');
+                        boxes.push({
+                            index: i,
+                            isSeparator: false,
+                            separatorChar: '',
+                            isBlank: isBlank,
+                            expectedChar: ansChars[i].toUpperCase(),
+                            displayChar: isBlank ? '' : ansChars[i].toUpperCase()
+                        });
+                    }
+                }
+            }
+            return boxes;
+        }
+
         function normalizeBank(rawBank) {
             const normalized = {};
             for (let category in rawBank) {
@@ -1321,6 +1616,10 @@
                         base.options = shuffleArray(opts).map((text, i) => ({ id: `opt_${i}`, text: text }));
                         base.segments = q.q.split('___');
                         if(base.segments.length === 1) base.segments.push(''); 
+                    }
+                    else if (category === 'missing_letters') {
+                        base.type = "missing_letter_input";
+                        base.wordBoxes = parseMissingLettersWord(q.q, q.a);
                     }
                     else {
                         base.type = "mcq";
@@ -1719,7 +2018,7 @@
         function buildStudyItemsHtml(sec, items, theme) {
             let html = '';
             if (sec.id === 'match_following') {
-                html += `<div class="note-item p-3 p-md-4 rounded-3 mb-3 shadow-sm" style="background: var(--primary-bg); border-left: 5px solid ${theme};">
+                html += `<div class="note-item study-match-item" style="border-left-color: ${theme};">
                     <div class="table-responsive">
                         <table class="table table-borderless mb-0 align-middle text-body study-match-table" style="font-family: 'Comic Sans MS', 'Nunito', sans-serif;">
                             <tbody>`;
@@ -1728,10 +2027,10 @@
                     let rightText = item.rightWord || item.answerText || item.a;
                     html += `
                         <tr>
-                            <td class="text-muted opacity-50 py-2 py-md-3" style="width: 35px; vertical-align: top;">${idx + 1}.</td>
-                            <td class="fw-bold py-2 py-md-3" style="width: 45%; vertical-align: top; border-bottom: 1px dashed var(--border-color);">${leftText}</td>
-                            <td class="text-success fw-bold ps-3 ps-md-4 py-2 py-md-3 border-start border-success border-3" style="font-family: 'Segoe UI', sans-serif; border-bottom: 1px dashed var(--border-color);">
-                                <i class="bi bi-check2-circle me-1 me-md-2"></i>${rightText}
+                            <td class="text-muted opacity-50 py-1 py-md-2" style="width: 28px; vertical-align: top;">${idx + 1}.</td>
+                            <td class="fw-bold py-1 py-md-2" style="width: 48%; vertical-align: top; border-bottom: 1px dashed var(--border-color);">${leftText}</td>
+                            <td class="text-success fw-bold ps-2 ps-md-3 py-1 py-md-2 border-start border-success border-2 border-md-3" style="font-family: 'Segoe UI', sans-serif; border-bottom: 1px dashed var(--border-color);">
+                                <i class="bi bi-check2-circle me-1"></i>${rightText}
                             </td>
                         </tr>`;
                 });
@@ -1747,9 +2046,9 @@
                     } else if (item.type === 'fill_blank_click') {
                         let filledQ = item.question.replace(/___/g, `<span class="text-success fw-bold text-decoration-underline mx-1">${aText}</span>`);
                         html += `
-                        <div class="note-item p-3 p-md-4 rounded-3 mb-3 shadow-sm" style="background: var(--primary-bg); border-left: 5px solid ${theme};">
+                        <div class="note-item" style="border-left-color: ${theme};">
                             <div class="fw-bold study-q-text text-body" style="font-family: 'Comic Sans MS', 'Nunito', sans-serif;">
-                                <span class="text-muted opacity-50 me-2">${idx + 1}.</span> ${filledQ}
+                                <span class="text-muted opacity-50 me-1.5">${idx + 1}.</span> ${filledQ}
                             </div>
                         </div>`;
                         return;
@@ -1757,21 +2056,21 @@
 
                     if (sec.id === 'drawing') {
                         html += `
-                        <div class="note-item p-3 p-md-4 rounded-3 mb-3 shadow-sm" style="background: var(--primary-bg); border-left: 5px solid ${theme};">
-                            <div class="fw-bold study-q-text text-body mb-2" style="font-family: 'Comic Sans MS', 'Nunito', sans-serif;">
-                                <span class="text-muted opacity-50 me-2">${idx + 1}.</span> ${qText}
+                        <div class="note-item" style="border-left-color: ${theme};">
+                            <div class="fw-bold study-q-text text-body mb-1 mb-md-2" style="font-family: 'Comic Sans MS', 'Nunito', sans-serif;">
+                                <span class="text-muted opacity-50 me-1.5">${idx + 1}.</span> ${qText}
                             </div>
-                            <div class="study-a-text text-muted fst-italic mt-2"><i class="bi bi-pencil-square me-2"></i>Practice drawing this in your notebook.</div>
+                            <div class="study-a-text text-muted fst-italic mt-1 mt-md-2"><i class="bi bi-pencil-square me-1 me-md-2"></i>Practice drawing this in your notebook.</div>
                         </div>`;
                         return;
                     }
 
                     html += `
-                    <div class="note-item p-3 p-md-4 rounded-3 mb-3 shadow-sm" style="background: var(--primary-bg); border-left: 5px solid ${theme};">
-                        <div class="fw-bold study-q-text text-body mb-2 mb-md-3" style="font-family: 'Comic Sans MS', 'Nunito', sans-serif;">
-                            <span class="text-muted opacity-50 me-2">${idx + 1}.</span> ${qText}
+                    <div class="note-item" style="border-left-color: ${theme};">
+                        <div class="fw-bold study-q-text text-body mb-1 mb-md-2" style="font-family: 'Comic Sans MS', 'Nunito', sans-serif;">
+                            <span class="text-muted opacity-50 me-1.5">${idx + 1}.</span> ${qText}
                         </div>
-                        <div class="study-a-text text-success fw-bold ps-3 ps-md-4 border-start border-success border-3 ms-1" style="font-family: 'Segoe UI', sans-serif;">
+                        <div class="study-a-text text-success fw-bold ps-2 ps-md-3 border-start border-success border-2 border-md-3 ms-0 ms-md-1" style="font-family: 'Segoe UI', sans-serif;">
                             <i class="bi bi-check2-circle me-1 me-md-2"></i>${aText}
                         </div>
                     </div>`;
@@ -1848,16 +2147,16 @@
                                 ${ch.number > 0 ? `Ch.${ch.number}` : ch.title}: ${sec.title}
                             </a>`;
 
-                            chapterHtml += `<div id="${secAnchor}" class="mb-4 animate-fade study-section" style="scroll-margin-top: 110px;">
-                                <h5 class="fw-bold mb-3 pb-2 border-bottom study-section-heading" style="color: ${currentSubject.theme};">
+                            chapterHtml += `<div id="${secAnchor}" class="mb-3 mb-md-4 animate-fade study-section" style="scroll-margin-top: 110px;">
+                                <h5 class="fw-bold mb-2 mb-md-3 pb-2 border-bottom study-section-heading" style="color: ${currentSubject.theme};">
                                     ${ROMAN[secIdxInChapter]}. ${sec.title}
                                 </h5>
-                                <div class="d-flex flex-column gap-2 gap-md-3">${buildStudyItemsHtml(sec, items, currentSubject.theme)}</div>
+                                <div class="study-items-grid">${buildStudyItemsHtml(sec, items, currentSubject.theme)}</div>
                             </div>`;
                         });
 
                         if (chapterHasContent) {
-                            contentHtml += `<div class="mb-5 study-chapter-block">
+                            contentHtml += `<div class="mb-4 mb-md-5 study-chapter-block">
                                 <h3 class="fw-bold mb-3 mb-md-4 pb-2 border-bottom text-body study-chapter-heading" style="border-color: ${currentSubject.theme} !important;">
                                     <i class="bi bi-book-half me-2" style="color: ${currentSubject.theme};"></i>${chLabel}
                                 </h3>
@@ -1883,11 +2182,11 @@
                                         ${ROMAN[sIdx + 1]}. ${sec.title}
                                     </a>`;
 
-                    contentHtml += `<div id="study-sec-${sec.id}" class="mb-5 animate-fade study-section" style="animation-delay: ${0.1 * sIdx}s; scroll-margin-top: 110px;">
-                                <h4 class="fw-bold mb-4 pb-2 border-bottom text-uppercase study-section-heading" style="color: ${currentSubject.theme}; letter-spacing: 1px;">
+                    contentHtml += `<div id="study-sec-${sec.id}" class="mb-4 mb-md-5 animate-fade study-section" style="animation-delay: ${0.1 * sIdx}s; scroll-margin-top: 110px;">
+                                <h4 class="fw-bold mb-3 mb-md-4 pb-2 border-bottom text-uppercase study-section-heading" style="color: ${currentSubject.theme}; letter-spacing: 1px;">
                                     ${ROMAN[sIdx + 1]}. ${sec.title}
                                 </h4>
-                                <div class="d-flex flex-column gap-2 gap-md-3">${buildStudyItemsHtml(sec, items, currentSubject.theme)}</div>
+                                <div class="study-items-grid">${buildStudyItemsHtml(sec, items, currentSubject.theme)}</div>
                             </div>`;
                 });
             }
@@ -2348,7 +2647,7 @@
         }
 
         function processAndLaunchLiveTest(rawQuestions) {
-            let interactiveQuestions = rawQuestions.filter(q => ['mcq', 'fill_blank_click', 'matching_pair_candidate'].includes(q.type));
+            let interactiveQuestions = rawQuestions.filter(q => ['mcq', 'fill_blank_click', 'matching_pair_candidate', 'missing_letter_input'].includes(q.type));
             let candidates = interactiveQuestions.filter(q => q.type === 'matching_pair_candidate');
             let otherQuestions = interactiveQuestions.filter(q => q.type !== 'matching_pair_candidate');
 
@@ -2414,6 +2713,9 @@
                 document.getElementById('ot-options-box').innerHTML = `<div class="text-center w-100">${sectionTitleHtml}</div><div class="kid-question-text w-100 animate-fade text-center" style="margin-bottom: 1rem !important;">${qObj.question}</div><div class="match-game-wrapper animate-fade" id="match-game-container"><svg id="match-lines-svg" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index: 10;"></svg><div class="match-col match-col-left" id="match-col-left">${leftHtml}</div><div class="match-col match-col-right" id="match-col-right">${rightHtml}</div></div>`;
                 onlineState.matchSelection = { left: null, right: null }; onlineState.matchLines = []; window.addEventListener('resize', redrawMatchLines);
             }
+            else if (qObj.type === 'missing_letter_input') {
+                renderMissingLetterQuestion(qObj, sectionTitleHtml);
+            }
             else {
                 document.getElementById('ot-interface').classList.add('full-width-grid'); document.getElementById('ot-left-panel').style.display = 'none';
                 let isTrueFalse = (qObj.category === 'true_false'); let gridClass = isTrueFalse ? 'mcq-grid-1x2' : 'mcq-grid-2x2';
@@ -2426,6 +2728,207 @@
                 document.getElementById('ot-options-box').innerHTML = `<div class="text-center w-100">${sectionTitleHtml}</div><h4 class="kid-question-text w-100 animate-fade text-center">${displayQText}</h4>${optionsHtml}`; 
             }
             document.getElementById('ot-feedback').innerHTML = '';
+        }
+
+        function renderMissingLetterQuestion(qObj, sectionTitleHtml) {
+            document.getElementById('ot-interface').classList.add('full-width-grid');
+            document.getElementById('ot-left-panel').style.display = 'none';
+
+            if (!qObj.wordBoxes || qObj.wordBoxes.length === 0) {
+                qObj.wordBoxes = parseMissingLettersWord(qObj.question, qObj.answerText);
+            }
+
+            const boxes = qObj.wordBoxes;
+            let boxesHtml = '';
+
+            boxes.forEach((box, i) => {
+                if (box.isSeparator) {
+                    boxesHtml += `<span class="missing-letter-sep">${box.separatorChar}</span>`;
+                } else if (!box.isBlank) {
+                    boxesHtml += `<div class="missing-letter-box locked-box d-flex align-items-center justify-content-center">${box.displayChar}</div>`;
+                } else {
+                    boxesHtml += `<input type="text" class="missing-letter-box input-box text-center" id="ml-input-${i}" data-idx="${i}" data-expected="${box.expectedChar}" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" inputmode="text" placeholder="" />`;
+                }
+            });
+
+            const cleanPrompt = qObj.question.replace(/^Complete the word:\s*/i, '').trim();
+
+            document.getElementById('ot-options-box').innerHTML = `
+                <div class="text-center w-100">${sectionTitleHtml}</div>
+                <div class="text-muted fs-4 fw-bold mb-3 animate-fade text-center">
+                    <i class="bi bi-pencil-fill me-2" style="color:${currentSubject.theme};"></i>Fill in the missing letters!
+                </div>
+                <div class="kid-question-text w-100 animate-fade text-center mb-2" style="font-size: clamp(1.2rem, 3.2vw, 1.75rem) !important; margin-bottom: 1.5rem !important;">
+                    Complete the word: <span class="highlight-word ms-2">${cleanPrompt}</span>
+                </div>
+                <div class="missing-letters-container d-flex flex-wrap justify-content-center align-items-center gap-2 gap-sm-3 animate-fade" id="missing-letters-wrapper">
+                    ${boxesHtml}
+                </div>
+                <button id="btn-check-missing" class="btn-go-check animate-fade w-100 mt-4 mx-auto d-block" style="max-width: 280px; background-color:${currentSubject.theme};" onclick="submitMissingLetterAnswer()" disabled>
+                    CHECK! 🚀
+                </button>
+            `;
+
+            // Attach listeners to input boxes
+            const inputs = Array.from(document.querySelectorAll('.missing-letter-box.input-box'));
+            inputs.forEach((input, curIdx) => {
+                input.addEventListener('focus', function() {
+                    this.select();
+                });
+                input.addEventListener('click', function() {
+                    this.select();
+                });
+                input.addEventListener('input', function(e) {
+                    let val = this.value;
+                    if (val.length > 0) {
+                        const char = val.slice(-1).toUpperCase();
+                        if (/[A-Z0-9]/.test(char)) {
+                            this.value = char;
+                            if (curIdx < inputs.length - 1) {
+                                inputs[curIdx + 1].focus();
+                                inputs[curIdx + 1].select();
+                            }
+                        } else {
+                            this.value = '';
+                        }
+                    }
+                    updateMissingCheckBtnState();
+                });
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        if (curIdx > 0) {
+                            inputs[curIdx - 1].focus();
+                            inputs[curIdx - 1].select();
+                        }
+                        return;
+                    }
+                    if (e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        if (curIdx < inputs.length - 1) {
+                            inputs[curIdx + 1].focus();
+                            inputs[curIdx + 1].select();
+                        }
+                        return;
+                    }
+                    if (e.key === 'Backspace') {
+                        if (this.value === '') {
+                            e.preventDefault();
+                            if (curIdx > 0) {
+                                inputs[curIdx - 1].value = '';
+                                inputs[curIdx - 1].focus();
+                                inputs[curIdx - 1].select();
+                                updateMissingCheckBtnState();
+                            }
+                        } else {
+                            this.value = '';
+                            e.preventDefault();
+                            updateMissingCheckBtnState();
+                        }
+                        return;
+                    }
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        const checkBtn = document.getElementById('btn-check-missing');
+                        if (checkBtn && !checkBtn.disabled) {
+                            submitMissingLetterAnswer();
+                        }
+                        return;
+                    }
+                });
+            });
+
+            // Auto-focus first input box
+            setTimeout(() => {
+                if (inputs.length > 0) {
+                    inputs[0].focus();
+                    inputs[0].select();
+                }
+            }, 300);
+        }
+
+        function updateMissingCheckBtnState() {
+            const inputs = Array.from(document.querySelectorAll('.missing-letter-box.input-box'));
+            const allFilled = inputs.length > 0 && inputs.every(inp => inp.value.trim().length > 0);
+            const checkBtn = document.getElementById('btn-check-missing');
+            if (checkBtn) {
+                checkBtn.disabled = !allFilled;
+            }
+        }
+
+        function submitMissingLetterAnswer() {
+            const q = onlineState.questions[onlineState.currentIndex];
+            if (!q) return;
+            const inputs = Array.from(document.querySelectorAll('.missing-letter-box.input-box'));
+            if (!inputs.length) return;
+
+            const allBoxes = q.wordBoxes || parseMissingLettersWord(q.question, q.answerText);
+            
+            let fullWordChars = [];
+            let isAllCorrect = true;
+
+            allBoxes.forEach((box, i) => {
+                if (box.isSeparator) {
+                    fullWordChars.push(box.separatorChar);
+                } else if (!box.isBlank) {
+                    fullWordChars.push(box.expectedChar);
+                } else {
+                    const inputEl = document.getElementById(`ml-input-${i}`);
+                    const userChar = (inputEl ? inputEl.value : '').trim().toUpperCase();
+                    fullWordChars.push(userChar || '_');
+                    if (userChar !== box.expectedChar) {
+                        isAllCorrect = false;
+                        if (inputEl) inputEl.classList.add('wrong-letter');
+                    } else {
+                        if (inputEl) inputEl.classList.add('correct-letter');
+                    }
+                }
+            });
+
+            const givenWord = fullWordChars.join('');
+            const targetWord = (q.answerText || '').trim().toUpperCase();
+            const isPerfect = isAllCorrect && (givenWord.replace(/[\s-]/g, '') === targetWord.replace(/[\s-]/g, ''));
+
+            inputs.forEach(inp => { inp.disabled = true; });
+            const checkBtn = document.getElementById('btn-check-missing');
+            if (checkBtn) checkBtn.disabled = true;
+
+            if (isPerfect) {
+                inputs.forEach(inp => {
+                    inp.classList.remove('wrong-letter');
+                    inp.classList.add('correct-letter');
+                });
+                onlineState.score++;
+                document.getElementById('ot-right').innerText = onlineState.score;
+                confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 }, zIndex: 2000 });
+            } else {
+                onlineState.wrongScore++;
+                document.getElementById('ot-wrong').innerText = onlineState.wrongScore;
+            }
+
+            onlineState.answers.push({
+                category: q.category,
+                question: q.question,
+                givenAns: givenWord,
+                correctAns: q.answerText,
+                isCorrect: isPerfect
+            });
+
+            if (isPerfect) {
+                setTimeout(() => {
+                    onlineState.currentIndex++;
+                    if (onlineState.currentIndex >= onlineState.questions.length) showFunResultModal();
+                    else renderOnlineQuestion();
+                }, 1500);
+            } else {
+                setTimeout(() => {
+                    showLearningOverlay(q.question, givenWord, q.answerText, () => {
+                        onlineState.currentIndex++;
+                        if (onlineState.currentIndex >= onlineState.questions.length) showFunResultModal();
+                        else renderOnlineQuestion();
+                    });
+                }, 800);
+            }
         }
 
         function handleOptionPillClick(btnId, wordText) {
