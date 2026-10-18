@@ -72,10 +72,10 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
     }
   ],
   "chapters": [
-      {
+    {
       "id": "ch13",
       "number": 13,
-      "title": "More about Plants (Final)",
+      "title": "More about Plants",
       "bank": {
         "fill_blanks": [
           {
