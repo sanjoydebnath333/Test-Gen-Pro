@@ -245,10 +245,13 @@
                 if (pool.length === 0) return;
                 const iconData = CATEGORY_ICONS[sec.id] || CATEGORY_ICONS['mcq_standard'];
                 dynamicBtns.innerHTML += `
-                    <div class="col-6 col-md-4">
-                        <div class="topic-btn" onclick="launchSpecificQuiz(['${sec.id}'])">
-                            <span style="font-size: 2.5rem;">${iconData.icon}</span>
-                            <span class="text-center">${iconData.title}<br><small class="text-muted fs-6">${iconData.desc}</small></span>
+                    <div class="col-6 col-sm-4">
+                        <div class="topic-btn" onclick="launchSpecificQuiz(['${sec.id}'])" title="${iconData.title}: ${iconData.desc}">
+                            <span class="topic-btn-icon">${iconData.icon}</span>
+                            <div class="topic-btn-text w-100">
+                                <div class="topic-btn-title">${iconData.title}</div>
+                                <div class="topic-btn-desc">${iconData.desc}</div>
+                            </div>
                         </div>
                     </div>`;
             });
@@ -1144,11 +1147,13 @@
         function openLiveTestModal() { 
             renderChapterSelectors();
             renderTopicButtons();
-            document.querySelectorAll('.btn-outline-success, .btn-outline-primary, .btn-outline-warning, .btn-outline-danger').forEach(b => {
-                b.style.borderColor = currentSubject.theme; b.style.color = currentSubject.theme;
-                b.onmouseover = function() { this.style.backgroundColor = currentSubject.theme; this.style.color = "white"; }
-                b.onmouseout = function() { this.style.backgroundColor = "transparent"; this.style.color = currentSubject.theme; }
-            });
+            
+            const modalEl = document.getElementById('liveTestModal');
+            if (modalEl && currentSubject) {
+                modalEl.querySelectorAll('.mix-mode-card').forEach(b => {
+                    b.style.setProperty('--card-theme', currentSubject.theme);
+                });
+            }
             
             const history = JSON.parse(localStorage.getItem('portalQuizHistory') || '[]');
             const uniqueNames = [...new Set(history.map(h => h.name))];

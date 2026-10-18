@@ -463,49 +463,118 @@
     <div id="ot-learning-overlay" class="learning-overlay d-none"></div>
 
     <!-- 🌟 Supercharged Live Test Setup Modal 🌟 -->
-    <div class="modal fade" id="liveTestModal" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content kid-modal-content shadow-lg">
+    <!-- 🌟 Supercharged Live Test Setup Modal 🌟 -->
+    <div class="modal fade" id="liveTestModal" tabindex="-1" aria-labelledby="liveTestModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+        <div class="modal-content kid-modal-content shadow-lg border-0">
           <div class="kid-modal-header d-flex justify-content-between align-items-center" id="modal-header-bg">
-            <h3 class="modal-title fw-bold mb-0 text-white"><i class="bi bi-controller me-2"></i> Game Setup</h3>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            <div class="d-flex align-items-center gap-2">
+                <span class="modal-header-icon-badge"><i class="bi bi-controller"></i></span>
+                <h4 class="modal-title fw-bold mb-0 text-white" id="liveTestModalLabel">Game Setup</h4>
+            </div>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body p-4 p-md-5">
-            <div class="mb-5 text-center">
-                <label class="form-label fw-bold text-muted fs-5 mb-3">Who is playing today? 👋 <span class="text-danger">*</span></label>
-                <input type="text" id="studentNameInput" list="studentNamesList" class="form-control form-control-lg text-center rounded-pill fw-bold border-3 mx-auto name-input-glow bg-body text-body" style="max-width: 400px; font-size: 1.5rem;" placeholder="Type your name..." maxlength="20">
-                <datalist id="studentNamesList"></datalist>
+          <div class="modal-body p-3 p-sm-4 p-lg-4 hide-scrollbar">
+            <!-- Player Name Input Card -->
+            <div class="student-name-card mb-3 p-2.5 p-sm-3 rounded-4 bg-body-tertiary border text-center shadow-xs">
+                <label class="form-label fw-bold text-muted small mb-2 text-uppercase letter-spacing-1 d-block">
+                    Who is playing today? 👋 <span class="text-danger">*</span>
+                </label>
+                <div class="position-relative mx-auto" style="max-width: 360px;">
+                    <i class="bi bi-person-fill text-muted position-absolute start-0 top-50 translate-middle-y ms-3 fs-5"></i>
+                    <input type="text" id="studentNameInput" list="studentNamesList" 
+                           class="form-control text-center rounded-pill fw-bold border-2 name-input-glow bg-body text-body ps-5 pe-4 py-2" 
+                           placeholder="Type your name..." maxlength="20">
+                    <datalist id="studentNamesList"></datalist>
+                </div>
             </div>
 
-            <div class="row g-4">
-                <div class="col-md-7 border-end-md">
-                    <div class="mb-4 d-none" id="chapter-filter-modal-wrap">
-                        <label class="form-label fw-bold text-muted mb-2"><i class="bi bi-book me-2"></i>Chapter</label>
-                        <select id="chapterFilterModal" class="form-select fw-bold border-2 shadow-sm bg-body text-body" onchange="setChapterFilter(this.value)">
+            <div class="row g-3 g-lg-4">
+                <!-- Left/Main Column: Specific Topics & Chapter Filters -->
+                <div class="col-12 col-lg-7 border-end-lg pe-lg-4 modal-left-section">
+                    <!-- Chapter Filter Scope -->
+                    <div class="mb-3 d-none" id="chapter-filter-modal-wrap">
+                        <label class="form-label fw-bold text-muted small mb-1.5"><i class="bi bi-book me-1 text-primary"></i>Chapter Scope</label>
+                        <select id="chapterFilterModal" class="form-select form-select-sm fw-bold border-2 shadow-sm rounded-pill bg-body text-body py-1.5 px-3" onchange="setChapterFilter(this.value)">
                             <option value="all">All Chapters</option>
                         </select>
                     </div>
-                    <div class="mb-4 d-none" id="chapter-quiz-buttons-wrap">
-                        <label class="form-label fw-bold text-muted mb-2"><i class="bi bi-lightning-fill text-warning me-2"></i>Play Chapter Quiz</label>
-                        <div id="chapter-quiz-buttons" class="d-flex flex-wrap gap-2"></div>
+
+                    <!-- Quick Chapter Quiz Badges -->
+                    <div class="mb-3 d-none" id="chapter-quiz-buttons-wrap">
+                        <div class="d-flex align-items-center justify-content-between mb-1.5">
+                            <label class="form-label fw-bold text-muted small mb-0"><i class="bi bi-lightning-fill text-warning me-1"></i>Play Chapter Quiz (10 Qs)</label>
+                            <span class="badge rounded-pill bg-warning-subtle text-warning-emphasis small">Instant</span>
+                        </div>
+                        <div id="chapter-quiz-buttons" class="d-flex flex-wrap gap-1.5 chapter-quiz-scroll hide-scrollbar"></div>
                     </div>
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="fw-bold text-body mb-0"><i class="bi bi-star-fill text-warning me-2"></i>Specific Topics</h5>
-                        <select id="topicQLimit" class="form-select form-select-sm fw-bold border-2 shadow-sm bg-body text-body" style="width: 100px; border-radius: 1rem;">
-                            <option value="5">5 Qs</option><option value="10" selected>10 Qs</option><option value="all">All Qs</option>
-                        </select>
+
+                    <!-- Specific Topics Header -->
+                    <div class="d-flex justify-content-between align-items-center mb-2.5">
+                        <h6 class="fw-bold text-body mb-0 d-flex align-items-center gap-1.5">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <span>Specific Topics</span>
+                        </h6>
+                        <div class="d-flex align-items-center gap-1.5">
+                            <span class="text-muted small fw-semibold d-none d-sm-inline">Limit:</span>
+                            <select id="topicQLimit" class="form-select form-select-sm fw-bold border-2 shadow-xs bg-body text-body py-1 px-2.5" style="width: 95px; border-radius: 0.75rem;">
+                                <option value="5">5 Qs</option><option value="10" selected>10 Qs</option><option value="all">All Qs</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="row g-3" id="dynamic-topic-buttons">
+
+                    <!-- Dynamic Topic Cards Grid -->
+                    <div class="row g-2 g-sm-2.5" id="dynamic-topic-buttons">
                         <!-- Injected via JS based on selected subject -->
                     </div>
                 </div>
 
-                <div class="col-md-5 d-flex flex-column justify-content-center pt-4 pt-md-0">
-                    <h5 class="fw-bold text-body mb-3 text-center"><i class="bi bi-shuffle text-success me-2"></i>Mix & Match</h5>
-                    <div class="d-grid gap-3">
-                        <button class="btn btn-outline-success btn-lg fw-bold rounded-pill border-2 shadow-sm" onclick="launchLiveTest(10)">Quick Play (10 Q)</button>
-                        <button class="btn btn-outline-primary btn-lg fw-bold rounded-pill border-2 shadow-sm" onclick="launchLiveTest(20)">Standard (20 Q)</button>
-                        <button class="btn btn-outline-warning btn-lg fw-bold rounded-pill border-2 shadow-sm" onclick="launchLiveTest(30)">Challenge (30 Q)</button>
+                <!-- Right Column: Mix & Match Game Modes -->
+                <div class="col-12 col-lg-5 ps-lg-3 modal-right-section d-flex flex-column justify-content-start pt-2 pt-lg-0">
+                    <div class="mix-match-header mb-2.5 text-center text-lg-start">
+                        <h6 class="fw-bold text-body mb-1 d-flex align-items-center justify-content-center justify-content-lg-start gap-1.5">
+                            <i class="bi bi-shuffle text-success"></i>
+                            <span>Mix & Match Quizzes</span>
+                        </h6>
+                        <p class="text-muted small mb-0">Randomized questions across all sections</p>
+                    </div>
+
+                    <div class="mix-match-cards-grid d-flex flex-column gap-2.5">
+                        <!-- Mode 1: Quick Play (10 Qs) -->
+                        <button type="button" class="btn btn-outline-success mix-mode-card text-start p-2.5 p-sm-3 rounded-4 border-2 shadow-xs d-flex align-items-center justify-content-between" onclick="launchLiveTest(10)">
+                            <div class="d-flex align-items-center gap-2.5">
+                                <span class="mix-mode-icon-wrap bg-success-subtle text-success rounded-circle"><i class="bi bi-lightning-charge-fill"></i></span>
+                                <div>
+                                    <div class="fw-bold fs-6 mb-0 mix-mode-title text-body">Quick Play</div>
+                                    <small class="text-muted mix-mode-sub">10 Mixed Questions</small>
+                                </div>
+                            </div>
+                            <span class="badge rounded-pill bg-success-subtle text-success fw-bold px-2.5 py-1">~3 min</span>
+                        </button>
+
+                        <!-- Mode 2: Standard (20 Qs) -->
+                        <button type="button" class="btn btn-outline-primary mix-mode-card text-start p-2.5 p-sm-3 rounded-4 border-2 shadow-xs d-flex align-items-center justify-content-between" onclick="launchLiveTest(20)">
+                            <div class="d-flex align-items-center gap-2.5">
+                                <span class="mix-mode-icon-wrap bg-primary-subtle text-primary rounded-circle"><i class="bi bi-bullseye"></i></span>
+                                <div>
+                                    <div class="fw-bold fs-6 mb-0 mix-mode-title text-body">Standard Test</div>
+                                    <small class="text-muted mix-mode-sub">20 Mixed Questions</small>
+                                </div>
+                            </div>
+                            <span class="badge rounded-pill bg-primary-subtle text-primary fw-bold px-2.5 py-1">~6 min</span>
+                        </button>
+
+                        <!-- Mode 3: Challenge (30 Qs) -->
+                        <button type="button" class="btn btn-outline-warning mix-mode-card text-start p-2.5 p-sm-3 rounded-4 border-2 shadow-xs d-flex align-items-center justify-content-between" onclick="launchLiveTest(30)">
+                            <div class="d-flex align-items-center gap-2.5">
+                                <span class="mix-mode-icon-wrap bg-warning-subtle text-warning-emphasis rounded-circle"><i class="bi bi-trophy-fill"></i></span>
+                                <div>
+                                    <div class="fw-bold fs-6 mb-0 mix-mode-title text-body">Challenge Mode</div>
+                                    <small class="text-muted mix-mode-sub">30 Mixed Questions</small>
+                                </div>
+                            </div>
+                            <span class="badge rounded-pill bg-warning-subtle text-warning-emphasis fw-bold px-2.5 py-1">~10 min</span>
+                        </button>
                     </div>
                 </div>
             </div>
