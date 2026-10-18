@@ -73,167 +73,397 @@ const SUBJECT_GK = {
         "one_word": [
           {
             "q": "What is the capital city of England?",
-            "a": "London"
+            "a": "London",
+            "options": [
+              "London",
+              "Paris",
+              "Rome",
+              "Tokyo"
+            ]
           },
           {
             "q": "Which is the largest delta in the world?",
-            "a": "Sunderban"
+            "a": "Sunderban",
+            "options": [
+              "Sunderban",
+              "Ganga Delta",
+              "Indus Delta",
+              "Amazon Delta"
+            ]
           },
           {
             "q": "In which state of India is the Thar Desert situated?",
-            "a": "Rajasthan"
+            "a": "Rajasthan",
+            "options": [
+              "Rajasthan",
+              "Gujarat",
+              "Punjab",
+              "Haryana"
+            ]
           },
           {
             "q": "Along which river bank is Varanasi situated?",
-            "a": "Ganga"
+            "a": "Ganga",
+            "options": [
+              "Ganga",
+              "Yamuna",
+              "Saraswati",
+              "Godavari"
+            ]
           },
           {
             "q": "In which year India became independent?",
-            "a": "1947"
+            "a": "1947",
+            "options": [
+              "1947",
+              "1950",
+              "1946",
+              "1948"
+            ]
           },
           {
             "q": "In which city of India is the Qutb Minar located?",
-            "a": "Delhi"
+            "a": "Delhi",
+            "options": [
+              "Delhi",
+              "Agra",
+              "Hyderabad",
+              "Jaipur"
+            ]
           },
           {
             "q": "What did Wright Brothers invent?",
-            "a": "Aeroplane"
+            "a": "Aeroplane",
+            "options": [
+              "Aeroplane",
+              "Helicopter",
+              "Rocket",
+              "Bicycle"
+            ]
           },
           {
             "q": "What did J.L Baird invent?",
-            "a": "Television"
+            "a": "Television",
+            "options": [
+              "Television",
+              "Telephone",
+              "Radio",
+              "Computer"
+            ]
           },
           {
             "q": "Which invention helps us make calls?",
-            "a": "Telephone"
+            "a": "Telephone",
+            "options": [
+              "Telephone",
+              "Television",
+              "Radio",
+              "Computer"
+            ]
           },
           {
             "q": "Which planet is known as a dwarf planet?",
-            "a": "Pluto"
+            "a": "Pluto",
+            "options": [
+              "Pluto",
+              "Mercury",
+              "Mars",
+              "Neptune"
+            ]
           },
           {
             "q": "Which is the hottest planet in the solar system?",
-            "a": "Venus"
+            "a": "Venus",
+            "options": [
+              "Venus",
+              "Mercury",
+              "Mars",
+              "Jupiter"
+            ]
           },
           {
             "q": "Which gadget is used on wrist to get notifications of emails, incoming calls etc?",
-            "a": "Smartwatch"
+            "a": "Smartwatch",
+            "options": [
+              "Smartwatch",
+              "Smartband",
+              "Smartphone",
+              "Digital Watch"
+            ]
           },
           {
             "q": "What is the name of the story in which a princess with long hair was locked in a tower?",
-            "a": "Rapunzel"
+            "a": "Rapunzel",
+            "options": [
+              "Rapunzel",
+              "Cinderella",
+              "Snow White",
+              "Sleeping Beauty"
+            ]
           },
           {
             "q": "Who was the cleverest man in Emperor Akbar’s court?",
-            "a": "Birbal"
+            "a": "Birbal",
+            "options": [
+              "Birbal",
+              "Tenali Raman",
+              "Tansen",
+              "Chanakya"
+            ]
           },
           {
             "q": "Which famous story character had a magic lamp?",
             "a": "Aladdin",
             "options": [
-              "Mowgli",
-              "Aladdin"
+              "Aladdin",
+              "Ali Baba",
+              "Sinbad",
+              "Mowgli"
             ]
           }
         ],
         "name_following": [
           {
             "q": "Name the national flower of India.",
-            "a": "Lotus"
+            "a": "Lotus",
+            "options": [
+              "Lotus",
+              "Rose",
+              "Marigold",
+              "Jasmine"
+            ]
           },
           {
             "q": "Name the capital city of Russia.",
-            "a": "Moscow"
+            "a": "Moscow",
+            "options": [
+              "Moscow",
+              "Paris",
+              "London",
+              "Tokyo"
+            ]
           },
           {
             "q": "Name the longest beach in India.",
-            "a": "Marina Beach"
+            "a": "Marina Beach",
+            "options": [
+              "Marina Beach",
+              "Juhu Beach",
+              "Puri Beach",
+              "Goa Beach"
+            ]
           },
           {
             "q": "Name the lake in Srinagar known for its houseboats.",
-            "a": "Dal Lake"
+            "a": "Dal Lake",
+            "options": [
+              "Dal Lake",
+              "Wular Lake",
+              "Chilika Lake",
+              "Nainital Lake"
+            ]
           },
           {
             "q": "Name the only active volcano in India.",
-            "a": "Barren Island"
+            "a": "Barren Island",
+            "options": [
+              "Barren Island",
+              "Andaman Island",
+              "Nicobar Island",
+              "Lakshadweep Island"
+            ]
           },
           {
             "q": "Name the Indian state where Bihu is celebrated.",
-            "a": "Assam"
+            "a": "Assam",
+            "options": [
+              "Assam",
+              "Punjab",
+              "West Bengal",
+              "Tripura"
+            ]
           },
           {
             "q": "Name the longest bone of our body.",
-            "a": "Femur"
+            "a": "Femur",
+            "options": [
+              "Femur",
+              "Backbone",
+              "Rib bone",
+              "Arm bone"
+            ]
           },
           {
             "q": "Name the person who invented computer.",
-            "a": "Charles Babbage"
+            "a": "Charles Babbage",
+            "options": [
+              "Charles Babbage",
+              "Thomas Edison",
+              "Alexander Graham Bell",
+              "Wright Brothers"
+            ]
           },
           {
             "q": "Name the gadget that helps us to find correct route by using GPS.",
-            "a": "Smartphone"
+            "a": "Smartphone",
+            "options": [
+              "Smartphone",
+              "Smartwatch",
+              "Compass",
+              "Camera"
+            ]
           },
           {
             "q": "Name the organ that controls all our muscles and makes them work.",
-            "a": "Brain"
+            "a": "Brain",
+            "options": [
+              "Brain",
+              "Heart",
+              "Lungs",
+              "Stomach"
+            ]
           }
         ],
         "fill_blanks": [
           {
             "q": "World Environment Day is celebrated on ___.",
-            "a": "5 June"
+            "a": "5 June",
+            "options": [
+              "5 June",
+              "14 November",
+              "5 September",
+              "2 October"
+            ]
           },
           {
             "q": "___ tree is the national tree of India.",
-            "a": "Banyan"
+            "a": "Banyan",
+            "options": [
+              "Banyan",
+              "Peepal",
+              "Neem",
+              "Mango"
+            ]
           },
           {
             "q": "The capital of Egypt is ___.",
-            "a": "Cairo"
+            "a": "Cairo",
+            "options": [
+              "Cairo",
+              "London",
+              "Paris",
+              "Rome"
+            ]
           },
           {
             "q": "The two sides of a river are called its ___.",
-            "a": "banks"
+            "a": "banks",
+            "options": [
+              "banks",
+              "shores",
+              "coasts",
+              "borders"
+            ]
           },
           {
             "q": "___ is the famous waterfall of Karnataka.",
-            "a": "Jog Falls"
+            "a": "Jog Falls",
+            "options": [
+              "Jog Falls",
+              "Angel Falls",
+              "Niagara Falls",
+              "Dudhsagar Falls"
+            ]
           },
           {
             "q": "___ helps us move every part of our body.",
-            "a": "Muscles"
+            "a": "Muscles",
+            "options": [
+              "Muscles",
+              "Bones",
+              "Joints",
+              "Skin"
+            ]
           },
           {
             "q": "Heart muscles are known as ___ muscles.",
-            "a": "cardiac"
+            "a": "cardiac",
+            "options": [
+              "cardiac",
+              "chest",
+              "blood",
+              "body"
+            ]
           },
           {
             "q": "A ___ is an eco-friendly mode of transport.",
-            "a": "bicycle"
+            "a": "bicycle",
+            "options": [
+              "bicycle",
+              "motorcycle",
+              "scooter",
+              "car"
+            ]
           },
           {
             "q": "It is not safe to chat with ___.",
-            "a": "strangers"
+            "a": "strangers",
+            "options": [
+              "strangers",
+              "friends",
+              "teachers",
+              "classmates"
+            ]
           },
           {
             "q": "Our ___ has eight different kinds of muscles.",
-            "a": "tongue"
+            "a": "tongue",
+            "options": [
+              "tongue",
+              "heart",
+              "eye",
+              "hand"
+            ]
           },
           {
             "q": "___ is used to see far away objects in the sky.",
-            "a": "Telescope"
+            "a": "Telescope",
+            "options": [
+              "Telescope",
+              "Microscope",
+              "Binoculars",
+              "Camera"
+            ]
           },
           {
             "q": "Rudyard Kipling is the author of the ___.",
-            "a": "Jungle Book"
+            "a": "Jungle Book",
+            "options": [
+              "Jungle Book",
+              "Panchatantra",
+              "Jataka Tales",
+              "Peter Pan"
+            ]
           },
           {
             "q": "___ is known as the red planet.",
-            "a": "Mars"
+            "a": "Mars",
+            "options": [
+              "Mars",
+              "Venus",
+              "Mercury",
+              "Jupiter"
+            ]
           },
           {
             "q": "___ stands for Coronavirus disease 2019.",
-            "a": "COVID-19"
+            "a": "COVID-19",
+            "options": [
+              "COVID-19",
+              "COVID-20",
+              "SARS-19",
+              "COV-2019"
+            ]
           }
         ],
         "true_false": [
@@ -387,35 +617,83 @@ const SUBJECT_GK = {
         "rearrange": [
           {
             "q": "Rearrange the letters: JONIT",
-            "a": "JOINT"
+            "a": "JOINT",
+            "options": [
+              "JOINT",
+              "JONTI",
+              "JOTIN",
+              "JIONT"
+            ]
           },
           {
             "q": "Rearrange the letters: RBICGAE",
-            "a": "RIBCAGE"
+            "a": "RIBCAGE",
+            "options": [
+              "RIBCAGE",
+              "RICBAGE",
+              "RIBGACE",
+              "RIBCAG"
+            ]
           },
           {
             "q": "Rearrange the letters: SEKELTON",
-            "a": "SKELETON"
+            "a": "SKELETON",
+            "options": [
+              "SKELETON",
+              "SKELTON",
+              "SKELETEN",
+              "SKELETOON"
+            ]
           },
           {
             "q": "Rearrange the letters: FRATCRUE",
-            "a": "FRACTURE"
+            "a": "FRACTURE",
+            "options": [
+              "FRACTURE",
+              "FRACTUR",
+              "FRACUTRE",
+              "FRACTUER"
+            ]
           },
           {
             "q": "Rearrange the letters: BKEARY",
-            "a": "BAKERY"
+            "a": "BAKERY",
+            "options": [
+              "BAKERY",
+              "BARKEY",
+              "BAKEY",
+              "BAKARY"
+            ]
           },
           {
             "q": "Rearrange the letters: SHEOMKAER",
-            "a": "SHOEMAKER"
+            "a": "SHOEMAKER",
+            "options": [
+              "SHOEMAKER",
+              "SHOWMAKER",
+              "SHOEMAKR",
+              "SHOAMAKER"
+            ]
           },
           {
             "q": "Rearrange the letters: DCUKLNIG",
-            "a": "DUCKLING"
+            "a": "DUCKLING",
+            "options": [
+              "DUCKLING",
+              "DUCKILNG",
+              "DUCKLIGN",
+              "DUCKLIN"
+            ]
           },
           {
             "q": "Rearrange the letters: PRNICSSE",
-            "a": "PRINCESS"
+            "a": "PRINCESS",
+            "options": [
+              "PRINCESS",
+              "PRINCES",
+              "PRICNESS",
+              "PRINCESSA"
+            ]
           }
         ],
         "missing_letters": [
@@ -463,5 +741,4 @@ const SUBJECT_GK = {
       }
     }
   ]
-}
-
+};

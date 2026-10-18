@@ -1045,7 +1045,7 @@
             }
             else if (['rearrange'].includes(sec.id)) {
                  sec.items.forEach((qObj, i) => {
-                     let displayWord = qObj.question.replace(/Unscramble /ig, "").replace(":", "").trim();
+                     let displayWord = qObj.question.replace(/^(Unscramble|Rearrange the letters:?)\s*/ig, "").replace(":", "").trim();
                      content += `<div class="q-row px-1 py-1" style="margin-bottom: 12px; margin-top: 10px;"><span>${i + 1}. ${displayWord}</span> ________________________</div>`;
                  });
             }
