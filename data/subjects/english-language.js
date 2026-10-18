@@ -3,14 +3,14 @@
 // English Language Notes — Class 2 Final Term 2025 Question Bank
 // =============================================================================
 
-const SUBJECT_ENGLISH_LANGUAGE = {
-  id: "english_language",
-  title: "English Language",
-  icon: "📝",
-  theme: "#3b82f6",
-  gradient: "linear-gradient(135deg, #3b82f6, #10b981)",
-  sections: [
-      {
+const SUBJECT_ENGLISH_LANGUAGE ={
+ "id": "english_language",
+  "title": "English Language",
+  "icon": "📝",
+  "theme": "#3b82f6",
+  "gradient": "linear-gradient(135deg, #3b82f6, #10b981)",
+  "sections": [
+    {
       "id": "mcq_standard",
       "title": "Choose the correct answer",
       "max": 25,
@@ -31,1356 +31,1305 @@ const SUBJECT_ENGLISH_LANGUAGE = {
       "default": 5,
       "marksPerQ": 1
     },
-  
+    {
+      "id": "opposite_word",
+      "title": "Write the antonyms",
+      "max": 8,
+      "default": 5,
+      "marksPerQ": 1
+    },
+    {
+      "id": "spelling_check",
+      "title": "Choose the correct spelling",
+      "max": 6,
+      "default": 5,
+      "marksPerQ": 1
+    },
+    {
+      "id": "word_meaning",
+      "title": "Write the synonyms",
+      "max": 8,
+      "default": 5,
+      "marksPerQ": 1
+    },
+    {
+      "id": "short_answer",
+      "title": "Short-answer questions",
+      "max": 20,
+      "default": 5,
+      "marksPerQ": 1
+    },
+    {
+      "id": "sentence_rewrite",
+      "title": "Sentence joining, punctuation and rewriting",
+      "max": 30,
+      "default": 5,
+      "marksPerQ": 1
+    },
+    {
+      "id": "word_building",
+      "title": "Find smaller words",
+      "max": 5,
+      "default": 5,
+      "marksPerQ": 1
+    },
+    {
+      "id": "phrase_completion",
+      "title": "Complete with suitable phrases",
+      "max": 6,
+      "default": 5,
+      "marksPerQ": 1
+    },
+    {
+      "id": "writing_prompt",
+      "title": "Paragraph writing",
+      "max": 2,
+      "default": 1,
+      "marksPerQ": 5
+    }
   ],
-  chapters: [
-//--- Past Tense Chapter ---------
+  "chapters": [
     {
       "id": "ch7",
       "number": 7,
       "title": "Present Tense",
       "bank": {
-        "one_word": [
+        "short_answer": [
           {
-            "q": "When do we use 'is' in a sentence?",
-            "a": "To describe a singular noun or subject",
-            "options": [
-              "To describe a singular noun or subject",
-              "To describe plural nouns",
-              "To describe past actions",
-              "To describe multiple objects"
-            ]
+            "q": "What does tense indicate? How many kinds of tenses are there in English?",
+            "a": "Tense indicates time. There are three tenses in English. Past – the time that has gone; Present – the time that is now; Future – the time that is to come."
           },
           {
-            "q": "When do we use 'are' in a sentence?",
-            "a": "To describe plural nouns or subjects",
-            "options": [
-              "To describe plural nouns or subjects",
-              "To describe a singular noun",
-              "With the pronoun 'I'",
-              "For single objects"
-            ]
+            "q": "What are the present tense forms of verb be?",
+            "a": "The words ‘am’, ‘is’ and ‘are’ are the present tense forms of the verb be."
           },
           {
-            "q": "Write a sentence using 'am'.",
-            "a": "I am a doctor.",
-            "options": [
-              "I am a doctor.",
-              "He am a doctor.",
-              "They am doctors.",
-              "She am a doctor."
-            ]
+            "q": "Complete the sentence using the present tense: We ___ in school every morning.",
+            "a": "pray / exercise"
           }
         ],
         "fill_blanks": [
           {
+            "q": "The train ___ leaving the station.",
+            "a": "is",
+            "options": [
+              "is",
+              "are",
+              "am",
+              "was"
+            ]
+          },
+          {
             "q": "I ___ drinking my milk.",
             "a": "am",
-            "options": ["am", "is", "are", "was"]
-          },
-          {
-            "q": "The famous Howrah Bridge ___ in West Bengal.",
-            "a": "is",
-            "options": ["is", "are", "am", "were"]
-          },
-          {
-            "q": "We ___ listening to our teacher.",
-            "a": "are",
-            "options": ["are", "is", "am", "was"]
-          },
-          {
-            "q": "Anuj ___ skiing.",
-            "a": "is",
-            "options": ["is", "are", "am", "were"]
+            "options": [
+              "am",
+              "is",
+              "are",
+              "was"
+            ]
           },
           {
             "q": "She ___ looking out of the window.",
             "a": "is",
-            "options": ["is", "are", "am", "were"]
+            "options": [
+              "is",
+              "are",
+              "am",
+              "were"
+            ]
           },
           {
-            "q": "Sujit and Keshav ___ boating.",
+            "q": "The famous Howrah Bridge ___ in West Bengal.",
+            "a": "is",
+            "options": [
+              "is",
+              "are",
+              "am",
+              "were"
+            ]
+          },
+          {
+            "q": "The children ___ playing in the field.",
             "a": "are",
-            "options": ["are", "is", "am", "was"]
+            "options": [
+              "are",
+              "is",
+              "am",
+              "was"
+            ]
           },
           {
-            "q": "I ___ brushing my teeth.",
-            "a": "am",
-            "options": ["am", "is", "are", "were"]
-          },
-          {
-            "q": "They ___ playing football.",
+            "q": "We ___ listening to the teacher.",
             "a": "are",
-            "options": ["are", "is", "am", "was"]
+            "options": [
+              "are",
+              "is",
+              "am",
+              "was"
+            ]
           },
           {
-            "q": "Shilpi ___ a guitar.",
+            "q": "Shilpi ___ a guitar. She is learning to play it.",
             "a": "has",
-            "options": ["has", "have", "had", "is"]
+            "options": [
+              "has",
+              "have",
+              "is",
+              "are"
+            ]
           },
           {
-            "q": "Do you ___ a spare pen?",
-            "a": "have",
-            "options": ["have", "has", "had", "are"]
-          },
-          {
-            "q": "I ___ toothache.",
-            "a": "have",
-            "options": ["have", "has", "had", "is"]
-          },
-          {
-            "q": "Our science teacher ___ a cold.",
+            "q": "Nupur ___ a little pet dog called Robi.",
             "a": "has",
-            "options": ["has", "have", "had", "are"]
+            "options": [
+              "has",
+              "have",
+              "is",
+              "are"
+            ]
+          },
+          {
+            "q": "Do you ___ a spare pen? I forgot to bring mine.",
+            "a": "have",
+            "options": [
+              "have",
+              "has",
+              "is",
+              "are"
+            ]
+          },
+          {
+            "q": "Our science teacher ___ a cold. She is on leave.",
+            "a": "has",
+            "options": [
+              "has",
+              "have",
+              "is",
+              "are"
+            ]
+          },
+          {
+            "q": "Sheetal ___ a fever. So she is taking rest.",
+            "a": "has",
+            "options": [
+              "has",
+              "have",
+              "is",
+              "are"
+            ]
           },
           {
             "q": "My parents ___ a good collection of books at home.",
             "a": "have",
-            "options": ["have", "has", "had", "was"]
+            "options": [
+              "have",
+              "has",
+              "is",
+              "are"
+            ]
           },
           {
-            "q": "Nupur ___ a little pet dog called Rabi.",
-            "a": "has",
-            "options": ["has", "have", "had", "is"]
-          },
-          {
-            "q": "The sun ___ in the east and sets in the west.",
-            "a": "rises",
-            "options": ["rises", "rise", "rose", "rising"]
-          },
-          {
-            "q": "Raman ___ up early in the morning.",
-            "a": "wakes",
-            "options": ["wakes", "wake", "woke", "waking"]
-          },
-          {
-            "q": "I ___ to music in my free time.",
-            "a": "listen",
-            "options": ["listen", "listens", "listened", "listening"]
+            "q": "My grandparents ___ a small mango orchard in the village.",
+            "a": "have",
+            "options": [
+              "have",
+              "has",
+              "is",
+              "are"
+            ]
           },
           {
             "q": "Vedant ___ in the evening.",
             "a": "swims",
-            "options": ["swims", "swim", "swam", "swimming"]
+            "options": [
+              "swims",
+              "swim",
+              "swam",
+              "swimming"
+            ]
           },
           {
-            "q": "Our classes ___ at 7:15 am.",
+            "q": "Amaan ___ to school every morning.",
+            "a": "goes",
+            "options": [
+              "goes",
+              "go",
+              "went",
+              "going"
+            ]
+          },
+          {
+            "q": "The sun ___ in the east and ___ in the west.",
+            "a": "rises; sets",
+            "options": [
+              "rises; sets",
+              "rise; set",
+              "rose; set",
+              "rising; setting"
+            ]
+          },
+          {
+            "q": "Piya sometimes ___ chess with her grandfather.",
+            "a": "plays",
+            "options": [
+              "plays",
+              "play",
+              "played",
+              "playing"
+            ]
+          },
+          {
+            "q": "Our classes ___ at 9 a.m. every morning.",
             "a": "begin",
-            "options": ["begin", "begins", "began", "beginning"]
-          }
-        ],
-        "mcq_standard": [
-          {
-            "q": "Correct the underlined verb: Hema 'are' waiting for her bus.",
-            "a": "Hema is waiting for her bus.",
             "options": [
-              "Hema is waiting for her bus.",
-              "Hema am waiting for her bus.",
-              "Hema were waiting for her bus.",
-              "Hema was wait for her bus."
+              "begin",
+              "begins",
+              "began",
+              "beginning"
             ]
           },
           {
-            "q": "Correct the underlined verb: I 'is' watching my favourite cartoon now.",
-            "a": "I am watching my favourite cartoon now.",
+            "q": "Our teacher never ___ anyone.",
+            "a": "scolds",
             "options": [
-              "I am watching my favourite cartoon now.",
-              "I are watching my favourite cartoon now.",
-              "I were watching my favourite cartoon now.",
-              "I watches my favourite cartoon now."
-            ]
-          },
-          {
-            "q": "Correct the underlined verb: You 'is' a really good friend, thank you!",
-            "a": "You are a really good friend, thank you!",
-            "options": [
-              "You are a really good friend, thank you!",
-              "You am a really good friend, thank you!",
-              "You was a really good friend, thank you!",
-              "You be a really good friend, thank you!"
-            ]
-          },
-          {
-            "q": "Correct the underlined verb: Everyone 'am' happy to see you back.",
-            "a": "Everyone is happy to see you back.",
-            "options": [
-              "Everyone is happy to see you back.",
-              "Everyone are happy to see you back.",
-              "Everyone were happy to see you back.",
-              "Everyone be happy to see you back."
+              "scolds",
+              "scold",
+              "scolded",
+              "scolding"
             ]
           }
         ]
       }
     },
-//--- Past Tense Chapter ---------
     {
       "id": "ch8",
       "number": 8,
       "title": "Past Tense",
       "bank": {
-        "one_word": [
-          {
-            "q": "When do we use 'was' in a sentence?",
-            "a": "To talk about something in the past for a singular noun",
-            "options": [
-              "To talk about something in the past for a singular noun",
-              "To talk about present actions",
-              "To talk about plural nouns",
-              "To talk about future plans"
-            ]
-          },
-          {
-            "q": "When do we use 'were' in a sentence?",
-            "a": "To describe actions in the past for plural nouns",
-            "options": [
-              "To describe actions in the past for plural nouns",
-              "To describe future actions",
-              "To describe a singular noun",
-              "With the pronoun 'I'"
-            ]
-          }
-        ],
         "fill_blanks": [
           {
-            "q": "Last Friday ___ a holiday.",
-            "a": "was",
-            "options": ["was", "were", "is", "are"]
+            "q": "I ___ my homework two hours ago.",
+            "a": "finished",
+            "options": [
+              "finished",
+              "finish",
+              "finishes",
+              "finishing"
+            ]
           },
           {
-            "q": "We ___ just talking about you!",
-            "a": "were",
-            "options": ["were", "was", "are", "is"]
+            "q": "Mother and Father ___ a wonderful meal for us.",
+            "a": "cooked",
+            "options": [
+              "cooked",
+              "cook",
+              "cooks",
+              "cooking"
+            ]
           },
           {
-            "q": "Why ___ you absent from yesterday's meeting?",
-            "a": "were",
-            "options": ["were", "was", "are", "is"]
+            "q": "Sheila ___ to the market to buy vegetables and fruits.",
+            "a": "went",
+            "options": [
+              "went",
+              "go",
+              "goes",
+              "going"
+            ]
           },
           {
-            "q": "I ___ on the train yesterday.",
-            "a": "was",
-            "options": ["was", "were", "am", "is"]
+            "q": "Neelam ___ the letter and showed it to her manager.",
+            "a": "typed",
+            "options": [
+              "typed",
+              "type",
+              "types",
+              "typing"
+            ]
           },
           {
-            "q": "Rustam ___ selling samosas.",
-            "a": "was",
-            "options": ["was", "were", "is", "are"]
+            "q": "My friend ___ the book that I had gifted her for her birthday.",
+            "a": "lost",
+            "options": [
+              "lost",
+              "lose",
+              "loses",
+              "losing"
+            ]
           },
           {
-            "q": "They ___ excited.",
-            "a": "were",
-            "options": ["were", "was", "are", "am"]
+            "q": "The visitors ___ photographs of the animals in the jungle.",
+            "a": "clicked",
+            "options": [
+              "clicked",
+              "click",
+              "clicks",
+              "clicking"
+            ]
           },
           {
-            "q": "I ___ some important work now.",
-            "a": "have",
-            "options": ["have", "had", "has", "was"]
+            "q": "Suhana ___ in joy when she saw her sister.",
+            "a": "jumped",
+            "options": [
+              "jumped",
+              "jump",
+              "jumps",
+              "jumping"
+            ]
           },
           {
-            "q": "Ram ___ a doubt. He asked the teacher.",
-            "a": "had",
-            "options": ["had", "has", "have", "was"]
+            "q": "The phone ___ several times, but no one answered.",
+            "a": "rang",
+            "options": [
+              "rang",
+              "ring",
+              "rings",
+              "ringing"
+            ]
           },
           {
-            "q": "Who ___ the door key?",
-            "a": "has",
-            "options": ["has", "have", "had", "is"]
-          },
-          {
-            "q": "We ___ some guests for dinner yesterday.",
-            "a": "had",
-            "options": ["had", "have", "has", "were"]
-          },
-          {
-            "q": "Do you ___ a spare pencil?",
-            "a": "have",
-            "options": ["have", "has", "had", "is"]
-          },
-          {
-            "q": "The film star ___ a large number of fans.",
-            "a": "has",
-            "options": ["has", "have", "had", "is"]
-          },
-          {
-            "q": "Shivam ___ inside the well. (look)",
-            "a": "looked",
-            "options": ["looked", "look", "looks", "looking"]
-          },
-          {
-            "q": "The children ___ the teacher politely. (greet)",
-            "a": "greeted",
-            "options": ["greeted", "greet", "greets", "greeting"]
-          },
-          {
-            "q": "The monkey ___ the banana from my hand. (snatch)",
-            "a": "snatched",
-            "options": ["snatched", "snatch", "snatches", "snatching"]
-          },
-          {
-            "q": "I ___ the box and found a key inside. (open)",
-            "a": "opened",
-            "options": ["opened", "open", "opens", "opening"]
-          },
-          {
-            "q": "The bear slowly ___ into the forest. (walk)",
-            "a": "walked",
-            "options": ["walked", "walk", "walks", "walking"]
-          },
-          {
-            "q": "The prisoner ___ jail in the dark. (escape)",
-            "a": "escaped",
-            "options": ["escaped", "escape", "escapes", "escaping"]
-          },
-          {
-            "q": "Allen ___ across the river without any difficulty. (swim)",
-            "a": "swam",
-            "options": ["swam", "swim", "swims", "swimmed"]
-          },
-          {
-            "q": "The thief ___ behind the house when the policeman came. (hide)",
+            "q": "Little Reema ___ behind the curtains to surprise her father.",
             "a": "hid",
-            "options": ["hid", "hide", "hides", "hided"]
+            "options": [
+              "hid",
+              "hide",
+              "hides",
+              "hiding"
+            ]
           },
           {
-            "q": "Have the police found who ___ the necklace? (steal)",
-            "a": "stole",
-            "options": ["stole", "steal", "steals", "stealed"]
+            "q": "Neeraj ___ his bicycle for repair to a nearby shop.",
+            "a": "took",
+            "options": [
+              "took",
+              "take",
+              "takes",
+              "taking"
+            ]
           },
           {
-            "q": "I do not know what he ___ by that. (mean)",
-            "a": "meant",
-            "options": ["meant", "mean", "means", "meaned"]
+            "q": "I ___ always punctual to school, but Nora is usually late.",
+            "a": "am",
+            "options": [
+              "am",
+              "is",
+              "are",
+              "were"
+            ]
           },
           {
-            "q": "I think he ___ not happy with the whole plan. (is)",
+            "q": "There ___ countless stars in space. The sun is also a star.",
+            "a": "are",
+            "options": [
+              "are",
+              "is",
+              "am",
+              "were"
+            ]
+          },
+          {
+            "q": "Mimi was bored, so she went to the balcony where her sisters ___ playing.",
+            "a": "were",
+            "options": [
+              "were",
+              "was",
+              "are",
+              "is"
+            ]
+          },
+          {
+            "q": "Where ___ you all this time? I was waiting for you.",
+            "a": "were",
+            "options": [
+              "were",
+              "was",
+              "are",
+              "is"
+            ]
+          },
+          {
+            "q": "Were Sonal and Priya in school yesterday? I ___ not there, so I don’t know.",
             "a": "was",
-            "options": ["was", "were", "is", "am"]
+            "options": [
+              "was",
+              "were",
+              "am",
+              "are"
+            ]
+          },
+          {
+            "q": "There is an aquarium in my school. There ___ many beautiful fish in it.",
+            "a": "are",
+            "options": [
+              "are",
+              "is",
+              "am",
+              "were"
+            ]
+          },
+          {
+            "q": "Lily ___ a new dress in her closet.",
+            "a": "has",
+            "options": [
+              "has",
+              "have",
+              "is",
+              "are"
+            ]
+          },
+          {
+            "q": "My brother and I ___ totally different tastes in movies.",
+            "a": "have",
+            "options": [
+              "have",
+              "has",
+              "is",
+              "are"
+            ]
+          },
+          {
+            "q": "I ___ a terrible headache in the morning, but I am fine now.",
+            "a": "had",
+            "options": [
+              "had",
+              "have",
+              "has",
+              "am"
+            ]
+          },
+          {
+            "q": "My father ___ a small library at home. He loves reading.",
+            "a": "has",
+            "options": [
+              "has",
+              "have",
+              "is",
+              "are"
+            ]
+          },
+          {
+            "q": "We ___ rice and potato curry for dinner last night.",
+            "a": "had",
+            "options": [
+              "had",
+              "have",
+              "has",
+              "were"
+            ]
+          },
+          {
+            "q": "I ___ a copy of this book, but I have misplaced it.",
+            "a": "had",
+            "options": [
+              "had",
+              "have",
+              "has",
+              "am"
+            ]
           }
         ],
-        "mcq_standard": [
+        "short_answer": [
           {
-            "q": "What is the past tense of 'Use'?",
-            "a": "Used",
-            "options": ["Used", "Uses", "Using", "Use"]
+            "q": "Which verb is the past tense form of has and have? What does it show?",
+            "a": "The verb had is the past tense form of has and have. It shows that something belonged to someone or someone had experienced something in the past."
           },
           {
-            "q": "What is the past tense of 'Eat'?",
-            "a": "ate",
-            "options": ["ate", "eats", "eaten", "eating"]
-          },
-          {
-            "q": "What is the past tense of 'Dance'?",
-            "a": "danced",
-            "options": ["danced", "dance", "dancing", "dances"]
-          },
-          {
-            "q": "What is the past tense of 'Visit'?",
-            "a": "visited",
-            "options": ["visited", "visit", "visits", "visiting"]
-          },
-          {
-            "q": "What is the past tense of 'Catch'?",
-            "a": "Caught",
-            "options": ["Caught", "Catches", "Catched", "Catching"]
-          },
-          {
-            "q": "What is the past tense of 'Wait'?",
-            "a": "waited",
-            "options": ["waited", "wait", "waits", "waiting"]
-          },
-          {
-            "q": "What is the past tense of 'meet'?",
-            "a": "met",
-            "options": ["met", "meet", "meets", "meeting"]
-          },
-          {
-            "q": "What is the past tense of 'Buy'?",
-            "a": "bought",
-            "options": ["bought", "buyed", "buys", "bringing"]
-          },
-          {
-            "q": "What is the past tense of 'Write'?",
-            "a": "wrote",
-            "options": ["wrote", "written", "writes", "writed"]
-          },
-          {
-            "q": "What is the past tense of 'Drive'?",
-            "a": "drove",
-            "options": ["drove", "drive", "driven", "drives"]
-          },
-          {
-            "q": "What is the past tense of 'Go'?",
-            "a": "went",
-            "options": ["went", "gone", "goes", "goed"]
-          },
-          {
-            "q": "What is the past tense of 'Do'?",
-            "a": "did",
-            "options": ["did", "done", "do", "does"]
-          },
-          {
-            "q": "What is the past tense of 'Take'?",
-            "a": "took",
-            "options": ["took", "taken", "takes", "taked"]
-          },
-          {
-            "q": "What is the past tense of 'make'?",
-            "a": "made",
-            "options": ["made", "make", "makes", "making"]
-          },
-          {
-            "q": "What is the past tense of 'Think'?",
-            "a": "thought",
-            "options": ["thought", "thinks", "thinked", "thinking"]
-          },
-          {
-            "q": "What is the past tense of 'tell'?",
-            "a": "told",
-            "options": ["told", "tell", "tells", "telling"]
-          },
-          {
-            "q": "What is the past tense of 'stand'?",
-            "a": "stood",
-            "options": ["stood", "stand", "stands", "standing"]
-          },
-          {
-            "q": "What is the past tense of 'sit'?",
-            "a": "sat",
-            "options": ["sat", "sit", "sits", "sitting"]
-          },
-          {
-            "q": "What is the past tense of 'Ring'?",
-            "a": "rang",
-            "options": ["rang", "ring", "rung", "ringing"]
-          },
-          {
-            "q": "What is the past tense of 'Fly'?",
-            "a": "flew",
-            "options": ["flew", "flyed", "flown", "flies"]
+            "q": "What are the past tense forms of verb be?",
+            "a": "The words was and were are the past tense forms of the verb be."
           }
         ]
       }
     },
-//--- Articles Chapter ---------
-{
-  "id": "ch9",
-  "number": 9,
-  "title": "Articles",
-  "bank": {
-    "one_word": [
-      {
-        "q": "What are the words a, an, and the called?",
-        "a": "articles",
-        "options": ["articles", "verbs", "nouns", "pronouns"]
-      },
-      {
-        "q": "When do we use 'the'?",
-        "a": "refer to something in particular",
-        "options": [
-          "refer to something in particular",
-          "before plural words only",
-          "before any vowel sound",
-          "before common names"
-        ]
-      },
-      {
-        "q": "We use 'a' and 'an' before what type of nouns?",
-        "a": "singular nouns",
-        "options": [
-          "singular nouns",
-          "plural nouns",
-          "proper nouns",
-          "uncountable nouns"
-        ]
-      },
-      {
-        "q": "Which article is used with a noun that we have already spoken about once?",
-        "a": "the",
-        "options": ["the", "a", "an", "none"]
-      },
-      {
-        "q": "Which article is used before the names of rivers, holy books, and famous buildings?",
-        "a": "the",
-        "options": ["the", "a", "an", "none"]
-      },
-      {
-        "q": "Why do we use 'a' before the words 'unicorn' and 'uniform'?",
-        "a": "They begin with a consonant sound",
-        "options": [
-          "They begin with a consonant sound",
-          "They begin with a vowel sound",
-          "They are plural nouns",
-          "They are special words"
-        ]
-      },
-      {
-        "q": "Why do we use 'an' before the word 'hour'?",
-        "a": "The letter h is silent and it begins with a vowel sound",
-        "options": [
-          "The letter h is silent and it begins with a vowel sound",
-          "It begins with a consonant sound",
-          "It is a proper noun",
-          "It is a particular object"
-        ]
-      }
-    ],
-    "mcq_standard": [
-      {
-        "q": "Choose the sentence in which the article is used correctly:",
-        "a": "Mother insists that I eat an apple every day.",
-        "options": [
-          "Mother insists that I eat an apple every day.",
-          "Mother insists that I eat a apple every day.",
-          "Mother insists that I eat the apple every day.",
-          "Mother insists that I eat apple every day."
-        ]
-      },
-      {
-        "q": "Choose the sentence in which the article is used correctly:",
-        "a": "Father said that he would be back in an hour.",
-        "options": [
-          "Father said that he would be back in an hour.",
-          "Father said that he would be back in a hour.",
-          "Father said that he would be back in the hour.",
-          "Father said that he would be back on an hour."
-        ]
-      },
-      {
-        "q": "Choose the sentence in which the article is used correctly:",
-        "a": "This is a beautiful earring.",
-        "options": [
-          "This is a beautiful earring.",
-          "This is an beautiful earring.",
-          "This is the beautiful earring.",
-          "This is beautiful earring."
-        ]
-      }
-    ],
-    "fill_blanks": [
-      {
-        "q": "___ Hawa Mahal is in Jaipur.",
-        "a": "The",
-        "options": ["The", "A", "An", "None"]
-      },
-      {
-        "q": "___ owlet entered Grandpa's room.",
-        "a": "An",
-        "options": ["An", "A", "The", "None"]
-      },
-      {
-        "q": "___ moon shines brightly in the sky.",
-        "a": "The",
-        "options": ["The", "A", "An", "None"]
-      },
-      {
-        "q": "He does not have ___ university degree.",
-        "a": "a",
-        "options": ["a", "an", "the", "None"]
-      },
-      {
-        "q": "Mridula is ___ honest police officer.",
-        "a": "an",
-        "options": ["an", "a", "the", "None"]
-      },
-      {
-        "q": "___ zebra and an elephant were friends.",
-        "a": "A",
-        "options": ["A", "An", "The", "None"]
-      },
-      {
-        "q": "This is ___ unicorn.",
-        "a": "a",
-        "options": ["a", "an", "the", "None"]
-      },
-      {
-        "q": "___ children were walking beside their father.",
-        "a": "The",
-        "options": ["The", "A", "An", "None"]
-      },
-      {
-        "q": "We should do our best to keep ___ earth healthy and green.",
-        "a": "the",
-        "options": ["the", "a", "an", "None"]
-      },
-      {
-        "q": "___ ewe is an adult female sheep.",
-        "a": "A",
-        "options": ["A", "An", "The", "None"]
-      },
-      {
-        "q": "Kavya is boiling ___ egg for breakfast.",
-        "a": "an",
-        "options": ["an", "a", "the", "None"]
-      },
-      {
-        "q": "Kamat works in ___ oval-shaped building.",
-        "a": "an",
-        "options": ["an", "a", "the", "None"]
-      },
-      {
-        "q": "The storyteller told them ___ exciting tale.",
-        "a": "an",
-        "options": ["an", "a", "the", "None"]
-      },
-      {
-        "q": "___ ostrich was injured in the zoo.",
-        "a": "An",
-        "options": ["An", "A", "The", "None"]
-      },
-      {
-        "q": "___ old man entered the hall.",
-        "a": "An",
-        "options": ["An", "A", "The", "None"]
-      },
-      {
-        "q": "We gifted ___ overcoat to Father.",
-        "a": "an",
-        "options": ["an", "a", "the", "None"]
-      },
-      {
-        "q": "Kusum bought ___ antique clock from the market near her home.",
-        "a": "an",
-        "options": ["an", "a", "the", "None"]
-      },
-      {
-        "q": "There was ___ iron safe in the bedroom.",
-        "a": "an",
-        "options": ["an", "a", "the", "None"]
-      },
-      {
-        "q": "___ Quran",
-        "a": "The",
-        "options": ["The", "A", "An", "None"]
-      },
-      {
-        "q": "___ eagle",
-        "a": "An",
-        "options": ["An", "A", "The", "None"]
-      },
-      {
-        "q": "___ inkpot",
-        "a": "An",
-        "options": ["An", "A", "The", "None"]
-      },
-      {
-        "q": "___ apricot",
-        "a": "An",
-        "options": ["An", "A", "The", "None"]
-      },
-      {
-        "q": "___ Thames",
-        "a": "The",
-        "options": ["The", "A", "An", "None"]
-      },
-      {
-        "q": "___ bus",
-        "a": "A",
-        "options": ["A", "An", "The", "None"]
-      },
-      {
-        "q": "___ Ramayana",
-        "a": "The",
-        "options": ["The", "A", "An", "None"]
-      },
-      {
-        "q": "___ Indus",
-        "a": "The",
-        "options": ["The", "A", "An", "None"]
-      },
-      {
-        "q": "___ poem",
-        "a": "A",
-        "options": ["A", "An", "The", "None"]
-      },
-      {
-        "q": "___ notebook",
-        "a": "A",
-        "options": ["A", "An", "The", "None"]
-      },
-      {
-        "q": "___ Van",
-        "a": "A",
-        "options": ["A", "An", "The", "None"]
-      },
-      {
-        "q": "___ sun",
-        "a": "The",
-        "options": ["The", "A", "An", "None"]
-      },
-      {
-        "q": "___ tiger is roaming in the forest.",
-        "a": "A",
-        "options": ["A", "An", "The", "None"]
-      },
-      {
-        "q": "I would like to have ___ ice cream, please.",
-        "a": "an",
-        "options": ["an", "a", "the", "None"]
-      },
-      {
-        "q": "We saw an elephant in ___ river.",
-        "a": "the",
-        "options": ["the", "a", "an", "None"]
-      },
-      {
-        "q": "We saw an elephant in the river. ___ elephant was taking a bath.",
-        "a": "The",
-        "options": ["The", "A", "An", "None"]
-      },
-      {
-        "q": "There was a large painting on ___ wall.",
-        "a": "the",
-        "options": ["the", "a", "an", "None"]
-      },
-      {
-        "q": "There was a large painting on the wall. ___ painting was done in watercolour.",
-        "a": "The",
-        "options": ["The", "A", "An", "None"]
-      },
-      {
-        "q": "___ bicycle",
-        "a": "A",
-        "options": ["A", "An", "The", "None"]
-      },
-      {
-        "q": "___ beautiful umbrella",
-        "a": "A",
-        "options": ["A", "An", "The", "None"]
-      },
-      {
-        "q": "___ angry man",
-        "a": "An",
-        "options": ["An", "A", "The", "None"]
-      },
-      {
-        "q": "___ uniform",
-        "a": "a",
-        "options": ["a", "an", "the", "None"]
-      },
-      {
-        "q": "___ hour",
-        "a": "an",
-        "options": ["an", "a", "the", "None"]
-      },
-      {
-        "q": "___ woman who is singing is my aunt.",
-        "a": "The",
-        "options": ["The", "A", "An", "None"]
-      },
-      {
-        "q": "I saw a white tiger. ___ tiger was resting under a tree.",
-        "a": "The",
-        "options": ["The", "A", "An", "None"]
-      },
-      {
-        "q": "___ Brahmaputra",
-        "a": "the",
-        "options": ["the", "a", "an", "None"]
-      },
-      {
-        "q": "___ Bhagavad Gita",
-        "a": "the",
-        "options": ["the", "a", "an", "None"]
-      },
-      {
-        "q": "___ Bible",
-        "a": "the",
-        "options": ["the", "a", "an", "None"]
-      },
-      {
-        "q": "___ Red Fort",
-        "a": "the",
-        "options": ["the", "a", "an", "None"]
-      },
-      {
-        "q": "___ sky",
-        "a": "the",
-        "options": ["the", "a", "an", "None"]
-      }
-    ]
-  }
-},
-//--- Prepositions Chapter ---------
-  {
-  "id": "ch10",
-  "number": 10,
-  "title": "Prepositions",
-  "bank": {
-    "one_word": [
-      {
-        "q": "What are words that show the relationship between a noun or a pronoun and the other words in a sentence?",
-        "a": "Prepositions",
-        "options": [
-          "Prepositions",
-          "Adjectives",
-          "Nouns",
-          "Pronouns"
-        ]
-      }
-    ],
-    "fill_blanks": [
-      {
-        "q": "Rachel has shut herself ___ the almirah.",
-        "a": "inside",
-        "options": [
-          "inside",
-          "over",
-          "into",
-          "under"
-        ]
-      },
-      {
-        "q": "Neil is hiding ___ the curtain.",
-        "a": "behind",
-        "options": [
-          "behind",
-          "over",
-          "under",
-          "into"
-        ]
-      },
-      {
-        "q": "Rahul is ___ the bed.",
-        "a": "under",
-        "options": [
-          "under",
-          "over",
-          "into",
-          "between"
-        ]
-      },
-      {
-        "q": "Shreya has put a blanket ___ herself.",
-        "a": "over",
-        "options": [
-          "over",
-          "under",
-          "into",
-          "behind"
-        ]
-      },
-      {
-        "q": "Tripti is ___ the bucket.",
-        "a": "in",
-        "options": [
-          "in",
-          "on",
-          "at",
-          "through"
-        ]
-      },
-      {
-        "q": "Sejal is crouching ___ the almirah.",
-        "a": "beside",
-        "options": [
-          "beside",
-          "in",
-          "into",
-          "over"
-        ]
-      },
-      {
-        "q": "The ship will leave the port ___ 5:15 p.m.",
-        "a": "at",
-        "options": [
-          "at",
-          "in",
-          "on",
-          "for"
-        ]
-      },
-      {
-        "q": "Asha is looking at the sky ___ a telescope.",
-        "a": "through",
-        "options": [
-          "through",
-          "into",
-          "in",
-          "at"
-        ]
-      },
-      {
-        "q": "The man standing ___ Vipul is his uncle.",
-        "a": "next to",
-        "options": [
-          "next to",
-          "in",
-          "on",
-          "under"
-        ]
-      },
-      {
-        "q": "The mouse ran ___ the wall.",
-        "a": "up",
-        "options": [
-          "up",
-          "under",
-          "in",
-          "at"
-        ]
-      },
-      {
-        "q": "The batter hit the ball ___ the stadium.",
-        "a": "out of",
-        "options": [
-          "out of",
-          "into",
-          "in",
-          "under"
-        ]
-      },
-      {
-        "q": "Nayan dived ___ the pool.",
-        "a": "into",
-        "options": [
-          "into",
-          "under",
-          "on",
-          "at"
-        ]
-      },
-      {
-        "q": "I sat ___ Mother and Grandma in the car.",
-        "a": "between",
-        "options": [
-          "between",
-          "under",
-          "over",
-          "behind"
-        ]
-      },
-      {
-        "q": "'Keep these clothes ___ the cupboard,' Mother said.",
-        "a": "in",
-        "options": [
-          "in",
-          "on",
-          "at",
-          "over"
-        ]
-      },
-      {
-        "q": "The children went home happily ___ school.",
-        "a": "after",
-        "options": [
-          "after",
-          "before",
-          "in",
-          "on"
-        ]
-      },
-      {
-        "q": "Priyanka hid ___ the door.",
-        "a": "behind",
-        "options": [
-          "behind",
-          "under",
-          "on",
-          "in"
-        ]
-      },
-      {
-        "q": "A long queue had formed ___ the shop.",
-        "a": "outside",
-        "options": [
-          "outside",
-          "inside",
-          "under",
-          "into"
-        ]
-      },
-      {
-        "q": "The players ran ___ the stadium with the trophy.",
-        "a": "around",
-        "options": [
-          "around",
-          "under",
-          "between",
-          "at"
-        ]
-      },
-      {
-        "q": "Our hotel in Udaipur was ___ the railway station.",
-        "a": "near",
-        "options": [
-          "near",
-          "far",
-          "under",
-          "into"
-        ]
-      },
-      {
-        "q": "Sridhar threw the ball ___ me.",
-        "a": "to",
-        "options": [
-          "to",
-          "at",
-          "in",
-          "on"
-        ]
-      },
-      {
-        "q": "The child looked ___ the bed for his ball.",
-        "a": "under",
-        "options": [
-          "under",
-          "over",
-          "in",
-          "at"
-        ]
-      },
-      {
-        "q": "We planned a surprise birthday party ___ Grandma.",
-        "a": "for",
-        "options": [
-          "for",
-          "at",
-          "in",
-          "on"
-        ]
-      }
-    ],
-    "mcq_standard": [
-      {
-        "q": "Identify the Preposition: I forgot my water bottle in the classroom.",
-        "a": "in",
-        "options": [
-          "in",
-          "forgot",
-          "bottle",
-          "classroom"
-        ]
-      },
-      {
-        "q": "Identify the Preposition: I bought these from a nearby bookshop.",
-        "a": "from",
-        "options": [
-          "from",
-          "bought",
-          "these",
-          "nearby"
-        ]
-      },
-      {
-        "q": "Identify the Preposition: Water dripped through a gap in the roof.",
-        "a": "through",
-        "options": [
-          "through",
-          "dripped",
-          "gap",
-          "roof"
-        ]
-      },
-      {
-        "q": "Identify the Preposition: The class test is on Monday.",
-        "a": "on",
-        "options": [
-          "on",
-          "is",
-          "test",
-          "class"
-        ]
-      },
-      {
-        "q": "Identify the Preposition: She ran towards the house hurriedly.",
-        "a": "towards",
-        "options": [
-          "towards",
-          "ran",
-          "house",
-          "hurriedly"
-        ]
-      },
-      {
-        "q": "Identify the Preposition: Please wait at the shop. I am coming there shortly.",
-        "a": "at",
-        "options": [
-          "at",
-          "wait",
-          "shop",
-          "shortly"
-        ]
-      },
-      {
-        "q": "Call me ___ 12:30 p.m.",
-        "a": "at",
-        "options": [
-          "at",
-          "in",
-          "for",
-          "on"
-        ]
-      },
-      {
-        "q": "One of the legs ___ the table broke this morning.",
-        "a": "of",
-        "options": [
-          "of",
-          "to",
-          "about",
-          "in"
-        ]
-      },
-      {
-        "q": "Rubi whispered something ___ my ear.",
-        "a": "into",
-        "options": [
-          "into",
-          "to",
-          "at",
-          "in"
-        ]
-      },
-      {
-        "q": "Granny laid the carpet ___ the floor.",
-        "a": "on",
-        "options": [
-          "in",
-          "on",
-          "at",
-          "over"
-        ]
-      },
-      {
-        "q": "Mohit is sitting ___ Abdul.",
-        "a": "beside",
-        "options": [
-          "beside",
-          "into",
-          "in",
-          "at"
-        ]
-      },
-      {
-        "q": "The ball rolled ___ the slope with great speed.",
-        "a": "down",
-        "options": [
-          "down",
-          "at",
-          "into",
-          "in"
-        ]
-      }
-    ]
-  }
-},
-//--- Fun With Words Chapter ---------
     {
-      "id": "ch14",
-      "number": 14,
-      "title": "Fun With Words",
+      "id": "ch11",
+      "number": 11,
+      "title": "Conjunctions",
       "bank": {
-        "one_word": [
+        "sentence_rewrite": [
           {
-            "q": "What are words that sound the same but have different meanings and spellings?",
-            "a": "Homophones",
-            "options": ["Homophones", "Synonyms", "Antonyms", "Adjectives"]
+            "q": "Join these sentences using “and”: Sonit went swimming. Rahul went swimming.",
+            "a": "Sonit and Rahul went swimming."
           },
           {
-            "q": "What are words that have similar meanings but different spellings?",
-            "a": "Synonyms",
-            "options": ["Synonyms", "Homophones", "Antonyms", "Pronouns"]
+            "q": "Join these sentences using “and”: Adnan is a singer. He is a guitarist.",
+            "a": "Adnan is a singer and a guitarist."
           },
           {
-            "q": "The long pointed teeth of an elephant",
-            "a": "tusk",
-            "options": ["tusk", "trunk", "horn", "tail"]
+            "q": "Join these sentences using “but”: Mother was angry with me. She did not scold me.",
+            "a": "Mother was angry with me, but she did not scold me."
           },
           {
-            "q": "To close and open one eye quickly",
-            "a": "wink",
-            "options": ["wink", "blink", "stare", "sleep"]
+            "q": "Join these sentences using “or”: Do you want tea? Do you want coffee?",
+            "a": "Do you want tea or coffee?"
           },
           {
-            "q": "A person whose job is to extinguish fires",
-            "a": "fire fighter",
-            "options": ["fire fighter", "police", "doctor", "teacher"]
+            "q": "Join these sentences using “because”: We could not play. It was raining.",
+            "a": "We could not play because it was raining."
           },
           {
-            "q": "A shelter for a dog",
-            "a": "kennel",
-            "options": ["kennel", "den", "stable", "shed"]
+            "q": "Join these sentences using “because”: I am tense. I have an exam tomorrow.",
+            "a": "I am tense because I have an exam tomorrow."
           },
           {
-            "q": "An insect that produces silk threads",
-            "a": "silkworm",
-            "options": ["silkworm", "butterfly", "spider", "ant"]
-          }
-        ],
-        "mcq_standard": [
-          {
-            "q": "I love the ___ of green grass. (Cent/scent)",
-            "a": "scent",
-            "options": ["scent", "Cent", "Sent", "Sense"]
+            "q": "Join these sentences using “but”: Rajeev is helpful. He is a little proud.",
+            "a": "Rajeev is helpful, but he is a little proud."
           },
           {
-            "q": "Do you have money for the bus ___? (fare/fair)",
-            "a": "fare",
-            "options": ["fare", "fair", "fear", "far"]
+            "q": "Complete the sentence using your own words, then underline the conjunction: We had to cancel the trip ___ it started raining heavily.",
+            "a": "We had to cancel the trip because it started raining heavily."
           },
           {
-            "q": "She bought wheat ___ and made some chapattis. (flower/flour)",
-            "a": "flour",
-            "options": ["flour", "flower", "floor", "flow"]
+            "q": "Complete the sentence using your own words, then underline the conjunction: Tony ___ his sister Tara are going to the park.",
+            "a": "Tony and his sister Tara are going to the park."
           },
           {
-            "q": "Do you ___ where Kitty has gone? (no/know)",
-            "a": "know",
-            "options": ["know", "no", "now", "knew"]
+            "q": "Complete the sentence using your own words, then underline the conjunction: The players tried their best ___ they lost the match.",
+            "a": "The players tried their best but they lost the match."
           },
           {
-            "q": "She shared a very useful ___ of information. (peace/piece)",
-            "a": "piece",
-            "options": ["piece", "peace", "peas", "pace"]
+            "q": "Complete the sentence using your own words, then underline the conjunction: You can take a bus ___ hire a taxi.",
+            "a": "You can take a bus or hire a taxi."
           },
           {
-            "q": "I almost missed my ___ yesterday. (plane/plain)",
-            "a": "plane",
-            "options": ["plane", "plain", "plan", "plant"]
+            "q": "Complete the sentence using your own words, then underline the conjunction: Srikant left his office early ___ he was feeling unwell.",
+            "a": "Srikant left his office early because he was feeling unwell."
           },
           {
-            "q": "The ___ that we took was very green and beautiful. (root/route)",
-            "a": "route",
-            "options": ["route", "root", "rout", "rot"]
-          },
-          {
-            "q": "They spent a large ___ of money for the new printer. (some/sum)",
-            "a": "sum",
-            "options": ["sum", "some", "same", "seam"]
-          }
-        ],
-        "spelling_check": [
-          {
-            "q": "Choose the correct spelling:",
-            "a": "receive",
-            "options": ["receive", "recieve", "receve", "reiceive"]
-          },
-          {
-            "q": "Choose the correct spelling:",
-            "a": "Calendar",
-            "options": ["Calendar", "Calender", "Calandar", "Celendar"]
-          },
-          {
-            "q": "Choose the correct spelling:",
-            "a": "Separate",
-            "options": ["Separate", "Seperate", "Seperat", "Saperate"]
-          },
-          {
-            "q": "Choose the correct spelling:",
-            "a": "achieve",
-            "options": ["achieve", "acheive", "achive", "acheve"]
-          },
-          {
-            "q": "Choose the correct spelling:",
-            "a": "necessary",
-            "options": ["necessary", "neccessary", "necessery", "neccesary"]
-          },
-          {
-            "q": "Choose the correct spelling:",
-            "a": "address",
-            "options": ["address", "adress", "addres", "adres"]
-          }
-        ],
-        "opposite_word": [
-          {
-            "q": "What is the opposite meaning of 'Calm'?",
-            "a": "worried",
-            "options": ["worried", "peaceful", "quiet", "happy"]
-          },
-          {
-            "q": "What is the opposite meaning of 'Exciting'?",
-            "a": "boring",
-            "options": ["boring", "fun", "thrilling", "scary"]
-          },
-          {
-            "q": "What is the opposite meaning of 'Mild'?",
-            "a": "strong",
-            "options": ["strong", "weak", "soft", "hard"]
-          },
-          {
-            "q": "What is the opposite meaning of 'Small'?",
-            "a": "huge",
-            "options": ["huge", "tiny", "little", "short"]
-          },
-          {
-            "q": "What is the opposite meaning of 'Jolly'?",
-            "a": "Serious",
-            "options": ["Serious", "Happy", "Sad", "Angry"]
-          },
-          {
-            "q": "What is the opposite meaning of 'Numerous'?",
-            "a": "few",
-            "options": ["few", "many", "lots", "some"]
-          },
-          {
-            "q": "What is the opposite meaning of 'Airy'?",
-            "a": "Stuffy",
-            "options": ["Stuffy", "Windy", "Breezy", "Open"]
-          },
-          {
-            "q": "What is the opposite meaning of 'Simple'?",
-            "a": "difficult",
-            "options": ["difficult", "easy", "hard", "plain"]
-          }
-        ],
-        "word_meaning": [
-          {
-            "q": "Similar meaning of 'Intelligent'",
-            "a": "Smart",
-            "options": ["Smart", "Dull", "Slow", "Happy"]
-          },
-          {
-            "q": "Similar meaning of 'Lane'",
-            "a": "Street",
-            "options": ["Street", "House", "City", "Park"]
-          },
-          {
-            "q": "Similar meaning of 'Wet'",
-            "a": "damp",
-            "options": ["damp", "dry", "hot", "cold"]
-          },
-          {
-            "q": "Similar meaning of 'ask'",
-            "a": "question",
-            "options": ["question", "answer", "tell", "say"]
-          },
-          {
-            "q": "Similar meaning of 'Cry'",
-            "a": "Sob",
-            "options": ["Sob", "Laugh", "Smile", "Sing"]
+            "q": "Complete the sentence using your own words, then underline the conjunction: The movie was interesting ___ it was too long.",
+            "a": "The movie was interesting but it was too long."
           }
         ],
         "fill_blanks": [
           {
-            "q": "I added a ___ sugar to the milk.",
-            "a": "spoonful of",
-            "options": ["spoonful of", "scoop of", "bowl of", "pair of"]
+            "q": "Mita went to the store ___ bought some snacks.",
+            "a": "and",
+            "options": [
+              "and",
+              "or",
+              "but",
+              "because"
+            ]
           },
           {
-            "q": "I gifted my sister a ___ goggles on her birthday.",
-            "a": "pair of",
-            "options": ["pair of", "bunch of", "scoop of", "bowl of"]
+            "q": "I am working hard ___ I want to get good grades.",
+            "a": "because",
+            "options": [
+              "and",
+              "or",
+              "but",
+              "because"
+            ]
           },
           {
-            "q": "The elephant gobbled up a ___ bananas.",
-            "a": "bunch of",
-            "options": ["bunch of", "scoop of", "spoonful of", "pair of"]
+            "q": "You can take a train to Agra, ___ you can take a bus.",
+            "a": "or",
+            "options": [
+              "and",
+              "or",
+              "but",
+              "because"
+            ]
           },
           {
-            "q": "Ankush got the biggest ___ cake.",
-            "a": "slice of",
-            "options": ["slice of", "scoop of", "bowl of", "bunch of"]
+            "q": "Nightingales sing sweetly, ___ crows cannot.",
+            "a": "but",
+            "options": [
+              "and",
+              "or",
+              "but",
+              "because"
+            ]
           },
           {
-            "q": "Meenu fed the kitten a ___ milk.",
-            "a": "bowl of",
-            "options": ["bowl of", "scoop of", "spoonful of", "bunch of"]
+            "q": "Sejal lived away from her family ___ her office was in a different city.",
+            "a": "because",
+            "options": [
+              "and",
+              "or",
+              "but",
+              "because"
+            ]
           },
           {
-            "q": "I put a ___ ice cream on my plate.",
-            "a": "scoop of",
-            "options": ["scoop of", "bowl of", "pair of", "bunch of"]
+            "q": "Julia went to the post office ___ posted the letter.",
+            "a": "and",
+            "options": [
+              "and",
+              "or",
+              "but",
+              "because"
+            ]
+          },
+          {
+            "q": "I left for the airport on time ___ missed my flight.",
+            "a": "but",
+            "options": [
+              "and",
+              "or",
+              "but",
+              "because"
+            ]
+          },
+          {
+            "q": "Mohan wanted a violin ___ a guitar for his birthday.",
+            "a": "or",
+            "options": [
+              "and",
+              "or",
+              "but",
+              "because"
+            ]
+          }
+        ],
+        "short_answer": [
+          {
+            "q": "What is a conjunction? Give an example.",
+            "a": "A conjunction is a word that connects words, phrases, or sentences together. Example: I like tea and coffee."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch13",
+      "number": 13,
+      "title": "Punctuation",
+      "bank": {
+        "sentence_rewrite": [
+          {
+            "q": "Punctuate this sentence: My mother loves gardening",
+            "a": "My mother loves gardening."
+          },
+          {
+            "q": "Punctuate this sentence: What a thrilling movie it was",
+            "a": "What a thrilling movie it was!"
+          },
+          {
+            "q": "Punctuate this sentence: Football is my favourite game",
+            "a": "Football is my favourite game."
+          },
+          {
+            "q": "Punctuate this sentence: When is your birthday",
+            "a": "When is your birthday?"
+          },
+          {
+            "q": "Punctuate these words as a sentence: Hurrah we have won the match",
+            "a": "Hurrah! We have won the match."
+          },
+          {
+            "q": "Punctuate this sentence: What are your hobbies",
+            "a": "What are your hobbies?"
+          },
+          {
+            "q": "Punctuate this sentence: What a brilliant catch",
+            "a": "What a brilliant catch!"
+          },
+          {
+            "q": "Rewrite this phrase using ’s: The kitten that belongs to Rehmat",
+            "a": "Rehmat’s kitten"
+          },
+          {
+            "q": "Rewrite this phrase using ’s: The water bottle owned by Sheetal",
+            "a": "Sheetal’s water bottle"
+          },
+          {
+            "q": "Rewrite this phrase using ’s: The house that belongs to Ms Nadiya",
+            "a": "Ms Nadiya’s house"
+          },
+          {
+            "q": "Rewrite this phrase using ’s: The wallet owned by Rajeev",
+            "a": "Rajeev’s wallet"
+          },
+          {
+            "q": "Rewrite this phrase using ’s: The fields that belong to the farmer",
+            "a": "The farmer’s fields"
+          },
+          {
+            "q": "Rewrite using the short forms of the underlined words: Shakira won the swimming competition. She is very happy.",
+            "a": "Shakira won the swimming competition. She’s very happy."
+          },
+          {
+            "q": "Rewrite using the short form: We will go shopping after lunch.",
+            "a": "We’ll go shopping after lunch."
+          },
+          {
+            "q": "Rewrite using the short form: I am curious to know what happened after that.",
+            "a": "I’m curious to know what happened after that."
+          },
+          {
+            "q": "Rewrite using the short form: They are planning a mountain trip.",
+            "a": "They’re planning a mountain trip."
+          },
+          {
+            "q": "Rewrite using the short forms of the underlined words: I had promised them that I would come.",
+            "a": "I’d promised them that I’d come."
+          }
+        ],
+        "fill_blanks": [
+          {
+            "q": "The ___ dress was very colourful. (magician)",
+            "a": "magician’s",
+            "options": [
+              "magician’s",
+              "magicians",
+              "magicians’",
+              "magician"
+            ]
+          },
+          {
+            "q": "The ___ tools were kept on the ground. (gardener)",
+            "a": "gardener’s",
+            "options": [
+              "gardener’s",
+              "gardeners",
+              "gardeners’",
+              "gardener"
+            ]
+          },
+          {
+            "q": "My ___ office is close to our home. (mother)",
+            "a": "mother’s",
+            "options": [
+              "mother’s",
+              "mothers",
+              "mothers’",
+              "mother"
+            ]
+          },
+          {
+            "q": "That ___ voice is very soft. (man)",
+            "a": "man’s",
+            "options": [
+              "man’s",
+              "men’s",
+              "mans",
+              "man"
+            ]
+          },
+          {
+            "q": "___ pet is very cute. (Noor)",
+            "a": "Noor’s",
+            "options": [
+              "Noor’s",
+              "Noors",
+              "Noors’",
+              "Noor"
+            ]
+          },
+          {
+            "q": "Everyone praised the ___ paintings. (artist)",
+            "a": "artist’s",
+            "options": [
+              "artist’s",
+              "artists",
+              "artists’",
+              "artist"
+            ]
+          },
+          {
+            "q": "___ brother won the first prize in the essay writing contest. (Ratan)",
+            "a": "Ratan’s",
+            "options": [
+              "Ratan’s",
+              "Ratans",
+              "Ratans’",
+              "Ratan"
+            ]
+          },
+          {
+            "q": "___ face reminds me of my cousin Ritu. (Alia)",
+            "a": "Alia’s",
+            "options": [
+              "Alia’s",
+              "Alias",
+              "Alias’",
+              "Alia"
+            ]
+          }
+        ],
+        "short_answer": [
+          {
+            "q": "Why do we use punctuation marks while writing? Name any three punctuation marks.",
+            "a": "We use punctuation marks to make our writing clear and meaningful. Three punctuation marks are full stops (.), question marks (?) and exclamation marks (!)."
+          },
+          {
+            "q": "Why do we use an apostrophe (’s)? Write a sentence with apostrophe + s (’s).",
+            "a": "We use an apostrophe + s (’s) to show to whom a thing belongs. This is my mother’s bag."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch14",
+      "number": 14,
+      "title": "Fun with Words",
+      "bank": {
+        "mcq_standard": [
+          {
+            "q": "I love the ___ of green grass. (cent/scent)",
+            "a": "scent",
+            "options": [
+              "scent",
+              "cent",
+              "sent",
+              "sense"
+            ]
+          },
+          {
+            "q": "He has made a beautiful painting of a ___. (deer/dear)",
+            "a": "deer",
+            "options": [
+              "deer",
+              "dear",
+              "beer",
+              "peer"
+            ]
+          },
+          {
+            "q": "Press the ___ pedal slowly to stop the car. (break/brake)",
+            "a": "brake",
+            "options": [
+              "brake",
+              "break",
+              "brakes",
+              "broke"
+            ]
+          },
+          {
+            "q": "Do you have money for the bus ___? (fare/fair)",
+            "a": "fare",
+            "options": [
+              "fare",
+              "fair",
+              "fear",
+              "far"
+            ]
+          },
+          {
+            "q": "She bought wheat ___ and made some chapattis. (flower/flour)",
+            "a": "flour",
+            "options": [
+              "flour",
+              "flower",
+              "floor",
+              "flow"
+            ]
+          },
+          {
+            "q": "The carpenter drilled ___ in the wall to mount the paintings. (holes/wholes)",
+            "a": "holes",
+            "options": [
+              "holes",
+              "wholes",
+              "hole",
+              "holds"
+            ]
+          },
+          {
+            "q": "Do you ___ where Kitty has gone? (no/know)",
+            "a": "know",
+            "options": [
+              "know",
+              "no",
+              "now",
+              "knew"
+            ]
+          },
+          {
+            "q": "It was an exciting ___ of a sailor and his voyages. (tale/tail)",
+            "a": "tale",
+            "options": [
+              "tale",
+              "tail",
+              "tile",
+              "tall"
+            ]
+          },
+          {
+            "q": "She shared a very useful ___ of information. (peace/piece)",
+            "a": "piece",
+            "options": [
+              "piece",
+              "peace",
+              "peas",
+              "pace"
+            ]
+          },
+          {
+            "q": "I almost missed my ___ yesterday. (plane/plain)",
+            "a": "plane",
+            "options": [
+              "plane",
+              "plain",
+              "plan",
+              "plant"
+            ]
+          },
+          {
+            "q": "The ___ that we took was very green and beautiful. (root/route)",
+            "a": "route",
+            "options": [
+              "route",
+              "root",
+              "rout",
+              "rot"
+            ]
+          },
+          {
+            "q": "They spent a large ___ of money for the new printer. (some/sum)",
+            "a": "sum",
+            "options": [
+              "sum",
+              "some",
+              "same",
+              "seam"
+            ]
+          }
+        ],
+        "word_building": [
+          {
+            "q": "Find at least three smaller words hidden inside “Writer”.",
+            "a": "it, write, wire"
+          },
+          {
+            "q": "Find at least three smaller words hidden inside “Wallet”.",
+            "a": "wall, let, wet"
+          },
+          {
+            "q": "Find at least three smaller words hidden inside “Golden”.",
+            "a": "gold, old, den"
+          },
+          {
+            "q": "Find at least three smaller words hidden inside “Airport”.",
+            "a": "air, port, art"
+          },
+          {
+            "q": "Find at least three smaller words hidden inside “Football”.",
+            "a": "foot, ball, boot"
+          }
+        ],
+        "one_word": [
+          {
+            "q": "The long pointed teeth of an elephant",
+            "a": "tusks",
+            "options": [
+              "tusks",
+              "horns",
+              "trunks",
+              "tails"
+            ]
+          },
+          {
+            "q": "To close and open one eye quickly",
+            "a": "wink",
+            "options": [
+              "wink",
+              "blink",
+              "gaze",
+              "glance"
+            ]
+          },
+          {
+            "q": "A person whose job is to extinguish fires",
+            "a": "firefighter",
+            "options": [
+              "firefighter",
+              "police officer",
+              "doctor",
+              "teacher"
+            ]
+          },
+          {
+            "q": "A shelter for a dog",
+            "a": "kennel",
+            "options": [
+              "kennel",
+              "stable",
+              "nest",
+              "shed"
+            ]
+          },
+          {
+            "q": "An insect that produces silk threads",
+            "a": "silkworm",
+            "options": [
+              "silkworm",
+              "butterfly",
+              "ant",
+              "grasshopper"
+            ]
+          }
+        ],
+        "opposite_word": [
+          {
+            "q": "Write the opposite meaning of “Calm”.",
+            "a": "worried",
+            "options": [
+              "worried",
+              "peaceful",
+              "quiet",
+              "relaxed"
+            ]
+          },
+          {
+            "q": "Write the opposite meaning of “Exciting”.",
+            "a": "boring",
+            "options": [
+              "boring",
+              "fun",
+              "thrilling",
+              "interesting"
+            ]
+          },
+          {
+            "q": "Write the opposite meaning of “Mild”.",
+            "a": "strong",
+            "options": [
+              "strong",
+              "gentle",
+              "soft",
+              "weak"
+            ]
+          },
+          {
+            "q": "Write the opposite meaning of “Small”.",
+            "a": "huge",
+            "options": [
+              "huge",
+              "tiny",
+              "little",
+              "short"
+            ]
+          },
+          {
+            "q": "Write the opposite meaning of “Jolly”.",
+            "a": "serious",
+            "options": [
+              "serious",
+              "happy",
+              "cheerful",
+              "joyful"
+            ]
+          },
+          {
+            "q": "Write the opposite meaning of “Numerous”.",
+            "a": "few",
+            "options": [
+              "few",
+              "many",
+              "lots",
+              "several"
+            ]
+          },
+          {
+            "q": "Write the opposite meaning of “Airy”.",
+            "a": "stuffy",
+            "options": [
+              "stuffy",
+              "windy",
+              "breezy",
+              "open"
+            ]
+          },
+          {
+            "q": "Write the opposite meaning of “Simple”.",
+            "a": "difficult",
+            "options": [
+              "difficult",
+              "easy",
+              "plain",
+              "basic"
+            ]
+          }
+        ],
+        "spelling_check": [
+          {
+            "q": "Choose the correct spelling for “Recieve”.",
+            "a": "receive",
+            "options": [
+              "receive",
+              "recieve",
+              "receve",
+              "reiceive"
+            ]
+          },
+          {
+            "q": "Choose the correct spelling for “Calender”.",
+            "a": "calendar",
+            "options": [
+              "calendar",
+              "calender",
+              "calandar",
+              "celendar"
+            ]
+          },
+          {
+            "q": "Choose the correct spelling for “Seperate”.",
+            "a": "separate",
+            "options": [
+              "separate",
+              "seperate",
+              "seperat",
+              "saperate"
+            ]
+          },
+          {
+            "q": "Choose the correct spelling for “Acheive”.",
+            "a": "achieve",
+            "options": [
+              "achieve",
+              "acheive",
+              "achive",
+              "acheve"
+            ]
+          },
+          {
+            "q": "Choose the correct spelling for “Neccessary”.",
+            "a": "necessary",
+            "options": [
+              "necessary",
+              "neccessary",
+              "necessery",
+              "neccesary"
+            ]
+          },
+          {
+            "q": "Choose the correct spelling for “Adress”.",
+            "a": "address",
+            "options": [
+              "address",
+              "adress",
+              "addres",
+              "adres"
+            ]
+          }
+        ],
+        "word_meaning": [
+          {
+            "q": "Write a synonym of “Intelligent”.",
+            "a": "smart",
+            "options": [
+              "smart",
+              "dull",
+              "careless",
+              "sleepy"
+            ]
+          },
+          {
+            "q": "Write a synonym of “Lane”.",
+            "a": "street",
+            "options": [
+              "street",
+              "park",
+              "bridge",
+              "market"
+            ]
+          },
+          {
+            "q": "Write a synonym of “Wet”.",
+            "a": "damp",
+            "options": [
+              "damp",
+              "dry",
+              "warm",
+              "cold"
+            ]
+          },
+          {
+            "q": "Write a synonym of “Ask”.",
+            "a": "question",
+            "options": [
+              "question",
+              "answer",
+              "tell",
+              "say"
+            ]
+          },
+          {
+            "q": "Write a synonym of “Cry”.",
+            "a": "sob",
+            "options": [
+              "sob",
+              "laugh",
+              "smile",
+              "sing"
+            ]
+          },
+          {
+            "q": "Write a synonym of “Exciting”.",
+            "a": "thrilling",
+            "options": [
+              "thrilling",
+              "boring",
+              "ordinary",
+              "peaceful"
+            ]
+          },
+          {
+            "q": "Write a synonym of “Small”.",
+            "a": "tiny",
+            "options": [
+              "tiny",
+              "huge",
+              "wide",
+              "tall"
+            ]
+          },
+          {
+            "q": "Write a synonym of “Simple”.",
+            "a": "easy",
+            "options": [
+              "easy",
+              "difficult",
+              "confusing",
+              "complex"
+            ]
+          }
+        ],
+        "phrase_completion": [
+          {
+            "q": "Complete the sentence with a suitable phrase: I added a ___ sugar to the milk.",
+            "a": "spoonful of"
+          },
+          {
+            "q": "Complete the sentence with a suitable phrase: I gifted my sister a ___ goggles on her birthday.",
+            "a": "pair of"
+          },
+          {
+            "q": "Complete the sentence with a suitable phrase: The elephant gobbled up a ___ bananas.",
+            "a": "bunch of"
+          },
+          {
+            "q": "Complete the sentence with a suitable phrase: Ankush got the biggest ___ cake.",
+            "a": "slice of"
+          },
+          {
+            "q": "Complete the sentence with a suitable phrase: Meenu fed the kitten a ___ milk.",
+            "a": "bowl of"
+          },
+          {
+            "q": "Complete the sentence with a suitable phrase: I put a ___ ice cream on my plate.",
+            "a": "scoop of"
+          }
+        ],
+        "short_answer": [
+          {
+            "q": "What is an antonym? Give examples.",
+            "a": "An antonym is a word that means the opposite of another word. Examples: Hot – Cold, Big – Small."
+          },
+          {
+            "q": "What is a synonym? Give an example.",
+            "a": "A synonym is a word that means the same as another word. Examples: Small – Little, Fast – Quick."
+          }
+        ],
+        "writing_prompt": [
+          {
+            "q": "Write a paragraph on: My favourite festival.",
+            "a": ""
+          },
+          {
+            "q": "Write a paragraph on: Importance of trees.",
+            "a": ""
           }
         ]
       }

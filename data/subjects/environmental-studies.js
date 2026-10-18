@@ -233,9 +233,9 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "Pulp",
             "options": [
               "Pulp",
-              "Herbs",
-              "Nutrients",
-              "Spices"
+              "Bark",
+              "Resin",
+              "Fibre"
             ]
           },
           {
@@ -243,8 +243,8 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "Herbs",
             "options": [
               "Herbs",
-              "Pulp",
-              "Nutrients",
+              "Shrubs",
+              "Trees",
               "Climbers"
             ]
           },
@@ -253,27 +253,31 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "Nutrients",
             "options": [
               "Nutrients",
-              "Pulp",
-              "Herbs",
-              "Pulses"
+              "Minerals",
+              "Vitamins",
+              "Fertilizers"
             ]
           }
         ],
         "mcq_standard": [
           {
-            "q": "Which one among these two is a beverage?",
+            "q": "Which of these is a beverage?",
             "a": "Coffee",
             "options": [
+              "Coffee",
               "Water",
-              "Coffee"
+              "Mustard",
+              "Wheat"
             ]
           },
           {
-            "q": "Which one among these two is a spice?",
+            "q": "Which of these is a spice?",
             "a": "Cardamon",
             "options": [
+              "Cardamon",
               "Moong",
-              "Cardamon"
+              "Rice",
+              "Wheat"
             ]
           },
           {
@@ -281,7 +285,9 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "Roots",
             "options": [
               "Roots",
-              "Leaves"
+              "Leaves",
+              "Flowers",
+              "Stem"
             ]
           },
           {
@@ -289,7 +295,9 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "Grapevine",
             "options": [
               "Grapevine",
-              "Rose"
+              "Rose",
+              "Banyan",
+              "Tulsi"
             ]
           },
           {
@@ -395,7 +403,7 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             ]
           },
           {
-            "q": "Match: Herbs",
+            "q": "Match: Climbers",
             "a": "Grapevine",
             "options": [
               "Cows",
@@ -452,7 +460,7 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
               "cowherd",
               "shepherd",
               "vet",
-              "caterpillars"
+              "farmer"
             ]
           },
           {
@@ -462,7 +470,7 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
               "vet",
               "cowherd",
               "shepherd",
-              "caterpillar"
+              "nurse"
             ]
           },
           {
@@ -481,8 +489,8 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "options": [
               "caterpillars",
               "cubs",
-              "puppy",
-              "forelegs"
+              "puppies",
+              "kittens"
             ]
           }
         ],
@@ -590,9 +598,9 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "Caterpillar",
             "options": [
               "Caterpillar",
-              "Flesh",
-              "Forelegs",
-              "Cubs"
+              "Earthworm",
+              "Maggot",
+              "Tadpole"
             ]
           },
           {
@@ -600,9 +608,9 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "Flesh",
             "options": [
               "Flesh",
-              "Caterpillar",
-              "Forelegs",
-              "Shelter"
+              "Bone",
+              "Skin",
+              "Fat"
             ]
           },
           {
@@ -610,9 +618,9 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "Forelegs",
             "options": [
               "Forelegs",
-              "Flesh",
-              "Caterpillar",
-              "Fins"
+              "Hindlegs",
+              "Paws",
+              "Hooves"
             ]
           }
         ],
@@ -622,23 +630,29 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "Plants",
             "options": [
               "Plants",
-              "Flesh"
+              "Flesh",
+              "Insects",
+              "Fish"
             ]
           },
           {
             "q": "A dog's baby is called",
             "a": "Puppy",
             "options": [
+              "Puppy",
               "Cub",
-              "Puppy"
+              "Calf",
+              "Kitten"
             ]
           },
           {
             "q": "Shepherd looks after",
             "a": "Sheep",
             "options": [
+              "Sheep",
               "Cow",
-              "Sheep"
+              "Horse",
+              "Lion"
             ]
           },
           {
@@ -646,7 +660,9 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "Den",
             "options": [
               "Den",
-              "Nest"
+              "Nest",
+              "Kennel",
+              "Burrow"
             ]
           },
           {
@@ -759,9 +775,9 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "Metro",
             "options": [
               "Metro",
-              "Invention",
-              "Deafness",
-              "Travelling"
+              "Tram",
+              "Train",
+              "Subway"
             ]
           },
           {
@@ -769,19 +785,19 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "Invention",
             "options": [
               "Invention",
-              "Metro",
-              "Deafness",
-              "Travelling"
+              "Discovery",
+              "Machine",
+              "Creation"
             ]
           },
           {
-            "q": "No able to hear.",
+            "q": "Not able to hear.",
             "a": "Deafness",
             "options": [
               "Deafness",
-              "Metro",
-              "Invention",
-              "Travelling"
+              "Blindness",
+              "Illness",
+              "Weakness"
             ]
           },
           {
@@ -789,9 +805,9 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "Travelling",
             "options": [
               "Travelling",
-              "Metro",
-              "Invention",
-              "Deafness"
+              "Driving",
+              "Walking",
+              "Riding"
             ]
           }
         ],
@@ -800,16 +816,20 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "q": "Which of these vehicles moves on tracks?",
             "a": "train",
             "options": [
+              "train",
               "plane",
-              "train"
+              "bus",
+              "boat"
             ]
           },
           {
             "q": "Which of these is the slow means of transport?",
             "a": "Bullock Cart",
             "options": [
+              "Bullock Cart",
               "Bus",
-              "Bullock Cart"
+              "Aeroplane",
+              "Metro Train"
             ]
           },
           {
@@ -817,7 +837,9 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "Petrol",
             "options": [
               "Petrol",
-              "Wood"
+              "Water",
+              "Milk",
+              "Sand"
             ]
           },
           {
@@ -934,9 +956,9 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "Post",
             "options": [
               "Post",
-              "Information",
-              "Newspaper",
-              "Telephone"
+              "Courier",
+              "Telegram",
+              "Email"
             ]
           },
           {
@@ -944,9 +966,9 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "Information",
             "options": [
               "Information",
-              "Post",
-              "Newspaper",
-              "Computer"
+              "Knowledge",
+              "News",
+              "Message"
             ]
           }
         ],
@@ -955,8 +977,10 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "q": "We send ___ to other people through post.",
             "a": "letters",
             "options": [
+              "letters",
               "Radio",
-              "letters"
+              "Television",
+              "Telephone"
             ]
           },
           {
@@ -964,7 +988,9 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "Computer",
             "options": [
               "Computer",
-              "Television"
+              "Television",
+              "Radio",
+              "Newspaper"
             ]
           },
           {
@@ -1021,9 +1047,9 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "raincoats",
             "options": [
               "raincoats",
-              "sun",
-              "globe",
-              "Jupiter"
+              "sweaters",
+              "jackets",
+              "mufflers"
             ]
           },
           {
@@ -1032,8 +1058,8 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "options": [
               "sun",
               "moon",
-              "earth",
-              "Jupiter"
+              "stars",
+              "clouds"
             ]
           }
         ],
@@ -1069,9 +1095,9 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "Season",
             "options": [
               "Season",
-              "Puddle",
-              "Planets",
-              "Jupiter"
+              "Climate",
+              "Weather",
+              "Monsoon"
             ]
           },
           {
@@ -1079,19 +1105,19 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "Puddle",
             "options": [
               "Puddle",
-              "Season",
-              "Planets",
-              "Globe"
+              "Pond",
+              "Lake",
+              "Stream"
             ]
           },
           {
-            "q": "Large around objects in space that move around the Sun.",
+            "q": "Large round objects in space that move around the Sun.",
             "a": "Planets",
             "options": [
               "Planets",
-              "Season",
-              "Puddle",
-              "Sun"
+              "Stars",
+              "Moons",
+              "Comets"
             ]
           }
         ],
@@ -1100,8 +1126,10 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "q": "Which is the largest planet of our solar system?",
             "a": "Jupiter",
             "options": [
+              "Jupiter",
               "Mercury",
-              "Jupiter"
+              "Mars",
+              "Earth"
             ]
           },
           {
@@ -1109,7 +1137,9 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "The earth",
             "options": [
               "The earth",
-              "The Sun"
+              "The Sun",
+              "Mars",
+              "Jupiter"
             ]
           },
           {
@@ -1117,7 +1147,9 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "Constellation",
             "options": [
               "Constellation",
-              "Atmosphere"
+              "Atmosphere",
+              "Solar System",
+              "Galaxy"
             ]
           },
           {
@@ -1125,7 +1157,9 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
             "a": "Spring",
             "options": [
               "Spring",
-              "Winter"
+              "Winter",
+              "Summer",
+              "Monsoon"
             ]
           },
           {
@@ -1279,12 +1313,12 @@ const SUBJECT_ENVIRONMENTAL_STUDIES = {
           },
           {
             "q": "Unscramble 'PAPR NEWSE':",
-            "a": "NEWS PAPER",
+            "a": "NEWSPAPER",
             "options": [
-              "NEWS PAPER",
               "NEWSPAPER",
-              "NEWSPER",
-              "NEWSPAPRE"
+              "NEWSPAPRE",
+              "NEWSPEPAR",
+              "NEWSPAPAR"
             ]
           }
         ],

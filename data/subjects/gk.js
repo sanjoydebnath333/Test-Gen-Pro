@@ -86,7 +86,7 @@ const SUBJECT_GK = {
             "a": "Sunderban",
             "options": [
               "Sunderban",
-              "Ganga Delta",
+              "Nile Delta",
               "Indus Delta",
               "Amazon Delta"
             ]
@@ -250,7 +250,7 @@ const SUBJECT_GK = {
               "Marina Beach",
               "Juhu Beach",
               "Puri Beach",
-              "Goa Beach"
+              "Kovalam Beach"
             ]
           },
           {
@@ -390,9 +390,9 @@ const SUBJECT_GK = {
             "a": "cardiac",
             "options": [
               "cardiac",
-              "chest",
-              "blood",
-              "body"
+              "skeletal",
+              "smooth",
+              "voluntary"
             ]
           },
           {
@@ -632,7 +632,7 @@ const SUBJECT_GK = {
               "RIBCAGE",
               "RICBAGE",
               "RIBGACE",
-              "RIBCAG"
+              "RIBCAEG"
             ]
           },
           {
@@ -640,9 +640,9 @@ const SUBJECT_GK = {
             "a": "SKELETON",
             "options": [
               "SKELETON",
-              "SKELTON",
+              "SKELATON",
               "SKELETEN",
-              "SKELETOON"
+              "SKELEOTN"
             ]
           },
           {
@@ -650,9 +650,9 @@ const SUBJECT_GK = {
             "a": "FRACTURE",
             "options": [
               "FRACTURE",
-              "FRACTUR",
+              "FRACTUER",
               "FRACUTRE",
-              "FRACTUER"
+              "FRACTRUE"
             ]
           },
           {
@@ -661,7 +661,7 @@ const SUBJECT_GK = {
             "options": [
               "BAKERY",
               "BARKEY",
-              "BAKEY",
+              "BAKREY",
               "BAKARY"
             ]
           },
@@ -671,7 +671,7 @@ const SUBJECT_GK = {
             "options": [
               "SHOEMAKER",
               "SHOWMAKER",
-              "SHOEMAKR",
+              "SHOEMAKRE",
               "SHOAMAKER"
             ]
           },
@@ -682,7 +682,7 @@ const SUBJECT_GK = {
               "DUCKLING",
               "DUCKILNG",
               "DUCKLIGN",
-              "DUCKLIN"
+              "DUCKLNIG"
             ]
           },
           {
@@ -690,52 +690,112 @@ const SUBJECT_GK = {
             "a": "PRINCESS",
             "options": [
               "PRINCESS",
-              "PRINCES",
               "PRICNESS",
-              "PRINCESSA"
+              "PRINSCES",
+              "PRINCSEE"
             ]
           }
         ],
         "missing_letters": [
           {
             "q": "Complete the word: G _ _ Z E",
-            "a": "GAUZE"
+            "a": "GAUZE",
+            "options": [
+              "GAUZE",
+              "GUAZE",
+              "GAZEE",
+              "GAWZE"
+            ]
           },
           {
             "q": "Complete the word: B _ N D - A _ D",
-            "a": "BAND-AID"
+            "a": "BAND-AID",
+            "options": [
+              "BAND-AID",
+              "BEND-AID",
+              "BAND-ADE",
+              "BAND-IED"
+            ]
           },
           {
             "q": "Complete the word: B I _ E _ S",
-            "a": "BICEPS"
+            "a": "BICEPS",
+            "options": [
+              "BICEPS",
+              "BICPES",
+              "BISEPS",
+              "BICEPZ"
+            ]
           },
           {
             "q": "Complete the word: S P _ _ I N",
-            "a": "SPRAIN"
+            "a": "SPRAIN",
+            "options": [
+              "SPRAIN",
+              "SPRIAN",
+              "SPREIN",
+              "SPRANE"
+            ]
           },
           {
             "q": "Complete the word: P L _ N _ T",
-            "a": "PLANET"
+            "a": "PLANET",
+            "options": [
+              "PLANET",
+              "PLANIT",
+              "PLANAT",
+              "PLANTE"
+            ]
           },
           {
             "q": "Complete the word: G R _ P _ S",
-            "a": "GRAPES"
+            "a": "GRAPES",
+            "options": [
+              "GRAPES",
+              "GRAPIS",
+              "GRAEPS",
+              "GRAPAS"
+            ]
           },
           {
             "q": "Complete the word: E _ V _ S",
-            "a": "ELVES"
+            "a": "ELVES",
+            "options": [
+              "ELVES",
+              "ELVIS",
+              "ELEVS",
+              "ELVAS"
+            ]
           },
           {
             "q": "Complete the word: A K _ _ R",
-            "a": "AKBAR"
+            "a": "AKBAR",
+            "options": [
+              "AKBAR",
+              "AKBER",
+              "AKBOR",
+              "AKBAAR"
+            ]
           },
           {
             "q": "Complete the word: B _ R G _ R",
-            "a": "BURGER"
+            "a": "BURGER",
+            "options": [
+              "BURGER",
+              "BURGAR",
+              "BIRGER",
+              "BURGRE"
+            ]
           },
           {
             "q": "Complete the word: S _ N D _ A D",
-            "a": "SINDBAD"
+            "a": "SINDBAD",
+            "options": [
+              "SINDBAD",
+              "SINDBED",
+              "SYNDBAD",
+              "SINDAB"
+            ]
           }
         ]
       }

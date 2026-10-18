@@ -185,9 +185,9 @@ const SUBJECT_MORAL_SCIENCE = {
             "a": "beautiful",
             "options": [
               "beautiful",
-              "sorry",
-              "lemon",
-              "sad"
+              "lovely",
+              "peaceful",
+              "shady"
             ]
           },
           {
@@ -195,9 +195,9 @@ const SUBJECT_MORAL_SCIENCE = {
             "a": "scarecrow",
             "options": [
               "scarecrow",
-              "garden",
-              "grandmother",
-              "nest"
+              "haystack",
+              "basket",
+              "barn"
             ]
           },
           {
@@ -205,9 +205,9 @@ const SUBJECT_MORAL_SCIENCE = {
             "a": "warm",
             "options": [
               "warm",
-              "cold",
-              "water",
-              "beautiful"
+              "cozy",
+              "safe",
+              "dry"
             ]
           },
           {
@@ -215,9 +215,9 @@ const SUBJECT_MORAL_SCIENCE = {
             "a": "sorry",
             "options": [
               "sorry",
+              "thank you",
               "hello",
-              "forgave",
-              "thank you"
+              "goodbye"
             ]
           },
           {
@@ -226,8 +226,8 @@ const SUBJECT_MORAL_SCIENCE = {
             "options": [
               "lemon",
               "mango",
-              "scarecrow",
-              "garden"
+              "apple",
+              "neem"
             ]
           },
           {
@@ -236,8 +236,8 @@ const SUBJECT_MORAL_SCIENCE = {
             "options": [
               "water",
               "milk",
-              "warm",
-              "sorry"
+              "juice",
+              "oil"
             ]
           },
           {
@@ -245,9 +245,9 @@ const SUBJECT_MORAL_SCIENCE = {
             "a": "Cammie",
             "options": [
               "Cammie",
-              "Kitty",
-              "lemon",
-              "scarecrow"
+              "Mimi",
+              "Timmie",
+              "Chirpy"
             ]
           },
           {
@@ -255,9 +255,9 @@ const SUBJECT_MORAL_SCIENCE = {
             "a": "garden",
             "options": [
               "garden",
-              "room",
-              "water",
-              "beautiful"
+              "pot",
+              "field",
+              "backyard"
             ]
           },
           {
@@ -265,9 +265,9 @@ const SUBJECT_MORAL_SCIENCE = {
             "a": "grandmother",
             "options": [
               "grandmother",
-              "friend",
-              "Cammie",
-              "teacher"
+              "mother",
+              "sister",
+              "aunt"
             ]
           },
           {
@@ -276,8 +276,8 @@ const SUBJECT_MORAL_SCIENCE = {
             "options": [
               "forgave",
               "scolded",
-              "sorry",
-              "called"
+              "praised",
+              "punished"
             ]
           }
         ],
@@ -571,9 +571,9 @@ const SUBJECT_MORAL_SCIENCE = {
             "a": "responsibility",
             "options": [
               "responsibility",
-              "toy",
-              "game",
-              "lunch"
+              "duty",
+              "honour",
+              "habit"
             ]
           },
           {
@@ -591,9 +591,9 @@ const SUBJECT_MORAL_SCIENCE = {
             "a": "quality",
             "options": [
               "quality",
-              "toy",
-              "meal",
-              "game"
+              "habit",
+              "virtue",
+              "lesson"
             ]
           }
         ],
@@ -792,9 +792,9 @@ const SUBJECT_MORAL_SCIENCE = {
             "a": "Bus",
             "options": [
               "Bus",
-              "Lunch",
-              "Song",
-              "Pencil case"
+              "Train",
+              "Van",
+              "Class"
             ]
           },
           {
@@ -985,9 +985,9 @@ const SUBJECT_MORAL_SCIENCE = {
             "a": "ENGLISH",
             "options": [
               "ENGLISH",
-              "BOTTLE",
-              "WATER",
-              "FRIEND"
+              "ENGLSIH",
+              "ENGILSH",
+              "ENGLESH"
             ]
           },
           {
@@ -995,9 +995,9 @@ const SUBJECT_MORAL_SCIENCE = {
             "a": "BOTTLE",
             "options": [
               "BOTTLE",
-              "ENGLISH",
-              "WATER",
-              "FRIEND"
+              "BOTTEL",
+              "BOTLE",
+              "BOLTTE"
             ]
           },
           {
@@ -1005,9 +1005,9 @@ const SUBJECT_MORAL_SCIENCE = {
             "a": "WATER",
             "options": [
               "WATER",
-              "BOTTLE",
-              "PRAYER",
-              "FRIEND"
+              "WATRE",
+              "WATOR",
+              "WAETR"
             ]
           },
           {
@@ -1015,9 +1015,9 @@ const SUBJECT_MORAL_SCIENCE = {
             "a": "PRAYER",
             "options": [
               "PRAYER",
-              "BOTTLE",
-              "WATER",
-              "FRIEND"
+              "PRAYRE",
+              "PRAYAR",
+              "PRAEYR"
             ]
           },
           {
@@ -1025,9 +1025,9 @@ const SUBJECT_MORAL_SCIENCE = {
             "a": "FRIEND",
             "options": [
               "FRIEND",
-              "ENGLISH",
-              "BOTTLE",
-              "PRAYER"
+              "FREIND",
+              "FRINED",
+              "FIREND"
             ]
           }
         ],
@@ -1037,9 +1037,9 @@ const SUBJECT_MORAL_SCIENCE = {
             "a": "ENGLISH",
             "options": [
               "ENGLISH",
-              "SCHOOL",
-              "FRIEND",
-              "CLOTHES"
+              "ENGLSIH",
+              "ENGILSH",
+              "ENGLESH"
             ]
           },
           {
@@ -1047,9 +1047,9 @@ const SUBJECT_MORAL_SCIENCE = {
             "a": "WATER",
             "options": [
               "WATER",
-              "ENGLISH",
-              "FRIEND",
-              "CLOTHES"
+              "WATRE",
+              "WATOR",
+              "WTER"
             ]
           },
           {
@@ -1057,9 +1057,9 @@ const SUBJECT_MORAL_SCIENCE = {
             "a": "FRIEND",
             "options": [
               "FRIEND",
-              "ENGLISH",
-              "WATER",
-              "CLOTHES"
+              "FREIND",
+              "FRINED",
+              "FIREND"
             ]
           },
           {
@@ -1067,9 +1067,9 @@ const SUBJECT_MORAL_SCIENCE = {
             "a": "CLOTHES",
             "options": [
               "CLOTHES",
-              "ENGLISH",
-              "WATER",
-              "FRIEND"
+              "CLOTHS",
+              "CLOTHIS",
+              "CLOTHSE"
             ]
           },
           {
@@ -1077,9 +1077,9 @@ const SUBJECT_MORAL_SCIENCE = {
             "a": "HELP",
             "options": [
               "HELP",
-              "LOVE",
-              "KIND",
-              "GOOD"
+              "HOLD",
+              "HOLE",
+              "HELD"
             ]
           }
         ]
