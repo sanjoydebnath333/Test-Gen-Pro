@@ -103,17 +103,32 @@
             return boxes;
         }
 
+const OFFLINE_ONLY_CATEGORIES = ['writing_prompt', 'short_answer', 'drawing', 'drawings'];
+
         function normalizeBank(rawBank) {
             const normalized = {};
             for (let category in rawBank) {
                 normalized[category] = rawBank[category].map((q, i) => {
-                    let base = { id: `${category}_${i}`, category: category, question: q.q, options: [], answer: "", answerText: q.a };
+                    let base = { 
+                        id: `${category}_${i}`, 
+                        category: category, 
+                        question: q.q, 
+                        options: [], 
+                        answer: "", 
+                        answerText: q.a,
+                        instruction: q.instruction || "",
+                        clue: q.clue || "",
+                        format: q.format || "",
+                        chapterId: q.chapterId || "",
+                        chapterNumber: q.chapterNumber || 0,
+                        chapterTitle: q.chapterTitle || ""
+                    };
 
-                    if (category === 'match_following') {
+                    if (category === 'match_following' || q.format === 'match_following') {
                         base.type = "matching_pair_candidate";
                         base.leftWord = q.q; base.rightWord = q.a;
                     }
-                    else if (category === 'fill_blanks') {
+                    else if (category === 'fill_blanks' || category.startsWith('fill_') || q.format === 'fill_blank') {
                         base.type = "fill_blank_click";
                         let opts;
                         if (q.options && q.options.length > 0) {
@@ -125,9 +140,13 @@
                         base.segments = q.q.split('___');
                         if(base.segments.length === 1) base.segments.push(''); 
                     }
-                    else if (category === 'missing_letters') {
+                    else if (category === 'missing_letters' || q.format === 'missing_letters') {
                         base.type = "missing_letter_input";
                         base.wordBoxes = parseMissingLettersWord(q.q, q.a);
+                    }
+                    else if (OFFLINE_ONLY_CATEGORIES.includes(category) || q.format === 'offline_only') {
+                        base.type = "offline_subjective";
+                        base.answer = q.a || "";
                     }
                     else {
                         base.type = "mcq";
@@ -213,15 +232,27 @@
             syncChapterFilterUI();
         }
 
-        function updateGameCardTitle() {
+        function updateGameCardTitle(qObj) {
             const titleEl = document.getElementById('game-title');
+            const subtitleEl = document.getElementById('game-chapter-subtitle');
             if (!titleEl || !currentSubject) return;
-            const subjectHtml = `<span class="game-title-subject">${currentSubject.title}</span>`;
-            if (currentChapterFilter !== 'all' && currentSubjectKey && SUBJECT_REGISTRY[currentSubjectKey]) {
-                const chapterLabel = getChapterLabel(SUBJECT_REGISTRY[currentSubjectKey], currentChapterFilter);
-                titleEl.innerHTML = `${subjectHtml}<span class="game-title-chapter">${chapterLabel}</span>`;
-            } else {
-                titleEl.innerHTML = subjectHtml;
+            
+            titleEl.innerHTML = currentSubject.title;
+
+            let chapterLabel = '';
+            if (qObj && qObj.chapterTitle) {
+                chapterLabel = (qObj.chapterNumber > 0) ? `Chapter ${qObj.chapterNumber}: ${qObj.chapterTitle}` : qObj.chapterTitle;
+            } else if (currentChapterFilter !== 'all' && currentSubjectKey && SUBJECT_REGISTRY[currentSubjectKey]) {
+                chapterLabel = getChapterLabel(SUBJECT_REGISTRY[currentSubjectKey], currentChapterFilter);
+            }
+
+            if (subtitleEl) {
+                if (chapterLabel) {
+                    subtitleEl.innerHTML = `<div class="text-body-secondary small fw-medium mt-0.5">${chapterLabel}</div>`;
+                    subtitleEl.style.display = 'block';
+                } else {
+                    subtitleEl.style.display = 'none';
+                }
             }
         }
 
@@ -240,10 +271,10 @@
             if (!dynamicBtns) return;
             dynamicBtns.innerHTML = '';
             currentSubject.sections.forEach(sec => {
-                if (sec.id === 'drawing') return;
+                if (OFFLINE_ONLY_CATEGORIES.includes(sec.id)) return;
                 const pool = activeNormalizedBank[sec.id] || [];
                 if (pool.length === 0) return;
-                const iconData = CATEGORY_ICONS[sec.id] || CATEGORY_ICONS['mcq_standard'];
+                const iconData = CATEGORY_ICONS[sec.id] || { icon: '🔘', title: sec.title || 'MCQ', desc: 'Practice' };
                 dynamicBtns.innerHTML += `
                     <div class="col-6 col-sm-4">
                         <div class="topic-btn" onclick="launchSpecificQuiz(['${sec.id}'])" title="${iconData.title}: ${iconData.desc}">
@@ -585,9 +616,16 @@
                 });
                 html += `</tbody></table></div></div>`;
             } else {
+                let lastInstruction = '';
                 items.forEach((item, idx) => {
                     let qText = item.question;
                     let aText = item.answerText;
+                    let clueBadge = item.clue ? ` <span class="badge bg-secondary-subtle text-body-secondary border px-2 py-0.5 ms-1 align-middle" style="font-size: 0.75rem;">${item.clue}</span>` : '';
+                    let instHeader = '';
+                    if (item.instruction && item.instruction !== lastInstruction) {
+                        lastInstruction = item.instruction;
+                        instHeader = `<div class="study-instruction-banner fw-bold text-muted small text-uppercase mb-2 mt-3 pt-1 border-top"><i class="bi bi-tag-fill me-1" style="color: ${theme};"></i>${item.instruction}</div>`;
+                    }
 
                     if (item.type === 'matching_pair_candidate') {
                         qText = item.leftWord;
@@ -595,9 +633,10 @@
                     } else if (item.type === 'fill_blank_click') {
                         let filledQ = item.question.replace(/___/g, `<span class="text-success fw-bold text-decoration-underline mx-1">${aText}</span>`);
                         html += `
+                        ${instHeader}
                         <div class="note-item" style="border-left-color: ${theme};">
                             <div class="fw-bold study-q-text text-body" style="font-family: 'Comic Sans MS', 'Nunito', sans-serif;">
-                                <span class="text-muted opacity-50 me-1.5">${idx + 1}.</span> ${filledQ}
+                                <span class="text-muted opacity-50 me-1.5">${idx + 1}.</span> ${filledQ}${clueBadge}
                             </div>
                         </div>`;
                         return;
@@ -605,9 +644,10 @@
 
                     if (sec.id === 'drawing') {
                         html += `
+                        ${instHeader}
                         <div class="note-item" style="border-left-color: ${theme};">
                             <div class="fw-bold study-q-text text-body mb-1 mb-md-2" style="font-family: 'Comic Sans MS', 'Nunito', sans-serif;">
-                                <span class="text-muted opacity-50 me-1.5">${idx + 1}.</span> ${qText}
+                                <span class="text-muted opacity-50 me-1.5">${idx + 1}.</span> ${qText}${clueBadge}
                             </div>
                             <div class="study-a-text text-muted fst-italic mt-1 mt-md-2"><i class="bi bi-pencil-square me-1 me-md-2"></i>Practice drawing this in your notebook.</div>
                         </div>`;
@@ -615,9 +655,10 @@
                     }
 
                     html += `
+                    ${instHeader}
                     <div class="note-item" style="border-left-color: ${theme};">
                         <div class="fw-bold study-q-text text-body mb-1 mb-md-2" style="font-family: 'Comic Sans MS', 'Nunito', sans-serif;">
-                            <span class="text-muted opacity-50 me-1.5">${idx + 1}.</span> ${qText}
+                            <span class="text-muted opacity-50 me-1.5">${idx + 1}.</span> ${qText}${clueBadge}
                         </div>
                         <div class="study-a-text text-success fw-bold ps-2 ps-md-3 border-start border-success border-2 border-md-3 ms-0 ms-md-1" style="font-family: 'Segoe UI', sans-serif;">
                             <i class="bi bi-check2-circle me-1 me-md-2"></i>${aText}
@@ -849,12 +890,19 @@
             const container = document.getElementById('config-sections'); container.innerHTML = ''; 
             currentSubject.sections.forEach(sec => {
                 if (sec.max <= 0 || !(activeNormalizedBank[sec.id] || []).length) return;
+                const isOfflineOnly = OFFLINE_ONLY_CATEGORIES.includes(sec.id);
+                const typeBadge = isOfflineOnly 
+                    ? `<span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle rounded-pill" style="font-size: 0.72rem;"><i class="bi bi-pencil-fill me-1"></i>Offline / Written</span>`
+                    : `<span class="badge bg-primary-subtle text-primary-emphasis border border-primary-subtle rounded-pill" style="font-size: 0.72rem;">Objective</span>`;
                 container.innerHTML += `
                     <div class="card p-3 mb-2 config-card shadow-sm bg-body border-color" id="card-${sec.id}">
                         <div class="d-flex justify-content-between align-items-start mb-2">
                             <div class="d-flex align-items-start gap-2 flex-grow-1 pe-2">
                                 <div class="form-check form-switch mb-0 mt-1"><input class="form-check-input m-0" type="checkbox" id="cb-${sec.id}" checked onchange="toggleSection('${sec.id}')"></div>
-                                <div><label class="form-check-label fw-bold text-body fs-6 mb-0 d-inline" for="cb-${sec.id}">${sec.title}</label></div>
+                                <div>
+                                    <label class="form-check-label fw-bold text-body fs-6 mb-1 d-block" for="cb-${sec.id}">${sec.title}</label>
+                                    <div>${typeBadge}</div>
+                                </div>
                             </div>
                             <span class="badge bg-secondary rounded-pill flex-shrink-0 mt-1">Max: ${sec.max}</span>
                         </div>
@@ -1003,15 +1051,109 @@
 
         function buildSectionHtml(sec, setIndex, secIndex) {
             let markVal = (sec.items.length * sec.marksPerQ);
-            let titleStr = `<b>${ROMAN[secIndex + 1]}. ${sec.title}:</b> <span style="float: right;">[${sec.items.length} x ${sec.marksPerQ} = ${markVal}]</span>`;
             let regenBtn = `<button class="regen-btn no-print no-export" style="background-color:${currentSubject.theme};" onclick="regenerateSection(${setIndex}, ${secIndex})"><i class="bi bi-arrow-clockwise"></i></button>`;
+
+            // Check if items have specific instructions
+            const uniqueInstructions = [...new Set(sec.items.map(item => item.instruction).filter(Boolean))];
+            let titleText = sec.title;
+            let hasMultipleInstructions = uniqueInstructions.length > 1;
+
+            if (uniqueInstructions.length === 1 && (sec.id === 'fill_blanks' || sec.id === 'sentence_rewrite' || sec.id === 'short_answer' || sec.id === 'writing_prompt')) {
+                titleText = uniqueInstructions[0];
+            }
+
+            let titleStr = `<b>${ROMAN[secIndex + 1]}. ${titleText}:</b> <span style="float: right;">[${sec.items.length} x ${sec.marksPerQ} = ${markVal}]</span>`;
             let content = '';
 
-            if (['one_word', 'name_following'].includes(sec.id)) {
-                sec.items.forEach((qObj, i) => { content += `<div class="q-row px-1 py-1" style="margin-bottom: 12px; margin-top: 10px;"><span>${i + 1}. ${qObj.question}</span> ________________________</div>`; });
+            function renderItemRow(qObj, i) {
+                let rowContent = '';
+                let clueText = qObj.clue ? ` ${qObj.clue}` : '';
+
+                if (['one_word', 'name_following'].includes(sec.id)) {
+                    rowContent = `<div class="q-row px-1 py-1" style="margin-bottom: 12px; margin-top: 10px;"><span>${i + 1}. ${qObj.question}${clueText}</span> ________________________</div>`;
+                }
+                else if (['opposite_word', 'word_meaning', 'spelling_check'].includes(sec.id)) {
+                    rowContent = `<div class="q-row px-1 py-1" style="margin-bottom: 10px;"><span>${i + 1}. ${qObj.question}</span>: ________________________</div>`;
+                }
+                else if (['match_following'].includes(sec.id)) {
+                    // Handled at section level
+                }
+                else if (['sentence_rewrite'].includes(sec.id) || qObj.format === 'rewrite') {
+                    rowContent = `<div class="q-row px-1 py-1" style="margin-bottom: 12px; margin-top: 6px;">
+                        <span>${i + 1}. ${qObj.question}${clueText}</span>
+                        <div style="border-bottom: 1px dotted #888; margin-top: 6px; margin-bottom: 4px; padding-bottom: 2px; font-family: monospace; color: #555;">Ans: ________________________________________________________________</div>
+                    </div>`;
+                }
+                else if (['fill_blanks'].includes(sec.id) || qObj.format === 'fill_blank') {
+                    let displayQ = qObj.question.replace(/___/g, "_____________");
+                    if (qObj.clue && !displayQ.includes(qObj.clue)) {
+                        displayQ += clueText;
+                    }
+                    rowContent = `<div class="q-row px-1 py-1" style="margin-bottom: 8px;"><span>${i + 1}. ${displayQ}</span></div>`;
+                }
+                else if (['missing_letters'].includes(sec.id)) {
+                    let displayWord = qObj.question.replace(/Complete the word:/ig, "").replace(/_/g, "__").trim();
+                    rowContent = `<div class="q-row px-1 py-1" style="margin-bottom: 8px;"><span>${i + 1}. ${displayWord}</span></div>`;
+                }
+                else if (['true_false'].includes(sec.id)) {
+                    rowContent = `<div class="q-row px-1 py-1" style="margin-bottom: 8px;"><span>${i + 1}. ${qObj.question}</span> ____________</div>`;
+                }
+                else if (['rearrange'].includes(sec.id)) {
+                    let displayWord = qObj.question.replace(/^(Unscramble|Rearrange the letters:?)\s*/ig, "").replace(":", "").trim();
+                    rowContent = `<div class="q-row px-1 py-1" style="margin-bottom: 12px; margin-top: 10px;"><span>${i + 1}. ${displayWord}</span> ________________________</div>`;
+                }
+                else if (['writing_prompt'].includes(sec.id) || qObj.category === 'writing_prompt') {
+                    rowContent = `<div class="q-row px-1 py-1" style="margin-bottom: 24px; margin-top: 10px; page-break-inside: avoid;">
+                        <div style="font-size: 15px; font-weight: bold; margin-bottom: 8px;">${i + 1}. ${qObj.question}</div>
+                        <div style="border: 1px dashed #777; border-radius: 6px; padding: 12px; background: repeating-linear-gradient(transparent, transparent 27px, #bbb 28px); min-height: 180px;"></div>
+                    </div>`;
+                }
+                else if (['short_answer'].includes(sec.id) || qObj.category === 'short_answer') {
+                    rowContent = `<div class="q-row px-1 py-1" style="margin-bottom: 16px; margin-top: 8px; page-break-inside: avoid;">
+                        <div style="font-weight: 600; font-size: 14.5px;">${i + 1}. ${qObj.question}${clueText}</div>
+                        <div style="margin-top: 8px; border-bottom: 1px dotted #888; height: 22px;"></div>
+                        <div style="margin-top: 6px; border-bottom: 1px dotted #888; height: 22px;"></div>
+                    </div>`;
+                }
+                else if (['drawing', 'drawings'].includes(sec.id) || qObj.category === 'drawing') {
+                    rowContent = `<div class="q-row px-1 py-1" style="margin-bottom: 20px; margin-top: 8px; page-break-inside: avoid;">
+                        <div style="font-weight: 600; font-size: 14.5px;">${i + 1}. ${qObj.question}</div>
+                        <div style="margin-top: 8px; border: 1.5px dashed #888; border-radius: 6px; height: 180px; display: flex; align-items: center; justify-content: center; color: #888; font-style: italic;">(Draw and colour in this box)</div>
+                    </div>`;
+                }
+                else if (['mcq_standard'].includes(sec.id)) {
+                    let optsHtml = '';
+                    if (qObj.options && qObj.options.length > 0) {
+                        let displayOptions = qObj.options;
+                        if (displayOptions.length > 4) {
+                            const correctOpt = displayOptions.find(o => o.id === qObj.answer) || displayOptions[0];
+                            const wrongOpts = displayOptions.filter(o => o.id !== qObj.answer).slice(0, 3);
+                            displayOptions = shuffleArray([correctOpt, ...wrongOpts]);
+                        }
+                        
+                        let totalTextLength = displayOptions.reduce((sum, o) => sum + (o.text ? o.text.length : String(o).length), 0);
+                        let use1x4Layout = totalTextLength <= 60;
+                        
+                        optsHtml = '<div style="margin-left: 15px; margin-top: 5px; line-height: 1.6;">';
+                        displayOptions.forEach((opt, idx) => {
+                            let optText = opt.text || opt;
+                            optsHtml += `<span>(${String.fromCharCode(97 + idx)}) ${optText}</span>`;
+                            if (idx < displayOptions.length - 1) {
+                                if (!use1x4Layout && idx === 1) optsHtml += '<br>';
+                                else optsHtml += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+                            }
+                        });
+                        optsHtml += '</div>';
+                    }
+                    rowContent = `<div class="q-row px-1 py-1" style="margin-bottom: 15px;"><span>${i + 1}. ${qObj.question}${clueText}</span>${optsHtml}</div>`;
+                }
+                else {
+                    rowContent = `<div class="q-row px-1 py-1" style="margin-bottom: 8px;"><span>${i + 1}. ${qObj.question}${clueText}</span> ____________</div>`;
+                }
+                return rowContent;
             }
-            else if (['match_following'].includes(sec.id)) {
-                 // Build a clean 2-column matching table, shuffling the right-side answers
+
+            if (['match_following'].includes(sec.id)) {
                  let rightSide = sec.items.map(item => item.rightWord || item.a);
                  rightSide = shuffleArray(rightSide);
                  content += `<table style="width: 100%; border-collapse: collapse; border: none; margin-top: 10px; margin-bottom: 15px;">`;
@@ -1024,67 +1166,28 @@
                  });
                  content += `</table>`;
             }
-            else if (['fill_blanks'].includes(sec.id)) {
-                 sec.items.forEach((qObj, i) => { 
-                     // Extend the blank line for writing
-                     let displayQ = qObj.question.replace(/___/g, "_____________");
-                     content += `<div class="q-row px-1 py-1" style="margin-bottom: 8px;"><span>${i + 1}. ${displayQ}</span></div>`; 
-                 });
-            }
-            else if (['missing_letters'].includes(sec.id)) {
-                 sec.items.forEach((qObj, i) => { 
-                     // Remove "Complete the word:" phrase and double the underscores for better visibility
-                     let displayWord = qObj.question.replace(/Complete the word:/ig, "").replace(/_/g, "__").trim();
-                     content += `<div class="q-row px-1 py-1" style="margin-bottom: 8px;"><span>${i + 1}. ${displayWord}</span></div>`; 
-                 });
-            }
-            else if (['true_false'].includes(sec.id)) {
-                 sec.items.forEach((qObj, i) => { 
-                     content += `<div class="q-row px-1 py-1" style="margin-bottom: 8px;"><span>${i + 1}. ${qObj.question}</span> ____________</div>`; 
-                 });
-            }
-            else if (['rearrange'].includes(sec.id)) {
-                 sec.items.forEach((qObj, i) => {
-                     let displayWord = qObj.question.replace(/^(Unscramble|Rearrange the letters:?)\s*/ig, "").replace(":", "").trim();
-                     content += `<div class="q-row px-1 py-1" style="margin-bottom: 12px; margin-top: 10px;"><span>${i + 1}. ${displayWord}</span> ________________________</div>`;
-                 });
-            }
-            else if (['mcq_standard'].includes(sec.id)) {
-                 sec.items.forEach((qObj, i) => {
-                     let optsHtml = '';
-                     if (qObj.options && qObj.options.length > 0) {
-                         let displayOptions = qObj.options;
-                         if (displayOptions.length > 4) {
-                             const correctOpt = displayOptions.find(o => o.id === qObj.answer) || displayOptions[0];
-                             const wrongOpts = displayOptions.filter(o => o.id !== qObj.answer).slice(0, 3);
-                             displayOptions = shuffleArray([correctOpt, ...wrongOpts]);
-                         }
-                         
-                         // Calculate text length to intelligently choose 1x4 or 2x2 layout
-                         let totalTextLength = displayOptions.reduce((sum, o) => sum + o.text.length, 0);
-                         let use1x4Layout = totalTextLength <= 60; // Use 1x4 if options are short
-                         
-                         optsHtml = '<div style="margin-left: 15px; margin-top: 5px; line-height: 1.6;">';
-                         displayOptions.forEach((opt, idx) => {
-                             optsHtml += `<span>(${String.fromCharCode(97 + idx)}) ${opt.text}</span>`;
-                             
-                             if (idx < displayOptions.length - 1) {
-                                 // Apply 2x2 layout by breaking the line after the second option
-                                 if (!use1x4Layout && idx === 1) {
-                                     optsHtml += '<br>';
-                                 } else {
-                                     // Double spacing for inline text layout
-                                     optsHtml += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-                                 }
-                             }
-                         });
-                         optsHtml += '</div>';
-                     }
-                     content += `<div class="q-row px-1 py-1" style="margin-bottom: 15px;"><span>${i + 1}. ${qObj.question}</span>${optsHtml}</div>`;
-                 });
-            }
-            else {
-                sec.items.forEach((qObj, i) => { content += `<div class="q-row px-1 py-1" style="margin-bottom: 8px;"><span>${i + 1}. ${qObj.question}</span> ____________</div>`; });
+            else if (hasMultipleInstructions) {
+                let itemCounter = 0;
+                let subGroupIdx = 0;
+                let grouped = {};
+                sec.items.forEach(item => {
+                    let inst = item.instruction || 'Other Questions';
+                    if (!grouped[inst]) grouped[inst] = [];
+                    grouped[inst].push(item);
+                });
+                for (let inst in grouped) {
+                    let groupItems = grouped[inst];
+                    let subLetter = String.fromCharCode(65 + subGroupIdx);
+                    content += `<div style="font-weight: bold; margin-top: 12px; margin-bottom: 6px; font-size: 15px;">(${subLetter}) ${inst}:</div>`;
+                    groupItems.forEach(item => {
+                        content += renderItemRow(item, itemCounter++);
+                    });
+                    subGroupIdx++;
+                }
+            } else {
+                sec.items.forEach((qObj, i) => {
+                    content += renderItemRow(qObj, i);
+                });
             }
             return `<div class="section-block">${regenBtn}<div style="margin-bottom: 10px; font-size: 16px;">${titleStr}</div><div style="margin-bottom: 20px;">${content}</div></div>`;
         }
@@ -1117,10 +1220,19 @@
         function buildAnswerKeyHtml(set) {
             let html = `<div style="text-align: center; margin-bottom: 2rem;"><h3 style="font-weight: bold; text-decoration: underline;">ANSWER KEY - ${offlineState.sets.length > 1 ? `SET ${set.setName}` : `PAPER`}</h3><p class="text-muted">${currentSubject.title} - Class 2</p></div>`;
             set.sections.forEach((sec, secIdx) => {
-                html += `<div style="margin-bottom: 15px;"><b>${ROMAN[secIdx + 1]}. ${sec.title}</b><br>`;
+                const uniqueInstructions = [...new Set(sec.items.map(item => item.instruction).filter(Boolean))];
+                let titleText = (uniqueInstructions.length === 1 && (sec.id === 'fill_blanks' || sec.id === 'sentence_rewrite' || sec.id === 'short_answer' || sec.id === 'writing_prompt')) ? uniqueInstructions[0] : sec.title;
+                html += `<div style="margin-bottom: 15px;"><b>${ROMAN[secIdx + 1]}. ${titleText}</b><br>`;
                 let ansList = [];
                 sec.items.forEach((qObj, i) => { 
-                    let ans = qObj.answerText || qObj.a || (qObj.leftWord ? `${qObj.leftWord} - ${qObj.rightWord}` : ''); ansList.push(`${i + 1}) ${ans}`); 
+                    let ans = qObj.answerText || qObj.a || (qObj.leftWord ? `${qObj.leftWord} - ${qObj.rightWord}` : ''); 
+                    if (sec.id === 'writing_prompt' || qObj.category === 'writing_prompt') {
+                        ansList.push(`<div style="margin-top: 6px; margin-bottom: 10px;"><b>${i + 1}) ${qObj.question}:</b><br><div style="color: #333; font-style: italic; margin-top: 4px; padding-left: 12px; border-left: 3px solid #ccc; line-height: 1.5;">${ans}</div></div>`);
+                    } else if (sec.id === 'short_answer' || qObj.category === 'short_answer') {
+                        ansList.push(`<b>${i + 1}) ${qObj.question}:</b> <span class="fw-semibold text-dark">${ans}</span>`);
+                    } else {
+                        ansList.push(`${i + 1}) ${ans}`);
+                    }
                 });
                 if(['match_following', 'rearrange', 'missing_letters'].includes(sec.id)) {
                    html += `<table style="width: 100%; border: none; margin-top: 5px; border-collapse: collapse;"><tr>`;
@@ -1171,8 +1283,8 @@
             
             let qsRaw = [];
             categoryIds.forEach(catId => { 
-                // Double check to prevent drawing questions from entering the live pool
-                if (catId !== 'drawing' && activeNormalizedBank[catId]) {
+                // Exclude subjective offline-only categories from online objective quiz
+                if (!OFFLINE_ONLY_CATEGORIES.includes(catId) && activeNormalizedBank[catId]) {
                     qsRaw.push(...activeNormalizedBank[catId]); 
                 }
             });
@@ -1199,8 +1311,8 @@
                 maxScreens[sec.id] = sec.id === 'match_following' ? Math.floor(bLength / 4) : bLength;
             });
 
-            // Remove 'drawing' and empty categories from the available pool for mixed live tests
-            let availableCats = Object.keys(screenCounts).filter(c => c !== 'drawing' && maxScreens[c] > 0);
+            // Exclude offline-only categories and empty categories from the available pool for mixed live tests
+            let availableCats = Object.keys(screenCounts).filter(c => !OFFLINE_ONLY_CATEGORIES.includes(c) && maxScreens[c] > 0);
             
             for (let i = 0; i < target; i++) {
                 let validCats = availableCats.filter(c => screenCounts[c] < maxScreens[c]);
@@ -1224,7 +1336,11 @@
         }
 
         function processAndLaunchLiveTest(rawQuestions) {
-            let interactiveQuestions = rawQuestions.filter(q => ['mcq', 'fill_blank_click', 'matching_pair_candidate', 'missing_letter_input'].includes(q.type));
+            let interactiveQuestions = rawQuestions.filter(q => 
+                !OFFLINE_ONLY_CATEGORIES.includes(q.category) && 
+                q.type !== 'offline_subjective' && 
+                ['mcq', 'fill_blank_click', 'matching_pair_candidate', 'missing_letter_input'].includes(q.type)
+            );
             let candidates = interactiveQuestions.filter(q => q.type === 'matching_pair_candidate');
             let otherQuestions = interactiveQuestions.filter(q => q.type !== 'matching_pair_candidate');
 
@@ -1274,20 +1390,30 @@
             document.getElementById('ot-progress-text').innerText = `Q ${qIndex + 1} / ${totalScreens}`;
             document.getElementById('ot-progress-bar').style.width = `${((qIndex + 1) / totalScreens) * 100}%`;
 
-            const sectionTitle = getCategoryTitle(qObj.category);
-            const sectionTitleHtml = `<div class="badge text-white mb-3 shadow-sm py-2 px-3" style="font-size: 0.9rem; background-color: ${currentSubject.theme};"><i class="bi bi-info-circle me-1"></i> ${sectionTitle}</div>`;
+            // Update chapter subtitle in the header
+            updateGameCardTitle(qObj);
+
+            const sectionTitle = qObj.instruction || getCategoryTitle(qObj.category);
+            const sectionTitleHtml = sectionTitle ? `
+                <div class="question-instruction-text animate-fade w-100 text-center mb-3">
+                    <p class="text-body-secondary fw-semibold mb-0" style="font-size: clamp(1.05rem, 2.2vw, 1.25rem); line-height: 1.4; font-family: 'Comic Sans MS', 'Nunito', sans-serif;">
+                        ${sectionTitle}
+                    </p>
+                </div>
+            ` : '';
 
             if (qObj.type === 'fill_blank_click') {
                 document.getElementById('ot-interface').classList.add('full-width-grid'); document.getElementById('ot-left-panel').style.display = 'none';
-                let sentenceHtml = `<div class="kid-question-text w-100 animate-fade text-center">${qObj.segments[0]}<span id="blank-zone" class="blank-dropzone empty" onclick="handleBlankZoneClick()"></span>${qObj.segments.length > 1 ? qObj.segments[1] : ''}</div>`;
+                let clueBadge = qObj.clue ? ` <span class="badge bg-secondary-subtle text-body-secondary border px-2 py-1 fs-6 ms-2 align-middle">${qObj.clue}</span>` : '';
+                let sentenceHtml = `<div class="kid-question-text w-100 animate-fade text-center mb-4" style="margin-top: 1rem; font-size: clamp(1.4rem, 3.5vw, 2rem) !important;">${qObj.segments[0]}<span id="blank-zone" class="blank-dropzone empty" onclick="handleBlankZoneClick()"></span>${qObj.segments.length > 1 ? qObj.segments[1] : ''}${clueBadge}</div>`;
                 let pillsHtml = `<div class="d-flex flex-wrap justify-content-center gap-2 gap-sm-3 animate-fade" style="max-width: 600px; margin: 0 auto;">${qObj.options.map(opt => `<button id="${opt.id}" class="soft-pill-btn" onclick="handleOptionPillClick('${opt.id}', '${opt.text}')">${opt.text}</button>`).join('')}</div>`;
-                document.getElementById('ot-options-box').innerHTML = `<div class="text-center w-100">${sectionTitleHtml}</div><div class="text-muted fs-4 fw-bold mb-4 animate-fade text-center"><i class="bi bi-cursor-fill me-2" style="color:${currentSubject.theme};"></i>Tap a word to fill the blank!</div>${sentenceHtml}${pillsHtml}<button id="btn-go-check" class="btn-go-check animate-fade w-100 mt-5 mx-auto d-block" style="max-width: 300px; background-color:${currentSubject.theme};" onclick="submitFillBlank()" disabled>GO!</button>`;
+                document.getElementById('ot-options-box').innerHTML = `${sectionTitleHtml}${sentenceHtml}${pillsHtml}<button id="btn-go-check" class="btn-go-check animate-fade w-100 mt-5 mx-auto d-block" style="max-width: 300px; background-color:${currentSubject.theme};" onclick="submitFillBlank()" disabled>GO!</button>`;
             } 
             else if (qObj.type === 'matching_pairs') {
                 document.getElementById('ot-interface').classList.add('full-width-grid'); document.getElementById('ot-left-panel').style.display = 'none';
                 let leftHtml = qObj.leftSide.map(item => `<div class="match-card left-card animate-fade" id="match-left-${item.id}" onclick="handleMatchCardClick('left', '${item.id}')">${item.text}</div>`).join('');
                 let rightHtml = qObj.rightSide.map(item => `<div class="match-card right-card animate-fade" id="match-right-${item.id}" onclick="handleMatchCardClick('right', '${item.id}')">${item.text}</div>`).join('');
-                document.getElementById('ot-options-box').innerHTML = `<div class="text-center w-100">${sectionTitleHtml}</div><div class="kid-question-text w-100 animate-fade text-center" style="margin-bottom: 1rem !important;">${qObj.question}</div><div class="match-game-wrapper animate-fade" id="match-game-container"><svg id="match-lines-svg" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index: 10;"></svg><div class="match-col match-col-left" id="match-col-left">${leftHtml}</div><div class="match-col match-col-right" id="match-col-right">${rightHtml}</div></div>`;
+                document.getElementById('ot-options-box').innerHTML = `${sectionTitleHtml}<div class="kid-question-text w-100 animate-fade text-center" style="margin-bottom: 1rem !important;">${qObj.question}</div><div class="match-game-wrapper animate-fade" id="match-game-container"><svg id="match-lines-svg" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index: 10;"></svg><div class="match-col match-col-left" id="match-col-left">${leftHtml}</div><div class="match-col match-col-right" id="match-col-right">${rightHtml}</div></div>`;
                 onlineState.matchSelection = { left: null, right: null }; onlineState.matchLines = []; window.addEventListener('resize', redrawMatchLines);
             }
             else if (qObj.type === 'missing_letter_input') {
@@ -1298,7 +1424,7 @@
                 if (qObj.invalid || !qObj.answer) {
                     let displayQText = qObj.question.replace(/'([^']+)'/g, "<span class='highlight-word'>'$1'</span>");
                     document.getElementById('ot-options-box').innerHTML = `
-                        <div class="text-center w-100">${sectionTitleHtml}</div>
+                        ${sectionTitleHtml}
                         <h4 class="kid-question-text w-100 animate-fade text-center">${displayQText}</h4>
                         <div class="alert alert-warning text-center my-3 fw-bold">
                             <i class="bi bi-exclamation-triangle-fill me-2"></i>This question has an invalid configuration and cannot be graded.
@@ -1317,7 +1443,10 @@
                 });
                 optionsHtml += '</div>';
                 let displayQText = qObj.question.replace(/'([^']+)'/g, "<span class='highlight-word'>'$1'</span>");
-                document.getElementById('ot-options-box').innerHTML = `<div class="text-center w-100">${sectionTitleHtml}</div><h4 class="kid-question-text w-100 animate-fade text-center">${displayQText}</h4>${optionsHtml}`; 
+                if (qObj.clue && !displayQText.includes(qObj.clue)) {
+                    displayQText += ` <span class="badge bg-secondary-subtle text-body-secondary border px-2 py-1 fs-6 ms-2 align-middle">${qObj.clue}</span>`;
+                }
+                document.getElementById('ot-options-box').innerHTML = `${sectionTitleHtml}<h4 class="kid-question-text w-100 animate-fade text-center mb-4">${displayQText}</h4>${optionsHtml}`; 
             }
             document.getElementById('ot-feedback').innerHTML = '';
         }
@@ -1352,10 +1481,7 @@
             const cleanPrompt = qObj.question.replace(/^Complete the word:\s*/i, '').trim();
 
             document.getElementById('ot-options-box').innerHTML = `
-                <div class="text-center w-100">${sectionTitleHtml}</div>
-                <div class="text-muted fs-4 fw-bold mb-3 animate-fade text-center">
-                    <i class="bi bi-pencil-fill me-2" style="color:${currentSubject.theme};"></i>Fill in the missing letters!
-                </div>
+                ${sectionTitleHtml}
                 <div class="kid-question-text w-100 animate-fade text-center mb-2" style="font-size: clamp(1.2rem, 3.2vw, 1.75rem) !important; margin-bottom: 1.5rem !important;">
                     Complete the word: <span class="highlight-word ms-2">${cleanPrompt}</span>
                 </div>

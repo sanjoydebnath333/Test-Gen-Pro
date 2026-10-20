@@ -174,14 +174,42 @@
         /* --- Hub & Splash Screens --- */
         .hub-container {
             width: 100%;
-            max-width: 1420px;
-            padding: 0.5rem 0.5rem 1.5rem;
+            max-width: 100%;
+            padding: 0.75rem 1rem 1.5rem;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
             min-height: auto;
             animation: fadeSlideUp 0.5s ease;
+        }
+
+        @media (min-width: 992px) {
+            .hub-container {
+                max-width: 1040px;
+                padding: 1.5rem 1.75rem 2.5rem;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .hub-container {
+                max-width: 1100px;
+                padding: 2rem 2.25rem 3rem;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .hub-container {
+                max-width: 1160px;
+                padding: 2.25rem 2.5rem 3.5rem;
+            }
+        }
+
+        @media (min-width: 1600px) {
+            .hub-container {
+                max-width: 1220px;
+                padding: 2.5rem 3rem 4rem;
+            }
         }
 
         .hub-hero-title {
@@ -215,17 +243,26 @@
             margin-top: 1rem;
         }
 
-        @media (min-width: 1024px) {
+        @media (min-width: 992px) {
             .subject-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 1.15rem;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+                margin-top: 1.5rem;
             }
         }
 
         @media (min-width: 1400px) {
             .subject-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 1.35rem;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.75rem;
+                margin-top: 1.75rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .subject-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.85rem;
             }
         }
 
@@ -362,17 +399,154 @@
             translate: 0 0;
         }
 
+        @media (min-width: 992px) {
+            .subject-card {
+                min-height: 260px;
+                padding: 2.6rem 1.65rem 2.25rem;
+                border-radius: 1.4rem;
+            }
+
+            .subject-icon-wrap {
+                width: 76px;
+                height: 76px;
+                margin-bottom: 1.15rem;
+            }
+
+            .subject-icon {
+                font-size: 2.75rem;
+            }
+
+            .subject-card-title {
+                font-size: 1.35rem;
+                margin-bottom: 0.45rem;
+            }
+
+            .subject-card-meta {
+                font-size: 0.9rem;
+            }
+
+            .subject-card-hover-arrow {
+                bottom: 0.95rem;
+                right: 1.1rem;
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .subject-card {
+                min-height: 290px;
+                padding: 3rem 1.85rem 2.5rem;
+                border-radius: 1.5rem;
+            }
+
+            .subject-icon-wrap {
+                width: 84px;
+                height: 84px;
+                margin-bottom: 1.35rem;
+            }
+
+            .subject-icon {
+                font-size: 3.1rem;
+            }
+
+            .subject-card-title {
+                font-size: 1.45rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .subject-card-meta {
+                font-size: 0.94rem;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .subject-card {
+                min-height: 325px;
+                padding: 3.4rem 2.1rem 2.85rem;
+                border-radius: 1.6rem;
+            }
+
+            .subject-icon-wrap {
+                width: 92px;
+                height: 92px;
+                margin-bottom: 1.5rem;
+            }
+
+            .subject-icon {
+                font-size: 3.35rem;
+            }
+
+            .subject-card-title {
+                font-size: 1.55rem;
+                margin-bottom: 0.6rem;
+            }
+
+            .subject-card-meta {
+                font-size: 0.98rem;
+            }
+        }
+
+        @media (min-width: 1600px) {
+            .subject-card {
+                min-height: 355px;
+                padding: 3.75rem 2.25rem 3.15rem;
+                border-radius: 1.75rem;
+            }
+
+            .subject-icon-wrap {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 1.65rem;
+            }
+
+            .subject-icon {
+                font-size: 3.6rem;
+            }
+
+            .subject-card-title {
+                font-size: 1.65rem;
+            }
+        }
+
         /* --- Subject Home Menu --- */
         .home-container {
             width: 100%;
-            max-width: 1240px;
-            padding: 0.5rem 0.5rem 1.5rem;
+            max-width: 100%;
+            padding: 0.75rem 1rem 1.5rem;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
             min-height: auto;
             animation: fadeSlideUp 0.5s ease;
+        }
+
+        @media (min-width: 992px) {
+            .home-container {
+                max-width: 1040px;
+                padding: 1.5rem 1.75rem 2.5rem;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .home-container {
+                max-width: 1100px;
+                padding: 2rem 2.25rem 3rem;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .home-container {
+                max-width: 1160px;
+                padding: 2.25rem 2.5rem 3.5rem;
+            }
+        }
+
+        @media (min-width: 1600px) {
+            .home-container {
+                max-width: 1220px;
+                padding: 2.5rem 3rem 4rem;
+            }
         }
 
         .home-subject-badge-icon {
@@ -546,6 +720,141 @@
         .card-desc {
             font-size: 0.92rem;
             line-height: 1.45;
+        }
+
+        @media (min-width: 992px) {
+            .big-home-card {
+                min-height: 380px;
+                padding: 3rem 1.85rem 2.5rem;
+                border-radius: 1.75rem;
+            }
+
+            .home-icon-wrap {
+                width: 86px;
+                height: 86px;
+                font-size: 2.85rem;
+                margin-bottom: 1.4rem;
+            }
+
+            .card-title {
+                font-size: 1.5rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .card-desc {
+                font-size: 1rem;
+                line-height: 1.55;
+                max-width: 280px;
+            }
+
+            .card-footer-pill {
+                margin-top: 1.5rem;
+            }
+
+            .card-footer-pill .badge {
+                font-size: 0.92rem !important;
+                padding: 0.5rem 1.25rem !important;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .big-home-card {
+                min-height: 420px;
+                padding: 3.5rem 2.15rem 2.85rem;
+                border-radius: 1.85rem;
+            }
+
+            .home-icon-wrap {
+                width: 94px;
+                height: 94px;
+                font-size: 3.15rem;
+                margin-bottom: 1.65rem;
+            }
+
+            .card-title {
+                font-size: 1.65rem;
+                margin-bottom: 0.85rem;
+            }
+
+            .card-desc {
+                font-size: 1.05rem;
+                line-height: 1.6;
+                max-width: 295px;
+            }
+
+            .card-footer-pill {
+                margin-top: 1.75rem;
+            }
+
+            .card-footer-pill .badge {
+                font-size: 0.96rem !important;
+                padding: 0.55rem 1.35rem !important;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .big-home-card {
+                min-height: 460px;
+                padding: 4rem 2.35rem 3.25rem;
+                border-radius: 2rem;
+            }
+
+            .home-icon-wrap {
+                width: 104px;
+                height: 104px;
+                font-size: 3.45rem;
+                margin-bottom: 1.85rem;
+            }
+
+            .card-title {
+                font-size: 1.75rem;
+                margin-bottom: 0.95rem;
+            }
+
+            .card-desc {
+                font-size: 1.1rem;
+                line-height: 1.65;
+                max-width: 310px;
+            }
+
+            .card-footer-pill {
+                margin-top: 2rem;
+            }
+
+            .card-footer-pill .badge {
+                font-size: 1rem !important;
+                padding: 0.6rem 1.5rem !important;
+            }
+        }
+
+        @media (min-width: 1600px) {
+            .big-home-card {
+                min-height: 500px;
+                padding: 4.5rem 2.5rem 3.75rem;
+                border-radius: 2.25rem;
+            }
+
+            .home-icon-wrap {
+                width: 112px;
+                height: 112px;
+                font-size: 3.75rem;
+                margin-bottom: 2.15rem;
+            }
+
+            .card-title {
+                font-size: 1.85rem;
+                margin-bottom: 1.1rem;
+            }
+
+            .card-desc {
+                font-size: 1.15rem;
+                line-height: 1.7;
+                max-width: 330px;
+            }
+
+            .card-footer-pill {
+                margin-top: 2.25rem;
+            }
         }
 
         /* --- Kid Modal Styles --- */
@@ -774,6 +1083,14 @@
         .kid-question-text { font-size: clamp(1.65rem, 4.5vw, 2.1rem); font-weight: 900; color: var(--text-main); font-family: 'Nunito', 'Comic Sans MS', sans-serif; margin-bottom: 3.5rem !important; line-height: 1.4; text-shadow: 2px 3px 6px rgba(0,0,0,0.15); }
         .highlight-word { background-color: #fef08a; border: 3px dotted #f97316; box-shadow: 4px 4px 0px rgba(0,0,0,0.15); padding: 0 12px; border-radius: 8px; display: inline-block; margin: 0 6px; color: #0f172a; text-shadow: none; white-space: nowrap; transform: rotate(-4deg); }
         
+        /* Question Instruction (Plain Text) */
+        .question-instruction-text {
+            margin-bottom: 1.25rem !important;
+        }
+        .question-instruction-text p {
+            letter-spacing: 0.2px;
+        }
+
         .mcq-grid-1x2 { display: grid; grid-template-columns: 1fr; gap: 15px; width: 100%; max-width: 600px; margin: 0 auto; }
         .mcq-grid-2x2 { display: grid; grid-template-columns: 1fr; gap: 15px; width: 100%; max-width: 800px; margin: 0 auto; }
         @media (min-width: 577px) { .mcq-grid-1x2 { grid-template-columns: repeat(2, 1fr); } .mcq-grid-2x2 { grid-template-columns: repeat(2, 1fr); } }

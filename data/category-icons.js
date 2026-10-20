@@ -17,7 +17,13 @@ const CATEGORY_ICONS = {
   'adjective': { icon: '✨', title: 'Adjectives', desc: 'Describe it' },
   'pronoun': { icon: '👤', title: 'Pronouns', desc: 'Replace noun' },
   'spelling_rules': { icon: '🔤', title: 'Spell Rules', desc: 'ie or ei' },
-  'read_clues': { icon: '🕵️', title: 'Read Clues', desc: 'Solve it' }
+  'read_clues': { icon: '🕵️', title: 'Read Clues', desc: 'Solve it' },
+  'short_answer': { icon: '💡', title: 'Grammar', desc: 'Rules & Tenses' },
+  'sentence_rewrite': { icon: '🔀', title: 'Sentences', desc: 'Join & Punctuate' },
+  'word_building': { icon: '🔍', title: 'Word Hunt', desc: 'Hidden Words' },
+  'phrase_completion': { icon: '🥣', title: 'Phrases', desc: 'Complete Phrase' },
+  'writing_prompt': { icon: '📝', title: 'Paragraphs', desc: 'Composition' },
+  'drawings': { icon: '🎨', title: 'Drawings', desc: 'Diagrams' }
 };
 
 const ROMAN = [

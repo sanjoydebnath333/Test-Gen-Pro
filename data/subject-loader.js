@@ -14,7 +14,13 @@ function mergeChapterBanks(chapters, chapterFilter) {
     if (!ch.bank) return;
     Object.keys(ch.bank).forEach((categoryId) => {
       if (!merged[categoryId]) merged[categoryId] = [];
-      merged[categoryId].push(...(ch.bank[categoryId] || []));
+      const items = (ch.bank[categoryId] || []).map((item) => ({
+        ...item,
+        chapterId: ch.id,
+        chapterNumber: ch.number,
+        chapterTitle: ch.title
+      }));
+      merged[categoryId].push(...items);
     });
   });
 

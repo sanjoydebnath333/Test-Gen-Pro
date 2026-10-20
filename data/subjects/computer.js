@@ -91,7 +91,8 @@ const SUBJECT_COMPUTER = {
             "options": [
               "Eraser tool",
               "Stamp tool",
-              "Lines tool"
+              "Lines tool",
+              "Paint tool"
             ]
           },
           {
@@ -100,25 +101,28 @@ const SUBJECT_COMPUTER = {
             "options": [
               "Quit tool",
               "Open tool",
-              "Print tool"
+              "Print tool",
+              "Save tool"
             ]
           },
           {
             "q": "Tux Paint is used to",
             "a": "draw pictures",
             "options": [
-              "play video games",
+              "draw pictures",
               "do calculations",
-              "draw pictures"
+              "play video games",
+              "type letters"
             ]
           },
           {
             "q": "Blank area in the window of the Tux Paint is called",
             "a": "Drawing Area",
             "options": [
-              "script area",
               "Drawing Area",
-              "magic area"
+              "script area",
+              "magic area",
+              "color area"
             ]
           },
           {
@@ -127,7 +131,8 @@ const SUBJECT_COMPUTER = {
             "options": [
               "Toolbox",
               "Canvas Area",
-              "Selector"
+              "Selector",
+              "Title bar"
             ]
           },
           {
@@ -136,39 +141,71 @@ const SUBJECT_COMPUTER = {
             "options": [
               "Paint tool",
               "Stamp tool",
-              "Save tool"
+              "Save tool",
+              "Lines tool"
             ]
           },
           {
             "q": "Which tool is used to add stamps?",
             "a": "Stamp tool",
             "options": [
-              "Paint tool",
               "Stamp tool",
-              "Eraser tool"
+              "Paint tool",
+              "Eraser tool",
+              "Magic tool"
             ]
           }
         ],
         "fill_blanks": [
           {
             "q": "You can open a new drawing using the ___ tool.",
-            "a": "New"
+            "a": "New",
+            "options": [
+              "New",
+              "Open",
+              "Save",
+              "Quit"
+            ]
           },
           {
             "q": "The ___ tool is used to delete any part of the drawing.",
-            "a": "Eraser"
+            "a": "Eraser",
+            "options": [
+              "Eraser",
+              "Paint",
+              "Stamp",
+              "Magic"
+            ]
           },
           {
             "q": "We can save our drawing by using the ___ tool.",
-            "a": "Save"
+            "a": "Save",
+            "options": [
+              "Save",
+              "Open",
+              "New",
+              "Print"
+            ]
           },
           {
             "q": "The ___ tool is used to open the already created drawing.",
-            "a": "Open"
+            "a": "Open",
+            "options": [
+              "Open",
+              "New",
+              "Save",
+              "Quit"
+            ]
           },
           {
             "q": "___ tool is used to close the Tux Paint program.",
-            "a": "Quit"
+            "a": "Quit",
+            "options": [
+              "Quit",
+              "Save",
+              "Open",
+              "New"
+            ]
           }
         ],
         "true_false": [
@@ -216,23 +253,53 @@ const SUBJECT_COMPUTER = {
         "one_word": [
           {
             "q": "A tool that has lots of pictures already saved in it",
-            "a": "New tool"
+            "a": "New tool",
+            "options": [
+              "New tool",
+              "Stamp tool",
+              "Open tool",
+              "Magic tool"
+            ]
           },
           {
             "q": "A tool used to erase a drawing or a part of a drawing",
-            "a": "Eraser tool"
+            "a": "Eraser tool",
+            "options": [
+              "Eraser tool",
+              "Paint tool",
+              "Stamp tool",
+              "Lines tool"
+            ]
           },
           {
             "q": "A tool used for closing the Tux Paint program",
-            "a": "Quit tool"
+            "a": "Quit tool",
+            "options": [
+              "Quit tool",
+              "Save tool",
+              "Open tool",
+              "Print tool"
+            ]
           },
           {
             "q": "A tool used to save a drawing",
-            "a": "Save tool"
+            "a": "Save tool",
+            "options": [
+              "Save tool",
+              "Open tool",
+              "New tool",
+              "Print tool"
+            ]
           },
           {
             "q": "A tool used to colour a picture",
-            "a": "Magic tool"
+            "a": "Magic tool",
+            "options": [
+              "Magic tool",
+              "Paint tool",
+              "Stamp tool",
+              "Lines tool"
+            ]
           }
         ],
         "match_following": [
@@ -286,69 +353,165 @@ const SUBJECT_COMPUTER = {
         "rearrange": [
           {
             "q": "G I M C A",
-            "a": "MAGIC"
+            "a": "MAGIC",
+            "options": [
+              "MAGIC",
+              "MAGCI",
+              "MAJIC",
+              "MAGIK"
+            ]
           },
           {
             "q": "P A M S T",
-            "a": "STAMP"
+            "a": "STAMP",
+            "options": [
+              "STAMP",
+              "STMAP",
+              "STAPM",
+              "STEMP"
+            ]
           },
           {
             "q": "S E R A R E",
-            "a": "ERASER"
+            "a": "ERASER",
+            "options": [
+              "ERASER",
+              "ERASRE",
+              "ERESAR",
+              "ERASOR"
+            ]
           },
           {
             "q": "N I L E S",
-            "a": "LINES"
+            "a": "LINES",
+            "options": [
+              "LINES",
+              "LINSE",
+              "LIENS",
+              "LNEIS"
+            ]
           },
           {
             "q": "T I P A N",
-            "a": "PAINT"
+            "a": "PAINT",
+            "options": [
+              "PAINT",
+              "PIANT",
+              "PANIT",
+              "PATIN"
+            ]
           },
           {
             "q": "I T U Q",
-            "a": "QUIT"
+            "a": "QUIT",
+            "options": [
+              "QUIT",
+              "QIUT",
+              "QTIU",
+              "QUET"
+            ]
           },
           {
             "q": "V A S E",
-            "a": "SAVE"
+            "a": "SAVE",
+            "options": [
+              "SAVE",
+              "SAEV",
+              "SVAE",
+              "SEVA"
+            ]
           },
           {
             "q": "E P O N",
-            "a": "OPEN"
+            "a": "OPEN",
+            "options": [
+              "OPEN",
+              "OPNE",
+              "OEPN",
+              "OPAN"
+            ]
           }
         ],
         "missing_letters": [
           {
-            "q": "MAGIC",
-            "a": "MAGIC"
+            "q": "M _ G I C",
+            "a": "MAGIC",
+            "options": [
+              "MAGIC",
+              "MAGIK",
+              "MOGIC",
+              "MAGAC"
+            ]
           },
           {
-            "q": "STAMP",
-            "a": "STAMP"
+            "q": "S T _ M P",
+            "a": "STAMP",
+            "options": [
+              "STAMP",
+              "STEMP",
+              "STOMP",
+              "STUMP"
+            ]
           },
           {
-            "q": "ERASER",
-            "a": "ERASER"
+            "q": "E R _ S E R",
+            "a": "ERASER",
+            "options": [
+              "ERASER",
+              "ERUSER",
+              "ERISER",
+              "ERASOR"
+            ]
           },
           {
-            "q": "SHAPES",
-            "a": "SHAPES"
+            "q": "S H _ P E S",
+            "a": "SHAPES",
+            "options": [
+              "SHAPES",
+              "SHIPES",
+              "SHOPES",
+              "SHUPES"
+            ]
           },
           {
-            "q": "CANVAS",
-            "a": "CANVAS"
+            "q": "C _ N V _ S",
+            "a": "CANVAS",
+            "options": [
+              "CANVAS",
+              "CENVAS",
+              "CONVAS",
+              "CUNVAS"
+            ]
           },
           {
-            "q": "M A S C O T",
-            "a": "MASCOT"
+            "q": "M _ S C _ T",
+            "a": "MASCOT",
+            "options": [
+              "MASCOT",
+              "MISCOT",
+              "MOSCOT",
+              "MESCOT"
+            ]
           },
           {
-            "q": "BRUSHES",
-            "a": "BRUSHES"
+            "q": "B R _ S H E S",
+            "a": "BRUSHES",
+            "options": [
+              "BRUSHES",
+              "BLUSHES",
+              "BROSHES",
+              "BRASHES"
+            ]
           },
           {
-            "q": "COLORS",
-            "a": "COLORS"
+            "q": "C _ L O R S",
+            "a": "COLORS",
+            "options": [
+              "COLORS",
+              "CALORS",
+              "COLURS",
+              "CULORS"
+            ]
           }
         ]
       }
@@ -365,7 +528,8 @@ const SUBJECT_COMPUTER = {
             "options": [
               "Pencil tool",
               "Text tool",
-              "Eraser tool"
+              "Eraser tool",
+              "Line tool"
             ]
           },
           {
@@ -374,16 +538,18 @@ const SUBJECT_COMPUTER = {
             "options": [
               "Minimise",
               "Restore",
-              "Both of these"
+              "Both of these",
+              "None of these"
             ]
           },
           {
             "q": "This tool is used to make the drawing look bigger.",
             "a": "Magnifier tool",
             "options": [
+              "Magnifier tool",
               "Pencil tool",
               "Eraser tool",
-              "Magnifier tool"
+              "Color Picker tool"
             ]
           },
           {
@@ -392,60 +558,111 @@ const SUBJECT_COMPUTER = {
             "options": [
               "Color Picker tool",
               "Fill with Color",
-              "Colors group"
+              "Colors group",
+              "Brushes tool"
             ]
           },
           {
             "q": "This option is used to select the picture or a part of the picture in an irregular shape.",
             "a": "Free-form selection",
             "options": [
-              "Rectangular selection",
               "Free-form selection",
-              "Square selection"
+              "Rectangular selection",
+              "Square selection",
+              "Circular selection"
             ]
           },
           {
             "q": "AI can help you by:",
             "a": "Suggesting colors and fixing mistakes",
             "options": [
-              "Drawing everything for you",
               "Suggesting colors and fixing mistakes",
-              "Deleting your drawing"
+              "Drawing everything for you",
+              "Deleting your drawing",
+              "Shutting down the computer"
             ]
           }
         ],
         "fill_blanks": [
           {
             "q": "The ___ command will help you to select everything present on the Paint screen.",
-            "a": "Select all"
+            "a": "Select all",
+            "options": [
+              "Select all",
+              "Free-form selection",
+              "Rectangular selection",
+              "Invert selection"
+            ]
           },
           {
             "q": "The ___ tool is used to write on the picture.",
-            "a": "Text"
+            "a": "Text",
+            "options": [
+              "Text",
+              "Pencil",
+              "Brush",
+              "Eraser"
+            ]
           },
           {
             "q": "The ___ tool is used to make the drawing look larger.",
-            "a": "Magnifier"
+            "a": "Magnifier",
+            "options": [
+              "Magnifier",
+              "Pencil",
+              "Brushes",
+              "Color Picker"
+            ]
           },
           {
             "q": "The ___ group contains many tools that perform different functions.",
-            "a": "Tools"
+            "a": "Tools",
+            "options": [
+              "Tools",
+              "Shapes",
+              "Colors",
+              "Clipboard"
+            ]
           },
           {
             "q": "The ___ tool helps you draw shapes with many sides.",
-            "a": "Polygon"
+            "a": "Polygon",
+            "options": [
+              "Polygon",
+              "Rectangle",
+              "Oval",
+              "Line"
+            ]
           },
           {
             "q": "The ___ group is used to draw shapes like rectangles and triangles.",
-            "a": "Shape"
+            "a": "Shape",
+            "options": [
+              "Shape",
+              "Tools",
+              "Colors",
+              "Image"
+            ]
           },
           {
             "q": "The ___ tool is used to make a wavy line.",
-            "a": "Curve"
+            "a": "Curve",
+            "options": [
+              "Curve",
+              "Line",
+              "Polygon",
+              "Pencil"
+            ]
           },
           {
             "q": "The Paint program gives children access to ___ and paint.",
-            "a": "draw"
+            "a": "draw",
+            "options": [
+              "draw",
+              "type",
+              "calculate",
+              "listen"
+            ]
           }
         ],
         "match_following": [
@@ -539,35 +756,83 @@ const SUBJECT_COMPUTER = {
         "one_word": [
           {
             "q": "The area in Paint also called the Canvas area.",
-            "a": "Drawing Area"
+            "a": "Drawing Area",
+            "options": [
+              "Drawing Area",
+              "Ribbon",
+              "Title bar",
+              "Status bar"
+            ]
           },
           {
             "q": "The button that allows us to open, close, and save a file.",
-            "a": "Paint button"
+            "a": "Paint button",
+            "options": [
+              "Paint button",
+              "Control button",
+              "Help button",
+              "Tool button"
+            ]
           },
           {
             "q": "The buttons placed at the top right side of the title bar.",
-            "a": "Control buttons"
+            "a": "Control buttons",
+            "options": [
+              "Control buttons",
+              "Scroll buttons",
+              "Tool buttons",
+              "Tab buttons"
+            ]
           },
           {
             "q": "The group used to draw different shapes like circles, rectangles, and triangles.",
-            "a": "Shape group"
+            "a": "Shape group",
+            "options": [
+              "Shape group",
+              "Colors group",
+              "Tools group",
+              "Clipboard group"
+            ]
           },
           {
             "q": "The tool used to write text with the picture.",
-            "a": "Text tool"
+            "a": "Text tool",
+            "options": [
+              "Text tool",
+              "Pencil tool",
+              "Eraser tool",
+              "Color Picker tool"
+            ]
           },
           {
             "q": "The tool used to erase the unwanted part of a picture.",
-            "a": "Eraser tool"
+            "a": "Eraser tool",
+            "options": [
+              "Eraser tool",
+              "Pencil tool",
+              "Magnifier tool",
+              "Brush tool"
+            ]
           },
           {
             "q": "The tool used to make the drawing look bigger.",
-            "a": "Magnifier tool"
+            "a": "Magnifier tool",
+            "options": [
+              "Magnifier tool",
+              "Pencil tool",
+              "Color Picker tool",
+              "Brush tool"
+            ]
           },
           {
             "q": "The tool used to select any part of the picture that we want to change.",
-            "a": "Select tool"
+            "a": "Select tool",
+            "options": [
+              "Select tool",
+              "Pencil tool",
+              "Text tool",
+              "Eraser tool"
+            ]
           }
         ],
         "short_answer": [
@@ -594,70 +859,166 @@ const SUBJECT_COMPUTER = {
         ],
         "missing_letters": [
           {
-            "q": "P E N C I L",
-            "a": "PENCIL"
+            "q": "P _ N C _ L",
+            "a": "PENCIL",
+            "options": [
+              "PENCIL",
+              "PANCIL",
+              "PENCEL",
+              "PANCLE"
+            ]
           },
           {
-            "q": "C A N V A S",
-            "a": "CANVAS"
+            "q": "C _ N V _ S",
+            "a": "CANVAS",
+            "options": [
+              "CANVAS",
+              "CENVAS",
+              "CONVAS",
+              "CUNVAS"
+            ]
           },
           {
-            "q": "E R A S E R",
-            "a": "ERASER"
+            "q": "E R _ S E R",
+            "a": "ERASER",
+            "options": [
+              "ERASER",
+              "ERUSER",
+              "ERISER",
+              "ERASOR"
+            ]
           },
           {
-            "q": "W I N D O W",
-            "a": "WINDOW"
+            "q": "W _ N D _ W",
+            "a": "WINDOW",
+            "options": [
+              "WINDOW",
+              "WANDOW",
+              "WENDOW",
+              "WINDOR"
+            ]
           },
           {
-            "q": "C U R V E",
-            "a": "CURVE"
+            "q": "C _ R V E",
+            "a": "CURVE",
+            "options": [
+              "CURVE",
+              "CORVE",
+              "CARVE",
+              "CIRVE"
+            ]
           },
           {
-            "q": "S H A P E S",
-            "a": "SHAPES"
+            "q": "S H _ P E S",
+            "a": "SHAPES",
+            "options": [
+              "SHAPES",
+              "SHIPES",
+              "SHOPES",
+              "SHUPES"
+            ]
           },
           {
-            "q": "P O L Y G O N",
-            "a": "POLYGON"
+            "q": "P _ L Y G _ N",
+            "a": "POLYGON",
+            "options": [
+              "POLYGON",
+              "PELYGON",
+              "PALYGON",
+              "POLYGEN"
+            ]
           },
           {
-            "q": "M A G N I F I E R",
-            "a": "MAGNIFIER"
+            "q": "M _ G N _ F I E R",
+            "a": "MAGNIFIER",
+            "options": [
+              "MAGNIFIER",
+              "MEGNIFIER",
+              "MOGNIFIER",
+              "MAGNEFIER"
+            ]
           }
         ],
         "rearrange": [
           {
             "q": "I N P A T",
-            "a": "PAINT"
+            "a": "PAINT",
+            "options": [
+              "PAINT",
+              "PIANT",
+              "PANIT",
+              "PATIN"
+            ]
           },
           {
             "q": "B I R O N B",
-            "a": "RIBBON"
+            "a": "RIBBON",
+            "options": [
+              "RIBBON",
+              "RIBNOB",
+              "RIBNON",
+              "ROBBIN"
+            ]
           },
           {
             "q": "L C O O S R",
-            "a": "COLORS"
+            "a": "COLORS",
+            "options": [
+              "COLORS",
+              "COLROS",
+              "COSLOR",
+              "COLURS"
+            ]
           },
           {
             "q": "T X T E",
-            "a": "TEXT"
+            "a": "TEXT",
+            "options": [
+              "TEXT",
+              "TXET",
+              "TETX",
+              "TXTE"
+            ]
           },
           {
             "q": "L T E I T",
-            "a": "TITLE"
+            "a": "TITLE",
+            "options": [
+              "TITLE",
+              "TITEL",
+              "TILTE",
+              "TLEIT"
+            ]
           },
           {
             "q": "C E S L T E",
-            "a": "SELECT"
+            "a": "SELECT",
+            "options": [
+              "SELECT",
+              "SELCET",
+              "SETECL",
+              "SELTEC"
+            ]
           },
           {
             "q": "I S T R T A",
-            "a": "ARTIST"
+            "a": "ARTIST",
+            "options": [
+              "ARTIST",
+              "ARTTIS",
+              "ATRITS",
+              "ATRIST"
+            ]
           },
           {
             "q": "O T S O L",
-            "a": "TOOLS"
+            "a": "TOOLS",
+            "options": [
+              "TOOLS",
+              "TOOLZ",
+              "TOOSL",
+              "TLSOO"
+            ]
           }
         ]
       }
@@ -670,9 +1031,10 @@ const SUBJECT_COMPUTER = {
         "mcq_standard": [
           {
             "q": "There are __________ tabs in MS Word.",
-            "a": "",
+            "a": "ten",
             "options": [
               "ten",
+              "nine",
               "eleven",
               "twelve"
             ]
@@ -683,57 +1045,91 @@ const SUBJECT_COMPUTER = {
             "options": [
               "top right",
               "bottom right",
-              "top left"
+              "top left",
+              "bottom left"
             ]
           },
           {
             "q": "Which one of the following is an option of the MS Word title bar?",
             "a": "Close",
             "options": [
+              "Close",
               "Open",
               "Edit",
-              "Close"
+              "Print"
             ]
           },
           {
             "q": "Zoom slider is an option available in which part of MS Word?",
             "a": "Status bar",
             "options": [
-              "Title bar",
               "Status bar",
-              "Toolbar"
+              "Title bar",
+              "Toolbar",
+              "Ribbon"
             ]
           },
           {
             "q": "Which one of the following is an option of the MS Word Quick Access Toolbar?",
             "a": "Undo",
             "options": [
+              "Undo",
               "Cut",
               "Paste",
-              "Undo"
+              "Copy"
             ]
           }
         ],
         "fill_blanks": [
           {
             "q": "___ is a ribbon tab available in MS Word.",
-            "a": "Design"
+            "a": "Design",
+            "options": [
+              "Design",
+              "Eraser",
+              "Brush",
+              "Pencil"
+            ]
           },
           {
             "q": "The ___ is located at the top of the MS Word window. It displays the document name followed by the program name.",
-            "a": "Title bar"
+            "a": "Title bar",
+            "options": [
+              "Title bar",
+              "Status bar",
+              "Menu bar",
+              "Scroll bar"
+            ]
           },
           {
             "q": "The ___ is located at the upper left corner of the Word window.",
-            "a": "Quick Access toolbar"
+            "a": "Quick Access toolbar",
+            "options": [
+              "Quick Access toolbar",
+              "Status bar",
+              "Horizontal ruler",
+              "Vertical scroll bar"
+            ]
           },
           {
             "q": "The ___ is located below the title bar. This contains all the commands which are needed to perform basic tasks in Word.",
-            "a": "Menu bar"
+            "a": "Menu bar",
+            "options": [
+              "Menu bar",
+              "Status bar",
+              "Taskbar",
+              "Scroll bar"
+            ]
           },
           {
             "q": "The ___ is at the top of the document window.",
-            "a": "Horizontal ruler"
+            "a": "Horizontal ruler",
+            "options": [
+              "Horizontal ruler",
+              "Vertical ruler",
+              "Status bar",
+              "Scroll bar"
+            ]
           }
         ],
         "true_false": [
@@ -811,23 +1207,53 @@ const SUBJECT_COMPUTER = {
         "one_word": [
           {
             "q": "It is the top horizontal bar of the Microsoft Word window.",
-            "a": "Title bar"
+            "a": "Title bar",
+            "options": [
+              "Title bar",
+              "Status bar",
+              "Menu bar",
+              "Scroll bar"
+            ]
           },
           {
             "q": "It is the first tab on the ribbon.",
-            "a": "File tab"
+            "a": "File tab",
+            "options": [
+              "File tab",
+              "Home tab",
+              "Insert tab",
+              "View tab"
+            ]
           },
           {
             "q": "It is the area where the text is typed or edited.",
-            "a": "Document area"
+            "a": "Document area",
+            "options": [
+              "Document area",
+              "Drawing area",
+              "Status bar",
+              "Quick Access toolbar"
+            ]
           },
           {
             "q": "It is used to set the margins of the page.",
-            "a": "Ruler"
+            "a": "Ruler",
+            "options": [
+              "Ruler",
+              "Ribbon",
+              "Cursor",
+              "Scroll bar"
+            ]
           },
           {
             "q": "It is used to scroll the document area left or right.",
-            "a": "Horizontal scroll bar"
+            "a": "Horizontal scroll bar",
+            "options": [
+              "Horizontal scroll bar",
+              "Vertical scroll bar",
+              "Status bar",
+              "Title bar"
+            ]
           }
         ],
         "short_answer": [
