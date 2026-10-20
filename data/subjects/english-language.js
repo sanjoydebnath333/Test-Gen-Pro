@@ -98,32 +98,68 @@ const SUBJECT_ENGLISH_LANGUAGE = {
           {
             "q": "What does tense indicate?",
             "a": "Time of an action",
-            "instruction": "Answer the following questions"
+            "instruction": "Answer the following questions",
+            "options": [
+              "Time of an action",
+              "Place of an action",
+              "Person doing an action",
+              "Quality of a naming word"
+            ]
           },
           {
             "q": "How many main kinds of tenses are there in English?",
             "a": "Three",
-            "instruction": "Answer the following questions"
+            "instruction": "Answer the following questions",
+            "options": [
+              "Three",
+              "Two",
+              "Four",
+              "Five"
+            ]
           },
           {
             "q": "What does the past tense show?",
             "a": "The time that has gone",
-            "instruction": "Answer the following questions"
+            "instruction": "Answer the following questions",
+            "options": [
+              "The time that has gone",
+              "The time that is now",
+              "The time that is to come",
+              "Continuous action only"
+            ]
           },
           {
             "q": "What does the present tense show?",
             "a": "The time that is now",
-            "instruction": "Answer the following questions"
+            "instruction": "Answer the following questions",
+            "options": [
+              "The time that is now",
+              "The time that has gone",
+              "The time that is to come",
+              "Action completed yesterday"
+            ]
           },
           {
             "q": "What does the future tense show?",
             "a": "The time that is to come",
-            "instruction": "Answer the following questions"
+            "instruction": "Answer the following questions",
+            "options": [
+              "The time that is to come",
+              "The time that has gone",
+              "The time that is now",
+              "Action done in the past"
+            ]
           },
           {
             "q": "What are the present tense forms of the verb 'be'?",
             "a": "am, is, are",
-            "instruction": "Answer the following questions"
+            "instruction": "Answer the following questions",
+            "options": [
+              "am, is, are",
+              "was, were",
+              "has, have",
+              "had, will"
+            ]
           }
         ],
         "fill_blanks": [
@@ -346,17 +382,35 @@ const SUBJECT_ENGLISH_LANGUAGE = {
           {
             "q": "Which verb is the past tense form of has and have?",
             "a": "had",
-            "instruction": "Answer the following questions"
+            "instruction": "Answer the following questions",
+            "options": [
+              "had",
+              "have",
+              "has",
+              "having"
+            ]
           },
           {
             "q": "What does the verb 'had' show when used in a sentence?",
             "a": "It shows that something belonged to someone or was experienced in the past.",
-            "instruction": "Answer the following questions"
+            "instruction": "Answer the following questions",
+            "options": [
+              "It shows that something belonged to someone or was experienced in the past.",
+              "It shows an action happening right now.",
+              "It shows a future plan.",
+              "It shows an action that will happen tomorrow."
+            ]
           },
           {
             "q": "What are the past tense forms of verb 'be'?",
             "a": "was and were",
-            "instruction": "Answer the following questions"
+            "instruction": "Answer the following questions",
+            "options": [
+              "was and were",
+              "am and is",
+              "has and have",
+              "had and will"
+            ]
           }
         ],
         "fill_blanks": [
@@ -624,27 +678,57 @@ const SUBJECT_ENGLISH_LANGUAGE = {
           {
             "q": "What is a conjunction? Give an example.",
             "a": "A word that connects words, phrases, or sentences together",
-            "instruction": "Answer the following questions"
+            "instruction": "Answer the following questions",
+            "options": [
+              "A word that connects words, phrases, or sentences together",
+              "A word that shows the time of an action",
+              "A word that describes a naming word",
+              "A word that takes the place of a naming word"
+            ]
           },
           {
             "q": "Which conjunction is used to connect similar ideas or things together?",
             "a": "and",
-            "instruction": "Answer the following questions"
+            "instruction": "Answer the following questions",
+            "options": [
+              "and",
+              "but",
+              "or",
+              "because"
+            ]
           },
           {
             "q": "Which conjunction is used to show contrast or opposite ideas?",
             "a": "but",
-            "instruction": "Answer the following questions"
+            "instruction": "Answer the following questions",
+            "options": [
+              "but",
+              "and",
+              "or",
+              "because"
+            ]
           },
           {
             "q": "Which conjunction is used to show a choice between two things?",
             "a": "or",
-            "instruction": "Answer the following questions"
+            "instruction": "Answer the following questions",
+            "options": [
+              "or",
+              "and",
+              "but",
+              "because"
+            ]
           },
           {
             "q": "Which conjunction is used to give a reason for an action?",
             "a": "because",
-            "instruction": "Answer the following questions"
+            "instruction": "Answer the following questions",
+            "options": [
+              "because",
+              "and",
+              "but",
+              "or"
+            ]
           }
         ],
         "sentence_rewrite": [
@@ -900,27 +984,57 @@ const SUBJECT_ENGLISH_LANGUAGE = {
           {
             "q": "Why do we use punctuation marks while writing? Name any three punctuation marks.",
             "a": "We use punctuation marks to make our writing clear and meaningful. Three punctuation marks are full stops (.), question marks (?) and exclamation marks (!).",
-            "instruction": "Answer the following questions"
+            "instruction": "Answer the following questions",
+            "options": [
+              "We use punctuation marks to make our writing clear and meaningful. Three punctuation marks are full stops (.), question marks (?) and exclamation marks (!).",
+              "We use punctuation marks to make words plural like cats and dogs.",
+              "We use punctuation marks to join two sentences together.",
+              "We use punctuation marks only in poetry."
+            ]
           },
           {
             "q": "Which punctuation mark is placed at the end of a simple telling sentence (statement)?",
             "a": "Full stop (.)",
-            "instruction": "Answer the following questions"
+            "instruction": "Answer the following questions",
+            "options": [
+              "Full stop (.)",
+              "Question mark (?)",
+              "Exclamation mark (!)",
+              "Comma (,)"
+            ]
           },
           {
             "q": "Which punctuation mark is placed at the end of an asking sentence (question)?",
             "a": "Question mark (?)",
-            "instruction": "Answer the following questions"
+            "instruction": "Answer the following questions",
+            "options": [
+              "Question mark (?)",
+              "Full stop (.)",
+              "Exclamation mark (!)",
+              "Apostrophe (’)"
+            ]
           },
           {
             "q": "Which punctuation mark expresses sudden or strong feelings such as joy, surprise, or shock?",
             "a": "Exclamation mark (!)",
-            "instruction": "Answer the following questions"
+            "instruction": "Answer the following questions",
+            "options": [
+              "Exclamation mark (!)",
+              "Full stop (.)",
+              "Question mark (?)",
+              "Comma (,)"
+            ]
           },
           {
             "q": "Why do we use an apostrophe with s (’s)?",
             "a": "To show to whom a thing belongs",
-            "instruction": "Answer the following questions"
+            "instruction": "Answer the following questions",
+            "options": [
+              "To show to whom a thing belongs",
+              "To make a naming word plural",
+              "To connect two opposite sentences",
+              "To mark the end of an asking sentence"
+            ]
           }
         ],
         "sentence_rewrite": [
@@ -1773,12 +1887,24 @@ const SUBJECT_ENGLISH_LANGUAGE = {
           {
             "q": "What is an antonym? Give examples.",
             "a": "An antonym is a word that means the opposite of another word. (e.g., Hot – Cold, Big – Small)",
-            "instruction": "Answer the following questions"
+            "instruction": "Answer the following questions",
+            "options": [
+              "An antonym is a word that means the opposite of another word. (e.g., Hot – Cold, Big – Small)",
+              "An antonym is a word that means the same as another word.",
+              "An antonym is a naming word.",
+              "An antonym connects sentences together."
+            ]
           },
           {
             "q": "What is a synonym? Give an example.",
             "a": "A synonym is a word that means the same or nearly the same as another word. (e.g., Small – Little, Fast – Quick)",
-            "instruction": "Answer the following questions"
+            "instruction": "Answer the following questions",
+            "options": [
+              "A synonym is a word that means the same or nearly the same as another word. (e.g., Small – Little, Fast – Quick)",
+              "A synonym is a word that means the opposite of another word.",
+              "A synonym describes an action word.",
+              "A synonym connects sentences together."
+            ]
           }
         ],
         "writing_prompt": [

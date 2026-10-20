@@ -103,7 +103,7 @@
             return boxes;
         }
 
-const OFFLINE_ONLY_CATEGORIES = ['writing_prompt', 'short_answer', 'drawing', 'drawings'];
+const OFFLINE_ONLY_CATEGORIES = ['writing_prompt', 'drawing', 'drawings'];
 
         function normalizeBank(rawBank) {
             const normalized = {};
@@ -147,6 +147,25 @@ const OFFLINE_ONLY_CATEGORIES = ['writing_prompt', 'short_answer', 'drawing', 'd
                     else if (OFFLINE_ONLY_CATEGORIES.includes(category) || q.format === 'offline_only') {
                         base.type = "offline_subjective";
                         base.answer = q.a || "";
+                    }
+                    else if (category === 'short_answer') {
+                        if (q.options && q.options.length > 0) {
+                            base.type = "mcq";
+                            base.options = shuffleArray(q.options).map((txt, i) => ({ id: String.fromCharCode(65 + i), text: txt }));
+                            const trimmedAns = (q.a !== undefined && q.a !== null) ? String(q.a).trim().toLowerCase() : '';
+                            let correctOpt = trimmedAns ? base.options.find(o => o.text.trim().toLowerCase() === trimmedAns) : null;
+                            if (correctOpt) {
+                                base.answer = correctOpt.id;
+                            } else {
+                                base.answer = "";
+                                base.invalid = true;
+                                base.validationError = `Invalid Short Answer MCQ: Question "${q.q}" has answer "${q.a}" which does not match any provided option [${q.options.join(', ')}].`;
+                                console.error(`[Validation Error] ${base.validationError}`);
+                            }
+                        } else {
+                            base.type = "offline_subjective";
+                            base.answer = q.a || "";
+                        }
                     }
                     else {
                         base.type = "mcq";
@@ -272,7 +291,7 @@ const OFFLINE_ONLY_CATEGORIES = ['writing_prompt', 'short_answer', 'drawing', 'd
             dynamicBtns.innerHTML = '';
             currentSubject.sections.forEach(sec => {
                 if (OFFLINE_ONLY_CATEGORIES.includes(sec.id)) return;
-                const pool = activeNormalizedBank[sec.id] || [];
+                const pool = (activeNormalizedBank[sec.id] || []).filter(q => q.type !== 'offline_subjective');
                 if (pool.length === 0) return;
                 const iconData = CATEGORY_ICONS[sec.id] || { icon: '🔘', title: sec.title || 'MCQ', desc: 'Practice' };
                 dynamicBtns.innerHTML += `
@@ -889,11 +908,15 @@ const OFFLINE_ONLY_CATEGORIES = ['writing_prompt', 'short_answer', 'drawing', 'd
             if(!currentSubject) return;
             const container = document.getElementById('config-sections'); container.innerHTML = ''; 
             currentSubject.sections.forEach(sec => {
-                if (sec.max <= 0 || !(activeNormalizedBank[sec.id] || []).length) return;
-                const isOfflineOnly = OFFLINE_ONLY_CATEGORIES.includes(sec.id);
+                const items = activeNormalizedBank[sec.id] || [];
+                if (sec.max <= 0 || !items.length) return;
+                const hasInteractive = items.some(q => q.type !== 'offline_subjective');
+                const isOfflineOnly = OFFLINE_ONLY_CATEGORIES.includes(sec.id) || !hasInteractive;
                 const typeBadge = isOfflineOnly 
                     ? `<span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle rounded-pill" style="font-size: 0.72rem;"><i class="bi bi-pencil-fill me-1"></i>Offline / Written</span>`
-                    : `<span class="badge bg-primary-subtle text-primary-emphasis border border-primary-subtle rounded-pill" style="font-size: 0.72rem;">Objective</span>`;
+                    : (sec.id === 'short_answer'
+                        ? `<span class="badge bg-success-subtle text-success-emphasis border border-success-subtle rounded-pill" style="font-size: 0.72rem;"><i class="bi bi-check2-circle me-1"></i>Objective & Written</span>`
+                        : `<span class="badge bg-primary-subtle text-primary-emphasis border border-primary-subtle rounded-pill" style="font-size: 0.72rem;">Objective</span>`);
                 container.innerHTML += `
                     <div class="card p-3 mb-2 config-card shadow-sm bg-body border-color" id="card-${sec.id}">
                         <div class="d-flex justify-content-between align-items-start mb-2">
@@ -1285,7 +1308,8 @@ const OFFLINE_ONLY_CATEGORIES = ['writing_prompt', 'short_answer', 'drawing', 'd
             categoryIds.forEach(catId => { 
                 // Exclude subjective offline-only categories from online objective quiz
                 if (!OFFLINE_ONLY_CATEGORIES.includes(catId) && activeNormalizedBank[catId]) {
-                    qsRaw.push(...activeNormalizedBank[catId]); 
+                    const interactivePool = activeNormalizedBank[catId].filter(q => q.type !== 'offline_subjective');
+                    qsRaw.push(...interactivePool); 
                 }
             });
             qsRaw = shuffleArray(qsRaw);
@@ -1307,7 +1331,7 @@ const OFFLINE_ONLY_CATEGORIES = ['writing_prompt', 'short_answer', 'drawing', 'd
             
             currentSubject.sections.forEach(sec => {
                 screenCounts[sec.id] = 0;
-                let bLength = activeNormalizedBank[sec.id] ? activeNormalizedBank[sec.id].length : 0;
+                let bLength = (activeNormalizedBank[sec.id] || []).filter(q => q.type !== 'offline_subjective').length;
                 maxScreens[sec.id] = sec.id === 'match_following' ? Math.floor(bLength / 4) : bLength;
             });
 
@@ -1362,7 +1386,9 @@ const OFFLINE_ONLY_CATEGORIES = ['writing_prompt', 'short_answer', 'drawing', 'd
             if (onlineState.questions.length === 0) { showToast("No questions found for this topic.", true); setMobileTab('home'); return; }
             
             onlineState.testId = currentSubject.id.toUpperCase() + '_' + Date.now().toString(36).toUpperCase() + '_' + Math.random().toString(36).substr(2, 5);
-            onlineState.totalPoints = onlineState.questions.length; onlineState.currentIndex = 0; onlineState.score = 0; onlineState.wrongScore = 0; onlineState.answers = [];
+            onlineState.totalPoints = onlineState.questions.length; onlineState.currentIndex = 0; onlineState.score = 0; onlineState.wrongScore = 0; onlineState.answers = []; onlineState.nextTimeout = null;
+            window.removeEventListener('keydown', handleOnlineKeydown);
+            window.addEventListener('keydown', handleOnlineKeydown);
             
             document.getElementById('ot-right').innerText = '0'; document.getElementById('ot-wrong').innerText = '0';
             
@@ -1380,6 +1406,10 @@ const OFFLINE_ONLY_CATEGORIES = ['writing_prompt', 'short_answer', 'drawing', 'd
         }
 
         function renderOnlineQuestion() {
+            if (onlineState.nextTimeout) {
+                clearTimeout(onlineState.nextTimeout);
+                onlineState.nextTimeout = null;
+            }
             window.removeEventListener('resize', redrawMatchLines);
             document.getElementById('ot-learning-overlay').classList.add('d-none');
             
@@ -1393,9 +1423,12 @@ const OFFLINE_ONLY_CATEGORIES = ['writing_prompt', 'short_answer', 'drawing', 'd
             // Update chapter subtitle in the header
             updateGameCardTitle(qObj);
 
-            const sectionTitle = qObj.instruction || getCategoryTitle(qObj.category);
+            const isSpellingCheck = (qObj.category === 'spelling_check');
+            const sectionTitle = isSpellingCheck 
+                ? 'Choose the correct spelling' 
+                : (qObj.instruction || getCategoryTitle(qObj.category));
             const sectionTitleHtml = sectionTitle ? `
-                <div class="question-instruction-text animate-fade w-100 text-center mb-3">
+                <div class="question-instruction-text animate-fade w-100 text-center mb-4">
                     <p class="text-body-secondary fw-semibold mb-0" style="font-size: clamp(1.05rem, 2.2vw, 1.25rem); line-height: 1.4; font-family: 'Comic Sans MS', 'Nunito', sans-serif;">
                         ${sectionTitle}
                     </p>
@@ -1436,17 +1469,78 @@ const OFFLINE_ONLY_CATEGORIES = ['writing_prompt', 'short_answer', 'drawing', 'd
                     document.getElementById('ot-feedback').innerHTML = '';
                     return;
                 }
-                let isTrueFalse = (qObj.category === 'true_false'); let gridClass = isTrueFalse ? 'mcq-grid-1x2' : 'mcq-grid-2x2';
-                let optionsHtml = `<div class="${gridClass} w-100">`;
+                let isTrueFalse = (qObj.category === 'true_false');
+                
+                // Adaptive layout determination:
+                // - Mobile phones (< 540px): 4x1
+                // - Tablets (540px - 991px): 2x2 for short text (<= 14 chars & <= 2 words, e.g. 'blink', 'gaze', 'glance', 'wink'), 4x1 for longer options
+                // - Desktops (>= 992px): 2x2 for options up to 22 chars, 4x1 if longer or if text wraps
+                const winWidth = window.innerWidth;
+                let hasLongOption;
+                if (winWidth < 540) {
+                    hasLongOption = true;
+                } else if (winWidth < 992) {
+                    hasLongOption = qObj.options && qObj.options.some(opt => {
+                        const txt = (opt.text || '').trim();
+                        return txt.length > 14 || txt.split(/\s+/).length > 2;
+                    });
+                } else {
+                    hasLongOption = qObj.options && qObj.options.some(opt => {
+                        const txt = (opt.text || '').trim();
+                        return txt.length > 22 || txt.split(/\s+/).length > 3;
+                    });
+                }
+
+                let gridClass = isTrueFalse ? 'mcq-grid-1x2' : (hasLongOption ? 'mcq-grid-4x1' : 'mcq-grid-2x2');
+                let optionsHtml = `<div class="${gridClass} w-100" id="ot-mcq-grid">`;
                 qObj.options.forEach((opt, idx) => {
-                    optionsHtml += `<button class="mcq-btn animate-fade" style="color: ${currentSubject.theme};" onclick="submitOnlineAnswer(this, '${opt.id}')"><span class="text-secondary opacity-75 fw-bolder me-3">(${String.fromCharCode(65 + idx)})</span><span>${opt.text}</span></button>`;
+                    optionsHtml += `<button class="mcq-btn animate-fade" data-opt-id="${opt.id}" style="color: ${currentSubject.theme};" onclick="submitOnlineAnswer(this, '${opt.id}')">
+                        <div class="mcq-btn-content">
+                            <span class="mcq-badge">${String.fromCharCode(65 + idx)}</span>
+                            <span class="mcq-option-text">${opt.text}</span>
+                        </div>
+                        <span class="mcq-feedback-pill d-none"></span>
+                    </button>`;
                 });
                 optionsHtml += '</div>';
-                let displayQText = qObj.question.replace(/'([^']+)'/g, "<span class='highlight-word'>'$1'</span>");
-                if (qObj.clue && !displayQText.includes(qObj.clue)) {
+
+                // Next Button & Inline Feedback right below the options
+                optionsHtml += `
+                    <div id="ot-inline-feedback" class="w-100 text-center d-none"></div>
+                    <div id="ot-next-box" class="w-100 text-center mt-3 d-none animate-fade">
+                        <button id="btn-next-question" class="btn-next-action shadow-lg" onclick="goToNextQuestion()">
+                            <span>Next Question</span>
+                            <i class="bi bi-arrow-right-circle-fill ms-2"></i>
+                        </button>
+                    </div>
+                `;
+                let displayQText = isSpellingCheck ? '' : qObj.question.replace(/'([^']+)'/g, "<span class='highlight-word'>'$1'</span>");
+                if (!isSpellingCheck && qObj.clue && !displayQText.includes(qObj.clue)) {
                     displayQText += ` <span class="badge bg-secondary-subtle text-body-secondary border px-2 py-1 fs-6 ms-2 align-middle">${qObj.clue}</span>`;
                 }
-                document.getElementById('ot-options-box').innerHTML = `${sectionTitleHtml}<h4 class="kid-question-text w-100 animate-fade text-center mb-4">${displayQText}</h4>${optionsHtml}`; 
+                let questionHeadingHtml = displayQText ? `<h4 class="kid-question-text w-100 animate-fade text-center mb-4">${displayQText}</h4>` : '';
+                document.getElementById('ot-options-box').innerHTML = `${sectionTitleHtml}${questionHeadingHtml}${optionsHtml}`; 
+
+                // Dynamic wrapping transformation: applied on both tablet and desktop screens!
+                // If in 2x2 layout but any option wraps onto multiple lines, transform to 4x1
+                const checkAndTransformWrap = () => {
+                    const gridEl = document.getElementById('ot-mcq-grid');
+                    if (gridEl && gridEl.classList.contains('mcq-grid-2x2')) {
+                        const spans = gridEl.querySelectorAll('.mcq-option-text');
+                        let wraps = false;
+                        spans.forEach(span => {
+                            if (span.getClientRects().length > 1) {
+                                wraps = true;
+                            }
+                        });
+                        if (wraps) {
+                            gridEl.classList.remove('mcq-grid-2x2');
+                            gridEl.classList.add('mcq-grid-4x1');
+                        }
+                    }
+                };
+                requestAnimationFrame(checkAndTransformWrap);
+                window.addEventListener('resize', checkAndTransformWrap, { passive: true });
             }
             document.getElementById('ot-feedback').innerHTML = '';
         }
@@ -1819,6 +1913,32 @@ const OFFLINE_ONLY_CATEGORIES = ['writing_prompt', 'short_answer', 'drawing', 'd
         }
         function redrawMatchLines() { if (!onlineState.matchLines) return; onlineState.matchLines.forEach(line => { drawMatchLine(line.el1, line.el2, line.color, line.id); }); }
 
+        function goToNextQuestion() {
+            if (onlineState.nextTimeout) {
+                clearTimeout(onlineState.nextTimeout);
+                onlineState.nextTimeout = null;
+            }
+            onlineState.currentIndex++;
+            if (onlineState.currentIndex >= onlineState.questions.length) {
+                showFunResultModal();
+            } else {
+                renderOnlineQuestion();
+            }
+        }
+
+        function handleOnlineKeydown(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                const nextBox = document.getElementById('ot-next-box');
+                if (nextBox && !nextBox.classList.contains('d-none')) {
+                    const nextBtn = document.getElementById('btn-next-question');
+                    if (nextBtn) {
+                        e.preventDefault();
+                        goToNextQuestion();
+                    }
+                }
+            }
+        }
+
         function submitOnlineAnswer(buttonElement, selectedId) {
             const q = onlineState.questions[onlineState.currentIndex];
             if (!q || q.invalid || !q.answer) {
@@ -1828,41 +1948,80 @@ const OFFLINE_ONLY_CATEGORIES = ['writing_prompt', 'short_answer', 'drawing', 'd
                 return;
             }
             const isCorrect = (q.answer === selectedId);
-            let selectedText = "";
 
-            document.querySelectorAll('#ot-options-box button').forEach(b => {
-                b.disabled = true; b.style.color = ''; b.style.borderColor = ''; b.style.boxShadow = '';
-                const btnText = b.querySelector('span:nth-child(2)').innerText;
-                const correctOpt = q.options.find(o => o.id === q.answer);
-                if (correctOpt && correctOpt.text === btnText) b.classList.add('correct');
-                if (b === buttonElement) {
-                    selectedText = btnText;
-                    if (!isCorrect) b.classList.add('wrong');
+            const allBtns = document.querySelectorAll('#ot-mcq-grid .mcq-btn');
+            allBtns.forEach(b => {
+                b.disabled = true;
+                const optId = b.getAttribute('data-opt-id');
+                const pill = b.querySelector('.mcq-feedback-pill');
+
+                if (optId === q.answer) {
+                    b.classList.add('correct');
+                    if (pill) {
+                        pill.classList.remove('d-none');
+                        pill.className = 'mcq-feedback-pill tag-correct';
+                        pill.innerHTML = '<i class="bi bi-check-circle-fill"></i>Correct answer';
+                    }
+                } else if (optId === selectedId) {
+                    b.classList.add('wrong');
+                    if (pill) {
+                        pill.classList.remove('d-none');
+                        pill.className = 'mcq-feedback-pill tag-wrong';
+                        pill.innerHTML = '<i class="bi bi-x-circle-fill"></i>Your answer';
+                    }
                 }
+                // Unselected non-correct cards remain in their neutral card style (do not fade or disable text)
             });
 
-            if (isCorrect) { onlineState.score++; document.getElementById('ot-right').innerText = onlineState.score; confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 }, zIndex: 2000 }); } 
-            else { onlineState.wrongScore++; document.getElementById('ot-wrong').innerText = onlineState.wrongScore; }
+            if (isCorrect) { 
+                onlineState.score++; 
+                document.getElementById('ot-right').innerText = onlineState.score; 
+                confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 }, zIndex: 2000 }); 
+            } else { 
+                onlineState.wrongScore++; 
+                document.getElementById('ot-wrong').innerText = onlineState.wrongScore; 
+            }
 
             const correctOptObj = q.options.find(o => o.id === q.answer);
             const correctOptText = correctOptObj ? correctOptObj.text : (q.answerText || '');
+            const givenOptObj = q.options.find(o => o.id === selectedId);
+            const givenOptText = givenOptObj ? givenOptObj.text : '';
 
-            onlineState.answers.push({ category: q.category, question: q.question.replace(/<[^>]+>/g, ''), givenAns: q.options.find(o=>o.id === selectedId)?.text || '', correctAns: correctOptText, isCorrect: isCorrect });
+            onlineState.answers.push({ 
+                category: q.category, 
+                question: q.question.replace(/<[^>]+>/g, ''), 
+                givenAns: givenOptText, 
+                correctAns: correctOptText, 
+                isCorrect: isCorrect 
+            });
 
+            // Optional explanation feedback (only shown if question data explicitly provides an explanation)
+            const feedbackEl = document.getElementById('ot-inline-feedback');
+            if (feedbackEl) {
+                if (q.explanation) {
+                    feedbackEl.className = `w-100 text-center ot-feedback-msg ${isCorrect ? 'msg-correct' : 'msg-wrong'}`;
+                    feedbackEl.innerHTML = `<i class="bi bi-${isCorrect ? 'check-circle-fill' : 'info-circle-fill'}"></i><span>${q.explanation}</span>`;
+                    feedbackEl.classList.remove('d-none');
+                } else {
+                    feedbackEl.className = 'w-100 text-center d-none';
+                    feedbackEl.innerHTML = '';
+                }
+            }
+
+            // Reveal Next Question button right below the feedback
+            const nextBox = document.getElementById('ot-next-box');
+            if (nextBox) {
+                nextBox.classList.remove('d-none');
+            }
+
+            // Zero-friction progression:
+            // If correct: auto-advances in 1.4s, or user can click 'Next Question' immediately.
+            // If wrong: no modal appears. User reads the clear inline feedback and clicks 'Next Question'.
             if (isCorrect) {
-                setTimeout(() => {
-                    onlineState.currentIndex++; 
-                    if (onlineState.currentIndex >= onlineState.questions.length) showFunResultModal(); 
-                    else renderOnlineQuestion();
-                }, 1500);
-            } else {
-                setTimeout(() => {
-                    showLearningOverlay(q.question, selectedText, correctOptText, () => {
-                        onlineState.currentIndex++; 
-                        if (onlineState.currentIndex >= onlineState.questions.length) showFunResultModal(); 
-                        else renderOnlineQuestion();
-                    });
-                }, 700);
+                if (onlineState.nextTimeout) clearTimeout(onlineState.nextTimeout);
+                onlineState.nextTimeout = setTimeout(() => {
+                    goToNextQuestion();
+                }, 1400);
             }
         }
 
@@ -1876,12 +2035,22 @@ const OFFLINE_ONLY_CATEGORIES = ['writing_prompt', 'short_answer', 'drawing', 'd
         }
 
         function quitOnlineQuiz() {
+            window.removeEventListener('keydown', handleOnlineKeydown);
+            if (onlineState.nextTimeout) {
+                clearTimeout(onlineState.nextTimeout);
+                onlineState.nextTimeout = null;
+            }
             const otInterface = document.getElementById('ot-interface');
             if (otInterface) otInterface.classList.remove('d-none');
             setMobileTab('home');
         }
 
         function showFunResultModal() {
+            window.removeEventListener('keydown', handleOnlineKeydown);
+            if (onlineState.nextTimeout) {
+                clearTimeout(onlineState.nextTimeout);
+                onlineState.nextTimeout = null;
+            }
             document.getElementById('ot-interface').classList.add('d-none');
             const acc = onlineState.totalPoints > 0 ? Math.round((onlineState.score / onlineState.totalPoints) * 100) : 0;
             
