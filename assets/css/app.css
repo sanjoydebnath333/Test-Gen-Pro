@@ -1052,11 +1052,11 @@
         hr { border-top-color: var(--text-main) !important; opacity: 1; }
 
         /* --- Distraction Free Game UI --- */
-        html.distraction-free, body.distraction-free { padding: 0 !important; background: var(--primary-bg) !important; min-height: 100vh; min-height: 100dvh; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0; overflow-x: hidden !important; overflow-y: auto !important; }
+        html.distraction-free, body.distraction-free { padding: 0 !important; background: var(--primary-bg) !important; min-height: 100vh; min-height: 100dvh; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; margin: 0; overflow-x: hidden !important; overflow-y: auto !important; }
         body.distraction-free .no-distract { display: none !important; }
-        body.distraction-free .layout-container { padding: 1rem; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto; }
-        body.distraction-free .main-content { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; margin: 0 auto; }
-        #online-container { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto; }
+        body.distraction-free .layout-container { padding: 0.75rem 0.5rem; width: 100%; max-width: 1100px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; margin: 0 auto; box-sizing: border-box; flex: 1 1 auto; min-height: 100dvh; }
+        body.distraction-free .main-content { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; flex: 1 1 auto; margin: 0 auto; min-height: 0; }
+        #online-container { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; flex: 1 1 auto; margin: 0 auto; min-height: 0; }
 
         /* --- Focus Mode for Study (Allows normal scrolling & Sticky) --- */
         html.focus-mode, body.focus-mode { padding: 0 !important; background: var(--primary-bg) !important; min-height: 100vh; width: 100%; margin: 0; display: block; overflow-x: clip !important; }
@@ -1064,41 +1064,44 @@
         body.focus-mode .layout-container { padding: 0; width: 100%; max-width: 100%; margin: 0; display: block; }
         body.focus-mode .main-content { width: 100%; display: block; margin: 0; }
 
-        .game-hud { width: 100%; max-width: 1100px; display: flex; justify-content: space-between; align-items: center; margin: 0 auto 1rem auto; padding: 0 0.5rem; }
-        .hud-btn-quit { background: var(--glass-bg); backdrop-filter: blur(5px); border: 2px solid var(--border-color); color: #ef4444; font-weight: 800; border-radius: 100px; padding: 0.5rem 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.2s; }
-        .hud-stats { background: var(--card-bg); border-radius: 100px; padding: 0.5rem 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 15px; font-weight: 800; font-size: 1.1rem; }
+        .game-hud { width: 100%; max-width: 1100px; display: flex; justify-content: space-between; align-items: center; margin: 0 auto 0.75rem auto; padding: 0 0.5rem; flex-shrink: 0; }
+        .hud-btn-quit { background: var(--glass-bg); backdrop-filter: blur(5px); border: 2px solid var(--border-color); color: #ef4444; font-weight: 800; border-radius: 100px; padding: 0.45rem 1.1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.2s; font-size: 0.95rem; }
+        .hud-stats { background: var(--card-bg); border-radius: 100px; padding: 0.45rem 1.1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1rem; }
 
-        .kid-test-card { background: var(--card-bg); border-radius: 2rem !important; box-shadow: 0 20px 50px -10px rgba(0,0,0, 0.1); width: 100%; max-width: 1100px; display: flex; flex-direction: column; overflow: hidden; margin: 0 auto 2rem auto; border-top: 8px solid var(--theme-color); position: relative; }
-        .kid-card-header { padding: 1.2rem 2rem !important; background: var(--card-bg); display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--primary-bg); }
-        #game-title { line-height: 1.3; }
+        .kid-test-card { background: var(--card-bg); border-radius: 1.75rem !important; box-shadow: 0 16px 40px -10px rgba(0,0,0, 0.08); width: 100%; max-width: 1100px; display: flex; flex-direction: column; overflow: hidden; margin: 0 auto 1.25rem auto; border-top: 6px solid var(--theme-color); position: relative; flex: 1 1 auto; }
+        .kid-card-header { padding: 0.9rem 1.5rem !important; background: var(--card-bg); display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary-bg); gap: 12px; flex-shrink: 0; }
+        .kid-card-progress { width: 140px; flex-shrink: 0; }
+        #game-title { line-height: 1.25; }
         .game-title-chapter { font-size: 0.8em; font-weight: 600; color: var(--text-muted, #64748b); opacity: 0.85; margin-left: 0.35em; }
-        .ot-interface-grid { display: grid; grid-template-columns: 1fr; background: var(--card-bg); }
-        @media (min-width: 1024px) { .ot-interface-grid { grid-template-columns: 1.3fr 0.9fr; min-height: 450px; } .ot-interface-grid.full-width-grid { grid-template-columns: 1fr; } }
+        .ot-interface-grid { display: flex; flex-direction: column; flex: 1 1 auto; background: var(--card-bg); width: 100%; min-height: 0; }
+        @media (min-width: 1024px) { .ot-interface-grid { display: grid; grid-template-columns: 1.3fr 0.9fr; min-height: 450px; } .ot-interface-grid.full-width-grid { display: flex; flex-direction: column; } }
 
-        .left-panel { padding: 2.5rem; background: linear-gradient(180deg, var(--primary-bg) 0%, var(--dashboard-bg) 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .right-panel { padding: 2.5rem; display: flex; flex-direction: column; justify-content: center; align-items: center; border-top: 3px solid var(--dashboard-bg); }
+        .left-panel { padding: 2rem; background: linear-gradient(180deg, var(--primary-bg) 0%, var(--dashboard-bg) 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .right-panel { padding: 1.75rem 2rem; display: flex; flex-direction: column; justify-content: center; align-items: center; border-top: 2px solid var(--dashboard-bg); width: 100%; box-sizing: border-box; flex: 1 1 auto; min-height: 0; }
         @media (min-width: 1024px) { .right-panel { border-top: none; border-left: 3px solid var(--dashboard-bg); } .full-width-grid .right-panel { border-left: none; border-top: none; } }
+        #ot-options-box { width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; flex: 1 1 auto; min-height: 0; }
 
         /* Game Text & Interactions */
-        .kid-question-text { font-size: clamp(1.65rem, 4.5vw, 2.1rem); font-weight: 900; color: var(--text-main); font-family: 'Nunito', 'Comic Sans MS', sans-serif; margin-bottom: 3.5rem !important; line-height: 1.4; text-shadow: 2px 3px 6px rgba(0,0,0,0.15); }
-        .highlight-word { background-color: #fef08a; border: 3px dotted #f97316; box-shadow: 4px 4px 0px rgba(0,0,0,0.15); padding: 0 12px; border-radius: 8px; display: inline-block; margin: 0 6px; color: #0f172a; text-shadow: none; white-space: nowrap; transform: rotate(-4deg); }
+        .kid-question-text { font-size: clamp(1.35rem, 3.5vw, 1.85rem); font-weight: 900; color: var(--text-main); font-family: 'Nunito', 'Comic Sans MS', sans-serif; margin-bottom: 1.75rem !important; line-height: 1.35; text-shadow: 1px 2px 4px rgba(0,0,0,0.08); text-wrap: balance; }
+        .highlight-word { background-color: #fef08a; border: 2.5px dotted #f97316; box-shadow: 3px 3px 0px rgba(0,0,0,0.12); padding: 0 10px; border-radius: 7px; display: inline-block; margin: 0 5px; color: #0f172a; text-shadow: none; white-space: nowrap; transform: rotate(-3deg); }
         
         /* Question Instruction (Plain Text) */
         .question-instruction-text {
-            margin-bottom: 1.25rem !important;
+            margin-bottom: 0.75rem !important;
         }
         .question-instruction-text p {
             letter-spacing: 0.2px;
         }
 
         /* MCQ Grids */
-        .mcq-grid-1x2 { display: grid; grid-template-columns: 1fr; gap: 14px; width: 100%; max-width: 600px; margin: 0 auto; }
-        .mcq-grid-2x2 { display: grid; grid-template-columns: 1fr; gap: 14px; width: 100%; max-width: 820px; margin: 0 auto; }
+        .mcq-grid-1x2 { display: grid; grid-template-columns: 1fr; gap: 12px; width: 100%; max-width: 600px; margin: 0 auto; }
+        .mcq-grid-2x2 { display: grid; grid-template-columns: 1fr; gap: 12px; width: 100%; max-width: 820px; margin: 0 auto; }
         .mcq-grid-4x1 { display: grid; grid-template-columns: 1fr !important; gap: 12px; width: 100%; max-width: 720px; margin: 0 auto; }
 
         .mcq-option-text {
             line-height: 1.35;
-            word-break: break-word;
+            overflow-wrap: break-word;
+            word-break: normal;
         }
 
         /* Mobile phones (< 540px): 1 column (4x1) for optimal touch usability */
@@ -1109,7 +1112,7 @@
                 gap: 10px;
             }
             .mcq-btn {
-                padding: 0.95rem 1.15rem !important;
+                padding: 0.85rem 1.05rem !important;
                 font-size: clamp(0.95rem, 2.7vw, 1.15rem) !important;
             }
         }
@@ -1129,8 +1132,8 @@
                 max-width: 720px;
             }
             .mcq-btn {
-                padding: 1.1rem 1.4rem;
-                font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+                padding: 1rem 1.35rem;
+                font-size: clamp(1.05rem, 2.4vw, 1.25rem);
             }
         }
 
@@ -1176,32 +1179,33 @@
         .mcq-btn { 
             background: var(--card-bg); 
             border: 2px solid var(--border-color); 
-            border-radius: 1.2rem; 
-            font-size: clamp(1.05rem, 2.5vw, 1.3rem); 
+            border-radius: 1.15rem; 
+            font-size: clamp(1rem, 2.2vw, 1.25rem); 
             font-weight: 800; 
             color: var(--theme-color); 
-            padding: 1.1rem 1.4rem; 
-            box-shadow: 0 5px 0 var(--border-dark); 
+            padding: 0.95rem 1.25rem; 
+            box-shadow: 0 4px 0 var(--border-dark); 
             transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease; 
             cursor: pointer; 
             text-align: left; 
             display: flex; 
             align-items: center; 
             justify-content: space-between;
-            gap: 12px;
+            gap: 10px;
             width: 100%;
             position: relative;
             box-sizing: border-box;
+            min-height: 50px;
         }
         .mcq-btn:hover:not(:disabled) { 
             background: var(--primary-bg); 
             border-color: var(--theme-color); 
-            transform: scale(1.02) translateY(-3px); 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1), 0 6px 0 var(--theme-color); 
+            transform: scale(1.015) translateY(-2px); 
+            box-shadow: 0 8px 18px rgba(0,0,0,0.08), 0 5px 0 var(--theme-color); 
             z-index: 10; 
         }
         .mcq-btn:active:not(:disabled) { 
-            transform: translateY(4px) scale(0.98); 
+            transform: translateY(3px) scale(0.99); 
             box-shadow: 0 1px 0 var(--border-dark); 
         }
         .mcq-btn:disabled {
@@ -1211,7 +1215,7 @@
         .mcq-btn-content {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             min-width: 0;
             flex: 1 1 auto;
         }
@@ -1221,15 +1225,15 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 34px;
-            height: 34px;
-            min-width: 34px;
-            border-radius: 9px;
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            border-radius: 8px;
             background: rgba(255, 255, 255, 0.08);
             border: 2px solid rgba(255, 255, 255, 0.18);
             box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
             font-weight: 900;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--text-muted, #94a3b8);
             transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
             flex-shrink: 0;
@@ -1253,13 +1257,13 @@
         .mcq-feedback-pill {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            height: 28px;
-            padding: 0 0.7rem;
+            gap: 5px;
+            height: 26px;
+            padding: 0 0.6rem;
             border-radius: 6px;
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             font-weight: 700;
-            letter-spacing: 0.25px;
+            letter-spacing: 0.2px;
             white-space: nowrap;
             flex-shrink: 0;
             margin-left: auto;
@@ -1268,7 +1272,7 @@
             user-select: none;
         }
         .mcq-feedback-pill i {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             line-height: 1;
         }
 
@@ -1572,11 +1576,281 @@
         }
 
         @media (max-width: 768px) {
-            .match-game-wrapper { gap: 1.5rem; padding: 0.5rem 0; justify-content: space-between; }
-            .match-col { gap: 0.6rem; }
+            .match-game-wrapper { gap: 1.2rem; padding: 0.4rem 0; justify-content: space-between; }
+            .match-col { gap: 0.5rem; }
             .match-col-left { flex: 1 1 50%; min-width: 0; max-width: none; }
             .match-col-right { flex: 1 1 50%; min-width: 0; }
-            .match-card { padding: 0.6rem; font-size: 0.95rem; min-height: 60px; border-radius: 0.8rem; box-shadow: 0 4px 0 var(--border-dark); }
+            .match-card { padding: 0.55rem 0.6rem; font-size: 0.92rem; min-height: 54px; border-radius: 0.8rem; box-shadow: 0 3px 0 var(--border-dark); }
+        }
+
+        /* --- Comprehensive Mobile Optimizations for Small Devices (<= 576px) --- */
+        @media (max-width: 576px) {
+            body.distraction-free .layout-container {
+                padding: 0.25rem 0.35rem 0.5rem 0.35rem !important;
+                min-height: 100dvh;
+            }
+            #online-container {
+                flex: 1 1 auto;
+                min-height: calc(100dvh - 0.75rem);
+                width: 100%;
+            }
+            .game-hud {
+                margin: 0 auto 0.35rem auto !important;
+                padding: 0 0.15rem !important;
+                flex-shrink: 0;
+            }
+            .hud-btn-quit {
+                padding: 0.32rem 0.8rem !important;
+                font-size: 0.86rem !important;
+                border-radius: 50rem !important;
+            }
+            .hud-stats {
+                padding: 0.32rem 0.85rem !important;
+                font-size: 0.9rem !important;
+                gap: 10px !important;
+                border-radius: 50rem !important;
+            }
+            .kid-test-card {
+                border-radius: 1.25rem !important;
+                margin: 0 auto 0.35rem auto !important;
+                border-top-width: 5px !important;
+                box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.08) !important;
+                flex: 1 1 auto;
+                min-height: calc(100dvh - 3.4rem) !important;
+            }
+            .kid-card-header {
+                padding: 0.55rem 0.75rem !important;
+                gap: 10px !important;
+                border-bottom-width: 1.5px !important;
+                flex-shrink: 0;
+            }
+            #game-icon {
+                width: 38px !important;
+                height: 38px !important;
+                min-width: 38px !important;
+                font-size: 1.2rem !important;
+                padding: 0 !important;
+            }
+            #game-title {
+                font-size: 1rem !important;
+                line-height: 1.2 !important;
+            }
+            #game-chapter-subtitle .text-body-secondary {
+                font-size: 0.74rem !important;
+                line-height: 1.2 !important;
+            }
+            .kid-card-progress {
+                width: 85px !important;
+                min-width: 85px !important;
+            }
+            #ot-progress-text {
+                font-size: 0.74rem !important;
+                padding: 2px 7px !important;
+                margin-bottom: 3px !important;
+            }
+            .kid-card-progress .progress {
+                height: 5px !important;
+            }
+            .right-panel {
+                padding: clamp(0.75rem, 2vh, 1.25rem) clamp(0.65rem, 2.5vw, 0.95rem) !important;
+                border-top: none !important;
+                flex: 1 1 auto;
+                min-height: 0;
+            }
+            #ot-options-box {
+                flex: 1 1 auto;
+                min-height: 0;
+                justify-content: center;
+                width: 100%;
+                padding: clamp(0.25rem, 1vh, 0.75rem) 0;
+            }
+            .question-instruction-text {
+                margin-bottom: clamp(0.5rem, 1.8vh, 0.95rem) !important;
+            }
+            .question-instruction-text p {
+                font-size: clamp(0.88rem, 2.5vw, 1.02rem) !important;
+                line-height: 1.35 !important;
+            }
+            .kid-question-text {
+                font-size: clamp(1.22rem, 4.3vw, 1.55rem) !important;
+                margin-bottom: clamp(1.4rem, 3.8vh, 2.4rem) !important;
+                line-height: 1.35 !important;
+                text-shadow: none !important;
+            }
+            .mcq-grid-4x1, .mcq-grid-2x2, .mcq-grid-1x2 {
+                gap: clamp(9px, 1.8vh, 14px) !important;
+                max-width: 100% !important;
+            }
+            .mcq-btn {
+                padding: clamp(0.7rem, 1.6vh, 0.95rem) 0.95rem !important;
+                border-radius: 1rem !important;
+                font-size: clamp(1rem, 2.8vw, 1.15rem) !important;
+                box-shadow: 0 3px 0 var(--border-dark) !important;
+                gap: 10px !important;
+                min-height: clamp(50px, 6.8vh, 58px) !important;
+            }
+            .mcq-btn.correct {
+                box-shadow: 0 3px 0 rgba(22, 163, 74, 0.4) !important;
+            }
+            .mcq-btn.wrong {
+                box-shadow: 0 3px 0 rgba(220, 38, 38, 0.4) !important;
+            }
+            .mcq-badge {
+                width: 30px !important;
+                height: 30px !important;
+                min-width: 30px !important;
+                font-size: 0.85rem !important;
+                border-radius: 7px !important;
+            }
+            .mcq-btn-content {
+                gap: 10px !important;
+            }
+            .mcq-feedback-pill {
+                height: 24px !important;
+                padding: 0 0.5rem !important;
+                font-size: 0.72rem !important;
+                gap: 4px !important;
+                border-radius: 5px !important;
+            }
+            .mcq-feedback-pill i {
+                font-size: 0.78rem !important;
+            }
+            #ot-next-box {
+                margin-top: clamp(0.85rem, 2.5vh, 1.5rem) !important;
+            }
+            .btn-next-action {
+                padding: clamp(0.65rem, 1.8vh, 0.85rem) 2.2rem !important;
+                font-size: 1.05rem !important;
+                border-radius: 50rem !important;
+                box-shadow: 0 6px 18px -3px rgba(37, 99, 235, 0.45), 0 3px 0 rgba(0, 0, 0, 0.2) !important;
+            }
+            .ot-feedback-msg {
+                font-size: 0.85rem !important;
+                padding: 0.4rem 0.85rem !important;
+                margin: 0.4rem auto 0.25rem auto !important;
+                border-radius: 8px !important;
+            }
+            /* Fill-in the blank mobile responsive */
+            .kid-question-text.fill-blank-sentence {
+                margin-bottom: clamp(1.5rem, 4vh, 2.6rem) !important;
+            }
+            .blank-dropzone {
+                min-width: 85px !important;
+                height: 40px !important;
+                padding: 0 8px !important;
+                margin: 0 4px !important;
+                border-bottom-width: 2.5px !important;
+            }
+            .blank-dropzone.empty::after {
+                font-size: 1.5rem !important;
+            }
+            .blank-dropzone.filled {
+                font-size: 1.15rem !important;
+                line-height: 36px !important;
+                border-radius: 0.7rem !important;
+            }
+            .soft-pill-btn {
+                padding: clamp(0.55rem, 1.5vh, 0.85rem) clamp(1.1rem, 3.5vw, 1.6rem) !important;
+                font-size: clamp(0.98rem, 2.8vw, 1.15rem) !important;
+                margin: 0.25rem !important;
+                border-radius: 50rem !important;
+                box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05) !important;
+            }
+            .btn-go-check {
+                padding: clamp(0.65rem, 1.8vh, 0.9rem) 2.2rem !important;
+                font-size: 1.18rem !important;
+                max-width: 220px !important;
+                box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2) !important;
+                margin-top: clamp(1.2rem, 3vh, 2.2rem) !important;
+            }
+            /* Missing letters mobile responsive */
+            .missing-letters-container {
+                margin: 0.4rem auto 0.65rem auto !important;
+                padding: 0.15rem !important;
+                gap: 5px !important;
+            }
+            .missing-letter-box {
+                width: clamp(32px, 7.5vw, 44px) !important;
+                height: clamp(40px, 9.5vw, 52px) !important;
+                font-size: clamp(1.15rem, 3.2vw, 1.55rem) !important;
+                border-radius: 9px !important;
+            }
+            .missing-letter-sep {
+                font-size: 1.4rem !important;
+                padding: 0 0.2rem !important;
+            }
+            /* Match cards mobile responsive */
+            .match-game-wrapper {
+                gap: 0.65rem !important;
+                padding: 0.15rem 0 !important;
+            }
+            .match-col {
+                gap: 0.4rem !important;
+            }
+            .match-card {
+                padding: 0.4rem 0.45rem !important;
+                font-size: 0.82rem !important;
+                min-height: 44px !important;
+                border-radius: 0.65rem !important;
+                box-shadow: 0 2px 0 var(--border-dark) !important;
+            }
+            /* Learning card overlay mobile responsive */
+            .learning-overlay {
+                padding: 0.75rem !important;
+            }
+            .learning-card {
+                padding: 1.25rem 0.9rem !important;
+                border-radius: 1.25rem !important;
+                gap: 0.75rem !important;
+            }
+            .learning-badge {
+                width: 52px !important;
+                height: 52px !important;
+                font-size: 1.85rem !important;
+                margin-bottom: 0.2rem !important;
+            }
+            .learning-question-box {
+                padding: 0.85rem 0.75rem !important;
+                border-radius: 0.9rem !important;
+            }
+            .learning-question-content {
+                font-size: 1.1rem !important;
+            }
+            .comp-item {
+                padding: 0.65rem 0.75rem !important;
+                font-size: 0.9rem !important;
+                border-radius: 0.75rem !important;
+                gap: 10px !important;
+            }
+            .btn-continue-learn {
+                padding: 0.65rem 1.25rem !important;
+                font-size: 0.95rem !important;
+            }
+        }
+
+        /* Ultra-narrow devices (<= 380px) */
+        @media (max-width: 380px) {
+            .mcq-btn {
+                flex-wrap: wrap !important;
+                gap: 4px 6px !important;
+                padding: 0.5rem 0.65rem !important;
+            }
+            .mcq-btn-content {
+                flex: 1 1 auto !important;
+                min-width: 0 !important;
+            }
+            .mcq-feedback-pill {
+                margin-left: auto !important;
+                align-self: center !important;
+            }
+            .kid-card-progress {
+                width: 72px !important;
+                min-width: 72px !important;
+            }
+            #ot-progress-text {
+                font-size: 0.68rem !important;
+                padding: 1px 5px !important;
+            }
         }
         
         /* --- Study Notes Styles defined in LEARN (STUDY) MODE section below --- */

@@ -1428,8 +1428,8 @@ const OFFLINE_ONLY_CATEGORIES = ['writing_prompt', 'drawing', 'drawings'];
                 ? 'Choose the correct spelling' 
                 : (qObj.instruction || getCategoryTitle(qObj.category));
             const sectionTitleHtml = sectionTitle ? `
-                <div class="question-instruction-text animate-fade w-100 text-center mb-4">
-                    <p class="text-body-secondary fw-semibold mb-0" style="font-size: clamp(1.05rem, 2.2vw, 1.25rem); line-height: 1.4; font-family: 'Comic Sans MS', 'Nunito', sans-serif;">
+                <div class="question-instruction-text animate-fade w-100 text-center mb-2 mb-sm-3">
+                    <p class="text-body-secondary fw-semibold mb-0" style="font-size: clamp(0.95rem, 2vw, 1.15rem); line-height: 1.35; font-family: 'Comic Sans MS', 'Nunito', sans-serif;">
                         ${sectionTitle}
                     </p>
                 </div>
@@ -1438,15 +1438,15 @@ const OFFLINE_ONLY_CATEGORIES = ['writing_prompt', 'drawing', 'drawings'];
             if (qObj.type === 'fill_blank_click') {
                 document.getElementById('ot-interface').classList.add('full-width-grid'); document.getElementById('ot-left-panel').style.display = 'none';
                 let clueBadge = qObj.clue ? ` <span class="badge bg-secondary-subtle text-body-secondary border px-2 py-1 fs-6 ms-2 align-middle">${qObj.clue}</span>` : '';
-                let sentenceHtml = `<div class="kid-question-text w-100 animate-fade text-center mb-4" style="margin-top: 1rem; font-size: clamp(1.4rem, 3.5vw, 2rem) !important;">${qObj.segments[0]}<span id="blank-zone" class="blank-dropzone empty" onclick="handleBlankZoneClick()"></span>${qObj.segments.length > 1 ? qObj.segments[1] : ''}${clueBadge}</div>`;
-                let pillsHtml = `<div class="d-flex flex-wrap justify-content-center gap-2 gap-sm-3 animate-fade" style="max-width: 600px; margin: 0 auto;">${qObj.options.map(opt => `<button id="${opt.id}" class="soft-pill-btn" onclick="handleOptionPillClick('${opt.id}', '${opt.text}')">${opt.text}</button>`).join('')}</div>`;
-                document.getElementById('ot-options-box').innerHTML = `${sectionTitleHtml}${sentenceHtml}${pillsHtml}<button id="btn-go-check" class="btn-go-check animate-fade w-100 mt-5 mx-auto d-block" style="max-width: 300px; background-color:${currentSubject.theme};" onclick="submitFillBlank()" disabled>GO!</button>`;
+                let sentenceHtml = `<div class="kid-question-text fill-blank-sentence w-100 animate-fade text-center mb-3 mb-sm-4" style="margin-top: 0.5rem; font-size: clamp(1.25rem, 3.2vw, 1.85rem) !important;">${qObj.segments[0]}<span id="blank-zone" class="blank-dropzone empty" onclick="handleBlankZoneClick()"></span>${qObj.segments.length > 1 ? qObj.segments[1] : ''}${clueBadge}</div>`;
+                let pillsHtml = `<div class="d-flex flex-wrap justify-content-center gap-1.5 gap-sm-2.5 animate-fade" style="max-width: 600px; margin: 0 auto;">${qObj.options.map(opt => `<button id="${opt.id}" class="soft-pill-btn" onclick="handleOptionPillClick('${opt.id}', '${opt.text}')">${opt.text}</button>`).join('')}</div>`;
+                document.getElementById('ot-options-box').innerHTML = `${sectionTitleHtml}${sentenceHtml}${pillsHtml}<button id="btn-go-check" class="btn-go-check animate-fade w-100 mt-3 mt-sm-4 mx-auto d-block" style="max-width: 240px; background-color:${currentSubject.theme};" onclick="submitFillBlank()" disabled>GO!</button>`;
             } 
             else if (qObj.type === 'matching_pairs') {
                 document.getElementById('ot-interface').classList.add('full-width-grid'); document.getElementById('ot-left-panel').style.display = 'none';
                 let leftHtml = qObj.leftSide.map(item => `<div class="match-card left-card animate-fade" id="match-left-${item.id}" onclick="handleMatchCardClick('left', '${item.id}')">${item.text}</div>`).join('');
                 let rightHtml = qObj.rightSide.map(item => `<div class="match-card right-card animate-fade" id="match-right-${item.id}" onclick="handleMatchCardClick('right', '${item.id}')">${item.text}</div>`).join('');
-                document.getElementById('ot-options-box').innerHTML = `${sectionTitleHtml}<div class="kid-question-text w-100 animate-fade text-center" style="margin-bottom: 1rem !important;">${qObj.question}</div><div class="match-game-wrapper animate-fade" id="match-game-container"><svg id="match-lines-svg" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index: 10;"></svg><div class="match-col match-col-left" id="match-col-left">${leftHtml}</div><div class="match-col match-col-right" id="match-col-right">${rightHtml}</div></div>`;
+                document.getElementById('ot-options-box').innerHTML = `${sectionTitleHtml}<div class="kid-question-text w-100 animate-fade text-center" style="margin-bottom: 0.75rem !important;">${qObj.question}</div><div class="match-game-wrapper animate-fade" id="match-game-container"><svg id="match-lines-svg" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index: 10;"></svg><div class="match-col match-col-left" id="match-col-left">${leftHtml}</div><div class="match-col match-col-right" id="match-col-right">${rightHtml}</div></div>`;
                 onlineState.matchSelection = { left: null, right: null }; onlineState.matchLines = []; window.addEventListener('resize', redrawMatchLines);
             }
             else if (qObj.type === 'missing_letter_input') {
@@ -1458,7 +1458,7 @@ const OFFLINE_ONLY_CATEGORIES = ['writing_prompt', 'drawing', 'drawings'];
                     let displayQText = qObj.question.replace(/'([^']+)'/g, "<span class='highlight-word'>'$1'</span>");
                     document.getElementById('ot-options-box').innerHTML = `
                         ${sectionTitleHtml}
-                        <h4 class="kid-question-text w-100 animate-fade text-center">${displayQText}</h4>
+                        <h4 class="kid-question-text w-100 animate-fade text-center mb-3">${displayQText}</h4>
                         <div class="alert alert-warning text-center my-3 fw-bold">
                             <i class="bi bi-exclamation-triangle-fill me-2"></i>This question has an invalid configuration and cannot be graded.
                         </div>
@@ -1507,7 +1507,7 @@ const OFFLINE_ONLY_CATEGORIES = ['writing_prompt', 'drawing', 'drawings'];
                 // Next Button & Inline Feedback right below the options
                 optionsHtml += `
                     <div id="ot-inline-feedback" class="w-100 text-center d-none"></div>
-                    <div id="ot-next-box" class="w-100 text-center mt-3 d-none animate-fade">
+                    <div id="ot-next-box" class="w-100 text-center mt-2 mt-sm-3 d-none animate-fade">
                         <button id="btn-next-question" class="btn-next-action shadow-lg" onclick="goToNextQuestion()">
                             <span>Next Question</span>
                             <i class="bi bi-arrow-right-circle-fill ms-2"></i>
@@ -1518,7 +1518,7 @@ const OFFLINE_ONLY_CATEGORIES = ['writing_prompt', 'drawing', 'drawings'];
                 if (!isSpellingCheck && qObj.clue && !displayQText.includes(qObj.clue)) {
                     displayQText += ` <span class="badge bg-secondary-subtle text-body-secondary border px-2 py-1 fs-6 ms-2 align-middle">${qObj.clue}</span>`;
                 }
-                let questionHeadingHtml = displayQText ? `<h4 class="kid-question-text w-100 animate-fade text-center mb-4">${displayQText}</h4>` : '';
+                let questionHeadingHtml = displayQText ? `<h4 class="kid-question-text w-100 animate-fade text-center mb-3 mb-sm-4">${displayQText}</h4>` : '';
                 document.getElementById('ot-options-box').innerHTML = `${sectionTitleHtml}${questionHeadingHtml}${optionsHtml}`; 
 
                 // Dynamic wrapping transformation: applied on both tablet and desktop screens!
@@ -1576,13 +1576,13 @@ const OFFLINE_ONLY_CATEGORIES = ['writing_prompt', 'drawing', 'drawings'];
 
             document.getElementById('ot-options-box').innerHTML = `
                 ${sectionTitleHtml}
-                <div class="kid-question-text w-100 animate-fade text-center mb-2" style="font-size: clamp(1.2rem, 3.2vw, 1.75rem) !important; margin-bottom: 1.5rem !important;">
+                <div class="kid-question-text w-100 animate-fade text-center mb-2" style="font-size: clamp(1.15rem, 3.2vw, 1.65rem) !important; margin-bottom: 0.85rem !important;">
                     Complete the word: <span class="highlight-word ms-2">${cleanPrompt}</span>
                 </div>
-                <div class="missing-letters-container d-flex flex-wrap justify-content-center align-items-center gap-2 gap-sm-3 animate-fade" id="missing-letters-wrapper">
+                <div class="missing-letters-container d-flex flex-wrap justify-content-center align-items-center gap-1.5 gap-sm-2.5 animate-fade" id="missing-letters-wrapper">
                     ${boxesHtml}
                 </div>
-                <button id="btn-check-missing" class="btn-go-check animate-fade w-100 mt-4 mx-auto d-block" style="max-width: 280px; background-color:${currentSubject.theme};" onclick="submitMissingLetterAnswer()" disabled>
+                <button id="btn-check-missing" class="btn-go-check animate-fade w-100 mt-3 mt-sm-4 mx-auto d-block" style="max-width: 240px; background-color:${currentSubject.theme};" onclick="submitMissingLetterAnswer()" disabled>
                     CHECK! 🚀
                 </button>
             `;
